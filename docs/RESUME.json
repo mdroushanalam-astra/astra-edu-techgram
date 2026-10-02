@@ -1,9 +1,9 @@
 {
   "project": "Techgram / Astra Edu — Student Intelligence Kernel",
-  "updated_at": "2026-10-03T04:00:00+05:30",
+  "updated_at": "2026-10-03T05:30:00+05:30",
   "session_model": "GLM-5.3-Flash (Z.ai) via ZCode",
   "kernel_version": "0.1.0+ (BRAIN FREEZE v0.1 + ADR-032 design locked)",
-  "position": "THE INTELLIGENT SANCTUARY BUILT [ADR-032, commit 6822c7b]: apps/web — six destinations (Home, Session with Astra the 2.5D hologram + living blackboard, Brain Map, Growth, Notebook, Settings), kernel-fed utterances via claim-provenance adapter, voice tiers with text-first fallback, local IndexedDB event-log persistence (the room remembers; verified: plan adapted after return). Browser-verified end-to-end on localhost:4175 (screenshots in session artifacts). 183/183 tests, typecheck clean. STOPPED AT THE FRONTEND INSPECTION GATE — founder reviews the product next. Parallel paths: Brain Lab deploy (Gate-2) + content coverage gate (Gate-3, founder/mentor hours).",
+  "position": "DESIGN PIVOT TO \"THE WARM ROOM\" [Entry 18, commit e067cba]: founder rejected v1 deep-space minimal as boring; his two vision boards are now the law — warm lamp-lit room + human mentor + cyan holographic chalk board. Built visuals-first per directive: theme.css v2, art layer (Room/Mentor/RiverBoard/ThinkingBrain — ART-SWAP slots marked), v2 screens (Home/Session with mic bar + why-rail/Thinking overlay/Map/Growth/Artifacts/Agency/Settings), sidebar shell. Kernel data flows live (provenance adapter unchanged, freeze intact). Browser-verified: home, session, thinking, map. 183/183 tests. NEXT: founder walkthrough -> polish (mentor-at-desk composition, art swap-in, voice-in, service worker, full conversation loop) -> gates.",
   "tests": {
     "passed": 183,
     "failed": 0,

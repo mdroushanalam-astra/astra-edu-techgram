@@ -19,7 +19,7 @@
 **Way forward:** …
 ```
 
-**Entry index:** [00 Pre-history](#entry-00) · [01 Context absorption](#entry-01) · [02 Version-lineage audit + governance docs](#entry-02) · [03 Kernel build sprint](#entry-03) · [04 Living documentation system](#entry-04) · [05 Founder's Guide + self-sufficiency rule](#entry-05) · [06 External review adjudication (ChatGPT)](#entry-06) · [07 AOM + four-world gate](#entry-07) · [08 Teaching layer + freeze inspection](#entry-08) · [09 Audit + K12 research + frontend verdict](#entry-09) · [10 Doc repair + Wave-1 Brain Lab web](#entry-10) · [11 Phase-A personalisation core](#entry-11) · [12 S2 golden replay + S3 validation surfaces + inspection gate](#entry-12) · [13 Allocation Principle + Agency Transfer + Ship Mandate](#entry-13) · [14 The allocation wires (implemented)](#entry-14) · [15 Gate-0 inspection + Brain Freeze v0.1](#entry-15) · [16 Design gate closes + Sprint-0 contracts](#entry-16) · [17 The Sanctuary is built](#entry-17)
+**Entry index:** [00 Pre-history](#entry-00) · [01 Context absorption](#entry-01) · [02 Version-lineage audit + governance docs](#entry-02) · [03 Kernel build sprint](#entry-03) · [04 Living documentation system](#entry-04) · [05 Founder's Guide + self-sufficiency rule](#entry-05) · [06 External review adjudication (ChatGPT)](#entry-06) · [07 AOM + four-world gate](#entry-07) · [08 Teaching layer + freeze inspection](#entry-08) · [09 Audit + K12 research + frontend verdict](#entry-09) · [10 Doc repair + Wave-1 Brain Lab web](#entry-10) · [11 Phase-A personalisation core](#entry-11) · [12 S2 golden replay + S3 validation surfaces + inspection gate](#entry-12) · [13 Allocation Principle + Agency Transfer + Ship Mandate](#entry-13) · [14 The allocation wires (implemented)](#entry-14) · [15 Gate-0 inspection + Brain Freeze v0.1](#entry-15) · [16 Design gate closes + Sprint-0 contracts](#entry-16) · [17 The Sanctuary is built](#entry-17) · [18 The Warm Room (founder boards)](#entry-18)
 
 ---
 
@@ -368,3 +368,19 @@ Also, at the founder's direction, established the **self-sufficiency rule** (reg
 **What we inferred:** the architecture held end-to-end — the frontend consumed the frozen kernel WITHOUT a single kernel change, exactly as the freeze demanded. The claim-provenance adapter is what makes the product honest by construction: every line Astra says is traceable. The founder's "authentic, not fraud" is now a runtime property, not a hope.
 
 **Way forward (stopped at the inspection gate as directed):** founder walkthrough and feedback (Astra's look, palette, pacing, humour) → post-feedback polish (voice-in Whisper, service worker, more cinematic camera beats, Humor Ledger authoring) → deploy decision (Gate-2) → content coverage gate (Gate-3 — founder hours, still the critical path).
+
+---
+
+<a name="entry-18"></a>
+## ENTRY 18 — THE WARM ROOM: the founder's vision boards become the product
+**Model:** GLM-5.3-Flash (Z.ai), agentic runtime: ZCode CLI · directed by the Founder · **When:** 2026-10-03, ~04:30–05:30 · **Commits:** e067cba
+
+**What we did:** the founder walked the v1 Sanctuary and rejected it honestly ("so boring"). His diagnosis was right: the quiet-chrome execution put the wonder at widget scale — the mentor was 128px, the stage was empty, nothing moved. He then supplied two AI-generated vision boards showing the REAL design language: **a warm, lamp-lit night study room (books, plants, desk, cat, city window) where a stylized human mentor sits WITH you, and the futuristic layer is a cyan holographic chalk board + glowing UI** — the opposite temperature to deep-space minimal, and clearly better for the "home, not app" feeling.
+
+**What we built (visuals-first per directive, commit e067cba):** theme.css v2 (warm palette, panels, understanding bars, why-rows, mic bar) · the ART layer: Room (city window + moon, bookshelf, flickering lamp, plant, desk with the cat), the Mentor (stylized human, hoodie + glowing emblem, mood-driven idle/speak/think/happy/listen animations — replacing the abstract hologram per the boards), the chalk River System board (Weathering→Erosion→Transport→Deposition→Delta with thumbnails and tools rail) and the wireframe ThinkingBrain · v2 screens per the boards: HOME (greeting, Today's Plan numbered steps, gradient Start Session, the quote), SESSION (mentor scene + speech bubbles + board + Why-this reasoning rail + understanding bars + mic bar with Hold-to-speak pulse, Type instead, I'm not sure, Ask Doubt, Show Why), the THINKING overlay (sequential ticks + glowing brain — Watch-It-Think rendered), LEARNING MAP (node graph + legend), GROWTH (Then→Now animated curves), ARTIFACTS (tabs + rows), AGENCY moments, SETTINGS (simple, respectful), Library placeholder. Kernel data flows live through the same provenance adapter — zero kernel changes, freeze intact.
+
+**Design pivot recorded:** ADR-032's "quiet chrome, alive core / deep-space" language is superseded for the product by **"the Warm Room"** — warm human space + cyan holographic intelligence. Brain Lab keeps the instrument aesthetic. This is a rendering-language pivot, not an architecture change: the contracts, presence layer and provenance law all carry over.
+
+**Honest gaps (next polish pass):** mentor composition (he should sit at the desk; currently floats), richer room art, generated-illustration swap-in (ART-SWAP slots marked in code), voice-in wiring, service worker, full conversation loop (Show Why triggers the thinking sequence; the complete answer flow reuses the v1 conductor).
+
+**Way forward:** founder walkthrough of the Warm Room → polish pass per his notes → then back to the gates (deploy decision, content sprint).

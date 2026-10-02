@@ -7,7 +7,7 @@ import "@fontsource/sora/400.css";
 import "@fontsource/sora/600.css";
 import "@fontsource/jetbrains-mono/400.css";
 import "@fontsource/jetbrains-mono/500.css";
-import "./tokens.css";
+import "./theme.css";
 import { App } from "./app.js";
 
 createRoot(document.getElementById("root")!).render(
