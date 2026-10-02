@@ -5,12 +5,15 @@
   "description": "Techgram / Astra Edu — Student Intelligence Kernel (deterministic, LLM-free decisions)",
   "type": "module",
   "workspaces": [
-    "kernel"
+    "kernel",
+    "apps/*"
   ],
   "scripts": {
     "test": "npm -w kernel run test",
     "typecheck": "npm -w kernel run typecheck",
-    "brainlab": "npm -w kernel run brainlab"
+    "brainlab": "npm -w kernel run brainlab",
+    "counters": "tsx scripts/write_counters.mts",
+    "brainlabweb": "npm -w @techgram/brainlab-web run dev"
   },
   "license": "UNLICENSED",
   "dependencies": {

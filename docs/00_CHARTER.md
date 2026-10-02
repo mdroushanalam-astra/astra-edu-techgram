@@ -47,6 +47,9 @@ The kernel is pure, deterministic, versioned, replayable math. Every scheduling 
 
 **The law in one line [adopted 2026-10-02, external review]:** *"The brain decides. Features render. Events remember. Outcomes teach the brain. LLMs may communicate or measure, but never own the decision."*
 
+### 2.2b The idea became a falsifiable machine [2026-10-02]
+> The original Techgram was a vision: *an intelligence layer that understands a student and tells them what to do.* It is now a **falsifiable machine** — a set of concrete, answerable experiments: Does the belief estimator calibrate? Does the planner beat sensible baselines? Does it survive wrong assumptions? Does AOM prediction error shrink? Does the Teacher generate useful evidence? Does delayed retention improve? Does the forecast calibrate? Does it survive without the LLM? Does it improve from real outcomes? **That is the difference between a startup idea and a researchable product** — and these nine questions are our standing research agenda.
+
 ### 2.3 Structure substitutes for data
 
 We began with no dataset and no funding. That constraint is a design input: the curriculum graph, PYQ weights, learning-science gain priors, memory priors, and population defaults **stand in for data**; information-efficient sensing (adaptive diagnostics, confidence/response-time/hint channels, imported scorecards) squeezes more signal per interaction; and day-1 instrumentation (propensities, uplift residuals, misconception tags, outcome consent) turns the very first user into the first brick of the moat. Data-light is not our weakness; it is our architecture.

@@ -26,6 +26,8 @@
 
 **V1 scope (OUT — permanently for now, per founder instruction + audit):** open social feed · Career engine · **Student Life / PG / hostel / food (cut)** · K12 · parent accounts for minors · **parent/progress-share report (moved OUT of V1 → post-pilot, template-only, opt-in [ADR-017, 2026-10-02])** · DKT/RL/bandit policies in production · counterfactual policy simulator · Mains scoring in production (pilot-only, M2) · multi-exam content.
 
+**STATUS [2026-10-02, external review §14]: the V1-A INTELLIGENCE-KERNEL GATE is substantially complete — we are on the public-release RUNWAY. Public V1-A ships only when the Brain Lab web page and the content-release floor are satisfied.**
+
 **V1 is now two internal releases [ADR-017, 2026-10-02]:** **V1-A "The Brain"** (kernel + Action Outcome Model + four simulator worlds + receipts + the public 8-screen Brain Lab web demo; no users needed; must pass G0/G1/G2) and **V1-B "The Student Product"** (onboarding → diagnostic → plan → session+teacher → mock+postmortem → forecast → receipts UI, offline-first PWA). **V1-B work may not begin before V1-A's gates pass.**
 
 ### THE INTELLIGENCE BENCHMARK [ADOPTED 2026-10-02, external review point 31]
@@ -85,6 +87,13 @@ Before any new feature or realm is ever discussed, Techgram must keep answering 
 **Intermediate kill-switch during build (any phase):** if a gate (G0/G1/G2) fails after two honest attempts, stop adding features and fix the kernel. Features never outrun the brain.
 
 ---
+
+## 4.5 THE UNCERTAINTY REGISTER [adopted 2026-10-02, external review §26 — the honest state of the company]
+| Bucket | Level | Meaning |
+|---|---|---|
+| Engineering | 🟢 low-medium | Core architecture credible: 116 tests, four-world gate, bit-for-bit replay |
+| Product | 🟡 HIGH | Will students find the loop useful enough to return? Unknown until the pilot |
+| Scientific / learning-effect | 🔴 VERY HIGH | Does the AOM predict real interventions? Does durable learning improve? Needs delayed outcomes from real students |
 
 ## 5. WHAT SUCCESS LOOKS LIKE 90 DAYS AFTER LAUNCH (from the audit's standard)
 

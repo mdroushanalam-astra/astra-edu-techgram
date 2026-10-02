@@ -1,0 +1,31 @@
+{
+  "generated_at": "2026-10-02T09:47:25.719Z",
+  "tests": {
+    "passed": 116,
+    "files": 14
+  },
+  "content": {
+    "polity": {
+      "topics": 10,
+      "concepts": 40,
+      "items": 80,
+      "atoms": 83
+    },
+    "k12": {
+      "topics": 3,
+      "concepts": 14,
+      "items": 25,
+      "atoms": 21
+    },
+    "totals": {
+      "topics": 13,
+      "concepts": 54,
+      "items": 105,
+      "atoms": 104
+    }
+  },
+  "git": {
+    "commits": 9,
+    "head": "9b9ffb3"
+  }
+}

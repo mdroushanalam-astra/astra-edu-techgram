@@ -22,3 +22,7 @@ export * from "./teacher.js";
 export * from "./teach_loop.js";
 export * from "./postmortem.js";
 export * from "./behaviour.js";
+export * from "./polity_seed.js";
+export * from "./polity_atoms.js";
+export * from "./lab.js";
+export * from "./k12_seed.js";

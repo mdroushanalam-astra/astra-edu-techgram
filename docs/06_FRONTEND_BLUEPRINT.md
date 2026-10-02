@@ -67,7 +67,7 @@ Upload/complete a mock → the marks-loss waterfall: knowledge gaps / traps / ca
 Every decision's receipt rendered as a beautiful card: inputs with intervals → prediction → alternatives considered → assumptions tagged `assumed`/`measured` → unknowns → **"what would change my mind."** Shareable. This is the trust surface no competitor can fake.
 
 ### S7 — BRAIN LAB (public, Wave 1)
-The 8-screen public demo per ADR-014: synthetic student → hidden truth → why-this-question → belief convergence animation → plan with reasons → what-if vs baselines → 60-day race → **LLM unplug toggle showing identical decisions**. Synthetic-labelled, zero user data.
+The 8-screen public demo per ADR-014: synthetic student → hidden truth → why-this-question → belief convergence animation → plan with reasons → what-if vs baselines → 60-day race → **LLM unplug toggle showing identical decisions**. **The mistakes panel: show where the belief was WRONG.** [refined 2026-10-02] Synthetic-labelled, zero user data.
 
 **Visual language:** dark-first, one accent (calm indigo) + semantic greys (unknown = mist, not error); typography-led (the numbers ARE the design); motion only for belief-updates (the band narrowing is the dopamine hit — earned, not slot-machine); zero dark patterns: no streak guilt, no red alarms, no infinite scroll. Hindi-first toggle from day 2 (atoms carry `lang`).
 
@@ -77,7 +77,7 @@ The 8-screen public demo per ADR-014: synthetic student → hidden truth → why
 
 | Wave | Scope | Why now | Gate |
 |---|---|---|---|
-| **1 — Brain Lab web** (≈1 week) | Next.js + the kernel package; Acts as screens; deploy Vercel | Pure presentation; no data risk; it IS the public proof | Screens render from kernel output only; no hardcoded numbers (CI-lintable) |
+| **1 — Brain Lab web** (≈1 week) | **Vite + React + TS over the kernel package** (static build, deploys anywhere incl. Vercel; Next.js deferred to Wave-2 when server routes matter) [runtime refined 2026-10-02]; Acts as screens; | Pure presentation; no data risk; it IS the public proof | Screens render from kernel output only; no hardcoded numbers (CI-lintable) |
 | **2 — Student PWA** (2–3 weeks) | S1–S6 + IndexedDB event log + service worker + sync server (Node: ingest, recompute-and-verify) + auth | Kernel ready; offline-first is moat M5 | Tamper test: server recomputes client state exactly; chaos: kill network mid-session |
 | **3 — Polish + pilot hardening** | Hindi atoms, notification delivery, parent-share (post-pilot per ADR-017) | After content depth hits | Pilot checklist |
 
