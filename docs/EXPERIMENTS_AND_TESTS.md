@@ -268,3 +268,35 @@ py -m pytest backend/tests -q             # archived prototype reference suite (
 **Suite:** 16 files / **134 tests green** · typecheck clean · commits → `5036cee`.
 
 **The Observable-State Law now governs all personalisation claims** (Charter §2.6, ADR-023): observed/inferred behavioural features, explicitly uncertain, serving learning actions. The Ethics Wall tripwires are permanent.
+
+---
+
+## §15 — CAMPAIGN: THE ALLOCATION WIRES (ADR-029 → behaviour)
+**When:** 2026-10-03, ~01:00–01:30 · **Model:** GLM-5.3-Flash (Z.ai) via ZCode · **Commits:** this entry
+
+**Built & tested:** agency.ts (Agency Transfer) · `agency_observed` event + SystemState.agency · planner consumes PersonalisationState + BehaviourFlags · plan.foregone + receipt.opportunity_cost · predictionErrorStats (aom.ts) · first_independent_decision milestone (validation.ts).
+
+**Verification results (`kernel/test/allocation.test.ts`, 19 tests):**
+| Wire | Test evidence |
+|---|---|
+| Agency progression | 5×accepted → `techgram_led`; 8×independent → `student_led` (8/13 ≈ 0.61); pooled stage `shared` |
+| Honest shrinkage | 1 independent decision → index 1/6 < 0.25 → `techgram_led` (no flattery); unobserved → null |
+| Copy-on-write + forward-compat | unknown decision type / unknown mode → state returned unchanged |
+| Event replay | `agency_observed` ×3 → applyEvent state ≡ replay state, counts exact |
+| **Anti-Goodhart surface** | `agencySurface()` JSON contains NO `index`/`score` scalar — stage names + counts + transfer move only; empty state → `no_evidence` |
+| Rest day | only review blocks, ≤15 min, receipt says `rest_day:`; foregone why = "rest day — deferred, not forgotten" |
+| Lighten flag | minutes halved (240→≤120) |
+| Load cap | measured tolerance 40m → day capped ≤44m (< unconstrained plan) |
+| Fatigue blocks | measured slopes → every learn 20m, every practice 15m |
+| Avoidance | avoided concept loses its scarce seat (×0.6 score); receipt logs `avoidance_soft:` |
+| Honest default | no events → `["no behavioural evidence yet — default plan"]` |
+| Opportunity cost | tight budget → foregone = best unbought action with honest why; receipt mirrors plan |
+| Mismatch minimum | 3 consecutive relative misses >0.5 → `mismatchDetected`; hit resets run; per-action isolation |
+| Pilot Layer 4 | `first_independent_decision` milestone fires from agency events |
+| Anti-Goodhart audit | growth-receipt lines all carry bands; reportConcept band; agency surface key allow-list |
+
+**Bugs this campaign: 3 test-side + 0 carried** (stage threshold misexpectation; maxRun-vs-currentRun semantics; always-a-foregone-over-54-concepts honesty) **+ 1 doc repair** (shell-wrapper artifact lines leaked into Journal Entry 13 by a previous heredoc append — removed).
+
+**Suite:** 18 files / **163 tests green** · typecheck clean · G0 four-worlds gate still passes.
+
+**The Allocation Principle is now behaviour, not framing:** events → measured behaviour → changed plan → receipt naming the change AND the opportunity cost → outcomes → mismatch flags → human-gated updates.

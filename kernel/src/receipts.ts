@@ -24,6 +24,10 @@ export interface Receipt {
   alternatives: { action: string; score: number; why?: string }[];
   assumptions: { id: string; status: "assumed" | "measured"; sensitivity?: string }[];
   constraints_checked: string[];
+  /** ADR-030: which measured behaviour signals changed this plan (audit trail). */
+  personalisation: string[];
+  /** ADR-030 opportunity cost: the best action today's budget did not buy. */
+  opportunity_cost: { action: string; concept: string; gain_per_minute: number; why: string } | null;
   unknowns: string[];
   what_would_change_my_mind: string;
   params_version: string;
@@ -76,7 +80,26 @@ export function buildPlanReceipt(plan: Plan, unknowns: string[], aom?: AomParams
     },
     alternatives,
     assumptions,
-    constraints_checked: ["prerequisites", "minutes", "review share", "block cap"],
+    constraints_checked: [
+      "prerequisites",
+      "minutes",
+      "review share",
+      "block cap",
+      ...(plan.personalisationApplied.some((s) =>
+        /^(rest_day|lighten_plan|load_cap|fatigue_blocks|avoidance_soft):/.test(s),
+      )
+        ? ["measured behaviour caps"]
+        : []),
+    ],
+    personalisation: plan.personalisationApplied,
+    opportunity_cost: plan.foregone
+      ? {
+          action: plan.foregone.action,
+          concept: plan.foregone.conceptId,
+          gain_per_minute: round4(plan.foregone.gainPerMinute),
+          why: plan.foregone.why,
+        }
+      : null,
     unknowns,
     what_would_change_my_mind:
       "Two correct no-hint responses on a grey concept, or a failed delayed check on a reviewed one",

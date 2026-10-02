@@ -19,6 +19,7 @@ import {
 import type { BeliefModel, BeliefState } from "./belief.js";
 import { reportConcept, samplePosterior } from "./belief.js";
 import type { ConceptType } from "./content.js";
+import type { PersonalisationState, BehaviourFlags } from "./behaviour.js";
 
 export type PlanAction = "learn" | "review" | "practice" | "diagnose" | "remediate";
 
@@ -49,6 +50,28 @@ export interface Plan {
   totalMinutes: number;
   expectedGainMarks: number;
   paramsVersion: string;
+  /**
+   * ADR-030 audit trail: which measured behaviour signals changed this plan
+   * (load cap, fatigue sizing, avoidance, rest). Empty evidence → said so.
+   */
+  personalisationApplied: string[];
+  /**
+   * ADR-030 opportunity cost: the best action the day's scarce cognitive
+   * budget did NOT buy. The allocation principle made explicit — every plan
+   * names what it gave up.
+   */
+  foregone: PlanForegone | null;
+}
+
+/** The next-best candidate that did not make the plan. */
+export interface PlanForegone {
+  conceptId: string;
+  conceptName: string;
+  action: PlanAction;
+  minutes: number;
+  expectedGainMarks: number;
+  gainPerMinute: number;
+  why: string;
 }
 
 export interface PlannerParams {
@@ -87,6 +110,15 @@ export interface PlanContext {
   memory: Map<number, MemoryCell>;
   /** B5.5 Action Outcome Model (defaults to the assumed production pack). */
   aom?: Aom;
+  /**
+   * ADR-030: measured personalisation state. When present it CHANGES the
+   * plan (load cap, fatigue-sized blocks, avoidance soft-penalty) — the
+   * Observable-State Law in action: observed behaviour steering decisions,
+   * never labels, every change logged in `plan.personalisationApplied`.
+   */
+  personalisation?: PersonalisationState;
+  /** B9 internal action flags (rest/lighten) — the planner is their consumer. */
+  flags?: BehaviourFlags;
 }
 
 /** P(correct on a blueprint question at exam day) for one θ draw. */
@@ -145,6 +177,43 @@ export function planDay(
   const triageWindow = Math.min(params.triageDays, Math.floor((ctx.prepHorizonDays ?? Infinity) * 0.3));
   const triage = ctx.daysToExam <= triageWindow;
 
+  // ---- ADR-030: the allocation principle meets the measured human ----
+  // Scarcity here is not abstract: the student's proven load tolerance,
+  // measured fatigue and avoidance pattern resize today's plan. Every change
+  // is logged so the receipt can show exactly which observation did what.
+  const pers = ctx.personalisation;
+  const flags = ctx.flags;
+  const plog: string[] = [];
+  let effectiveMinutes = ctx.minutesAvailable;
+  let learnMin = 25;
+  let practiceMin = 20;
+  let restDay = false;
+
+  if (flags?.restDay) {
+    restDay = true;
+    effectiveMinutes = Math.min(effectiveMinutes, 15);
+    plog.push(`rest_day: plan capped to ${effectiveMinutes}m — review-first, recovery outranks gain`);
+  } else if (flags?.lightenPlan) {
+    effectiveMinutes = Math.ceil(effectiveMinutes * 0.5);
+    plog.push(`lighten_plan: burnout drift observed — minutes halved to ${effectiveMinutes}m`);
+  } else if (pers && pers.loadToleranceMin > 0) {
+    const cap = Math.ceil(pers.loadToleranceMin * 1.1);
+    if (effectiveMinutes > cap) {
+      plog.push(`load_cap: ${ctx.minutesAvailable}→${cap}m (measured tolerance ${pers.loadToleranceMin}m without abandonment)`);
+      effectiveMinutes = cap;
+    }
+  }
+  if (!restDay && pers && (pers.fatigueErrorSlope >= 0.2 || pers.fatigueTimeSlope >= 0.5)) {
+    learnMin = 20;
+    practiceMin = 15;
+    plog.push(`fatigue_blocks: learn 25→${learnMin}m, practice 20→${practiceMin}m (late-session degradation measured)`);
+  }
+  const avoided = new Set((pers?.avoidance ?? []).map((a) => a.conceptId));
+  if (avoided.size > 0) {
+    plog.push(`avoidance_soft: ${avoided.size} concept(s) down-weighted ×0.6 (repeated no-response pattern) — due reviews unaffected`);
+  }
+  if (plog.length === 0) plog.push("no behavioural evidence yet — default plan");
+
   for (let ci = 0; ci < N; ci++) {
     const cid = model.byIdx[ci]!;
     const concept = model.content.conceptById.get(cid)!;
@@ -200,7 +269,7 @@ export function planDay(
 
     // ---- LEARN / REMEDIATE (AOM predicts; the plan maintains what it teaches) ----
     if (prereqsOk && (mastery < 0.55 || rep.grey)) {
-      const minutes = 25;
+      const minutes = learnMin;
       const action: PlanAction = mastery > 0.15 ? "learn" : "remediate";
       const pred = predictAction(aom, {
         action, minutes, mastery, daysToExam: ctx.daysToExam, triage,
@@ -221,7 +290,7 @@ export function planDay(
               ? `Mastery band ${(mastery * 100).toFixed(0)}% (${rep.grey ? "unknown-ish, needs evidence" : "evidenced"}), exam weight ${w.toFixed(1)}q — AOM ${pred.aomVersion} predicts Δmastery +${pred.dMastery.toFixed(2)} logit (${pred.status}; maintained by plan reviews)`
               : `Foundational deficit — remediate before advancing (mastery ${(mastery * 100).toFixed(0)}%), AOM ${pred.aomVersion} predicts Δmastery +${pred.dMastery.toFixed(2)} (${pred.status})`,
           assumption: pred.status,
-          _score: gain / minutes,
+          _score: (gain / minutes) * (avoided.has(cid) ? 0.6 : 1),
           prediction: pred,
         });
       }
@@ -229,7 +298,7 @@ export function planDay(
 
     // ---- PRACTICE (consolidation band — diminishing returns fill, not idle days) ----
     if (prereqsOk && mastery >= 0.3 && mastery < 0.92 && st.nEff[ci] >= 2) {
-      const minutes = 20;
+      const minutes = practiceMin;
       const pred = predictAction(aom, {
         action: "practice", minutes, mastery, daysToExam: ctx.daysToExam, triage,
       });
@@ -246,7 +315,7 @@ export function planDay(
           gainPerMinute: gain / minutes,
           reason: `Consolidation band (mastery ${(mastery * 100).toFixed(0)}%) — AOM ${pred.aomVersion} predicts Δmastery +${pred.dMastery.toFixed(2)} (${pred.status})`,
           assumption: pred.status,
-          _score: gain / minutes,
+          _score: (gain / minutes) * (avoided.has(cid) ? 0.6 : 1),
           prediction: pred,
         });
       }
@@ -292,11 +361,11 @@ export function planDay(
   let used = 0;
   let reviewMinutes = 0;
   let diagnoseCount = 0;
-  const maxBlocks = ctx.maxBlocks ?? Math.max(2, Math.floor(ctx.minutesAvailable / 15));
+  const maxBlocks = ctx.maxBlocks ?? Math.max(2, Math.floor(effectiveMinutes / 15));
   const dueReviews = candidates.filter((c) => c.action === "review");
   const minReview = dueReviews.length > 0
     ? Math.min(
-        Math.floor(ctx.minutesAvailable * params.reviewShareWhenDue),
+        Math.floor(effectiveMinutes * params.reviewShareWhenDue),
         dueReviews.reduce((a, r) => a + r.minutes, 0),
       )
     : 0;
@@ -304,7 +373,7 @@ export function planDay(
 
   const tryChoose = (c: (typeof candidates)[number]): boolean => {
     if (blocks.length >= maxBlocks) return false;
-    if (used + c.minutes > ctx.minutesAvailable) return false;
+    if (used + c.minutes > effectiveMinutes) return false;
     if (c.action === "diagnose" && diagnoseCount >= 1) return false;
     const { _score, ...block } = c;
     blocks.push(block);
@@ -322,11 +391,35 @@ export function planDay(
       tryChoose(r);
     }
   }
-  // Pass 2: everything else by score.
+  // Pass 2: everything else by score. On a rest day, reviews only.
   for (const c of candidates) {
-    if (used >= ctx.minutesAvailable || blocks.length >= maxBlocks) break;
+    if (used >= effectiveMinutes || blocks.length >= maxBlocks) break;
     if (chosen.has(c)) continue;
+    if (restDay && c.action !== "review") continue;
     tryChoose(c);
+  }
+
+  // ADR-030 opportunity cost: the best thing today's budget did NOT buy.
+  let foregone: PlanForegone | null = null;
+  const bestNotChosen = candidates.find((c) => !chosen.has(c));
+  if (bestNotChosen) {
+    const overBudget = used + bestNotChosen.minutes > effectiveMinutes;
+    const why = restDay && bestNotChosen.action !== "review"
+      ? "rest day — deferred, not forgotten"
+      : bestNotChosen.action === "diagnose" && diagnoseCount >= 1 && !overBudget
+        ? "one diagnose per day cap"
+        : overBudget
+          ? "didn't fit today's cognitive budget"
+          : "daily block cap reached";
+    foregone = {
+      conceptId: bestNotChosen.conceptId,
+      conceptName: bestNotChosen.conceptName,
+      action: bestNotChosen.action,
+      minutes: bestNotChosen.minutes,
+      expectedGainMarks: bestNotChosen.expectedGainMarks,
+      gainPerMinute: bestNotChosen.gainPerMinute,
+      why,
+    };
   }
 
   const plan: Plan = {
@@ -335,6 +428,8 @@ export function planDay(
     totalMinutes: used,
     expectedGainMarks: blocks.reduce((a, b) => a + b.expectedGainMarks, 0),
     paramsVersion: params.version,
+    personalisationApplied: plog,
+    foregone,
   };
   // Debug tap (stripped in analysis): expose what the pool looked like.
   if ((globalThis as Record<string, unknown>).__TECHGRAM_DEBUG__) {

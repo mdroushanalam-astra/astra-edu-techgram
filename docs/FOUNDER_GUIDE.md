@@ -136,28 +136,26 @@ Second, the fun one: **the Brain Lab web page is built and verified live in a re
 
 ## 7. WHERE WE ARE — THE HONEST MAP
 
-**Built and tested (the brain):** ✅ complete — measuring, forgetting, planning, diagnosing, receipting, replaying.
+**Built and tested (the brain + the voice):** ✅ complete — measuring, forgetting, planning, diagnosing, receipting, replaying, AND the Teacher (the talking tutor that follows the brain's orders, move by move), the Mock Analyser (paste results → “here's where the 22 marks went”), and the Behaviour Watcher. The latest upgrade (ADR-030): the brain now *acts on* what it observes about you — if your real evidence says you fade after 40 minutes, sessions shrink; if you keep avoiding a topic, it loses priority gently; if burnout drift appears, the day gets lighter, never louder. And every plan now openly names the best alternative it gave up — the “why this, not that” is written down, always.
 
-**Half-built:** the Polity question bank (80 of ~500 questions), the misconception catalogue (33 of ~100).
+**New measurement:** we now measure **Agency** — how much of your own learning you're deciding yourself (what to revise, when to break, when to ask for help). Techgram's long-term success means you need it *less* while knowing *more*. There is deliberately no “agency score” to chase — just an honest stage name and the evidence behind it.
 
-**Not yet built (next phases):** the **Teacher** (the talking tutor that follows the brain's orders) · the **Mock Analyser** (paste your test results → "you lost 22 marks: 9 knowledge gaps, 5 traps, 3 careless, 2 bad guesses" — our single most instantly-useful feature) · the **Behaviour Watcher** (notices patterns like "she always quits after two wrong answers" and adapts) · the **actual app** (works offline on a cheap phone) · the public **Brain Lab webpage**.
+**The public window:** the **Brain Lab webpage** is built and browser-verified (7 screens, the real brain, zero AI decisions) — deployment pending.
 
-**Also missing:** a version-controlled backup of the code (10-minute task, high priority) and the 20–30 pilot students you will recruit.
+**Not yet done:** the question bank (105 of ~500 verified questions) and the concept-explanation library (104 of ~150) — **your + a mentor's hours, the true bottleneck** · the offline phone app (Wave-2, deliberately gated) · the limited public beta with 20–30 real aspirants.
 
 ---
 
 ## 8. WHAT'S NEXT — AND HOW
 
-The next stretch (the "50-hour sprint" you set) builds, in order:
+The engineering core is frozen by design (the Ship Mandate: no new clever machinery until real students use it). What remains, in order:
 
-1. **The Teacher + the first teaching scripts** — so a student can actually sit a 40-minute session: explain → practice → hint → check, all following the brain's orders.
-2. **The Mock Analyser** — the feature aspirants will feel on day one.
-3. **The Behaviour Watcher** — gentle pattern detection ("she's drifting" → lighter plan, never a lecture).
-4. **The App** — offline-first, works on cheap Androids, state stored on the student's device.
-5. **The Brain Lab webpage** — our public proof, live for anyone to inspect.
-6. **The Pilot** — 20–30 real aspirants for 3+ weeks. Pre-registered success criteria, written *before* launch: if week-3 retention is poor and users don't say "this told me something I didn't know," we stop and rethink — that discipline protects you from fooling yourself.
+1. **Deploy the Brain Lab webpage** — the public proof, live for anyone to inspect.
+2. **The content sprint** — questions and explanations verified by you + a mentor. This is the critical path; no code can do it for you.
+3. **Wave-2, gated** — the offline phone app + backup/sync, only after the web proof holds.
+4. **The limited public beta** — 20–30 real aspirants, 3+ weeks, with success/failure criteria written *before* launch — and for the first time, four layers measured: did they learn? did it stick? did Techgram choose well? and did they get better at running their own learning?
 
-Throughout: the question bank grows toward 500 verified questions — **this is the one thing only humans (you + a mentor) can do, and it is the true bottleneck of the whole timeline.**
+Throughout: the question bank grows toward 500 verified questions — **still the one thing only humans can do, and still the bottleneck of the whole timeline.**
 
 ---
 
@@ -211,4 +209,4 @@ We will never fake precision. We will show our uncertainty and one-tap ways to s
 
 ---
 
-*This guide is maintained under the documentation protocol (see `README.md`). After every major session or event, §5–§8 are refreshed and the date at the top changes. Technical companions: `CURRENT_STATE.md` (exact status), `PROJECT_JOURNAL.md` (the full story with dates), `EXPERIMENTS_AND_TESTS.md` (every number), `00_CHARTER.md` (the soul).*
+*This guide is maintained under the documentation protocol (see `README.md`). After every major session or event, §5–§8 are refreshed (latest: 2026-10-03, ADR-030 allocation wires). Technical companions: `CURRENT_STATE.md` (exact status), `PROJECT_JOURNAL.md` (the full story with dates), `EXPERIMENTS_AND_TESTS.md` (every number), `00_CHARTER.md` (the soul).*

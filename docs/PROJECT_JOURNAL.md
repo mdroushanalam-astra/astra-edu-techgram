@@ -19,7 +19,7 @@
 **Way forward:** …
 ```
 
-**Entry index:** [00 Pre-history](#entry-00) · [01 Context absorption](#entry-01) · [02 Version-lineage audit + governance docs](#entry-02) · [03 Kernel build sprint](#entry-03) · [04 Living documentation system](#entry-04) · [05 Founder's Guide + self-sufficiency rule](#entry-05) · [06 External review adjudication (ChatGPT)](#entry-06) · [07 AOM + four-world gate](#entry-07) · [08 Teaching layer + freeze inspection](#entry-08) · [09 Audit + K12 research + frontend verdict](#entry-09) · [10 Doc repair + Wave-1 Brain Lab web](#entry-10) · [11 Phase-A personalisation core](#entry-11)
+**Entry index:** [00 Pre-history](#entry-00) · [01 Context absorption](#entry-01) · [02 Version-lineage audit + governance docs](#entry-02) · [03 Kernel build sprint](#entry-03) · [04 Living documentation system](#entry-04) · [05 Founder's Guide + self-sufficiency rule](#entry-05) · [06 External review adjudication (ChatGPT)](#entry-06) · [07 AOM + four-world gate](#entry-07) · [08 Teaching layer + freeze inspection](#entry-08) · [09 Audit + K12 research + frontend verdict](#entry-09) · [10 Doc repair + Wave-1 Brain Lab web](#entry-10) · [11 Phase-A personalisation core](#entry-11) · [12 S2 golden replay + S3 validation surfaces + inspection gate](#entry-12) · [13 Allocation Principle + Agency Transfer + Ship Mandate](#entry-13) · [14 The allocation wires (implemented)](#entry-14)
 
 ---
 
@@ -285,8 +285,27 @@ Also, at the founder's direction, established the **self-sufficiency rule** (reg
 5. Deploy Brain Lab web
 6. Wave-2 gated build (persistence→sync→tamper→chaos→PWA)
 7. Limited public beta (the pilot, renamed) with the 4-layer measurement list
-EOF
-echo appended
-__zcode_status=$?
-if [ "$__zcode_status" -eq 0 ]; then pwd -P > '/c/Users/MDROUS~1/AppData/Local/Temp/zcode-68d47ec7-08ef-4735-b111-4a44a7ed3dca-cwd'; fi
-exit "$__zcode_status"
+
+---
+
+<a name="entry-14"></a>
+## ENTRY 14 — THE ALLOCATION WIRES: personalisation → planner, Agency Index, opportunity cost, mismatch minimum
+**Model:** GLM-5.3-Flash (Z.ai), agentic runtime: ZCode CLI · directed by the Founder · **When:** 2026-10-03, ~01:00–01:30 · **Commits:** this entry
+
+**What we did:** implemented the four missing connections ADR-029/Entry-13 identified — turning the Allocation Principle from a registered framing into kernel BEHAVIOUR. No new subsystems (Ship Mandate held): every wire runs through existing organs.
+
+1. **Personalisation → planner (the hyper-personalisation gap closed).** `planDay()` now accepts the measured `PersonalisationState` + B9 `BehaviourFlags` and they CHANGE the plan: rest-day flag → review-only 15-minute day ("recovery outranks gain"); lighten flag (burnout drift) → minutes halved; measured load tolerance → day capped at tolerance ×1.1; measured fatigue slopes → learn blocks 25→20m, practice 20→15m (smaller blocks, more composer break slots); avoidance pattern → learn/practice score ×0.6 soft-penalty on avoided concepts, due reviews unaffected (gentle re-entry, not skipping). Every change is logged in `plan.personalisationApplied` — the receipt shows exactly which observation did what. No evidence → the plan says "no behavioural evidence yet — default plan" (nothing invented, Observable-State Law).
+2. **Agency Transfer measured [ADR-030].** New `kernel/src/agency.ts`: 8 decision types (topic/retrieval/difficulty selection, misconception detection, session length, break timing, help-seeking, strategy), 3 observed modes (accepted_recommendation 0 / proposed_with_reason 0.5 / decided_independently 1), shrinkage-smoothed index (k=5 toward honest `techgram_led`), stage names (`techgram_led`/`shared`/`student_led` — behavioural descriptors, not labels), wired into the event fabric as `agency_observed` (deterministic replay verified). The surface (`agencySurface()`) renders stage names + counts + a deterministic next-transfer move (two-option choice for led decisions, propose-and-verify for shared ones) — and STRUCTURALLY OMITS the raw scalar (anti-Goodhart: nothing gamifiable).
+3. **Cognitive opportunity cost made explicit.** Every plan now names the best action it did NOT buy (`plan.foregone` + why: budget / block cap / rest-day deferral / diagnose cap), surfaced in the receipt as `opportunity_cost`. With a finite budget over 54 concepts there is ALWAYS a next-best thing — the plan admits it.
+4. **Mismatch minimum.** `predictionErrorStats()` (aom.ts): per-action mean |error|, relative error, and longest consecutive large-miss run; ≥3 consecutive relative misses >0.5 flags `mismatchDetected` — "my model of this action for this student is wrong" routes to the human-gated loop instead of being silently kept.
+5. **Pilot Layer-4 milestone.** `first_independent_decision` added to scanMilestones — a student-led decision becomes celebrate-able evidence, same as first independent explanation.
+
+**Anti-Goodhart audit (test-enforced):** growth-receipt lines must carry bands, reportConcept keeps bands, agency surface keys are stage/counts/move/note only — no scalar index anywhere in a rendered surface.
+
+**What happened (results):** 19 new tests in `kernel/test/allocation.test.ts` — **163/163 green, 18 files, typecheck clean**, G0 four-worlds gate still passes (personalisation changes plan sizing, not robustness). 3 test-side expectation bugs caught and fixed (shrinkage keeps 4 proposals honestly at techgram_led; maxRun is longest-run not current-run; a finite budget over 54 concepts always has a foregone next-best — the honest semantics). Baseline scheduler Plans in lab.ts carry an explicit "personalisation not consumed by design" audit line.
+
+**Doc repair:** found and removed shell-wrapper artifact lines (`EOF`, `echo appended`, `__zcode_status`… ) that a previous session's bash heredoc append had leaked into the end of Entry 13 — file corruption, not journal content; removed with this entry as the repair record.
+
+**What we inferred:** the review's 35 points are now fully either already-implemented (planner/AOM/CAT/memory/receipts — verified) or wired-and-tested (the four above). The hyper-personalisation loop is CLOSED: events → measured behaviour → changed plan → receipt naming both the change and the opportunity cost → outcomes → mismatch flags → human-gated updates. What remains from the review is not kernel work at all — it is content, deployment, and the beta.
+
+**Way forward:** Brain Lab web deploy → content sprint (founder critical path) → Wave-2 gated build → limited public beta with the 4-layer measurement (Layer 4 = Agency, now measurable end-to-end).

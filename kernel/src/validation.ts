@@ -178,7 +178,8 @@ export type MilestoneType =
   | "delayed_recall_success"
   | "misconception_resolved"
   | "transfer_success"
-  | "self_correction";
+  | "self_correction"
+  | "first_independent_decision";
 
 export interface Milestone {
   type: MilestoneType;
@@ -239,6 +240,19 @@ export function scanMilestones(
       conceptId: String(transfers[0]!.payload.concept_id ?? ""),
       description: "You applied a concept to a completely new scenario.",
       day: transfers[0]!.day,
+    });
+  }
+
+  // First independent decision [ADR-030]: the student led a learning decision
+  // themselves (agency_observed, decided_independently) — Layer 4 evidence.
+  const indep = events.find((e) => e.type === "agency_observed" && e.payload.mode === "decided_independently");
+  if (indep && !seen.has("first_independent_decision")) {
+    seen.add("first_independent_decision");
+    milestones.push({
+      type: "first_independent_decision",
+      conceptId: String(indep.payload.concept_id ?? ""),
+      description: "First learning decision you made on your own — Techgram checked it with you, not for you.",
+      day: indep.day,
     });
   }
 

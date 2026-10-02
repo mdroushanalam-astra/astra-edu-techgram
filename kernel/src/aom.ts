@@ -309,6 +309,66 @@ export function learnFromOutcomes(aom: Aom, records: OutcomeRecord[]): ProposedA
   };
 }
 
+// ---------------------------------------------------------------------------
+// Prediction-error mismatch detection [ADR-030]
+// ---------------------------------------------------------------------------
+
+export interface ActionErrorStats {
+  action: PlanAction;
+  n: number;
+  meanAbsError: number;
+  /** Mean |error| relative to the predicted magnitude (floor 0.05). */
+  meanAbsRelativeError: number;
+  /** Longest run of consecutive records whose relative error exceeds the threshold. */
+  consecutiveLargeMisses: number;
+}
+
+export interface PredictionErrorStats {
+  perAction: ActionErrorStats[];
+  /** True when any action has ≥ consecutiveNeeded large misses in a row. */
+  mismatchDetected: boolean;
+  mismatchActions: PlanAction[];
+}
+
+/**
+ * The AOM-law check for OUTCOME predictions: a personalisation hypothesis
+ * that keeps missing must be FLAGGED, not silently kept (the mismatch
+ * minimum — "my model of this action for this student is wrong"). Records
+ * are processed in the order given; callers pass chronological order.
+ * Pure — nothing is updated here; the flag routes to the human-gated loop.
+ */
+export function predictionErrorStats(
+  records: OutcomeRecord[],
+  opts: { relThreshold?: number; consecutiveNeeded?: number } = {},
+): PredictionErrorStats {
+  const relThreshold = opts.relThreshold ?? 0.5;
+  const consecutiveNeeded = opts.consecutiveNeeded ?? 3;
+  const perAction: ActionErrorStats[] = [];
+  const mismatchActions: PlanAction[] = [];
+  for (const action of ["learn", "practice", "remediate", "review"] as PlanAction[]) {
+    const recs = records.filter((r) => r.action === action);
+    if (recs.length === 0) continue;
+    let absSum = 0, relSum = 0, run = 0, maxRun = 0;
+    for (const r of recs) {
+      const err = r.observedDMastery - r.predictedDMastery;
+      absSum += Math.abs(err);
+      const rel = Math.abs(err) / Math.max(Math.abs(r.predictedDMastery), 0.05);
+      relSum += rel;
+      run = rel > relThreshold ? run + 1 : 0;
+      maxRun = Math.max(maxRun, run);
+    }
+    perAction.push({
+      action,
+      n: recs.length,
+      meanAbsError: absSum / recs.length,
+      meanAbsRelativeError: relSum / recs.length,
+      consecutiveLargeMisses: maxRun,
+    });
+    if (maxRun >= consecutiveNeeded) mismatchActions.push(action);
+  }
+  return { perAction, mismatchDetected: mismatchActions.length > 0, mismatchActions };
+}
+
 /**
  * The human gate. ONLY pilot-provenance proposals may become production
  * packs — approving a simulator-world proposal into production is the exact

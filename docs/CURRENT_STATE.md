@@ -4,13 +4,13 @@
 > **Read me alone:** refreshed after every session; stands on its own. Non-technical readers: `FOUNDER_GUIDE.md` tells the same story in plain language.
 > **Integrity:** all counts in this file are backed by `COUNTERS.json` (generated from the code by `npm run counters`) and enforced by `kernel/test/docs_integrity.test.ts`. If this page contradicts reality, the docs-integrity test fails — fix reality or the doc, never silently.
 
-**Snapshot:** 2026-10-02, ~21:00 (local) · Kernel 0.1.0+ · **144/144 tests green, 17 files, typecheck clean** · Phase: **S2+S3 COMPLETE — INSPECTION GATE PASSED, backend freeze ready** (public V1-A ships when Brain Lab web + content floor land; see `05_ROADMAP.md`) · Git: `main`, 17 commits (`2984650`) · Session model: GLM-5.3-Flash (Z.ai) via ZCode
+**Snapshot:** 2026-10-03, ~01:30 (local) · Kernel 0.1.0+ · **163/163 tests green, 18 files, typecheck clean** · Phase: **ALLOCATION WIRES DONE — the backend now *behaves* the Allocation Principle [ADR-030]; freeze inspection passed earlier; public V1-A ships when Brain Lab web + content floor land** (see `05_ROADMAP.md`) · Git: `main` — exact HEAD/commit count lives in `COUNTERS.json` (regenerated per session) · Session model: GLM-5.3-Flash (Z.ai) via ZCode
 
 ---
 
 ## 1. One-paragraph position
 
-The full closed loop exists, is proven, and now teaches: envelope → events → belief (graph-prior Kalman) → memory → exam Monte-Carlo → CAT diagnostic → AOM → robust planner → composer (B7) → teacher (B8, 14 moves over verified atoms) → student turns → typed evidence → belief/memory/misconception update (B10) → AOM prediction errors — with receipts on every layer, plus mock post-mortem + attempt coach (B11) and behaviour engine (B9, internal flags only). Proven this week: four-world robustness (edge grows hostile), 10-day closed-loop true learning vs control, weak-topic recovery, bit-for-bit replay, and **goal-agnosticism — the same brain runs CBSE Class 8 Science with zero kernel changes**. Content bank (generated, see `COUNTERS.json`): **13 topics · 54 concepts · 105 verified items · 104 verified atoms** across two goals (UPSC Polity + CBSE Class 8 Science). Zero LLM decisions, structural. What remains for public V1-A: **Brain Lab web (Wave 1 — green-lit, blueprint in `06`) and the content floor**; then Wave-2 student PWA + sync (gated, `06_FRONTEND_BLUEPRINT.md` §4).
+The full closed loop exists, is proven, and now teaches: envelope → events → belief (graph-prior Kalman) → memory → exam Monte-Carlo → CAT diagnostic → AOM → robust planner → composer (B7) → teacher (B8, 14 moves over verified atoms) → student turns → typed evidence → belief/memory/misconception update (B10) → AOM prediction errors — with receipts on every layer, plus mock post-mortem + attempt coach (B11) and behaviour engine (B9, internal flags only). **The Allocation Principle [ADR-030] is now behaviour, not framing: the planner consumes measured behaviour** (rest-day / burnout → lighter days; load tolerance → day caps; fatigue → smaller blocks; avoidance → soft de-prioritisation — every change receipt-logged), **every plan names the opportunity it gave up** (`opportunity_cost`), **Agency Transfer is measured** (8 decision types, 3 modes, honest stages, `agency_observed` replayed bit-identically), **repeated prediction misses flag themselves** (mismatch minimum), and **no rendered surface shows a gamifiable scalar** (anti-Goodhart, test-enforced). Proven this week: four-world robustness (edge grows hostile), 10-day closed-loop true learning vs control, weak-topic recovery, bit-for-bit replay, and **goal-agnosticism — the same brain runs CBSE Class 8 Science with zero kernel changes**. Content bank (generated, see `COUNTERS.json`): **13 topics · 54 concepts · 105 verified items · 104 verified atoms** across two goals (UPSC Polity + CBSE Class 8 Science). Zero LLM decisions, structural. What remains for public V1-A: **Brain Lab web deployment and the content floor**; then Wave-2 student PWA + sync (gated, `06_FRONTEND_BLUEPRINT.md` §4).
 
 ## 2. What works (verified — see EXPERIMENTS_AND_TESTS for numbers)
 
@@ -35,6 +35,11 @@ The full closed loop exists, is proven, and now teaches: envelope → events →
 | **S2 golden replay (Worlds A-H)** | ✅ all worlds pass | `test/golden_session.test.ts` |
 | **S3 validation surfaces** (growth receipt, capability journey, changed-my-mind) | ✅ live | `test/golden_session.test.ts` |
 | **Personalisation State v1** (momentum, fatigue, frustration, load, session length, chronotype, avoidance, recovery — measured, no labels) | ✅ live [ADR-024] | `test/personalisation.test.ts` |
+| **Allocation wires: behaviour → planner** (rest/lighten/load-cap/fatigue-blocks/avoidance change plans; receipt-logged audit trail) | ✅ live [ADR-030] | `test/allocation.test.ts` |
+| **Agency Transfer** (8 decision types × 3 modes, honest stages, event replay; `first_independent_decision` milestone) | ✅ live [ADR-030] | `test/allocation.test.ts` |
+| **Opportunity cost** (every plan names the best action it gave up, with why) | ✅ live [ADR-030] | `test/allocation.test.ts` |
+| **Mismatch minimum** (≥3 consecutive prediction misses → flag to the human-gated loop) | ✅ live [ADR-030] | `test/allocation.test.ts` |
+| **Anti-Goodhart audit** (no rendered surface carries a gamifiable scalar; bands everywhere) | ✅ test-enforced | `test/allocation.test.ts` |
 | **MEMORY_OPEN** continuity move | ✅ live | `test/personalisation.test.ts` |
 | **Return Model v0 + engagement experiments** (ethics-wall registry) | ✅ live [ADR-025] | `test/personalisation.test.ts` |
 | Brain Lab demo (CLI, 5 acts) | ✅ runs | `npm run brainlab` |
@@ -54,9 +59,10 @@ The full closed loop exists, is proven, and now teaches: envelope → events →
 
 1. ~~Wave 1 — Brain Lab web~~ **DONE (16:10)** — built + browser-verified; deployment pending.
 2. **Content sprint** (parallel, Founder + mentor): items 105→500, atoms 104→150, PYQ weights refine.
-3. **Exercise Brain Lab against sealed hidden worlds** before any public claim (ADR-016 claim discipline).
-4. **Wave-2 (gated):** persistence → sync/recompute → tamper test → offline chaos → student PWA.
-5. **Pilot:** 20–30 aspirants, 3+ weeks, pre-registered G3 criteria — Founder recruits.
+3. ~~Wire Personalisation State + Agency Index into kernel decisions~~ **DONE (ADR-030, Entry 14)** — measured behaviour now changes plans; agency measured end-to-end.
+4. **Exercise Brain Lab against sealed hidden worlds** before any public claim (ADR-016 claim discipline).
+5. **Wave-2 (gated):** persistence → sync/recompute → tamper test → offline chaos → student PWA.
+6. **Limited public beta:** 20–30 aspirants, 3+ weeks, 4-layer measurement (Learning / Retention / Decision quality / **Agency** [ADR-029]) — pre-registered G3 criteria, Founder recruits.
 
 ## 5. Risks & standing uncertainty register [adopted 2026-10-02]
 
@@ -71,7 +77,7 @@ Also: content-verification throughput is the schedule risk; friendly-world plann
 ## 6. How to run / verify
 
 ```
-npm test              # 144 tests incl. G0 four-worlds + docs-integrity gate
+npm test              # 163 tests incl. G0 four-worlds + docs-integrity gate
 npm run counters      # regenerate docs/COUNTERS.json from the code
 npm run brainlab      # CLI demo (5 acts)
 npm -w kernel run typecheck

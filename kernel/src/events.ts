@@ -11,6 +11,7 @@ import { updateMisconception, newMisconceptionState, copyMisconceptionState, typ
 import { initialPreferenceState, copyPreferenceState, observePreference, type PreferenceState, type PreferenceDimension } from "./preference.js";
 import { initialCuriosityState, copyCuriosityState, type CuriosityState } from "./curiosity.js";
 import { initialCuriosityState as initCuriosity } from "./curiosity.js";
+import { newAgencyState, copyAgencyState, observeAgency, type AgencyState, type DecisionType, type AgencyMode } from "./agency.js";
 import type { StudentArtifact } from "./artifact.js";
 import type { Content } from "./content.js";
 import { expertDifficultyToLogit } from "./content.js";
@@ -31,7 +32,8 @@ export type EventType =
   | "artifact_added"
   | "curiosity_captured"
   | "preference_observed"
-  | "self_report";
+  | "self_report"
+  | "agency_observed";
 
 export interface StudentEvent {
   event_id: string;
@@ -59,6 +61,8 @@ export interface SystemState {
   artifacts: StudentArtifact[];
   /** B12: optional self-reported session state (energy/focus/stress/motivation). */
   selfReports: { day: number; energy?: number; focus?: number; stress?: number; motivation?: number }[];
+  /** ADR-030: agency transfer — who led each kind of learning decision. */
+  agency: AgencyState;
   goal: { goalId: string; deadlineDay: number } | null;
   onboarding: Onboarding | null;
   appliedKeys: Set<string>;
@@ -74,6 +78,7 @@ export function newSystemState(model: BeliefModel): SystemState {
     curiosity: initCuriosity(),
     artifacts: [],
     selfReports: [],
+    agency: newAgencyState(),
     goal: null,
     onboarding: null,
     appliedKeys: new Set(),
@@ -108,6 +113,7 @@ export function applyEvent(
     curiosity: copyCuriosityState(st.curiosity),
     artifacts: st.artifacts.map((a) => ({ ...a })),
     selfReports: st.selfReports.map((s) => ({ ...s })),
+    agency: copyAgencyState(st.agency),
     goal: st.goal,
     onboarding: st.onboarding,
     appliedKeys: new Set(st.appliedKeys).add(ev.idempotency_key),
@@ -265,6 +271,14 @@ export function applyEvent(
         stress: ev.payload.stress as number | undefined,
         motivation: ev.payload.motivation as number | undefined,
       });
+      break;
+    }
+    case "agency_observed": {
+      const decision = ev.payload.decision as DecisionType | undefined;
+      const mode = ev.payload.mode as AgencyMode | undefined;
+      if (decision && mode) {
+        next.agency = observeAgency(st.agency, decision, mode, ev.day);
+      }
       break;
     }
     case "session_started":

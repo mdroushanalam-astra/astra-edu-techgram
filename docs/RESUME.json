@@ -1,10 +1,10 @@
 {
   "project": "Techgram / Astra Edu — Student Intelligence Kernel",
-  "updated_at": "2026-10-02T21:00:00+05:30",
+  "updated_at": "2026-10-03T01:45:00+05:30",
   "session_model": "GLM-5.3-Flash (Z.ai) via ZCode",
-  "kernel_version": "0.1.0+ (commits d535e9b..freeze, 5 commits)",
-  "position": "S2+S3 COMPLETE — golden replay (8 worlds) + validation surfaces verified. 144/144 tests. Backend freeze inspection passed. Remaining: deploy Brain Lab web + content sprint + Wave-2 gated build. Original: WAVE-1 BRAIN LAB WEB BUILT + browser-verified (apps/brainlab, 7 screens, zero LLM). Doc-integrity gate live (COUNTERS.json + tests). 116/116 tests. V1-A public remaining: deploy web + content floor. Wave-2 (PWA/sync) gated.",
-  "tests": { "passed": 144, "failed": 0, "typecheck": "clean", "docs_integrity": "green" },
+  "kernel_version": "0.1.0+ (ADR-030 allocation wires)",
+  "position": "ALLOCATION WIRES DONE [ADR-030]: the Allocation Principle is now kernel behaviour — planner consumes measured PersonalisationState + B9 flags (rest-day/lighten/load-cap/fatigue-blocks/avoidance, all receipt-logged), every plan names its opportunity cost (foregone), Agency Transfer measured end-to-end (agency.ts, agency_observed events, honest stages, first_independent_decision milestone, surface omits the gamifiable scalar), mismatch minimum (>=3 consecutive prediction misses flags the human-gated loop). 163/163 tests (18 files), typecheck clean, G0 four-worlds still passes. Remaining: deploy Brain Lab web + content sprint + Wave-2 gated build + limited public beta.",
+  "tests": { "passed": 163, "failed": 0, "typecheck": "clean", "docs_integrity": "green" },
   "read_first": [
     "docs/FOUNDER_GUIDE.md",
     "docs/00_CHARTER.md",
@@ -23,12 +23,12 @@
   },
   "next_actions": [
     "Deploy Brain Lab web (built + verified; Vercel/static)",
-    "Content sprint: atoms 84->150 (2 variants top-20), items 80->500, PYQ weights refine — FOUNDER/MENTOR VERIFICATION IS THE CRITICAL PATH",
-    "B11 mock centre into PWA surface; B9 flags feeding the planner (lighten/rest)",
+    "Content sprint: atoms 104->150 (2 variants top-20), items 105->500, PYQ weights refine — FOUNDER/MENTOR VERIFICATION IS THE CRITICAL PATH",
+    "Feed personalisation + agency into the Brain Lab surfaces (plan receipt already carries personalisationApplied + opportunity_cost; agency surface is render-ready)",
     "K12 feed: expand CBSE Class 8 seed (14 concepts/25 items/21 atoms) toward full-term coverage — same config pattern, licensing-safe (docs/07)",
     "V1-B (gated on V1-A gates holding): PWA shell (offline queue), sync server + recompute-and-verify, tamper tests, chaos day",
-    "Pilot: 20-30 aspirants, 3+ weeks, pre-registered kill/continue (G3) — founder recruits",
-    "DONE 2026-10-02: B5.5 AOM + four worlds + teaching layer + freeze inspection + K12 goal-agnosticism proof — see EXPERIMENTS §10-§12"
+    "Limited public beta: 20-30 aspirants, 3+ weeks, pre-registered kill/continue (G3), 4-layer measurement incl. AGENCY [ADR-029/030] — founder recruits",
+    "DONE 2026-10-03: ADR-030 allocation wires (behaviour->planner, agency, opportunity cost, mismatch) — see EXPERIMENTS §15, Journal Entry 14"
   ],
   "gates": {
     "G0_simulator": "aggregate over archetypes: techgram beats random (+6.2 marks 30d) and fixed order (+2.4)",

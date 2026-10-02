@@ -324,7 +324,15 @@ function baselinePlan(
     });
     used += 25;
   }
-  return { day, blocks, totalMinutes: used, expectedGainMarks: 0, paramsVersion: `baseline-${policy}` };
+  return {
+    day,
+    blocks,
+    totalMinutes: used,
+    expectedGainMarks: 0,
+    paramsVersion: `baseline-${policy}`,
+    personalisationApplied: ["baseline scheduler — personalisation not consumed by design"],
+    foregone: null,
+  };
 }
 
 export interface RunCallbacks {
