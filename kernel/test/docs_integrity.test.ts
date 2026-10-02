@@ -37,7 +37,7 @@ describe("DOCS-INTEGRITY GATE — generated counts match code", () => {
     // The front door may cite totals only with the generated values.
     expect(currentState).toContain(`${counters.content.totals.atoms} verified atoms`);
     expect(currentState).toContain(`${counters.content.totals.items} verified items`);
-    expect(currentState).toContain(`${counters.tests.passed}/116`);
+    expect(currentState).toContain(`${counters.tests.passed}/${counters.tests.passed} tests`);
     // The stale lies must never return:
     expect(currentState).not.toContain("150 atoms = 0");
     expect(currentState).not.toContain("no repo initialized");
