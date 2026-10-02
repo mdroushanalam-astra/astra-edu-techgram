@@ -1,0 +1,9 @@
+{
+  "name": "Techgram — your learning room",
+  "short_name": "Techgram",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b1020",
+  "theme_color": "#0b1020",
+  "description": "A private, quiet, futuristic study room with a holographic companion powered by a real intelligence kernel."
+}

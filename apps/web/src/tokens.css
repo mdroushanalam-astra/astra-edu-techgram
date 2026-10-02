@@ -1,0 +1,193 @@
+/* ============================================================
+   TECHGRAM — INTELLIGENT SANCTUARY DESIGN SYSTEM [ADR-032]
+   Quiet chrome, alive core. Deep-space home, one candle of warmth.
+   Colour carries meaning only — one accent per moment.
+   ============================================================ */
+
+:root {
+  /* -- base: the quiet room ------------------------------------ */
+  --bg-0: #0b1020;            /* deepest space */
+  --bg-1: #101830;            /* room gradient top */
+  --surface: rgba(20, 28, 51, 0.85);
+  --surface-2: rgba(28, 38, 68, 0.7);
+  --line: #2a3555;
+  --line-soft: rgba(42, 53, 85, 0.5);
+
+  /* -- ink ------------------------------------------------------ */
+  --ink: #e8ecf6;             /* 13:1 on bg-0 */
+  --ink-2: #a8b2d0;           /* secondary */
+  --ink-3: #6b7699;           /* whisper */
+
+  /* -- the semantic four (one accent per moment) ----------------- */
+  --warm: #f5b04a;            /* the friend: wins, encouragement, hologram rim-light */
+  --cool: #4fd8c8;            /* intelligence: data, hologram energy, known */
+  --violet: #9d7bff;          /* curiosity: unknowns, grey mist, wrong-answer gaps */
+  --coral: #ff8fa3;           /* empathy beats */
+  --risk: #ff5d73;            /* ONLY Brain-Map confirmed risks — never session feedback */
+
+  --ok: #57d9a3;              /* verified change (sparing) */
+
+  /* -- type ------------------------------------------------------ */
+  --font-display: "Sora", "Inter", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* -- space / shape --------------------------------------------- */
+  --r-lg: 20px;
+  --r-md: 14px;
+  --r-sm: 9px;
+  --gap: 20px;
+  --pad: 24px;
+
+  --shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+  --glow-warm: 0 0 24px rgba(245, 176, 74, 0.18);
+  --glow-cool: 0 0 24px rgba(79, 216, 200, 0.16);
+
+  --durate: 220ms;
+  --dur-slow: 700ms;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; }
+body {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 15.5px;
+  line-height: 1.55;
+  background:
+    radial-gradient(1200px 800px at 75% -10%, rgba(79, 216, 200, 0.07), transparent 60%),
+    radial-gradient(1000px 700px at 10% 110%, rgba(245, 176, 74, 0.05), transparent 60%),
+    linear-gradient(180deg, var(--bg-1), var(--bg-0));
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+h1, h2, h3 { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.01em; }
+h1 { font-size: 26px; margin: 0 0 6px; }
+h2 { font-size: 19px; margin: 0 0 4px; }
+p  { margin: 0 0 10px; }
+.mono { font-family: var(--font-mono); font-size: 12.5px; }
+.whisper { color: var(--ink-3); font-size: 13px; }
+.dim { color: var(--ink-2); }
+
+/* -- the room's furniture -------------------------------------- */
+.glass {
+  background: var(--surface);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(14px);
+}
+
+.btn {
+  appearance: none; border: 1px solid var(--line);
+  background: var(--surface-2); color: var(--ink);
+  font: 500 14.5px var(--font-body);
+  padding: 11px 20px; border-radius: var(--r-md);
+  cursor: pointer; transition: all var(--durate) var(--ease);
+}
+.btn:hover { border-color: var(--cool); box-shadow: var(--glow-cool); transform: translateY(-1px); }
+.btn:disabled { opacity: 0.4; cursor: default; transform: none; }
+.btn.primary {
+  background: linear-gradient(135deg, rgba(245, 176, 74, 0.16), rgba(245, 176, 74, 0.06));
+  border-color: rgba(245, 176, 74, 0.5); color: var(--warm);
+}
+.btn.primary:hover { box-shadow: var(--glow-warm); }
+.btn.ghost { background: transparent; }
+
+.chip {
+  display: inline-flex; align-items: center; gap: 7px;
+  border: 1px solid var(--line-soft); border-radius: 999px;
+  padding: 7px 14px; font-size: 13px; color: var(--ink-2);
+  background: rgba(16, 24, 48, 0.6); cursor: pointer;
+  transition: all var(--durate) var(--ease);
+}
+.chip:hover { border-color: var(--cool); color: var(--ink); }
+.chip.selected { border-color: var(--cool); color: var(--cool); box-shadow: var(--glow-cool); }
+.chip.hint { border-style: dashed; color: var(--ink-3); }
+.chip.hint:hover { color: var(--violet); border-color: var(--violet); }
+
+/* -- band (the honest range — never a naked %) ------------------ */
+.band { display: flex; align-items: center; gap: 10px; }
+.band .rail {
+  position: relative; flex: 1; height: 8px; border-radius: 999px;
+  background: rgba(42, 53, 85, 0.6); overflow: hidden;
+}
+.band .fill {
+  position: absolute; top: 0; bottom: 0; border-radius: 999px;
+  background: linear-gradient(90deg, rgba(79, 216, 200, 0.35), var(--cool));
+}
+.band .mist {
+  position: absolute; top: 0; bottom: 0;
+  background: repeating-linear-gradient(135deg, rgba(157, 123, 255, 0.25) 0 4px, transparent 4px 8px);
+}
+.band .val { font-family: var(--font-mono); font-size: 12px; color: var(--ink-2); min-width: 96px; text-align: right; }
+
+/* -- nav -------------------------------------------------------- */
+.nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 40;
+  display: flex; justify-content: center; gap: 4px;
+  padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+  background: linear-gradient(0deg, rgba(11, 16, 32, 0.95), rgba(11, 16, 32, 0.75) 80%, transparent);
+}
+.nav button {
+  appearance: none; border: 0; background: transparent; color: var(--ink-3);
+  font: 500 12px var(--font-body); padding: 8px 14px; border-radius: 12px;
+  cursor: pointer; transition: all var(--durate) var(--ease);
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+}
+.nav button svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.6; }
+.nav button.on { color: var(--warm); background: rgba(245, 176, 74, 0.08); }
+
+/* -- screens ---------------------------------------------------- */
+.screen { max-width: 860px; margin: 0 auto; padding: 28px 20px 110px; }
+.screen-head { margin-bottom: 22px; }
+
+/* -- session stage ---------------------------------------------- */
+.stage { position: fixed; inset: 0; display: flex; flex-direction: column; background: var(--bg-0); z-index: 30; }
+.stage-top {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 18px; font-family: var(--font-mono); font-size: 12px; color: var(--ink-3);
+}
+.stage-board { flex: 1; position: relative; min-height: 0; padding: 0 16px; }
+.stage-board canvas { width: 100%; height: 100%; display: block; }
+.stage-bottom { padding: 10px 16px calc(14px + env(safe-area-inset-bottom)); }
+.teacher-line {
+  display: flex; gap: 14px; align-items: flex-end; margin-bottom: 10px; min-height: 92px;
+}
+.teacher-line .utt {
+  flex: 1; background: var(--surface); border: 1px solid var(--line-soft);
+  border-radius: 4px 18px 18px 18px; padding: 13px 17px; font-size: 16px; line-height: 1.5;
+}
+.answers { display: flex; flex-wrap: wrap; gap: 9px; }
+.answers .chip { font-size: 14px; padding: 10px 16px; }
+.why-inline {
+  margin-top: 10px; border-left: 2px solid var(--warm); padding: 8px 14px;
+  background: rgba(245, 176, 74, 0.05); border-radius: 0 var(--r-sm) var(--r-sm) 0;
+  font-size: 13.5px; color: var(--ink-2);
+}
+.why-inline .mono { color: var(--warm); }
+
+/* -- reveal animation ------------------------------------------- */
+@keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.rise { animation: rise var(--dur-slow) var(--ease) both; }
+@keyframes breathe { 0%, 100% { opacity: 0.7; } 50% { opacity: 1; } }
+
+/* -- the grey mist (brain map) ---------------------------------- */
+.mist-node { cursor: pointer; transition: transform var(--durate) var(--ease); }
+.mist-node:hover { transform: scale(1.06); }
+
+/* -- receipts ---------------------------------------------------- */
+.receipt { font-family: var(--font-mono); font-size: 12.5px; color: var(--ink-2); }
+.receipt b { color: var(--warm); font-weight: 500; }
+
+/* -- sliders ----------------------------------------------------- */
+.slider { display: flex; align-items: center; gap: 14px; padding: 10px 0; }
+.slider input { flex: 1; accent-color: var(--warm); }
+.slider .lab { min-width: 130px; font-size: 13.5px; color: var(--ink-2); }

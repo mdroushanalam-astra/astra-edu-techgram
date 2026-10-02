@@ -60,7 +60,7 @@ export interface SceneInteraction {
   mode: "question" | "free_response" | "waiting" | "none";
   /** Answer affordances — text/tap is ALWAYS present (voice is additive). */
   accept: ("tap" | "text" | "voice")[];
-  options?: { id: string; label: string }[];
+  options?: string[];
   /** Hint affordance state (L1→L3 fade ladder is kernel policy). */
   hintAvailable?: boolean;
 }
