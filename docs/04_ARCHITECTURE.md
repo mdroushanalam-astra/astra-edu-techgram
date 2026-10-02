@@ -169,6 +169,9 @@ The organ that turns the planner from a heuristic optimizer into a decision engi
 - Root-cause score per prerequisite: `suspect(p) = (1−σ(μ_p)) · corr_post(p,c) · edge_strength`; suspect + uncertain → **diagnostic probe on p first**; suspect + certain → remediate p first. `[PORT: prototype's bottleneck rerouting, now with posterior correlation]`
 - Misconceptions: tagged distractor → misconception id; per-student Beta counters (sure+wrong ×2). **Three tiers [REVISED 2026-10-02, ADR-019]:** **Candidate** (n≥1 → investigate) / **Probable** (n≥3 + consistent evidence → targeted probe) / **Confirmed-for-action** (n≥3–4 + sure-wrong + repeated context → CONTRAST + targeted items). High-frequency unlisted distractor patterns → candidates for new ontology nodes (human review). This is moat M2 accruing.
 
+### B9.5 — Personalisation State v1 [ADR-024, added 2026-10-02]
+Measured behavioural features computed from the event log and consumed by planner/teacher/notifications: momentum · fatigue slopes (time + error) · frustration signature · load tolerance · measured optimal session length · chronotype window (only when logged) · avoidance map · recovery rate. Observable-State Law [ADR-023] governs all claims. Tests: `test/personalisation.test.ts`.
+
 ### B11 — Mock Post-Mortem + Attempt-Policy Coach (the data-light wow)
 - Per question: answer, correctness, time, confidence, answer-changes, position, pre-mock belief `p_c`.
 - Deterministic classification: knowledge gap / trap (tagged distractor + confident) / careless (fast + knew) / time pressure / bad guess (−2/3 + opportunity) / **over-skip** (expected value shown) / **unclassified shown as unclassified**. Output: "You lost ~22 marks: 9 knowledge gaps (3 topics), 5 traps (Art. 19 vs 21 ×3), 3 careless, 3 bad guesses, 2 over-skips. Following your own break-even policy ≈ +5 marks."

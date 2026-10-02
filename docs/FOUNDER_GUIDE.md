@@ -1,7 +1,7 @@
 # TECHGRAM — THE FOUNDER'S GUIDE
 ## Your personal window into everything we are building. Written for you, in plain language, no coding knowledge needed.
 
-*Updated: 2026-10-02, ~16:20 · Updated after EVERY major session — check the date at the top. Every chapter also records **which AI model did the work** (this guide and everything technical so far: GLM-5.3-Flash by Z.ai, working inside the ZCode coding tool, under your direction) — so you always know who wrote what, and the rule is now permanent: any model that works on Techgram must sign its name and its reasons into the documents. If anything in here confuses you, that is a defect in this document, not in you — ask and it gets rewritten.*
+*Updated: 2026-10-02, ~20:20 · Updated after EVERY major session — check the date at the top. Every chapter also records **which AI model did the work** (this guide and everything technical so far: GLM-5.3-Flash by Z.ai, working inside the ZCode coding tool, under your direction) — so you always know who wrote what, and the rule is now permanent: any model that works on Techgram must sign its name and its reasons into the documents. If anything in here confuses you, that is a defect in this document, not in you — ask and it gets rewritten.*
 
 ---
 

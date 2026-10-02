@@ -129,10 +129,10 @@ Archetypes: consistent, crammer, avoidant, drifter (adherence varies; pedagogy i
 
 ## §8 — PROGRESS CHART (project-level, updated per campaign)
 
-| Metric | 2026-10-01 (prototype) | 2026-10-02 (kernel sprint) | 2026-10-02 (B5.5 + worlds) | 2026-10-02 (teaching layer + K12) | Target V1-A |
+| Metric | 2026-10-01 (prototype) | 2026-10-02 (kernel sprint) | 2026-10-02 (B5.5 + worlds) | 2026-10-02 (teaching layer + K12) | 2026-10-02 (Phase-A personalisation) | Target V1-A |
 |---|---|---|---|---|
 | Runtime kernel | Python (archived) | TS: 11 modules | TS: 12 modules (aom) | **TS: 17 modules (+composer/teacher/diagnosis/atoms/postmortem/behaviour/teach_loop)** | + Brain Lab web |
-| Tests | 50/50 (Python) | 58/58 | 77/77 | **116/116 (14 files) + typecheck clean** | 100+ incl. chaos |
+| Tests | 50/50 (Python) | 58/58 | 77/77 | 116/116 | **134/134 (16 files) + docs-integrity gate** | 100+ incl. chaos |
 | Simulator gate | — | 1 world (friendly) | **4 worlds, planner useful in ALL** | maintain |
 | Action outcomes | hardcoded in planner | hardcoded in planner | **AOM: predicted, recorded, versioned, human-gated** | measured from pilot |
 | Verified items | ~40 (Python bank) | **80 (TS seed, tagged)** | 80 (TS seed, tagged) | 500 |
