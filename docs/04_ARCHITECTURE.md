@@ -196,6 +196,15 @@ Single-brain invariant (ADR-027.7): no parallel session planner. B7 becomes **th
 - **Social slots** [ADR-028]: anonymous aggregate social proof + compatibility-based study-room invitations as brain decisions; the social product is post-beta (gated).
 - **Golden replay gate**: Class 8 → IAS → Geomorphology → 40 min → LLM OFF, Worlds A–H (clean/false-confidence/low-energy/resistant/unusual-preference/preference-wrong/no-LLM/missing-asset). A machinery gate, not an efficacy proof.
 
+### B13 — Agency Transfer + the Allocation Wires [ADR-029/030/031, added 2026-10-03 — FROZEN]
+- **agency.ts**: 8 decision types (topic/retrieval/difficulty selection, misconception detection, session length, break timing, help seeking, strategy) × 3 observed modes (accepted_recommendation 0 / proposed_with_reason 0.5 / decided_independently 1); shrinkage-smoothed index (k=5); stages `techgram_led`/`shared`/`student_led` (behavioural descriptors, never labels); `agency_observed` event replays bit-identically; `first_independent_decision` milestone in the validation surfaces.
+- **ANTI-GOODHART (structural):** `agencySurface()` renders stage names + counts + next transfer move ONLY — the raw scalar is omitted by construction. No rendered surface may show a gamifiable mastery/agency number.
+- **Planner consumes measured behaviour** [ADR-030]: PersonalisationState + B9 flags change plans (rest-day → review-only 15m; lighten → ×0.5; load tolerance → ×1.1 day cap; fatigue slopes → learn 20m/practice 15m; avoidance → ×0.6 soft penalty, due reviews immune), every change logged in `plan.personalisationApplied` and surfaced in the receipt.
+- **Opportunity cost:** `plan.foregone` + receipt `opportunity_cost` — every plan names the best action it did not buy, and why.
+- **Mismatch minimum:** `predictionErrorStats` — ≥3 consecutive relative prediction misses >0.5 flag the human-gated loop.
+- **Validation surfaces** (S3, ADR-027/028): growth receipt, capability journey, changed-my-mind, milestones, curiosity ledger — bands everywhere, evidence-only claims.
+- **FROZEN [ADR-031]:** the whole of §2 is a signed freeze boundary (docs/BACKEND_FREEZE_CHECKLIST.md). Allowed: correctness/security/perf/compliance. A frontend-discovered hole may be raised as an ADR with evidence.
+
 ## 3. GOAL SPEC (how everything later is config)
 
 ```json

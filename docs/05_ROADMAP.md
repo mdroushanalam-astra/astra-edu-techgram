@@ -1,6 +1,10 @@
 # TECHGRAM — ROADMAP (PHASES, GATES, DATES)
 ## Solo builder + AI-assist + one content expert/mentor. ~16–20 weeks to public V1. Every phase has a gate; no feature ships ahead of its gate.
 
+> **RELEASE LADDER [2026-10-03, ADR-031 — THE GOVERNING SEQUENCE, supersedes the phase table below for ordering]:**
+> G0–G2 simulator gates ✅ → **Gate-0b independent inspection ✅ (5 defects found & fixed — live probes + chaos tests)** → **Gate-1 BRAIN FREEZE v0.1 ✅ SIGNED (docs/BACKEND_FREEZE_CHECKLIST.md — no new cognitive subsystems before real-user evidence)** → Gate-2 Brain Lab deploy (internal instrument + public proof page; NO further polish cycle) ⬜ → Gate-3 content COVERAGE gate ⬜ **(8 dimensions per goal: coverage × measurement × diagnosis × teaching × retrieval × transfer × provenance × style-variation — never a raw count) — runs in PARALLEL with frontend** → **FRONTEND design gate (open now; the enterprise product — the founder decides the design; G4 Product Experience Gate to be defined at design sign-off)** ⬜ → Gate-4 Wave-2 infrastructure ⬜ → Gate-5 compliance ⬜ → Gate-6 limited public beta (**UPSC adults first**; K12/minors behind the Gate-5 compliance ADR) ⬜.
+> Suite: 174/174 tests · 20 files · typecheck clean · typecheck+counters enforced.
+
 **Timeline basis:** the v2x execution plan's 10-week schedule assumes a team of 2–3 + content expert; solo is 16–20 weeks. The content track runs in parallel from Week 1 and is the true critical path. If a second builder joins, compress phases 2–4.
 
 > **STATUS UPDATE — 2 Oct 2026. Phase 0 + Phase 1 core COMPLETE in the TypeScript kernel (`kernel/`), ahead of schedule:**

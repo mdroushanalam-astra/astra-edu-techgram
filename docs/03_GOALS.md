@@ -97,7 +97,7 @@ Before any new feature or realm is ever discussed, Techgram must keep answering 
 ## 4.5 THE UNCERTAINTY REGISTER [adopted 2026-10-02, external review §26 — the honest state of the company]
 | Bucket | Level | Meaning |
 |---|---|---|
-| Engineering | 🟢 low-medium | Core architecture credible: 116 tests, four-world gate, bit-for-bit replay |
+| Engineering | 🟢 low-medium | Core architecture credible: 174 tests + chaos injection + live probes, Brain Freeze v0.1 signed after a defect-finding Gate-0 audit [ADR-031] |
 | Product | 🟡 HIGH | Will students find the loop useful enough to return? Unknown until the pilot |
 | Scientific / learning-effect | 🔴 VERY HIGH | Does the AOM predict real interventions? Does durable learning improve? Needs delayed outcomes from real students |
 

@@ -6,6 +6,7 @@
   "position": "BRAIN FREEZE v0.1 SIGNED [ADR-031]: Gate-0 independent inspection PASSED (diff/module map, no-second-brain, 3 live probes in scripts/freeze_probes.mts, 11 chaos tests; 5 real defects found+fixed — probe 2 caught approval-provenance gap the suite missed; dead duplicate agencyIndex retired). Freeze boundary in docs/BACKEND_FREEZE_CHECKLIST.md. Release ladder: Brain Lab deploy (Gate-2) -> content COVERAGE gate (Gate-3, 8 dimensions, not counts) parallel with FRONTEND DESIGN GATE (founder decides design; enterprise product, Brain Lab = internal instrument) -> Wave-2 -> compliance -> beta (UPSC adults first). 174/174 tests (20 files), typecheck clean.",
   "tests": { "passed": 174, "failed": 0, "typecheck": "clean", "docs_integrity": "green" },
   "read_first": [
+    "docs/BACKEND_FREEZE_CHECKLIST.md",
     "docs/FOUNDER_GUIDE.md",
     "docs/00_CHARTER.md",
     "docs/CURRENT_STATE.md",
@@ -13,7 +14,9 @@
     "docs/EXPERIMENTS_AND_TESTS.md",
     "docs/DECISIONS.md",
     "docs/04_ARCHITECTURE.md",
-    "docs/05_ROADMAP.md"
+    "docs/05_ROADMAP.md",
+    "docs/08_VISION_LEDGER.md",
+    "docs/06_FRONTEND_BLUEPRINT.md"
   ],
   "commands": {
     "test": "npm test",

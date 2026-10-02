@@ -70,7 +70,7 @@ The full closed loop exists, is proven, and now teaches: envelope → events →
 
 | Bucket | Level | What it means |
 |---|---|---|
-| Engineering | 🟢 low-medium | Core architecture credible; 144 tests + four-world gate + replay |
+| Engineering | 🟢 low-medium | Core architecture credible; 174 tests + chaos injection + probes; Brain Freeze v0.1 signed [ADR-031] |
 | Product | 🟡 HIGH | Will students find the loop useful enough to return? Unknown until pilot |
 | Scientific / learning-effect | 🔴 VERY HIGH | Does the AOM predict real interventions? Does durable learning improve? Needs delayed outcomes from real students — the honest frontier |
 
@@ -91,4 +91,4 @@ cd apps/brainlab && npm run preview  # Wave-1 web (production build, localhost:4
 ## 7. Pointers
 > **Observable-State Law [ADR-023]:** all personalisation is a model of the student's OBSERVABLE learning state and behaviour — explicitly uncertain, never internal-state claims, never labels. The Engagement Ethics Wall bans guilt/urgency/exploitation mechanics permanently.
 
-**Non-technical:** `FOUNDER_GUIDE.md` · Soul: `00_CHARTER.md` · Memory: `PROJECT_JOURNAL.md` · Evidence: `EXPERIMENTS_AND_TESTS.md` · Changes: `DECISIONS.md` (ADR-001…021) · Machine pointer: `RESUME.json` · Protocol: `README.md` · Architecture: `04_ARCHITECTURE.md` · Roadmap: `05_ROADMAP.md` · Frontend: `06_FRONTEND_BLUEPRINT.md` · K12 research: `07_OPEN_MATERIALS_RESEARCH.md` · Counts: `COUNTERS.json`
+**Non-technical:** `FOUNDER_GUIDE.md` · Soul: `00_CHARTER.md` · Star: `02_NORTH_STAR.md` · Memory: `PROJECT_JOURNAL.md` · Evidence: `EXPERIMENTS_AND_TESTS.md` · Changes: `DECISIONS.md` (ADR-001…031) · **Freeze boundary: `BACKEND_FREEZE_CHECKLIST.md`** · Ideas registry: `08_VISION_LEDGER.md` · Machine pointer: `RESUME.json` · Protocol: `README.md` · Architecture: `04_ARCHITECTURE.md` · Roadmap: `05_ROADMAP.md` · Frontend: `06_FRONTEND_BLUEPRINT.md` · K12 research: `07_OPEN_MATERIALS_RESEARCH.md` · Counts: `COUNTERS.json`

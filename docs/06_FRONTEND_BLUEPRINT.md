@@ -8,7 +8,7 @@
 
 > **YES — frontend development is green-lit, in two waves.**
 >
-> **Wave 1 (V1-A completion): the Brain Lab web page** — pure presentation over the kernel, no server, no accounts, no data risk. Everything it needs exists and is tested (116/116).
+> **Wave 1 (V1-A completion): the Brain Lab web page** — pure presentation over the kernel, no server, no accounts, no data risk. Everything it needs exists and is tested (116/116 at the time of writing; 174/174 as of the freeze). **STATUS 2026-10-03 [ADR-031]: Wave 1 is DONE and browser-verified; Brain Lab is now the INTERNAL INSTRUMENT (inspection/replay/debug console) — it gets no further polish cycles. The enterprise student frontend is the product; the design is decided at the open FRONTEND DESIGN GATE (founder decides — not adopted from any external review), with G4 Product Experience Gate defined at design sign-off. Rendering contracts from the kernel are binding: bands never single scores, agency as moments/stages never a number, "why this?" opens evidence + uncertainty + opportunity cost (plan.foregone), mismatch renders as believed→evidence→update, every recommendation is overridable with evidence-based response (Agency Transfer made visible).**
 >
 > **Wave 2 (V1-B): the Student PWA** — needs ONE small backend piece first (sync server + persistence), but the UI can be built in parallel against the kernel running in the browser (the kernel is TypeScript — it runs client-side natively; that was the ADR-001 decision paying off).
 
