@@ -1,10 +1,10 @@
 {
   "project": "Techgram / Astra Edu — Student Intelligence Kernel",
-  "updated_at": "2026-10-03T01:45:00+05:30",
+  "updated_at": "2026-10-03T02:30:00+05:30",
   "session_model": "GLM-5.3-Flash (Z.ai) via ZCode",
-  "kernel_version": "0.1.0+ (ADR-030 allocation wires)",
-  "position": "ALLOCATION WIRES DONE [ADR-030]: the Allocation Principle is now kernel behaviour — planner consumes measured PersonalisationState + B9 flags (rest-day/lighten/load-cap/fatigue-blocks/avoidance, all receipt-logged), every plan names its opportunity cost (foregone), Agency Transfer measured end-to-end (agency.ts, agency_observed events, honest stages, first_independent_decision milestone, surface omits the gamifiable scalar), mismatch minimum (>=3 consecutive prediction misses flags the human-gated loop). 163/163 tests (18 files), typecheck clean, G0 four-worlds still passes. Remaining: deploy Brain Lab web + content sprint + Wave-2 gated build + limited public beta.",
-  "tests": { "passed": 163, "failed": 0, "typecheck": "clean", "docs_integrity": "green" },
+  "kernel_version": "0.1.0+ (BRAIN FREEZE v0.1 signed)",
+  "position": "BRAIN FREEZE v0.1 SIGNED [ADR-031]: Gate-0 independent inspection PASSED (diff/module map, no-second-brain, 3 live probes in scripts/freeze_probes.mts, 11 chaos tests; 5 real defects found+fixed — probe 2 caught approval-provenance gap the suite missed; dead duplicate agencyIndex retired). Freeze boundary in docs/BACKEND_FREEZE_CHECKLIST.md. Release ladder: Brain Lab deploy (Gate-2) -> content COVERAGE gate (Gate-3, 8 dimensions, not counts) parallel with FRONTEND DESIGN GATE (founder decides design; enterprise product, Brain Lab = internal instrument) -> Wave-2 -> compliance -> beta (UPSC adults first). 174/174 tests (20 files), typecheck clean.",
+  "tests": { "passed": 174, "failed": 0, "typecheck": "clean", "docs_integrity": "green" },
   "read_first": [
     "docs/FOUNDER_GUIDE.md",
     "docs/00_CHARTER.md",
@@ -22,6 +22,7 @@
     "sweep": "npx tsx kernel/src/demo/debug_sweep.ts"
   },
   "next_actions": [
+    "FRONTEND DESIGN GATE (open now, founder decides): information architecture, design system, the 7 product surfaces, receipts-as-UX, override UX, offline posture, accessibility, performance budgets — enterprise-grade, NOT the review's design",
     "Deploy Brain Lab web (built + verified; Vercel/static)",
     "Content sprint: atoms 104->150 (2 variants top-20), items 105->500, PYQ weights refine — FOUNDER/MENTOR VERIFICATION IS THE CRITICAL PATH",
     "Feed personalisation + agency into the Brain Lab surfaces (plan receipt already carries personalisationApplied + opportunity_cost; agency surface is render-ready)",

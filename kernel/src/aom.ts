@@ -49,6 +49,13 @@ export interface AomParams {
   version: string;
   /** Parameter-pack lineage — a measured pack names the assumed pack it grew from. */
   parents: string[];
+  /**
+   * Named human who approved this pack into production — stamped by
+   * approve() so the pack ITSELF carries its provenance, not just the
+   * proposal wrapper [Brain-Freeze audit probe 2, Journal 15].
+   */
+  approvedBy?: string;
+  approvedAt?: string;
   createdAt: string;
   /** Logit mastery gain per effective 10 minutes, by action. */
   gainsPer10Min: Record<AomAction, AomParamEntry>;
@@ -386,6 +393,10 @@ export function approve(proposal: ProposedAom, approver: string): AomParams {
   }
   proposal.params.createdAt = new Date().toISOString().slice(0, 10);
   proposal.approvedBy = approver;
+  // The pack itself carries the approval — a production pack with no named
+  // human behind it must not exist (probe-2 audit fix).
+  proposal.params.approvedBy = approver;
+  proposal.params.approvedAt = proposal.params.createdAt;
   return proposal.params;
 }
 

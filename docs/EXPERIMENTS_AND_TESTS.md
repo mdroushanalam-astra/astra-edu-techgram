@@ -300,3 +300,32 @@ py -m pytest backend/tests -q             # archived prototype reference suite (
 **Suite:** 18 files / **163 tests green** · typecheck clean · G0 four-worlds gate still passes.
 
 **The Allocation Principle is now behaviour, not framing:** events → measured behaviour → changed plan → receipt naming the change AND the opportunity cost → outcomes → mismatch flags → human-gated updates.
+
+---
+
+## §16 — CAMPAIGN: GATE-0 INDEPENDENT INSPECTION + BRAIN FREEZE v0.1 (ADR-031)
+**When:** 2026-10-03, ~02:00–02:30 · **Model:** GLM-5.3-Flash (Z.ai) via ZCode · **Commits:** this entry
+
+**Purpose:** verify the 163/163 claim the way an enemy would — diff, structure, live probes, failure injection, test quality — then sign the freeze. "163 tests passing proves 163 tests pass. It doesn't prove the tests are testing the right thing."
+
+**Audit results:**
+| Check | Method | Result |
+|---|---|---|
+| What changed | `git show --stat` + module map | every ADR-030 wire traced to its module |
+| No second brain | structural grep | ONE `planDay`, ONE `composeSession`, zero LLM imports |
+| Probe 1 (load tolerance) | `scripts/freeze_probes.mts` transcript | 240 min requested → 35 min planned ≤ 44 min cap; receipt names `load_cap`; unconstrained plan longer |
+| Probe 2 (mismatch chain) | live probe | prediction +0.26..+0.41 vs observed −1.56..−0.36 (real EKF) → 3 consecutive misses → `mismatchDetected` → `learnFromOutcomes` proposal (practice 0.220 → −0.090) → human gate approved → **simulator provenance BANNED by approve() throwing** |
+| Probe 3 (agency + replay) | live probe | stage progression `techgram_led`→`student_led`, transfer move offered, surface has NO scalar, **14-event replay bit-identical** |
+| Failure injection | `kernel/test/chaos_injection.test.ts` (11 tests) | 3 REAL HOLES found + fixed (below) |
+| Test quality | assertion scan | ~449 expects / 19 files; 12 `toBeDefined()` are pre-conditions, not terminal checks |
+
+**Bugs found by the audit (all fixed, all regression-locked):**
+1. **Approved AOM packs carried no approver record** — caught by live probe 2, invisible to the whole unit suite. `approve()` now stamps `approvedBy`/`approvedAt` on the pack itself. *The probes earned their keep.*
+2. **Unknown-concept events crashed replay** (`observe()` throws) — one malformed client event would break a whole history. applyEvent now consumes the event with zero evidence; deterministic.
+3. **NaN passed envelope rule 6** (`NaN < 0` is false) — finiteness now checked explicitly.
+4. **NaN day poisoned agency state** — non-finite days ignored.
+5. **Dead second `agencyIndex()` in social.ts** — turn-based, returned a raw gamifiable scalar; retired in favour of the canonical `agency.ts`.
+
+**Also:** Brain Lab production build verified healthy (80 KB gzip) + CLI demo lift vs random +5.3 — internal instrument intact, no further polish cycles.
+
+**Suite:** 20 files / **174 tests green** · typecheck clean · **BRAIN FREEZE v0.1 SIGNED** (`docs/BACKEND_FREEZE_CHECKLIST.md`). Next gate: frontend design (founder decides), content sprint parallel.

@@ -4,7 +4,7 @@
 > **Read me alone:** refreshed after every session; stands on its own. Non-technical readers: `FOUNDER_GUIDE.md` tells the same story in plain language.
 > **Integrity:** all counts in this file are backed by `COUNTERS.json` (generated from the code by `npm run counters`) and enforced by `kernel/test/docs_integrity.test.ts`. If this page contradicts reality, the docs-integrity test fails — fix reality or the doc, never silently.
 
-**Snapshot:** 2026-10-03, ~01:30 (local) · Kernel 0.1.0+ · **163/163 tests green, 18 files, typecheck clean** · Phase: **ALLOCATION WIRES DONE — the backend now *behaves* the Allocation Principle [ADR-030]; freeze inspection passed earlier; public V1-A ships when Brain Lab web + content floor land** (see `05_ROADMAP.md`) · Git: `main` — exact HEAD/commit count lives in `COUNTERS.json` (regenerated per session) · Session model: GLM-5.3-Flash (Z.ai) via ZCode
+**Snapshot:** 2026-10-03, ~02:30 (local) · Kernel 0.1.0+ · **174/174 tests green, 20 files, typecheck clean** · Phase: **BRAIN FREEZE v0.1 SIGNED [ADR-031] — Gate-0 inspection passed (5 real defects found & fixed, incl. one caught by live probes that 174 tests missed); next = frontend design gate (founder decides) + Brain Lab deploy + content coverage gate** · Git: `main` — exact HEAD/commit count lives in `COUNTERS.json` (regenerated per session) · Session model: GLM-5.3-Flash (Z.ai) via ZCode
 
 ---
 
@@ -40,6 +40,8 @@ The full closed loop exists, is proven, and now teaches: envelope → events →
 | **Opportunity cost** (every plan names the best action it gave up, with why) | ✅ live [ADR-030] | `test/allocation.test.ts` |
 | **Mismatch minimum** (≥3 consecutive prediction misses → flag to the human-gated loop) | ✅ live [ADR-030] | `test/allocation.test.ts` |
 | **Anti-Goodhart audit** (no rendered surface carries a gamifiable scalar; bands everywhere) | ✅ test-enforced | `test/allocation.test.ts` |
+| **Brain Freeze v0.1** (signed boundary; audit + probes + chaos evidence) | ✅ SIGNED [ADR-031] | `docs/BACKEND_FREEZE_CHECKLIST.md` + `scripts/freeze_probes.mts` |
+| **Chaos/failure injection** (malformed logs, poisoned numbers, impossible budgets) | ✅ live | `test/chaos_injection.test.ts` |
 | **MEMORY_OPEN** continuity move | ✅ live | `test/personalisation.test.ts` |
 | **Return Model v0 + engagement experiments** (ethics-wall registry) | ✅ live [ADR-025] | `test/personalisation.test.ts` |
 | Brain Lab demo (CLI, 5 acts) | ✅ runs | `npm run brainlab` |
@@ -77,7 +79,8 @@ Also: content-verification throughput is the schedule risk; friendly-world plann
 ## 6. How to run / verify
 
 ```
-npm test              # 163 tests incl. G0 four-worlds + docs-integrity gate
+npm test              # 174 tests incl. G0 four-worlds + chaos injection + docs-integrity gate
+npx tsx scripts/freeze_probes.mts   # the 3 live freeze probes (transcripts)
 npm run counters      # regenerate docs/COUNTERS.json from the code
 npm run brainlab      # CLI demo (5 acts)
 npm -w kernel run typecheck

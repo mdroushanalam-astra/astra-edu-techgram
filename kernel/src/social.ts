@@ -86,19 +86,11 @@ export function studyRoomInviteDecision(
 export { reportConcept };
 
 /**
- * AGENCY INDEX [ADR-027.5] — the gradient made measurable.
- * v0: fraction of strong evidence-bearing turns where the student acted
- * without hints and self-identified their uncertainty (probes answered +
- * self-corrections + independent transfers), over all turns in the window.
- * Rising over weeks = the product teaching "what learning yourself looks like".
+ * AGENCY measurement moved to `agency.ts` [ADR-030] — the single canonical
+ * implementation (decision-event based, shrinkage-smoothed, stage-only
+ * surface). The earlier turn-based `agencyIndex()` that lived here returned
+ * a raw 0..1 scalar and duplicated the concept; it was retired by the
+ * Brain-Freeze audit (no second brain, no gamifiable agency scalar).
  */
-export function agencyIndex(
-  turns: { hintsUsed: number; correct: boolean; selfIdentified?: boolean }[],
-): number {
-  if (turns.length === 0) return 0;
-  const strong = turns.filter((t) => t.hintsUsed === 0);
-  const independent = strong.filter((t) => t.correct || t.selfIdentified).length;
-  return independent / turns.length;
-}
 
 void reportConcept;

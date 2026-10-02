@@ -19,7 +19,7 @@
 **Way forward:** …
 ```
 
-**Entry index:** [00 Pre-history](#entry-00) · [01 Context absorption](#entry-01) · [02 Version-lineage audit + governance docs](#entry-02) · [03 Kernel build sprint](#entry-03) · [04 Living documentation system](#entry-04) · [05 Founder's Guide + self-sufficiency rule](#entry-05) · [06 External review adjudication (ChatGPT)](#entry-06) · [07 AOM + four-world gate](#entry-07) · [08 Teaching layer + freeze inspection](#entry-08) · [09 Audit + K12 research + frontend verdict](#entry-09) · [10 Doc repair + Wave-1 Brain Lab web](#entry-10) · [11 Phase-A personalisation core](#entry-11) · [12 S2 golden replay + S3 validation surfaces + inspection gate](#entry-12) · [13 Allocation Principle + Agency Transfer + Ship Mandate](#entry-13) · [14 The allocation wires (implemented)](#entry-14)
+**Entry index:** [00 Pre-history](#entry-00) · [01 Context absorption](#entry-01) · [02 Version-lineage audit + governance docs](#entry-02) · [03 Kernel build sprint](#entry-03) · [04 Living documentation system](#entry-04) · [05 Founder's Guide + self-sufficiency rule](#entry-05) · [06 External review adjudication (ChatGPT)](#entry-06) · [07 AOM + four-world gate](#entry-07) · [08 Teaching layer + freeze inspection](#entry-08) · [09 Audit + K12 research + frontend verdict](#entry-09) · [10 Doc repair + Wave-1 Brain Lab web](#entry-10) · [11 Phase-A personalisation core](#entry-11) · [12 S2 golden replay + S3 validation surfaces + inspection gate](#entry-12) · [13 Allocation Principle + Agency Transfer + Ship Mandate](#entry-13) · [14 The allocation wires (implemented)](#entry-14) · [15 Gate-0 inspection + Brain Freeze v0.1](#entry-15)
 
 ---
 
@@ -309,3 +309,25 @@ Also, at the founder's direction, established the **self-sufficiency rule** (reg
 **What we inferred:** the review's 35 points are now fully either already-implemented (planner/AOM/CAT/memory/receipts — verified) or wired-and-tested (the four above). The hyper-personalisation loop is CLOSED: events → measured behaviour → changed plan → receipt naming both the change and the opportunity cost → outcomes → mismatch flags → human-gated updates. What remains from the review is not kernel work at all — it is content, deployment, and the beta.
 
 **Way forward:** Brain Lab web deploy → content sprint (founder critical path) → Wave-2 gated build → limited public beta with the 4-layer measurement (Layer 4 = Agency, now measurable end-to-end).
+
+---
+
+<a name="entry-15"></a>
+## ENTRY 15 — GATE-0 INSPECTION PASSED + BRAIN FREEZE v0.1 SIGNED
+**Model:** GLM-5.3-Flash (Z.ai), agentic runtime: ZCode CLI · directed by the Founder · **When:** 2026-10-03, ~01:30–02:30 · **Commits:** this entry
+
+**What we did:** executed the Founder's directive (informed by the fourth external review): *complete audit with live probes → brain freeze → Brain Lab health check → stop at the frontend design gate.* No new features were built — this was an inspection session, as the Ship Mandate demands.
+
+**The audit (Gate-0b) and what it found:**
+1. **Structure:** diff review traced every ADR-030 wire to its module; ONE planDay, ONE composeSession, zero LLM imports — no second brain.
+2. **Live probes** (`scripts/freeze_probes.mts`, printed transcripts, not unit tests): (P1) load tolerance 40m caps a 240m budget to 35m, receipt names the reason; (P2) predicted +0.26..+0.41 vs observed −1.56..−0.36 → mismatch → learnFromOutcomes proposal (practice gain 0.220→−0.090) → human gate → simulator provenance banned by throw; (P3) agency stage progression + bit-identical 14-event replay + surface carries no scalar.
+3. **Probe 2 caught a real bug all 174 tests missed:** approved AOM packs carried no record of WHO approved them. Fixed — packs stamp `approvedBy`/`approvedAt`. This is the strongest argument for probes-over-tests we have.
+4. **Failure injection** (new permanent `chaos_injection.test.ts`, 11 tests) found three holes, all fixed + locked: unknown-concept events crashed replay; NaN confidence/uncertainty passed the envelope's bounds check (`NaN < 0` is false); NaN days poisoned agency state.
+5. **Second-brain sweep:** retired a dead turn-based `agencyIndex()` in social.ts that returned a raw gamifiable scalar — an anti-Goodhart violation waiting to be wired in.
+6. **Test quality:** ~449 assertions/19 files; the 12 `toBeDefined()` sites are pre-conditions before deeper asserts; honest limits recorded (simulator ≠ efficacy; AOM params assumed).
+
+**The freeze:** `docs/BACKEND_FREEZE_CHECKLIST.md` signed — Brain Freeze v0.1. No new cognitive subsystems before real-user evidence; correctness/security/perf/compliance changes allowed; the four NOT-frozen zones named (content, human-gated params, Wave-2-on-contracts, frontend). The release ladder adopted (inspection → freeze → Brain Lab deploy → content coverage gate ∥ frontend → Wave-2 → compliance → beta) with two rulings: **content is measured by an 8-dimension coverage gate, never a raw count**; **the first beta cohort is UPSC adults** — K12/minors stays behind the compliance ADR. Vision Ledger rows 37–42.
+
+**What we inferred:** the founder's instinct to audit before building was right — an audit of a "fully green" system found five real defects, one of which (approval provenance) touches the core trust loop. Green suites verify the paths we thought of; probes and chaos verify the paths we didn't. Also: Brain Lab is healthy (build 80 KB gzip, CLI lift +5.3) — it stays as the internal instrument, and the enterprise frontend becomes the product (founder's ruling; design to be decided together, NOT adopted from the review).
+
+**Way forward:** STOP kernel features (freeze holds). Frontend design gate is OPEN — the founder wants a real design discussion (enterprise-grade information architecture, design system, the 7 product surfaces, receipts-as-UX) before any frontend development. In parallel: Brain Lab deployment (Gate-2) and the content sprint against the coverage gate (Gate-3, founder hours).

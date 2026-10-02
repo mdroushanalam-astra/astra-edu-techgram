@@ -170,6 +170,12 @@ export function applyEvent(
       const timeSec = ev.payload.time_sec as number | undefined;
       const expected = item?.expectedTimeSec ?? 45;
 
+      // Brain-Freeze audit fix [Journal 15]: a malformed event referencing an
+      // unknown concept must never crash replay. The event is consumed
+      // (appliedKeys) but carries no belief/memory/misconception evidence —
+      // deterministic on re-replay.
+      if (model.index.get(conceptId) === undefined) break;
+
       // Evidence weighting: rapid guess → 0; hints halve; confidence scales.
       let evidenceW = 1;
       if (timeSec !== undefined && timeSec < Math.max(3, 0.15 * expected)) evidenceW = 0;

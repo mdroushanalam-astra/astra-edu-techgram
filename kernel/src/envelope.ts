@@ -106,10 +106,14 @@ export class Envelope {
     if (init.knowledge_type === "predicted" && !init.model_id) {
       throw new Error("Envelope: predicted knowledge requires model_id");
     }
-    // Rule 6: epistemic non-negativity + confidence bounds.
-    if ((init.uncertainty ?? 0) < 0) throw new Error("Envelope: uncertainty must be non-negative");
+    // Rule 6: epistemic non-negativity + confidence bounds. NaN poisons both
+    // comparisons (`NaN < 0` is false), so finiteness is checked explicitly
+    // [Brain-Freeze audit, Journal 15].
+    if (!Number.isFinite(init.uncertainty ?? 0) || (init.uncertainty ?? 0) < 0)
+      throw new Error("Envelope: uncertainty must be a finite non-negative number");
     const conf = init.confidence ?? 0.5;
-    if (conf < 0 || conf > 1) throw new Error("Envelope: confidence must be in [0,1]");
+    if (!Number.isFinite(conf) || conf < 0 || conf > 1)
+      throw new Error("Envelope: confidence must be a finite number in [0,1]");
 
     this.value = init.value;
     this.unit = init.unit;

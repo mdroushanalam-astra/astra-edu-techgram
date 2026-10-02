@@ -74,11 +74,13 @@ export function copyAgencyState(s: AgencyState): AgencyState {
 
 /**
  * Record one observed decision. Pure: returns a NEW AgencyState.
- * Unknown decision types are ignored (forward compatibility — events from a
- * newer client must not corrupt the state machine).
+ * Unknown decision types and non-finite days are ignored (forward
+ * compatibility + data hygiene — a malformed event must not poison the
+ * state machine [Brain-Freeze audit, Journal 15]).
  */
 export function observeAgency(s: AgencyState, decision: DecisionType, mode: AgencyMode, day: number): AgencyState {
   if (!DECISION_TYPES.includes(decision)) return s;
+  if (!Number.isFinite(day)) return s;
   const prev = s.decisions[decision] ?? { accepted: 0, proposed: 0, independent: 0, firstDay: day, lastDay: day };
   const next: DecisionStats = { ...prev, lastDay: Math.max(prev.lastDay, day), firstDay: Math.min(prev.firstDay, day) };
   if (mode === "accepted_recommendation") next.accepted += 1;
