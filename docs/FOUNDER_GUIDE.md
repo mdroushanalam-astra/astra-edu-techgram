@@ -212,4 +212,8 @@ We will never fake precision. We will show our uncertainty and one-tap ways to s
 
 ---
 
+**Chapter 12 — the honest design rejection (3 Oct, night).** The first two versions of the app didn't pass your eyes — "so boring," then "still fucked up." Both verdicts are recorded, word for word, because they're the most valuable design data we have. Tomorrow the redesign runs YOUR way: you direct live while watching the screen, your generated art goes in first, and nothing ships until it feels like the room in your head. The brain underneath is untouched and still frozen — only the face changes.
+
+---
+
 *This guide is maintained under the documentation protocol (see `README.md`). After every major session or event, §5–§8 are refreshed (latest: 2026-10-03, ADR-031 audit + Brain Freeze v0.1). Technical companions: `CURRENT_STATE.md` (exact status), `PROJECT_JOURNAL.md` (the full story with dates), `EXPERIMENTS_AND_TESTS.md` (every number), `00_CHARTER.md` (the soul).*

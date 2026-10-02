@@ -49,7 +49,7 @@
 | 36 | Limited public beta (Classes 6–10 + UPSC, invited cohort) instead of a private pilot | 🔶 GATED — after S2 golden gate + content floor per goal | Same measurement list, earlier public contact [ADR-028] | — |
 
 | 37 | **Brain Freeze v0.1** (no new cognitive subsystems before real-user evidence) | ✅ ADOPTED + SIGNED 2026-10-03 [ADR-031] | Ship Mandate hardened into a signed gate | Lift only via a frontend-discovered architectural hole, with evidence (ADR) |
-| 38 | Enterprise frontend as the product (Brain Lab demoted to internal instrument) | 🔶 NEXT — design gate open now | Founder ruling: the frontend is major development and gets decided here, not adopted from a review | G4 Product Experience Gate definition + design decisions recorded |
+| 38 | Enterprise frontend as the product (Brain Lab demoted to internal instrument) | ❌ REJECTED ×2 (2026-10-03) — huge founder-led redesign next day | v1 "boring", v2 "still fucked up" [Entry 19] — solo AI design judgement miscalibrated; boards are the floor | Tomorrow: founder-led live redesign; art swap-in first; then G4 |
 | 39 | Content coverage gate (coverage × measurement × diagnosis × teaching × retrieval × transfer × provenance × style variation) | ✅ ADOPTED [ADR-031] | Replaces the raw 500-item target as the content KPI | Content sprint reports against the 8 dimensions |
 | 40 | Beta cohort = UPSC adults first | ✅ ADOPTED [ADR-031] | Architecture general, evidence specific | K12/minors only behind the Gate-5 compliance ADR |
 | 41 | Mismatch transparency as a trust surface ("Techgram believed → evidence → update") | 🔶 RENDERING CONTRACT SET [ADR-031] | Data exists (predictionErrorStats, preference mismatches); frontend renders it | First frontend build |

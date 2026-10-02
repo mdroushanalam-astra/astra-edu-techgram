@@ -118,3 +118,11 @@ Adjudicated ChatGPT's parallel design response against the Founder brief + the A
 
 ## 12. THE LOCKED SPEC — ADR-032 (2026-10-03)
 **"Intelligent Sanctuary — quiet chrome, alive core."** The design gate is CLOSED. Full decision text: DECISIONS.md ADR-032; contracts: `apps/web/src/contracts/` (Sprint 0, 9 enforcement tests). Six destinations (Home · Session · Brain Map · Growth · Notebook · Settings) + two universal primitives (Why-this?, Agency moments). Claim-Provenance evidence graph · Presence Layer + SessionScene · 2.5D stagecraft hologram · capability-gated voice tiers (T0 text universal) · Watch-It-Think law · personality = kernel-state reflection · no dark patterns · local-only IndexedDB approved · six-sprint build (0 contracts ✅ → 1 design system → 2 hologram → 3 session → 4 surfaces → 5 voice+G4). **The killer prototype is ONE complete golden session; the bar is "magical, not a fancy PowerPoint with a glowing person beside it."**
+
+
+---
+
+## 13. THE REJECTION RECORD + TOMORROW'S REDESIGN PROTOCOL [Entry 19, 2026-10-03]
+Two attempts, two founder rejections in one day: v1 "Intelligent Sanctuary" deep-space minimal — **"so boring"**; v2 "The Warm Room" per his vision boards — **"still fucked up"**. Verdict: solo AI design judgement is not calibrated to the founder's taste; the boards are the floor, not the ceiling; the painterly-art gap poisons layout evaluation.
+**Tomorrow's redesign protocol (binding):** founder-led, live-in-the-loop (he watches, changes happen while he reacts) · art swap-in FIRST (his generated illustrations into the marked ART-SWAP slots) · screen-by-screen side-by-side against the boards · motion and density erred RICH, never minimal again · stack switch (incl. desktop-first) is on the table and decided by him at the top of the session.
+**What survives both rejections (the rails):** kernel adapter + claim-provenance law · six-surface IA · understanding bars / why-reasons / growth / agency / curiosity data flows · IDB persistence · session mechanics (v1 conductor) · ART-SWAP slot structure. The redesign is a visual/experience rebuild on these rails — kernel untouched, freeze intact [ADR-031].

@@ -4,7 +4,7 @@
 > **Read me alone:** refreshed after every session; stands on its own. Non-technical readers: `FOUNDER_GUIDE.md` tells the same story in plain language.
 > **Integrity:** all counts in this file are backed by `COUNTERS.json` (generated from the code by `npm run counters`) and enforced by `kernel/test/docs_integrity.test.ts`. If this page contradicts reality, the docs-integrity test fails — fix reality or the doc, never silently.
 
-**Snapshot:** 2026-10-03, ~02:30 (local) · Kernel 0.1.0+ · **183/183 tests green (kernel 174 + frontend contracts 9), 21 files, typecheck clean** · Phase: **THE INTELLIGENT SANCTUARY IS BUILT [ADR-032] — all six destinations live + browser-verified (Astra the hologram, living blackboard, golden-session loop, why-this receipts, grey-mist map, agency gradient, local persistence); STOPPED AT THE FRONTEND INSPECTION GATE for founder review** · Kernel: Brain Freeze v0.1 [ADR-031] · Git: `main` — exact HEAD/commit count lives in `COUNTERS.json` (regenerated per session) · Session model: GLM-5.3-Flash (Z.ai) via ZCode
+**Snapshot:** 2026-10-03, ~02:30 (local) · Kernel 0.1.0+ · **183/183 tests green (kernel 174 + frontend contracts 9), 21 files, typecheck clean** · Phase: **FRONTEND REJECTED (v2) — founder verdict: "still fucked up" after two attempts (v1 deep-space "boring", v2 Warm Room); HUGE REDESIGN TOMORROW (2026-10-04), founder-led, live-in-the-loop, art swap-in first** · Kernel: Brain Freeze v0.1 intact [ADR-031] · Design language: founder's vision boards are the floor, not the ceiling
 
 ---
 
@@ -43,7 +43,7 @@ The full closed loop exists, is proven, and now teaches: envelope → events →
 | **Brain Freeze v0.1** (signed boundary; audit + probes + chaos evidence) | ✅ SIGNED [ADR-031] | `docs/BACKEND_FREEZE_CHECKLIST.md` + `scripts/freeze_probes.mts` |
 | **Chaos/failure injection** (malformed logs, poisoned numbers, impossible budgets) | ✅ live | `test/chaos_injection.test.ts` |
 | **Frontend contracts (Sprint 0, ADR-032)** — claim-provenance evidence graph, scene graph, voice tiers, surfaces | ✅ live | `apps/web/test/contracts.test.ts` |
-| **THE SANCTUARY (Sprints 1–5, ADR-032)** — Astra hologram + blackboard + session + 5 surfaces + voice + IDB persistence, browser-verified | ✅ live | `apps/web` · commit `6822c7b` · screenshots in session artifacts |
+| **THE SANCTUARY (Sprints 1–5, ADR-032)** — built + browser-verified but **REJECTED by the founder (Entry 19)** — huge redesign tomorrow | 🔶 rebuilt next | `apps/web` · kernel rails + ART-SWAP slots survive |
 | **MEMORY_OPEN** continuity move | ✅ live | `test/personalisation.test.ts` |
 | **Return Model v0 + engagement experiments** (ethics-wall registry) | ✅ live [ADR-025] | `test/personalisation.test.ts` |
 | Brain Lab demo (CLI, 5 acts) | ✅ runs | `npm run brainlab` |
@@ -61,8 +61,8 @@ The full closed loop exists, is proven, and now teaches: envelope → events →
 
 ## 4. Next actions (ordered)
 
-1. ~~Wave 1 — Brain Lab web~~ **DONE (16:10)** — built + browser-verified; deployment pending.
-2. **Content sprint** (parallel, Founder + mentor): items 105→500, atoms 104→150, PYQ weights refine.
+1. **THE HUGE FRONTEND REDESIGN (tomorrow, 2026-10-04)** — founder-led, live-in-the-loop, screen by screen; art swap-in first (his generated illustrations into the ART-SWAP slots); motion/density erred rich; stack option (incl. desktop) stays open.
+2. **Content sprint** (parallel, Founder + mentor): items 105→500, atoms 104→150 — **still the true critical path, unaffected by the redesign.**
 3. ~~Wire Personalisation State + Agency Index into kernel decisions~~ **DONE (ADR-030, Entry 14)** — measured behaviour now changes plans; agency measured end-to-end.
 4. **Exercise Brain Lab against sealed hidden worlds** before any public claim (ADR-016 claim discipline).
 5. **Wave-2 (gated):** persistence → sync/recompute → tamper test → offline chaos → student PWA.

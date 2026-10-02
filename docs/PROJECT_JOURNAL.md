@@ -19,7 +19,7 @@
 **Way forward:** …
 ```
 
-**Entry index:** [00 Pre-history](#entry-00) · [01 Context absorption](#entry-01) · [02 Version-lineage audit + governance docs](#entry-02) · [03 Kernel build sprint](#entry-03) · [04 Living documentation system](#entry-04) · [05 Founder's Guide + self-sufficiency rule](#entry-05) · [06 External review adjudication (ChatGPT)](#entry-06) · [07 AOM + four-world gate](#entry-07) · [08 Teaching layer + freeze inspection](#entry-08) · [09 Audit + K12 research + frontend verdict](#entry-09) · [10 Doc repair + Wave-1 Brain Lab web](#entry-10) · [11 Phase-A personalisation core](#entry-11) · [12 S2 golden replay + S3 validation surfaces + inspection gate](#entry-12) · [13 Allocation Principle + Agency Transfer + Ship Mandate](#entry-13) · [14 The allocation wires (implemented)](#entry-14) · [15 Gate-0 inspection + Brain Freeze v0.1](#entry-15) · [16 Design gate closes + Sprint-0 contracts](#entry-16) · [17 The Sanctuary is built](#entry-17) · [18 The Warm Room (founder boards)](#entry-18)
+**Entry index:** [00 Pre-history](#entry-00) · [01 Context absorption](#entry-01) · [02 Version-lineage audit + governance docs](#entry-02) · [03 Kernel build sprint](#entry-03) · [04 Living documentation system](#entry-04) · [05 Founder's Guide + self-sufficiency rule](#entry-05) · [06 External review adjudication (ChatGPT)](#entry-06) · [07 AOM + four-world gate](#entry-07) · [08 Teaching layer + freeze inspection](#entry-08) · [09 Audit + K12 research + frontend verdict](#entry-09) · [10 Doc repair + Wave-1 Brain Lab web](#entry-10) · [11 Phase-A personalisation core](#entry-11) · [12 S2 golden replay + S3 validation surfaces + inspection gate](#entry-12) · [13 Allocation Principle + Agency Transfer + Ship Mandate](#entry-13) · [14 The allocation wires (implemented)](#entry-14) · [15 Gate-0 inspection + Brain Freeze v0.1](#entry-15) · [16 Design gate closes + Sprint-0 contracts](#entry-16) · [17 The Sanctuary is built](#entry-17) · [18 The Warm Room (founder boards)](#entry-18) · [19 v2 rejected — huge redesign tomorrow](#entry-19)
 
 ---
 
@@ -384,3 +384,24 @@ Also, at the founder's direction, established the **self-sufficiency rule** (reg
 **Honest gaps (next polish pass):** mentor composition (he should sit at the desk; currently floats), richer room art, generated-illustration swap-in (ART-SWAP slots marked in code), voice-in wiring, service worker, full conversation loop (Show Why triggers the thinking sequence; the complete answer flow reuses the v1 conductor).
 
 **Way forward:** founder walkthrough of the Warm Room → polish pass per his notes → then back to the gates (deploy decision, content sprint).
+
+---
+
+<a name="entry-19"></a>
+## ENTRY 19 — THE VERDICT: v2 rejected too. Huge redesign tomorrow, founder-led.
+**Model:** GLM-5.3-Flash (Z.ai), agentic runtime: ZCode CLI · directed by the Founder · **When:** 2026-10-03, ~05:45 · **Commits:** this entry
+
+**The founder's reaction to the Warm Room build, recorded verbatim-in-spirit:** "it's still fucked up — we will have to make a huge redesign of it tomorrow."
+
+**What this means (honest reading):** two design attempts, two rejections in one day — v1 deep-space minimal ("so boring") and v2 Warm Room ("still fucked up"). The gap between the founder's AI-generated vision boards and what code produced is still large — and my solo design judgement is evidently NOT calibrated to his taste. The boards are the FLOOR, not the ceiling, and part of the gap is art quality (coded SVG vs painterly generated illustration), part is composition/motion/density that I keep undershooting.
+
+**The redesign protocol for tomorrow (2026-10-04), inferred from both rejections:**
+1. **Founder-led, live-in-the-loop** — no more build-alone-then-present. He watches the browser; changes happen while he reacts. Screen by screen, side-by-side against his boards.
+2. **Art swap-in FIRST** — drop his generated illustrations into the marked ART-SWAP slots (mentor, room) before judging layout; the painterly gap is poisoning the evaluation of everything else.
+3. **Motion and density get overdone, not underdone** — both rejections read as "not enough happening"; tomorrow errs rich.
+4. **Stack option stays open** — the founder twice offered a language switch / desktop-first path; if the redesign wants it, we take it (the kernel is importable from anything via TS; nothing is locked).
+5. **Nothing else gates on this** — kernel frozen (ADR-031), content sprint parallel, deploy decision waits for an accepted frontend.
+
+**What survived the rejection (stable for tomorrow):** the kernel adapter + provenance law, the six-surface information architecture, the understanding bars / why-reasons / agency / growth data flows, IDB persistence, the ART-SWAP slots, the session mechanics from the v1 conductor. The redesign is a visual/experience rebuild on these rails.
+
+**Way forward:** tomorrow: the huge redesign session — founder directs live, screen by screen; art swap-in first; then and only then re-run the inspection gate.
