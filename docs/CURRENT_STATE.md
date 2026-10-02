@@ -4,7 +4,7 @@
 > **Read me alone:** refreshed after every session; stands on its own. Non-technical readers: `FOUNDER_GUIDE.md` tells the same story in plain language.
 > **Integrity:** all counts in this file are backed by `COUNTERS.json` (generated from the code by `npm run counters`) and enforced by `kernel/test/docs_integrity.test.ts`. If this page contradicts reality, the docs-integrity test fails — fix reality or the doc, never silently.
 
-**Snapshot:** 2026-10-02, ~20:15 (local) · Kernel 0.1.0+ · **134/134 tests green, 16 files, typecheck clean** · Phase: **V1-A INTELLIGENCE-KERNEL GATE SUBSTANTIALLY COMPLETE — on the public-release runway** (public V1-A ships when Brain Lab web + content floor land; see `05_ROADMAP.md`) · Git: `main`, 14 commits (`5036cee`) · Session model: GLM-5.3-Flash (Z.ai) via ZCode
+**Snapshot:** 2026-10-02, ~21:00 (local) · Kernel 0.1.0+ · **144/144 tests green, 17 files, typecheck clean** · Phase: **S2+S3 COMPLETE — INSPECTION GATE PASSED, backend freeze ready** (public V1-A ships when Brain Lab web + content floor land; see `05_ROADMAP.md`) · Git: `main`, 17 commits (`2984650`) · Session model: GLM-5.3-Flash (Z.ai) via ZCode
 
 ---
 
@@ -32,6 +32,8 @@ The full closed loop exists, is proven, and now teaches: envelope → events →
 | **Closed teaching loop** (`runTeachingSession`, injected Responder) | ✅ live | `test/freeze_inspection.test.ts` |
 | **Goal-agnosticism** (UPSC + CBSE Cl-8 as config) | ✅ live | `test/k12_goal_agnostic.test.ts` |
 | **Docs-integrity gate** (COUNTERS.json vs docs vs code) | ✅ live | `test/docs_integrity.test.ts` |
+| **S2 golden replay (Worlds A-H)** | ✅ all worlds pass | `test/golden_session.test.ts` |
+| **S3 validation surfaces** (growth receipt, capability journey, changed-my-mind) | ✅ live | `test/golden_session.test.ts` |
 | **Personalisation State v1** (momentum, fatigue, frustration, load, session length, chronotype, avoidance, recovery — measured, no labels) | ✅ live [ADR-024] | `test/personalisation.test.ts` |
 | **MEMORY_OPEN** continuity move | ✅ live | `test/personalisation.test.ts` |
 | **Return Model v0 + engagement experiments** (ethics-wall registry) | ✅ live [ADR-025] | `test/personalisation.test.ts` |
