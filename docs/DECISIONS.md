@@ -164,3 +164,10 @@ Full review read line-by-line; each point adjudicated against the built kernel +
 **Decision:** frontend development proceeds in **two waves**. **Wave 1 — Brain Lab web** (Next.js over the kernel package; pure presentation; no server, accounts, or data risk; the kernel is TypeScript and runs client-side per ADR-001). **Wave 2 — Student PWA** (S1–S6 screens + IndexedDB event log + sync server with recompute-and-verify + auth + push delivery). Blueprint: `06_FRONTEND_BLUEPRINT.md` (7 screens mirroring kernel organs; belief bands as the star animation; grey mist sacred; zero dark patterns).
 **Condition:** content depth (atoms 105→150, items 105→500, Founder/mentor verification) grows in parallel — it is the only real bottleneck.
 **Rejected:** building Wave-2 before Wave-1 (data risk before proof); a native-first mobile app (slower; the PWA + on-device kernel is moat M5's path).
+
+### ADR-022 — Doc-integrity gate: generated counters, not hand-counted — ACCEPTED (2026-10-02)
+**Decided by:** GLM-5.3-Flash (Z.ai) via ZCode, on the Founder's audit question and the external review's snapshot-drift finding.
+**Context:** CURRENT_STATE.md drifted (fresh head over stale body) and our own "105 atoms" claim was wrong — generated truth = 104. Hand-counted numbers in prose failed twice in one week.
+**Decision:** (1) `scripts/write_counters.mts` generates `docs/COUNTERS.json` from the live code (imports the banks, reads git) — the single source of every count. (2) `kernel/test/docs_integrity.test.ts` fails CI when CURRENT_STATE/RESUME claims diverge from COUNTERS.json, and when registered stale claims (e.g. "150 atoms = 0", "no repo initialized") ever reappear. (3) Prose cites counts only as generated values; `npm run counters` runs before every protocol commit.
+**Rejected:** trusting session-report prose (failed twice); a human docs-reviewer step (slow, and humans are the error source here).
+**Consequence:** doc drift is a build error, not a ChatGPT finding. Registered stale lies are permanent tripwires.

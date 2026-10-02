@@ -70,7 +70,8 @@ npm test              # 116 tests incl. G0 four-worlds + docs-integrity gate
 npm run counters      # regenerate docs/COUNTERS.json from the code
 npm run brainlab      # CLI demo (5 acts)
 npm -w kernel run typecheck
-cd apps/brainlab && npm run dev   # Wave-1 web (this session)
+cd apps/brainlab && npm run dev       # Wave-1 web (dev)
+cd apps/brainlab && npm run preview  # Wave-1 web (production build, localhost:4174)
 ```
 
 ## 7. Pointers

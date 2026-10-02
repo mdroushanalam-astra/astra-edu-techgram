@@ -195,6 +195,7 @@ You will meet these words in the other documents. Here they are in plain languag
 - **Gates (G0…G6)** — pre-agreed quality bars; a phase cannot advance until its gate passes. Protects you from self-deception.
 - **Pilot / G3** — the first 20–30 real users; the pre-registered retention bar decides go/no-go.
 - **Moat** — the compounding advantage competitors can't buy: our outcome dataset and trust.
+- **Doc-integrity gate / COUNTERS.json** — a script counts everything in the code (questions, teaching scripts, tests, commits) and a test fails the build if any document's numbers drift from reality. Hand-counting was banned after the counts lied twice in one week.
 - **ADR / Decision register** — the ledger where every big decision and its reasons are written.
 - **No-upgrade invariant** — a fact can never quietly promote itself to "more proven than it is." (This rule applies to our documents too.)
 

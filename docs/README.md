@@ -28,6 +28,7 @@ This is enforced by three rules:
 | 4 | **`DECISIONS.md`** | ADR register: every idea/architecture/scope change, why, what was rejected, cost. | Whenever a decision is made or reversed | Append new ADRs; supersede, never erase |
 | 5 | **`RESUME.json`** | Machine-readable pointer: position, next actions, gates, invariants — for any model to bootstrap instantly. | **After EVERY session** | Overwrite |
 | 6 | **`README.md`** (this file) | Mother index + protocol + last-updated ledger. | **After EVERY session** | Overwrite ledger section; protocol is stable |
+| 7.5 | **`COUNTERS.json`** | GENERATED count registry (atoms/items/concepts/tests/commits) — the single source every doc count must match. Regenerate: `npm run counters`. Enforced by the docs-integrity test. | **After every content or test change** | Generated — never hand-edit |
 | 7 | `01_COMPLETE_AUDIT.md` | Version-lineage audit (founding reconciliation). | Frozen historical record | Read-only (corrections via DECISIONS) |
 | 8 | `02_NORTH_STAR.md` | Operational north star: identity, design law, Astra-replication, claims. | Only via ADR | Deliberate edits |
 | 9 | `03_GOALS.md` | Goals, V1 definition of done, gates, kill/continue criteria. | On gate changes (via ADR) | Deliberate edits |
