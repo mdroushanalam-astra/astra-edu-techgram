@@ -3,13 +3,13 @@
 
 > **Read me alone:** this page is refreshed after every session and is written to stand on its own — what works, what doesn't, what's next, and how to verify it. Non-technical readers: `FOUNDER_GUIDE.md` tells the same story in plain language.
 
-**Snapshot:** 2026-10-02, ~11:45 (local) · Kernel 0.1.0 · **58/58 tests green, typecheck clean** · Phase: **1 complete → V1-A (The Brain) next** · Branch: n/a (no git repo yet — see risks) · Session model: GLM-5.3-Flash (Z.ai) via ZCode · **Spec updated by external review adjudication (ADR-014…019) — code intentionally unchanged (founder instruction)**
+**Snapshot:** 2026-10-02, ~13:00 (local) · Kernel 0.1.0+ (commits `d535e9b`, `b44fa3c`) · **77/77 tests green, typecheck clean** · Phase: **V1-A "The Brain" — AOM + four worlds DONE; teacher next** · Git: initialized (`main`, 2 commits) · Session model: GLM-5.3-Flash (Z.ai) via ZCode
 
 ---
 
 ## 1. One-paragraph position
 
-The complete deterministic intelligence core exists and is proven in the TypeScript kernel: envelope → events → belief (graph-prior Kalman) → memory (FSRS-lite) → exam Monte-Carlo → CAT diagnostic → robust exam-date planner with receipts → simulator-verified against baselines. Zero LLM anywhere. A Polity seed (10 topics / 40 concepts / 80 tagged items) gives it something to reason over. What does NOT exist yet: the teaching surface (composer/teacher/atoms), mock post-mortem, behaviour engine, and any UI. The Python prototype is archived as reference. The doc system (Charter/Journal/Experiments/Decisions/README protocol) went live this session.
+The complete deterministic intelligence core exists and is proven — now with its learning organ. The TS kernel carries: envelope → events → belief (graph-prior Kalman) → memory → exam Monte-Carlo → CAT diagnostic → **B5.5 Action Outcome Model** (predictions recorded before every action, evidence-based outcomes, shrinkage learning, human-gated updates, closed-loop ban enforced in code) → robust planner → receipts. The simulator gate is now **four generative worlds** (friendly/misspecified/adversarial/sealed-hidden), and the planner passed all of them — its edge *grows* as worlds diverge from its assumptions. Zero LLM anywhere. Polity seed (10 topics / 40 concepts / 80 tagged items). What does NOT exist yet: the teaching surface (composer/teacher/atoms), mock post-mortem, behaviour engine, any UI. The Python prototype is archived as reference. Repo is now git-versioned.
 
 ## 2. What works (verified — see EXPERIMENTS_AND_TESTS for numbers)
 
@@ -17,14 +17,16 @@ The complete deterministic intelligence core exists and is proven in the TypeScr
 |---|---|---|
 | Learning Envelope (7 rules + no-upgrade) | ✅ live | `test/envelope.test.ts` |
 | Belief engine (prior, EKF, decay, Elo 2nd opinion, honest bands) | ✅ live | `test/belief.test.ts` |
-| Memory engine (FSRS-lite, spacing rule) | ✅ live | `test/memory.test.ts` + ADR-006 |
+| Memory engine (Techgram Memory Model, spacing rule) | ✅ live | `test/memory.test.ts` + ADR-006 |
+| **B5.5 Action Outcome Model** (predict→record→act→observe→error→approve, closed-loop ban) | ✅ live | `test/aom.test.ts` + end-to-end loop test |
 | Exam Monte-Carlo (negative marking, attempt policy) | ✅ live | `test/exam.test.ts` |
 | CAT diagnostic (info gain, 20–25 items, bands) | ✅ live | `test/diagnostic.test.ts` |
-| Planner (robust, VoI, prereq sequencing, triage, review quota) | ✅ live | `test/planner.test.ts` + sweep §5 |
+| Planner (robust, VoI, prereq sequencing, triage, review quota; gains 100% AOM-sourced) | ✅ live | `test/planner.test.ts` + sweep §5 |
 | Event fabric (idempotent, replay == fold, bit-identical) | ✅ live | `test/events.test.ts` + replay test |
-| Receipts (assumptions, unknowns, outcome join) | ✅ live | `test/planner.test.ts` |
-| Planner beats baselines (archetype aggregate) | ✅ +2.4 vs fixed / +6.2 vs random (30d) | sweep §5 |
-| Brain Lab demo | ✅ runs end-to-end | `npm run brainlab` |
+| Receipts (AOM version, per-block predictions, assumptions, outcome join) | ✅ live | `test/planner.test.ts` |
+| **G0 four worlds** (friendly/misspecified/adversarial/sealed-hidden) | ✅ planner useful in ALL; edge grows hostile | `test/g0_worlds.test.ts` + EXPERIMENTS §10 |
+| Brain Lab demo (CLI) | ✅ runs end-to-end | `npm run brainlab` |
+| Git version control | ✅ `main`, 2 commits | `git log` |
 | Python prototype | 🗄️ archived reference (50/50) | EXPERIMENTS §2 |
 
 ## 3. What does NOT exist yet (honest)

@@ -127,27 +127,55 @@ Archetypes: consistent, crammer, avoidant, drifter (adherence varies; pedagogy i
 
 ## §8 — PROGRESS CHART (project-level, updated per campaign)
 
-| Metric | 2026-10-01 (prototype) | 2026-10-02 (kernel sprint) | Target V1 |
-|---|---|---|---|
-| Runtime kernel | Python (archived) | **TS: 11 modules, ~2,900 lines** | + B7/B8/B9/B11 |
-| Tests | 50/50 (Python) | **58/58 (TS) + typecheck clean** | 100+ incl. chaos |
-| Verified items | ~40 (Python bank) | **80 (TS seed, tagged)** | 500 |
-| Concepts / topics | ~12 / 2 | **40 / 10** | 150 / 35 |
-| Misconception tags | 0 | **33** | 60–100 |
-| Planner vs random (30d, aggregate) | — | **+6.2 marks** | maintain ≥ +5 |
-| Planner vs fixed (30d, aggregate) | — | **+2.4 marks** | grow via data |
-| LLM decisions | 0 | **0 (structural)** | 0 forever |
-| Gates passed | — | G1, G2, G0-lite (aggregate), estimator honesty | G0 full, G3 pilot |
+| Metric | 2026-10-01 (prototype) | 2026-10-02 (kernel sprint) | 2026-10-02 (B5.5 + four worlds) | Target V1-A |
+|---|---|---|---|---|
+| Runtime kernel | Python (archived) | **TS: 11 modules, ~2,900 lines** | **TS: 12 modules incl. aom.ts** | + B7/B8/B9/B11 |
+| Tests | 50/50 (Python) | 58/58 (TS) | **77/77 (TS) + typecheck clean** | 100+ incl. chaos |
+| Simulator gate | — | 1 world (friendly) | **4 worlds, planner useful in ALL** | maintain |
+| Action outcomes | hardcoded in planner | hardcoded in planner | **AOM: predicted, recorded, versioned, human-gated** | measured from pilot |
+| Verified items | ~40 (Python bank) | **80 (TS seed, tagged)** | 80 (TS seed, tagged) | 500 |
+| Concepts / topics | ~12 / 2 | **40 / 10** | 40 / 10 | 150 / 35 |
+| Misconception tags | 0 | **33** | 33 | 60–100 |
+| Planner vs random (30d, aggregate) | — | **+6.2 marks** | +6.2 marks (bit-identical regression ✓) | maintain |
+| Planner vs fixed (30d, aggregate) | — | **+2.4 marks** | +2.4 marks (bit-identical regression ✓) | grow via data |
+| LLM decisions | 0 | **0 (structural)** | 0 (structural) | 0 forever |
+| Gates passed | — | G1, G2, G0-lite (aggregate) | **G0 (four worlds), G1, G2, estimator honesty, AOM loop** | G3 pilot |
 
 ---
 
 ## §9 — HOW TO REPRODUCE EVERYTHING
 ```
-npm test                                  # 58 tests + gates (root)
+npm test                                  # 77 tests + four-world G0 gate (root)
 npm -w kernel run typecheck               # strict typecheck
 npm run brainlab                          # public demo (4 acts)
 npx tsx kernel/src/demo/debug_sweep.ts    # horizon sweep table (§5)
 npx tsx kernel/src/demo/debug_planner.ts  # instrumented single-run (__TECHGRAM_DEBUG__ tap)
+npx vitest run test/g0_worlds.test.ts -w kernel  # four-world G0 table (visible output)
 py -m pytest backend/tests -q             # archived prototype reference suite (50/50)
 ```
 *Seeds are fixed everywhere; all runs are deterministic. If a number above doesn't reproduce, that is an anomaly — register it in §7, don't explain it away.*
+
+---
+
+## §10 — CAMPAIGN: B5.5 AOM + FOUR-WORLD GATE (ADR-015/016 implemented)
+**When:** 2026-10-02, ~11:50–13:00 · **Model:** GLM-5.3-Flash (Z.ai) via ZCode · **Commits:** `d535e9b` (initial), `b44fa3c` (B5.5 + worlds)
+
+**What was built:** `kernel/src/aom.ts` — predictAction (Δmastery/stability/uncertainty/fatigue, provenance-stamped, deterministic), predictDiagnoseUncertainty, learnFromOutcomes (shrinkage pooling k=20), approve() human gate with the **CLOSED-LOOP BAN** (simulator-provenance proposals throw on approval; only `pilot` data may become production parameters). Planner rewired: gains sourced exclusively from the AOM; every PlanBlock carries its prediction recorded *before* the action; receipts expose `aom_version` + per-block predictions + per-gain `assumed|measured` assumptions. Lab: per-block outcome records (evidence-based belief shifts, never simulator constants) + four generative worlds.
+
+**G0 FOUR-WORLDS RESULTS (30 days, 8 students/world, 240 min/day; pass rule pre-registered in test):**
+
+| World | Techgram | Fixed order | Random | Lift vs BEST baseline | Calibration |
+|---|---|---|---|---|---|
+| A_friendly | **139.8** | 139.3 | 135.9 | +0.43 | 9.9 pts |
+| B_misspecified | **128.1** | 122.8 | 121.6 | **+5.31** | 7.4 pts |
+| C_adversarial | **127.5** | 123.2 | 123.3 | **+4.11** | 6.4 pts |
+| D_hidden1 (sealed) | **127.5** | 121.8 | 122.2 | **+5.22** | 7.1 pts |
+| D_hidden2 (sealed) | **133.7** | 128.7 | 132.3 | +1.42 | 8.2 pts |
+
+**The headline finding — and it is a beautiful one:** the planner's edge is THINNEST in the friendly world it was designed for (+0.4) and LARGEST exactly where assumptions break (+5.3 misspecified, +4.1 adversarial, +5.2 hidden). Robustness — intelligence measure #5 — is now measured, not claimed. The honest cost: the friendly-world margin is thinner than the old single-seed aggregate suggested (re-baselining did its job).
+
+**Regression proof:** the three-horizon sweep (§5) is bit-identical post-refactor (140.8/146.8/153.6) — the AOM extraction preserved behaviour where it should and added the organ where it must.
+
+**Seal:** `worlds.hidden.json` sealed at FNV-1a `c31cd9d5` (UTF-8 bytes); test fails on any tamper. First incident: the seal check itself caught a real hash mismatch during bring-up (the test initially hashed UTF-16 code units; the em-dash in the JSON note exposed it) — fixed by hashing bytes; an honest example of the seal working.
+
+**Suite:** 10 files / **77 tests green**, typecheck clean. New tests: aom.test.ts (11 — prediction sanity, single triage application, shrinkage, provenance ban, named human gate, lineage), g0_worlds.test.ts (5 — four worlds + visible table), end-to-end loop test (sim → outcome records → learner → lineage-linked proposal → ban enforced).

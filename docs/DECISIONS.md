@@ -116,25 +116,21 @@ Full review read line-by-line; each point adjudicated against the built kernel +
 | 46–47 | Per-document verdicts; obsess over the 6 questions (better decision than baseline? explain? survive LLM-unplugged? survive wrong assumptions? learn from wrong? prove improvement?) | **ACCEPT** | Six questions adopted as the standing obsession test in Goals |
 | — | Reviewer caveat: could not re-check historical source files (only the synthesis set) | NOTED | Our lineage was checked against sources at Entry 02; no action |
 
-### ADR-015 — NEW MODULE B5.5: Action Outcome Model (AOM) — ACCEPTED (2026-10-02)
+### ADR-015 — NEW MODULE B5.5: Action Outcome Model (AOM) — ACCEPTED → **IMPLEMENTED** (2026-10-02, commit `b44fa3c`)
 **Decided by:** GLM-5.3-Flash (Z.ai) via ZCode, adopting ChatGPT's proposal; founder-directed review.
-**Decision:** add **B5.5 — Action Outcome Model** to the architecture between the belief engine and the planner. It answers: *given this student state, concept, action, duration, context — what distribution of outcomes should we expect?* (Δmastery, Δretention, exam-value marks, fatigue, uncertainty-reduction — each with confidence).
-- V1 (no data): AOM **is** the versioned prior table (currently `gainPer10Min`) + the never-self-fooling loop: **PRIOR → PREDICTION (recorded in the receipt BEFORE action) → ACTION → OBSERVED OUTCOME → PREDICTION ERROR → MODEL UPDATE (human-gated, versioned)**.
-- The planner consumes AOM outputs; it never hardcodes gains again.
-- **Closed-loop hallucination ban:** a gain value may never be "validated" by a simulator that assumed the same value; only real outcomes (or explicitly independent worlds per ADR-016) update AOM parameters. The `assumed → measured` badge migration is the AOM's public face.
-**Rejected:** building ML outcome models now (no data); leaving gains inside planner params (the critique's correct charge: that makes the planner "a sophisticated heuristic optimizer").
-**Code impact (deferred to Phase 2, founder instruction):** extract `gainPer10Min` from planner params into `aom.ts`; populate `actual_outcome` + `prediction_error` in receipts; wire `joinOutcome` into the session loop.
+**Implementation:** `kernel/src/aom.ts` — `predictAction` (deterministic, provenance-stamped predictions), `predictDiagnoseUncertainty`, `learnFromOutcomes` (shrinkage pooling, priorStrength k=20), `approve()` human gate enforcing the **closed-loop ban in code** (simulator-provenance proposals throw). Planner sources ALL gains from the AOM (`gainPer10Min` removed from planner params); every PlanBlock carries its prediction recorded before the action; receipts expose `aom_version` + per-block predictions + per-gain `assumed|measured` assumptions. Lab emits per-block outcome records from evidence-based belief shifts. Regression: sweep bit-identical; 77/77 tests.
 
-### ADR-016 — G0 redefined: four simulator worlds — ACCEPTED (2026-10-02)
+### ADR-016 — G0 redefined: four simulator worlds — ACCEPTED → **IMPLEMENTED** (2026-10-02, commit `b44fa3c`)
 **Decided by:** GLM-5.3-Flash via ZCode, adopting ChatGPT's critique; founder-directed.
 **Old G0:** "planner beats baselines in our simulator." **Necessary but insufficient — a simulator built from the planner's own assumptions can crown the planner in a world designed to agree with it.**
 **New G0:** *"the planner remains useful — superior or competitive vs baselines — across multiple, partly unseen generative worlds":*
 - **World A (Friendly):** truth generated per Techgram assumptions (current lab).
-- **World B (Misspecified):** different forgetting dynamics, different gain magnitudes/ordering, heavier response noise, different adherence processes. (Partially exists: noisy stabilities, ±0.4 difficulties, gain jitter, archetypes — to be deepened.)
-- **World C (Adversarial):** planner's beliefs sabotaged — an already-mastered concept flagged weak; overreported confidence; noisy response times; gains halved; one prerequisite edge wrong; abrupt availability changes.
-- **World D (Hidden benchmark):** frozen world configurations whose parameters the kernel/planner developers never see; run before each release.
+- **World B (Misspecified):** different forgetting dynamics, different gain magnitudes/ordering, heavier response noise, prereq edges that barely matter in truth.
+- **World C (Adversarial):** halved gains, overreported confidence on every response, 30% of concepts pre-mastered against the prior, availability collapse mid-schedule.
+- **World D (Hidden benchmark):** `kernel/src/lab/worlds.hidden.json` — **sealed** at FNV-1a `c31cd9d5` (UTF-8 bytes), hash pinned in `test/g0_worlds.test.ts`; any tamper fails CI. Rotate only via a new ADR.
+**Implementation:** SimWorld configs in `lab.ts`; production AOM fixed across all worlds (the brain is never told which world it is in); per-registered pass rule in `test/g0_worlds.test.ts` with a visible results table.
+**Results:** planner superior in A (+0.43 vs best baseline), strongly superior in B (+5.31), C (+4.11), D1 (+5.22), competitive-superior in D2 (+1.42) — the edge GROWS as worlds diverge from assumptions. Full table: EXPERIMENTS §10.
 **Claim discipline:** public claims cite World D results or real-pilot data only. Worlds A–C are named as friendly/misspecified/adversarial in Brain Lab.
-**Code impact (deferred):** extend `lab.ts` with world configs + a frozen `benchmark_worlds.json` (params never committed alongside planner changes... committed once, then sealed).
 
 ### ADR-017 — V1 split into V1-A (The Brain, public) and V1-B (The Student Product); parent report deferred — ACCEPTED (2026-10-02)
 **Decided by:** GLM-5.3-Flash via ZCode, adopting ChatGPT; founder-directed (aligns with the 50-hour public-ready directive).
