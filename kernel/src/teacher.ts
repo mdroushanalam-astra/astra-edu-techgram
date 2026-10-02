@@ -28,6 +28,7 @@ import {
 } from "./diagnosis.js";
 
 export type TeacherMoveId =
+  | "MEMORY_OPEN"
   | "DIAGNOSTIC_PROBE"
   | "EXPLAIN"
   | "WORKED_EXAMPLE"
@@ -82,6 +83,8 @@ export interface TeacherState {
   activeItem?: Item;
   /** Moves executed for the current segment (by id, for the transcript). */
   segmentMoveLog: TeacherMoveId[];
+  /** MEMORY_OPEN fires at most once per session. */
+  usedMemoryOpen: boolean;
   /** Minutes consumed in the current segment. */
   segmentMinutesSpent: number;
   /** Retrieval successes in the current segment (of attempts). */
@@ -101,6 +104,7 @@ export function startTeacherSession(): TeacherState {
     hintLevel: 0,
     hintShownLevel: 0,
     activeItemWrongs: 0,
+    usedMemoryOpen: false,
     segmentMoveLog: [],
     segmentMinutesSpent: 0,
     retrievalCorrect: 0,
@@ -128,6 +132,12 @@ function pickItem(model: BeliefModel, conceptId: string, used: Set<string>): Ite
  * The move-selection rule table (deterministic policy — v2x §10.2, trimmed to
  * what V1's evidence channels can support). Segment-kind aware.
  */
+export interface MemoryOpenSignal {
+  conceptId: string;
+  label: string;
+  wrongCount: number;
+}
+
 export function nextMove(
   model: BeliefModel,
   st: BeliefState,
@@ -135,6 +145,7 @@ export function nextMove(
   teacher: TeacherState,
   session: { segments: Segment[] },
   bank: AtomBank,
+  memoryOpen?: MemoryOpenSignal,
 ): TeachingMove | null {
   const segment = session.segments[teacher.segmentIndex];
   if (!segment) return null;
@@ -146,6 +157,26 @@ export function nextMove(
 
   const rep = reportConcept(model, st, segment.conceptId);
   const concept = model.content.conceptById.get(segment.conceptId)!;
+
+    // 0. MEMORY_OPEN [ADR-025/Insight 5]: continuity from the event diary —
+    // the cheapest "it knows me" moment. Once per session, first teach segment.
+    if (memoryOpen && !teacher.usedMemoryOpen && !teacher.segmentMoveLog.includes("MEMORY_OPEN")) {
+      teacher.usedMemoryOpen = true;
+      const tpl: Atom = {
+        id: `tpl_memory_open_${memoryOpen.conceptId}`,
+        conceptId: memoryOpen.conceptId,
+        kind: "explanation",
+        body: `Welcome back. Yesterday, ${memoryOpen.label.replace(/_/g, " ")} tripped you up ${memoryOpen.wrongCount} time(s) — so that's exactly where we start. Small fix, big confidence.`,
+        lang: "en",
+        verifiedBy: "template",
+        version: 1,
+        source: "template",
+        riskLevel: "phrasing",
+      };
+      return move("MEMORY_OPEN", segment, undefined, teacher,
+        `Continuity from the event diary: ${memoryOpen.label} (missed ${memoryOpen.wrongCount}×) — start there before new material`,
+        1, { kind: "none" }, tpl);
+    }
 
   // ---- segment-kind entry flows ----
   if (segment.kind === "probe" || (segment.kind === "teach" && (rep.grey || teacher.segmentMoveLog.length === 0 && rep.grey))) {

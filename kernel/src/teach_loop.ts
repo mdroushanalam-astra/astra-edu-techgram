@@ -15,8 +15,9 @@
 import { composeSession, type ComposedSession, type Segment } from "./composer.js";
 import {
   nextMove, applyStudentTurn, startTeacherSession,
-  type TeachingMove, type TeacherState,
+  type TeachingMove, type TeacherState, type MemoryOpenSignal,
 } from "./teacher.js";
+import { confirmedMisconceptions } from "./diagnosis.js";
 import type { BeliefModel, BeliefState } from "./belief.js";
 import { reportConcept } from "./belief.js";
 import type { SystemState } from "./events.js";
@@ -86,6 +87,8 @@ export interface RunSessionOptions {
   memParams?: MemoryParams;
   /** Cap on moves — a runaway-guard, never a pedagogy decision. */
   maxMoves?: number;
+  /** A2 [ADR-025]: "auto" derives the continuity signal from confirmed misconceptions. */
+  memoryOpen?: MemoryOpenSignal | "auto";
 }
 
 /**
@@ -109,6 +112,9 @@ export function runTeachingSession(
   const segmentSummaries: SessionResult["segmentSummaries"] = [];
   let evCounter = 0;
   const maxMoves = opts.maxMoves ?? 120;
+  const memoryOpen: MemoryOpenSignal | undefined = opts.memoryOpen === "auto"
+    ? autoMemoryOpen(model, sys)
+    : opts.memoryOpen;
 
   let guard = 0;
   while (teacher.segmentIndex < session.segments.length && guard < maxMoves * 2) {
@@ -124,7 +130,7 @@ export function runTeachingSession(
     // Run the segment to its budget (or until the teacher advances it).
     while (teacher.segmentIndex === segIdxAtStart && guard < maxMoves * 2) {
       guard += 1;
-      const move = nextMove(model, sys.belief, sys.misconceptions, teacher, session, opts.atomBank);
+      const move = nextMove(model, sys.belief, sys.misconceptions, teacher, session, opts.atomBank, memoryOpen);
       if (!move) break;
       if (move.move === "SUMMARISE_CLOSE" && teacher.segmentMoveLog.filter((m) => m === "SUMMARISE_CLOSE").length > 1) break;
 
@@ -260,4 +266,20 @@ function aomVersionOf(plan: Plan): string | undefined {
 /** Convenience: believed mastery report after the session for one concept. */
 export function sessionConceptReport(model: BeliefModel, sys: SystemState, conceptId: string) {
   return reportConcept(model, sys.belief, conceptId);
+}
+
+
+/** A2: derive the continuity signal from confirmed misconceptions (or none). */
+export function autoMemoryOpen(model: BeliefModel, sys: SystemState): MemoryOpenSignal | undefined {
+  const confirmed = confirmedMisconceptions(sys.misconceptions)[0];
+  if (!confirmed) return undefined;
+  const item = model.content.items.find((i) =>
+    Object.values(i.distractorTags).includes(confirmed.id),
+  );
+  if (!item) return undefined;
+  return {
+    conceptId: item.conceptId,
+    label: confirmed.id.replace(/^m_/, ""),
+    wrongCount: confirmed.cell.n,
+  };
 }

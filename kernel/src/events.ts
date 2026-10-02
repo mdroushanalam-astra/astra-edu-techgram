@@ -18,6 +18,7 @@ export type EventType =
   | "item_response"
   | "confidence_reported"
   | "hint_used"
+  | "session_started"
   | "session_completed"
   | "session_abandoned"
   | "review_completed"
@@ -197,6 +198,7 @@ export function applyEvent(
       }
       break;
     }
+    case "session_started":
     case "session_completed":
     case "session_abandoned":
     case "confidence_reported":

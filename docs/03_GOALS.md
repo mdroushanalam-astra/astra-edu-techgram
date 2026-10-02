@@ -33,6 +33,12 @@
 ### THE INTELLIGENCE BENCHMARK [ADOPTED 2026-10-02, external review point 31]
 "Super intelligent" is measured by exactly ten things, not by model count, LLM size, or feature count: (1) prediction quality; (2) calibration (says-70%-happens-~70%); (3) decision quality vs sensible alternatives; (4) **information efficiency — learns more about the student from fewer interactions (our signature: decision quality per unit of evidence)**; (5) robustness when assumptions are wrong; (6) adaptation when reality disagrees; (7) explainability; (8) LLM independence; (9) graceful uncertainty; (10) eventual real outcome improvement.
 
+### THE STANDING OBSESSION TEST [ADOPTED 2026-10-02; external reviews §47 + Insight 12]
+The original eight questions remain the product's north test — **Who is this student? Where are they going? Where are they now? What is stopping them? What should happen next? Did it work? What changed? What should we do now?** — the brain answers most in simulation; "What is stopping them?" and "Did it work?" are the two real students will test.
+
+Additionally, per ADR-023's Observable-State Law, all personalisation claims use the bounded formulation: *an increasingly detailed, explicitly uncertain model of the student's observable learning state and behaviour, used to choose better learning actions.*
+
+[ORIGINAL TEXT BELOW]
 ### THE STANDING OBSESSION TEST [ADOPTED 2026-10-02, external review point 47]
 Before any new feature or realm is ever discussed, Techgram must keep answering YES to six questions: Can it make a genuinely better next-step decision than a sensible human baseline, from goal + time + graph + ~20 questions + a few behavioural signals? · Can it explain why? · Does it survive the LLM unplugged? · Does it survive its assumptions being wrong? · Does it learn from being wrong? · Can it prove it is getting better? If yes — Teacher, Mock, Forecast, Notifications, Connect, Career are all cherries.
 
