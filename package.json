@@ -9,8 +9,8 @@
     "apps/*"
   ],
   "scripts": {
-    "test": "npm -w kernel run test",
-    "typecheck": "npm -w kernel run typecheck",
+    "test": "npm -w kernel run test && npm -w @techgram/web run test",
+    "typecheck": "npm -w kernel run typecheck && npm -w @techgram/web run typecheck",
     "brainlab": "npm -w kernel run brainlab",
     "counters": "tsx scripts/write_counters.mts",
     "brainlabweb": "npm -w @techgram/brainlab-web run dev"
