@@ -15,7 +15,7 @@
 import { composeSession, type ComposedSession, type Segment } from "./composer.js";
 import {
   nextMove, applyStudentTurn, startTeacherSession,
-  type TeachingMove, type TeacherState, type MemoryOpenSignal,
+  type TeachingMove, type TeacherState, type MemoryOpenSignal, type TeacherMoveId,
 } from "./teacher.js";
 import { confirmedMisconceptions } from "./diagnosis.js";
 import type { NarrativeSessionPlan } from "./session.js";
@@ -57,6 +57,7 @@ export interface SessionTranscriptEntry {
   why: string;
   studentTurn?: StudentTurn;
   eventIds: string[];
+  frameBeat?: string;
 }
 
 export interface SessionResult {

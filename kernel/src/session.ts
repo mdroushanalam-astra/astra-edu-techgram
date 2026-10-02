@@ -233,7 +233,9 @@ export function compileNarrativeArc(
       ? { id: opts.openLoop.id, question: opts.openLoop.question, conceptId: opts.openLoop.conceptId }
       : unresolved
         ? { id: unresolved.id, question: unresolved.question, conceptId: unresolved.conceptIds[0] ?? last?.conceptId ?? "" }
-        : undefined;
+        : opts.hook
+          ? { id: "hook_fallback", question: opts.hook.question, conceptId: opts.hook.conceptId }
+          : undefined;
   if (last && budget >= 2) {
     const mins = Math.min(2, budget);
     segments.push({
@@ -325,4 +327,4 @@ export function buildSessionOutcome(
   };
 }
 
-interface StudentEventLite { type: string }
+
