@@ -7,6 +7,7 @@
 
 import type { Plan, PlanBlock } from "./planner.js";
 import { round4, Envelope } from "./envelope.js";
+import type { AomParams } from "./aom.js";
 
 export interface ReceiptInput {
   fact: string;
@@ -33,7 +34,7 @@ export interface Receipt {
 
 let receiptCounter = 0;
 
-export function buildPlanReceipt(plan: Plan, unknowns: string[]): Receipt {
+export function buildPlanReceipt(plan: Plan, unknowns: string[], aom?: AomParams): Receipt {
   receiptCounter += 1;
   const id = `rcpt_d${plan.day}_${String(receiptCounter).padStart(6, "0")}`;
   const alternatives = plan.blocks.slice(0, 5).map((b: PlanBlock) => ({
@@ -41,6 +42,13 @@ export function buildPlanReceipt(plan: Plan, unknowns: string[]): Receipt {
     score: round4(b.gainPerMinute),
     why: b.reason,
   }));
+  // Assumptions come from the AOM parameter pack — the receipt inherits the
+  // AOM's honest `assumed|measured` status per gain, never a blanket claim.
+  const assumptions: Receipt["assumptions"] = aom
+    ? (Object.entries(aom.gainsPer10Min) as [string, { status: "assumed" | "measured"; n: number }][]).map(
+        ([id2, g]) => ({ id: `aom.gain.${id2}`, status: g.status, sensitivity: `n=${g.n}` }),
+      )
+    : [{ id: "aom.gains", status: "assumed", sensitivity: "default pack" }];
   return {
     receipt_id: id,
     slot: "NEXT_SESSION",
@@ -55,15 +63,17 @@ export function buildPlanReceipt(plan: Plan, unknowns: string[]): Receipt {
     expected: {
       total_gain_marks: round4(plan.expectedGainMarks),
       total_minutes: plan.totalMinutes,
-      basis: "robust mean over posterior draws; gain priors assumed",
+      aom_version: plan.blocks[0]?.prediction.aomVersion ?? "aom-0.1.0-assumed",
+      per_block_predictions: plan.blocks.map((b) => ({
+        action: b.action,
+        concept: b.conceptId,
+        d_mastery: round4(b.prediction.dMastery),
+        status: b.prediction.status,
+      })),
+      basis: "robust mean over posterior draws; action outcomes predicted by the Action Outcome Model",
     },
     alternatives,
-    assumptions: [
-      { id: "gain.learn", status: "assumed", sensitivity: "stable ±50% (checked in sim)" },
-      { id: "gain.practice", status: "assumed" },
-      { id: "gain.review", status: "assumed", sensitivity: "FSRS-lite preview" },
-      { id: "memory.initial_stability", status: "assumed" },
-    ],
+    assumptions,
     constraints_checked: ["prerequisites", "minutes", "review share", "block cap"],
     unknowns,
     what_would_change_my_mind:

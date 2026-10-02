@@ -8,6 +8,7 @@
  */
 
 import { sigmoid, cholesky, type Rng } from "./linalg.js";
+import { predictAction, predictDiagnoseUncertainty, DEFAULT_AOM_INSTANCE, type Aom } from "./aom.js";
 import {
   stabilityOf,
   retrievability,
@@ -31,6 +32,15 @@ export interface PlanBlock {
   gainPerMinute: number;
   reason: string;
   assumption: "assumed" | "measured";
+  /** B5.5: the AOM prediction recorded BEFORE the action (never-self-fooling loop). */
+  prediction: {
+    dMastery: number;
+    stabilityMultiplier: number;
+    dUncertaintyVar: number;
+    status: "assumed" | "measured";
+    confidence: number;
+    aomVersion: string;
+  };
 }
 
 export interface Plan {
@@ -42,8 +52,6 @@ export interface Plan {
 }
 
 export interface PlannerParams {
-  /** Learning-gain priors (logit per effective 10 min) — assumed, from learning science. */
-  gainPer10Min: Record<"learn" | "practice" | "remediate", number>;
   /** Value-of-information weight. */
   voiLambda: number;
   /** Posterior draws for robust averaging. */
@@ -60,14 +68,13 @@ export interface PlannerParams {
 }
 
 export const DEFAULT_PLANNER_PARAMS: PlannerParams = {
-  gainPer10Min: { learn: 0.30, practice: 0.22, remediate: 0.28 },
   voiLambda: 2.0,
   draws: 16,
   prereqGate: 0.55,
   prereqFloor: 0.45,
   reviewShareWhenDue: 0.35,
   triageDays: 60,
-  version: "planner-0.1.0",
+  version: "planner-0.2.0",
 };
 
 export interface PlanContext {
@@ -78,6 +85,8 @@ export interface PlanContext {
   /** Total prep horizon in days — bounds the triage window (default: no bound). */
   prepHorizonDays?: number;
   memory: Map<number, MemoryCell>;
+  /** B5.5 Action Outcome Model (defaults to the assumed production pack). */
+  aom?: Aom;
 }
 
 /** P(correct on a blueprint question at exam day) for one θ draw. */
@@ -122,20 +131,6 @@ export function paperScale(model: BeliefModel): number {
   return wSum > 0 ? model.content.exam.questions / wSum : 0;
 }
 
-/** Assumed stability after a successful review today (FSRS-lite preview). */
-function stabilityAfterReview(
-  cell: MemoryCell | undefined,
-  nowDay: number,
-  memP: MemoryParams,
-  type: ConceptType,
-): number {
-  const base: MemoryCell =
-    cell ?? { S: memP.initialStability[type], D: 5, lastReviewDay: null, reps: 0, lapses: 0 };
-  const R = retrievability(base, nowDay);
-  const growth = 1.6 + 0.8 * (1 - R);
-  return Math.min(base.S * Math.min(growth, memP.growthCap), 3650);
-}
-
 export function planDay(
   model: BeliefModel,
   st: BeliefState,
@@ -144,6 +139,7 @@ export function planDay(
   rng: Rng,
 ): Plan {
   const draws = samplePosterior(model, st, params.draws, rng);
+  const aom = ctx.aom ?? DEFAULT_AOM_INSTANCE;
   const N = model.N;
   const candidates: (PlanBlock & { _score: number })[] = [];
   const triageWindow = Math.min(params.triageDays, Math.floor((ctx.prepHorizonDays ?? Infinity) * 0.3));
@@ -178,7 +174,11 @@ export function planDay(
       (isDue(cell, ctx.day, model.memoryParams) ||
         (triage && retrievability(cell, ctx.day) < 0.95))
     ) {
-      const SAfter = stabilityAfterReview(cell, ctx.day, model.memoryParams, type);
+      const Rnow = retrievability(cell, ctx.day);
+      const pred = predictAction(aom, {
+        action: "review", minutes: 15, mastery, daysToExam: ctx.daysToExam, triage, retrievabilityNow: Rnow,
+      });
+      const SAfter = Math.min(S * pred.stabilityMultiplier, 3650);
       const before = conceptMarks(model, draws, ci, ctx.daysToExam, S, 0, false);
       const after = conceptMarks(model, draws, ci, ctx.daysToExam, SAfter, 0, false);
       const gain = after - before;
@@ -190,25 +190,25 @@ export function planDay(
           minutes: 15,
           expectedGainMarks: gain,
           gainPerMinute: gain / 15,
-          reason: `Due review: retrievability ${retrievability(cell, ctx.day).toFixed(2)}, stability ${S.toFixed(1)}d → ${SAfter.toFixed(1)}d protects ${w.toFixed(1)} expected exam questions`,
-          assumption: "assumed",
+          reason: `Due review: retrievability ${Rnow.toFixed(2)}, stability ${S.toFixed(1)}d → ${SAfter.toFixed(1)}d protects ${w.toFixed(1)} expected exam questions`,
+          assumption: pred.status,
           _score: gain / 15,
+          prediction: pred,
         });
       }
     }
 
-    // ---- LEARN / REMEDIATE (assumes the plan maintains what it teaches) ----
+    // ---- LEARN / REMEDIATE (AOM predicts; the plan maintains what it teaches) ----
     if (prereqsOk && (mastery < 0.55 || rep.grey)) {
       const minutes = 25;
-      const gainKey = mastery > 0.15 ? "learn" : "remediate";
-      const gain10 = params.gainPer10Min[gainKey];
-      const triagePenalty = triage && mastery < 0.2 ? 0.35 : 1;
-      const shift = gain10 * (minutes / 10) * (1 - mastery) * triagePenalty;
+      const action: PlanAction = mastery > 0.15 ? "learn" : "remediate";
+      const pred = predictAction(aom, {
+        action, minutes, mastery, daysToExam: ctx.daysToExam, triage,
+      });
       const before = conceptMarks(model, draws, ci, ctx.daysToExam, S, 0, true);
-      const after = conceptMarks(model, draws, ci, ctx.daysToExam, S, shift, true);
-      const gain = (after - before) * triagePenalty;
+      const after = conceptMarks(model, draws, ci, ctx.daysToExam, S, pred.dMastery, true);
+      const gain = after - before;
       if (gain > 1e-4) {
-        const action: PlanAction = gainKey === "learn" ? "learn" : "remediate";
         candidates.push({
           conceptId: cid,
           conceptName: concept.name,
@@ -218,10 +218,11 @@ export function planDay(
           gainPerMinute: gain / minutes,
           reason:
             action === "learn"
-              ? `Mastery band ${(mastery * 100).toFixed(0)}% (${rep.grey ? "unknown-ish, needs evidence" : "evidenced"}), exam weight ${w.toFixed(1)}q — learning-science prior +${gain10}/10min (assumed; maintained by plan reviews)`
-              : `Foundational deficit — remediate before advancing (mastery ${(mastery * 100).toFixed(0)}%), prior +${gain10}/10min (assumed)`,
-          assumption: "assumed",
+              ? `Mastery band ${(mastery * 100).toFixed(0)}% (${rep.grey ? "unknown-ish, needs evidence" : "evidenced"}), exam weight ${w.toFixed(1)}q — AOM ${pred.aomVersion} predicts Δmastery +${pred.dMastery.toFixed(2)} logit (${pred.status}; maintained by plan reviews)`
+              : `Foundational deficit — remediate before advancing (mastery ${(mastery * 100).toFixed(0)}%), AOM ${pred.aomVersion} predicts Δmastery +${pred.dMastery.toFixed(2)} (${pred.status})`,
+          assumption: pred.status,
           _score: gain / minutes,
+          prediction: pred,
         });
       }
     }
@@ -229,9 +230,11 @@ export function planDay(
     // ---- PRACTICE (consolidation band — diminishing returns fill, not idle days) ----
     if (prereqsOk && mastery >= 0.3 && mastery < 0.92 && st.nEff[ci] >= 2) {
       const minutes = 20;
-      const shift = params.gainPer10Min.practice * (minutes / 10) * (1 - mastery);
+      const pred = predictAction(aom, {
+        action: "practice", minutes, mastery, daysToExam: ctx.daysToExam, triage,
+      });
       const before = conceptMarks(model, draws, ci, ctx.daysToExam, S, 0, true);
-      const after = conceptMarks(model, draws, ci, ctx.daysToExam, S, shift, true);
+      const after = conceptMarks(model, draws, ci, ctx.daysToExam, S, pred.dMastery, true);
       const gain = after - before;
       if (gain > 1e-4) {
         candidates.push({
@@ -241,26 +244,29 @@ export function planDay(
           minutes,
           expectedGainMarks: gain,
           gainPerMinute: gain / minutes,
-          reason: `Consolidation band (mastery ${(mastery * 100).toFixed(0)}%) — practice prior +${params.gainPer10Min.practice}/10min (assumed)`,
-          assumption: "assumed",
+          reason: `Consolidation band (mastery ${(mastery * 100).toFixed(0)}%) — AOM ${pred.aomVersion} predicts Δmastery +${pred.dMastery.toFixed(2)} (${pred.status})`,
+          assumption: pred.status,
           _score: gain / minutes,
+          prediction: pred,
         });
       }
     }
 
-    // ---- DIAGNOSE (VoI on grey, high-weight areas) ----
+    // ---- DIAGNOSE (VoI on grey, high-weight areas; uncertainty reduction via AOM) ----
     if (rep.grey && st.nEff[ci] < 3 && w >= 0.4) {
       const Scc = st.S[ci * N + ci];
       const a = model.params.discrimination;
       const z = sigmoid(a * st.mu[ci]);
       const H = (1 - model.content.exam.guessFloor) * a * z * (1 - z);
       const R = Math.max(z * (1 - z), 1e-3);
-      const s = H * H * Scc + R;
-      const SccAfter = Math.max(Scc - (H * H * Scc * Scc) / s, 0);
+      const dVar = predictDiagnoseUncertainty(Scc, H, R);
       const dpdMu = H;
-      const marksVarRed = (w * model.content.exam.marksEach * dpdMu) ** 2 * (Scc - SccAfter);
+      const marksVarRed = (w * model.content.exam.marksEach * dpdMu) ** 2 * dVar;
       const gain = params.voiLambda * Math.sqrt(Math.max(marksVarRed, 0));
       if (gain > 1e-4) {
+        const pred = predictAction(aom, {
+          action: "diagnose", minutes: 10, mastery, daysToExam: ctx.daysToExam, triage,
+        });
         candidates.push({
           conceptId: cid,
           conceptName: concept.name,
@@ -269,8 +275,9 @@ export function planDay(
           expectedGainMarks: gain,
           gainPerMinute: gain / 10,
           reason: `Unknown-ish (n_eff ${rep.nEff.toFixed(1)}) on ${w.toFixed(1)}-question weight — information value before committing study time`,
-          assumption: "assumed",
+          assumption: pred.status,
           _score: (gain / 10) * 1.1,
+          prediction: { ...pred, dUncertaintyVar: dVar },
         });
       }
     }

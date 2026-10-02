@@ -1,0 +1,35 @@
+{
+  "sealed_at": "2026-10-02",
+  "note": "SEALED HIDDEN BENCHMARK WORLDS (ADR-016, World D). These generative-world configurations are frozen: the planner and its developers do not tune against them. Do NOT modify this file after the first G0 run — test/g0_worlds.test.ts pins a hash of this file and will fail if it is tampered with. When the worlds must eventually rotate (e.g., yearly), create worlds.hidden.v2.json via a new ADR.",
+  "worlds": [
+    {
+      "name": "D_hidden1",
+      "truthShares": [0.22, 0.28, 0.12, 0.38],
+      "gainScale": { "learn": 0.55, "practice": 0.85, "remediate": 0.7, "review": 1.1 },
+      "forgettingScale": 0.75,
+      "prereqPenalty": 0.25,
+      "slipRate": 0.06,
+      "guessBoostRate": 0.05,
+      "confidenceOverreport": true,
+      "startMasteryBoostFraction": 0.15,
+      "availabilityShockAfterDay": 10,
+      "availabilityShockFactor": 0.65
+    },
+    {
+      "name": "D_hidden2",
+      "truthShares": [0.3, 0.22, 0.18, 0.3],
+      "gainScale": { "learn": 0.45, "practice": 1.0, "remediate": 0.5, "review": 0.95 },
+      "forgettingScale": 1.35,
+      "prereqPenalty": 0.65,
+      "slipRate": 0.03,
+      "guessBoostRate": 0.07,
+      "confidenceOverreport": false,
+      "startMasteryBoostFraction": 0.25,
+      "availabilityShockAfterDay": 20,
+      "availabilityShockFactor": 0.75
+    }
+  ],
+  "seedBase": 771003,
+  "days": 30,
+  "studentsPerArchetype": 2
+}

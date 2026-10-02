@@ -20,9 +20,76 @@ import {
 } from "./belief.js";
 import { planDay, DEFAULT_PLANNER_PARAMS, type Plan } from "./planner.js";
 import { applyEvent, newSystemState, type StudentEvent, type SystemState } from "./events.js";
+import type { OutcomeRecord } from "./aom.js";
 
 export type Archetype = "consistent" | "crammer" | "avoidant" | "drifter";
 export type Policy = "techgram" | "fixed_order" | "random";
+
+/**
+ * A GENERATIVE WORLD [ADR-016]: the truth-generator's own parameters.
+ * The kernel never sees these. G0 is only meaningful when the planner is
+ * evaluated across worlds whose assumptions differ from its own — including
+ * adversarial ones. The production AOM is FIXED (assumed pack) in every
+ * world: the brain must not be told which world it is in.
+ */
+export interface SimWorld {
+  name: string;
+  truthShares: [number, number, number, number];
+  /** Multipliers on the TRUE learning gains per action (World A = all 1). */
+  gainScale: { learn: number; practice: number; remediate: number; review: number };
+  /** Multiplier on TRUE memory stability. */
+  forgettingScale: number;
+  /** TRUE gain penalty for studying with weak true prereqs (planner still trusts its graph). */
+  prereqPenalty: number;
+  /** Response noise: known-answer slips and lucky guesses. */
+  slipRate: number;
+  guessBoostRate: number;
+  /** Lie: every response self-reports maximal confidence. */
+  confidenceOverreport: boolean;
+  /** Lie: a fraction of concepts are already truly mastered while the prior says average. */
+  startMasteryBoostFraction: number;
+  /** Lie: the student's available time collapses mid-schedule. */
+  availabilityShockAfterDay?: number;
+  availabilityShockFactor?: number;
+}
+
+export const WORLD_A_FRIENDLY: SimWorld = {
+  name: "A_friendly",
+  truthShares: [0.25, 0.25, 0.15, 0.35],
+  gainScale: { learn: 1, practice: 1, remediate: 1, review: 1 },
+  forgettingScale: 1,
+  prereqPenalty: 0.5,
+  slipRate: 0,
+  guessBoostRate: 0,
+  confidenceOverreport: false,
+  startMasteryBoostFraction: 0,
+};
+
+export const WORLD_B_MISSPECIFIED: SimWorld = {
+  name: "B_misspecified",
+  truthShares: [0.2, 0.3, 0.1, 0.4],
+  gainScale: { learn: 0.6, practice: 0.8, remediate: 0.6, review: 1.0 },
+  forgettingScale: 0.6,
+  prereqPenalty: 0.1, // the graph's prereq edges barely matter in truth
+  slipRate: 0.05,
+  guessBoostRate: 0.04,
+  confidenceOverreport: false,
+  startMasteryBoostFraction: 0,
+};
+
+export const WORLD_C_ADVERSARIAL: SimWorld = {
+  name: "C_adversarial",
+  truthShares: [0.3, 0.2, 0.2, 0.3],
+  gainScale: { learn: 0.6, practice: 0.7, remediate: 0.6, review: 0.9 },
+  forgettingScale: 0.7,
+  prereqPenalty: 0.5,
+  slipRate: 0.08,
+  guessBoostRate: 0.05,
+  confidenceOverreport: true,
+  startMasteryBoostFraction: 0.3,
+  availabilityShockAfterDay: 12,
+  availabilityShockFactor: 0.55,
+};
 
 export interface SimConfig {
   seed: number;
@@ -52,10 +119,10 @@ export interface SimResult {
   finalSys?: SystemState;
 }
 
-export function makeSimStudent(model: BeliefModel, cfg: SimConfig): SimStudent {
+export function makeSimStudent(model: BeliefModel, cfg: SimConfig, world: SimWorld = WORLD_A_FRIENDLY): SimStudent {
   const N = model.N;
   const rng = makeRng(cfg.seed * 7919 + 13);
-  const [gen, top, graph, own] = cfg.truthShares;
+  const [gen, top, graph, own] = world.truthShares ?? cfg.truthShares;
   const A = buildAdjacency(model.content, N, model.index);
   const L = laplacian(A, N);
   for (let i = 0; i < N; i++) L[i * N + i] += 0.3;
@@ -90,17 +157,27 @@ export function makeSimStudent(model: BeliefModel, cfg: SimConfig): SimStudent {
   const STrue = new Float64Array(N);
   for (let i = 0; i < N; i++) {
     const type = model.content.conceptById.get(model.byIdx[i]!)!.type;
-    STrue[i] = Math.max(1.5, DEFAULT_MEMORY_PARAMS.initialStability[type] * Math.exp(rng.normal(0, 0.5)));
+    STrue[i] = Math.max(1.5, DEFAULT_MEMORY_PARAMS.initialStability[type] * world.forgettingScale * Math.exp(rng.normal(0, 0.5)));
+  }
+  // World lie: some concepts are already truly mastered while the prior says average.
+  if (world.startMasteryBoostFraction > 0) {
+    for (let i = 0; i < N; i++) {
+      if (rng.next() < world.startMasteryBoostFraction) theta[i] += 1.2;
+    }
   }
   return { theta, bTrue, STrue, lastStudy: new Float64Array(N).fill(-999) };
 }
 
-export function simRespond(model: BeliefModel, student: SimStudent, itemIdx: number, conceptIdx: number, rng: Rng): boolean {
+export function simRespond(model: BeliefModel, student: SimStudent, itemIdx: number, conceptIdx: number, rng: Rng, world: SimWorld = WORLD_A_FRIENDLY): boolean {
   const p =
     model.content.exam.guessFloor +
     (1 - model.content.exam.guessFloor) *
       sigmoid(model.params.discrimination * (student.theta[conceptIdx] - student.bTrue[itemIdx]));
-  return rng.next() < p;
+  let correct = rng.next() < p;
+  // World response noise: slips on known answers, lucky guesses on unknowns.
+  if (correct && world.slipRate > 0 && rng.next() < world.slipRate) correct = false;
+  if (!correct && world.guessBoostRate > 0 && rng.next() < world.guessBoostRate) correct = true;
+  return correct;
 }
 
 /**
@@ -116,25 +193,31 @@ export function simStudy(
   minutes: number,
   day: number,
   rng: Rng,
+  world: SimWorld = WORLD_A_FRIENDLY,
 ): void {
   if (action === "diagnose") return;
   const gain10 =
     action === "learn" ? 0.3 : action === "remediate" ? 0.28 : action === "practice" ? 0.22 : 0.1;
+  const scale =
+    action === "learn" ? world.gainScale.learn
+    : action === "remediate" ? world.gainScale.remediate
+    : action === "practice" ? world.gainScale.practice
+    : world.gainScale.review;
   const mastery = sigmoid(student.theta[conceptIdx]);
   const concept = model.content.conceptById.get(model.byIdx[conceptIdx]!)!;
   let prereqPenalty = 1;
   for (const pid of concept.prereqs) {
     const pi = model.index.get(pid);
     if (pi !== undefined && sigmoid(student.theta[pi]) < 0.5) {
-      prereqPenalty = 0.5;
+      prereqPenalty = world.prereqPenalty;
       break;
     }
   }
-  const gain = gain10 * (minutes / 10) * (1 - mastery) * prereqPenalty * (0.8 + 0.4 * rng.next());
+  const gain = gain10 * scale * (minutes / 10) * (1 - mastery) * prereqPenalty * (0.8 + 0.4 * rng.next());
   student.theta[conceptIdx] += gain;
   const tSince = Math.max(0, day - student.lastStudy[conceptIdx]);
   const Rtrue = 1 / (1 + tSince / (9 * student.STrue[conceptIdx]));
-  const growth = action === "review" ? 1.6 + 0.8 * (1 - Rtrue) : 1.2;
+  const growth = (action === "review" ? 1.6 + 0.8 * (1 - Rtrue) : 1.2) * (action === "review" ? world.gainScale.review : 1);
   student.STrue[conceptIdx] = Math.min(student.STrue[conceptIdx] * Math.min(growth, 3), 3650);
   student.lastStudy[conceptIdx] = day;
 }
@@ -237,6 +320,7 @@ function baselinePlan(
       gainPerMinute: 0,
       reason: policy === "fixed_order" ? "fixed syllabus order (baseline)" : "random allocation (baseline)",
       assumption: "assumed",
+      prediction: { dMastery: 0, stabilityMultiplier: 1, dUncertaintyVar: 0, status: "assumed", confidence: 0, aomVersion: "baseline" },
     });
     used += 25;
   }
@@ -247,10 +331,22 @@ export interface RunCallbacks {
   onPlan?: (day: number, plan: Plan) => void;
 }
 
+export interface RunCallbacks {
+  onPlan?: (day: number, plan: Plan) => void;
+  /** B5.5: per-block outcome records (techgram only) — prediction vs evidence-based belief shift. */
+  onOutcome?: (rec: OutcomeRecord) => void;
+}
+
 /** Run one simulated student under one scheduling policy for cfg.days. */
-export function runSim(model: BeliefModel, cfg: SimConfig, policy: Policy, cb?: RunCallbacks): SimResult {
+export function runSim(
+  model: BeliefModel,
+  cfg: SimConfig,
+  policy: Policy,
+  cb?: RunCallbacks,
+  world: SimWorld = WORLD_A_FRIENDLY,
+): SimResult {
   const rng = makeRng(cfg.seed * 104729 + 17);
-  const student = makeSimStudent(model, cfg);
+  const student = makeSimStudent(model, cfg, world);
   const memParams: MemoryParams = DEFAULT_MEMORY_PARAMS;
 
   let sys: SystemState = newSystemState(model);
@@ -279,7 +375,11 @@ export function runSim(model: BeliefModel, cfg: SimConfig, policy: Policy, cb?: 
   for (let day = 1; day <= cfg.days; day++) {
     const daysToExam = cfg.days - day;
     simDecayDay(student, model);
-    const minutes = simAdherence(cfg, day, rng);
+    let minutes = simAdherence(cfg, day, rng);
+    // World lie: the student's available time collapses mid-schedule.
+    if (world.availabilityShockAfterDay !== undefined && day > world.availabilityShockAfterDay) {
+      minutes *= world.availabilityShockFactor ?? 1;
+    }
     if (minutes === 0) {
       if (policy === "techgram") timeUpdate(model, sys.belief, sys.memory, 1);
       continue;
@@ -302,24 +402,43 @@ export function runSim(model: BeliefModel, cfg: SimConfig, policy: Policy, cb?: 
 
     for (const block of plan.blocks) {
       const ci = model.index.get(block.conceptId)!;
-      simStudy(student, model, ci, block.action as "learn" | "practice" | "review" | "remediate" | "diagnose", block.minutes, day, rng);
+      const beforeMu = sys.belief.mu[ci];
+      simStudy(student, model, ci, block.action as "learn" | "practice" | "review" | "remediate" | "diagnose", block.minutes, day, rng, world);
       const nItems = block.action === "diagnose" ? 4 : Math.max(2, Math.floor(block.minutes / 8));
       const items = model.content.itemsByConcept.get(block.conceptId) ?? [];
-      if (items.length === 0) continue;
-      for (let k = 0; k < nItems; k++) {
-        const it = items[itemsSeen++ % items.length];
-        const itemIdx = model.content.items.indexOf(it);
-        const correct = simRespond(model, student, itemIdx, ci, rng);
-        if (policy === "techgram") {
-          const rapid = rng.next() < 0.15;
-          emit("item_response", { concept_id: block.conceptId, item_id: it.id, correct, time_sec: rapid ? 2 : it.expectedTimeSec }, day);
+      let evidenceResponses = 0;
+      if (items.length > 0) {
+        for (let k = 0; k < nItems; k++) {
+          const it = items[itemsSeen++ % items.length];
+          const itemIdx = model.content.items.indexOf(it);
+          const correct = simRespond(model, student, itemIdx, ci, rng, world);
+          if (policy === "techgram") {
+            const rapid = rng.next() < 0.15;
+            const payload: Record<string, unknown> = {
+              concept_id: block.conceptId, item_id: it.id, correct,
+              time_sec: rapid ? 2 : it.expectedTimeSec,
+            };
+            // World C lie: maximal self-reported confidence on every response.
+            if (world.confidenceOverreport) payload.confidence = 3;
+            if (!rapid) evidenceResponses += 1;
+            emit("item_response", payload, day);
+          }
         }
       }
-    }
-
-    // Fold the day's events into the kernel state (exact production path).
-    while (folded < events.length) {
-      sys = applyEvent(model, sys, events[folded++], memParams);
+      // Fold this block's events immediately so per-block belief shifts are observable.
+      while (folded < events.length) {
+        sys = applyEvent(model, sys, events[folded++], memParams);
+      }
+      if (policy === "techgram" && cb?.onOutcome) {
+        cb.onOutcome({
+          action: block.action as OutcomeRecord["action"],
+          minutes: block.minutes,
+          masteryAtAction: sigmoid(beforeMu),
+          predictedDMastery: block.prediction.dMastery,
+          observedDMastery: sys.belief.mu[ci] - beforeMu,
+          n: evidenceResponses,
+        });
+      }
     }
 
     if (policy === "techgram") {
@@ -351,6 +470,7 @@ export function aggregate(
   studentsPerCell: number,
   seedsBase: number,
   policies: Policy[],
+  world: SimWorld = WORLD_A_FRIENDLY,
 ): Record<Policy, { meanMarks: number; meanPass: number; meanCalibration: number | null }> {
   const archetypes: Archetype[] = ["consistent", "crammer", "avoidant", "drifter"];
   const out: Record<string, { marks: number[]; pass: number[]; calib: number[] }> = {};
@@ -359,8 +479,8 @@ export function aggregate(
   for (const a of archetypes) {
     for (let s = 0; s < studentsPerCell; s++) {
       for (const p of policies) {
-        const cfg: SimConfig = { seed: seed++, archetype: a, days, minutesPerDay: 240, truthShares: [0.25, 0.25, 0.15, 0.35] };
-        const r = runSim(model, cfg, p);
+        const cfg: SimConfig = { seed: seed++, archetype: a, days, minutesPerDay: 240, truthShares: world.truthShares };
+        const r = runSim(model, cfg, p, undefined, world);
         out[p].marks.push(r.examMarks);
         out[p].pass.push(r.passProb > 0.5 ? 1 : 0);
         if (r.calibrationError !== undefined) out[p].calib.push(r.calibrationError);
