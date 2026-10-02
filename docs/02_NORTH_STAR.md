@@ -15,6 +15,8 @@ Brand line: **"the learning intelligence system."** Never "metaverse." Never "AI
 
 ---
 
+> **The Observable-State Law [ADR-023, binding]:** Techgram builds an **increasingly detailed, explicitly uncertain model of the student's OBSERVABLE learning state and behaviour**, and uses that model to choose better learning actions. Personalisation signals are observed/inferred behavioural features — never mind-reading, never diagnosis, never labels. This bounded formulation is *more* powerful because every part of it is testable.
+
 ## 2. THE LONG-TERM NORTH STAR (the 10-year star)
 
 > **For every student, at every moment: know what they know, what they're forgetting, and how they behave — with calibrated, interval-bearing honesty; choose the next action that maximises their expected outcome against their goal's deadline; show the work; and convert every outcome into better decisions for the next student.**
