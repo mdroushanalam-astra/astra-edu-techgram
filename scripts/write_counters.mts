@@ -16,7 +16,7 @@ const kAtoms = buildK12AtomBank();
 
 const counters = {
   generated_at: new Date().toISOString(),
-  tests: { passed: 134, files: 16 }, // verified by npm test; bumped with the suite
+  tests: { passed: 144, files: 17 }, // verified by npm test; bumped with the suite
   content: {
     polity: { topics: polity.topics.length, concepts: polity.concepts.length, items: polity.items.length, atoms: pAtoms.atoms.length },
     k12: { topics: k12.topics.length, concepts: k12.concepts.length, items: k12.items.length, atoms: kAtoms.atoms.length },

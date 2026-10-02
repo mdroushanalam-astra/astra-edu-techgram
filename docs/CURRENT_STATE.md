@@ -62,7 +62,7 @@ The full closed loop exists, is proven, and now teaches: envelope → events →
 
 | Bucket | Level | What it means |
 |---|---|---|
-| Engineering | 🟢 low-medium | Core architecture credible; 116 tests + four-world gate + replay |
+| Engineering | 🟢 low-medium | Core architecture credible; 144 tests + four-world gate + replay |
 | Product | 🟡 HIGH | Will students find the loop useful enough to return? Unknown until pilot |
 | Scientific / learning-effect | 🔴 VERY HIGH | Does the AOM predict real interventions? Does durable learning improve? Needs delayed outcomes from real students — the honest frontier |
 
@@ -71,7 +71,7 @@ Also: content-verification throughput is the schedule risk; friendly-world plann
 ## 6. How to run / verify
 
 ```
-npm test              # 116 tests incl. G0 four-worlds + docs-integrity gate
+npm test              # 144 tests incl. G0 four-worlds + docs-integrity gate
 npm run counters      # regenerate docs/COUNTERS.json from the code
 npm run brainlab      # CLI demo (5 acts)
 npm -w kernel run typecheck
