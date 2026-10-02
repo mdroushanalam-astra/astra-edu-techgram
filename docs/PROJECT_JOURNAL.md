@@ -19,7 +19,7 @@
 **Way forward:** …
 ```
 
-**Entry index:** [00 Pre-history](#entry-00) · [01 Context absorption](#entry-01) · [02 Version-lineage audit + governance docs](#entry-02) · [03 Kernel build sprint](#entry-03) · [04 Living documentation system](#entry-04) · [05 Founder's Guide + self-sufficiency rule](#entry-05) · [06 External review adjudication (ChatGPT)](#entry-06)
+**Entry index:** [00 Pre-history](#entry-00) · [01 Context absorption](#entry-01) · [02 Version-lineage audit + governance docs](#entry-02) · [03 Kernel build sprint](#entry-03) · [04 Living documentation system](#entry-04) · [05 Founder's Guide + self-sufficiency rule](#entry-05) · [06 External review adjudication (ChatGPT)](#entry-06) · [07 AOM + four-world gate](#entry-07) · [08 Teaching layer + freeze inspection](#entry-08) · [09 Audit + K12 research + frontend verdict](#entry-09) · [10 Doc repair + Wave-1 Brain Lab web](#entry-10)
 
 ---
 
