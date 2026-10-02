@@ -34,9 +34,11 @@ export interface Receipt {
 
 let receiptCounter = 0;
 
-export function buildPlanReceipt(plan: Plan, unknowns: string[], aom?: AomParams): Receipt {
+export function buildPlanReceipt(plan: Plan, unknowns: string[], aom?: AomParams | string): Receipt {
   receiptCounter += 1;
   const id = `rcpt_d${plan.day}_${String(receiptCounter).padStart(6, "0")}`;
+  const aomParams = typeof aom === "string" ? undefined : aom;
+  const aomVersion = typeof aom === "string" ? aom : aom?.version;
   const alternatives = plan.blocks.slice(0, 5).map((b: PlanBlock) => ({
     action: `${b.action}:${b.conceptId}`,
     score: round4(b.gainPerMinute),
@@ -44,8 +46,8 @@ export function buildPlanReceipt(plan: Plan, unknowns: string[], aom?: AomParams
   }));
   // Assumptions come from the AOM parameter pack — the receipt inherits the
   // AOM's honest `assumed|measured` status per gain, never a blanket claim.
-  const assumptions: Receipt["assumptions"] = aom
-    ? (Object.entries(aom.gainsPer10Min) as [string, { status: "assumed" | "measured"; n: number }][]).map(
+  const assumptions: Receipt["assumptions"] = aomParams
+    ? (Object.entries(aomParams.gainsPer10Min) as [string, { status: "assumed" | "measured"; n: number }][]).map(
         ([id2, g]) => ({ id: `aom.gain.${id2}`, status: g.status, sensitivity: `n=${g.n}` }),
       )
     : [{ id: "aom.gains", status: "assumed", sensitivity: "default pack" }];
@@ -63,7 +65,7 @@ export function buildPlanReceipt(plan: Plan, unknowns: string[], aom?: AomParams
     expected: {
       total_gain_marks: round4(plan.expectedGainMarks),
       total_minutes: plan.totalMinutes,
-      aom_version: plan.blocks[0]?.prediction.aomVersion ?? "aom-0.1.0-assumed",
+      aom_version: aomVersion ?? plan.blocks[0]?.prediction.aomVersion ?? "aom-0.1.0-assumed",
       per_block_predictions: plan.blocks.map((b) => ({
         action: b.action,
         concept: b.conceptId,

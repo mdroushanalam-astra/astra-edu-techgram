@@ -1,0 +1,40 @@
+/** Debug: the runner path directly — do misconception counters survive? */
+import { buildSeedContent } from "../polity_seed.js";
+import { buildBeliefModel, initialState, DEFAULT_BELIEF_PARAMS } from "../belief.js";
+import { DEFAULT_MEMORY_PARAMS } from "../memory.js";
+import { makeRng, sigmoid } from "../linalg.js";
+import { planDay, DEFAULT_PLANNER_PARAMS } from "../planner.js";
+import { buildPlanReceipt } from "../receipts.js";
+import { runTeachingSession, type Responder } from "../teach_loop.js";
+import { newSystemState } from "../events.js";
+import { buildPolityAtomBank } from "../polity_atoms.js";
+import { makeSimStudent, simRespond } from "../lab.js";
+
+const content = buildSeedContent();
+const model = buildBeliefModel(content, DEFAULT_MEMORY_PARAMS, DEFAULT_BELIEF_PARAMS, { selfRating: 3 });
+const bank = buildPolityAtomBank();
+const st = initialState(model);
+const sys = newSystemState(model);
+const rng = makeRng(9002);
+const plan = planDay(model, sys.belief, { day: 1, daysToExam: 120, minutesAvailable: 40, memory: sys.memory }, DEFAULT_PLANNER_PARAMS, rng);
+const truth = makeSimStudent(model, { seed: 9002, archetype: "consistent", days: 1, minutesPerDay: 240, truthShares: [0.25,0.25,0.15,0.35] });
+const studentRng = makeRng(9002);
+const responder: Responder = (move) => {
+  if (move.expectEvidence.kind === "none") return { kind: "none" };
+  if (move.expectEvidence.kind === "confidence_report") return { kind: "confidence_report", confidence: 2 };
+  const item = move.item!;
+  const ci = model.index.get(move.conceptId)!;
+  const itemIdx = model.content.items.indexOf(item);
+  const correct = simRespond(model, truth, itemIdx, ci, studentRng);
+  if (correct) return { kind: "item_response", chosenOption: item.answer, correct: true, confidence: 2, timeSec: item.expectedTimeSec };
+  const tags = Object.keys(item.distractorTags);
+  const chosen = tags.length > 0 && studentRng.next() < 0.6 ? Number(tags[0]) : (item.answer + 1) % 4;
+  return { kind: "item_response", chosenOption: chosen, correct: false, confidence: 2, timeSec: item.expectedTimeSec };
+};
+const result = runTeachingSession(model, sys, { day: 1, minutesAvailable: 40, plan, responder, atomBank: bank });
+const wrongTagged = result.events.filter((e) => e.type === "item_response" && e.payload.correct === false && typeof e.payload.chosen_option === "number");
+console.log("events:", result.events.length, "wrongTagged:", wrongTagged.length);
+console.log("finalSys misconceptions:", JSON.stringify(result.finalSys.misconceptions.byId));
+console.log("moves:", result.transcript.map(t => t.move).join(","));
+console.log("segments:", result.session.segments.map(s => `${s.id}:${s.kind}:${s.minutes}m`).join(" | "));
+console.log("outcomeRecords:", result.outcomeRecords.length, "pred sum:", result.outcomeRecords.reduce((a,o)=>a+o.predictedDMastery,0).toFixed(2), "obs sum:", result.outcomeRecords.reduce((a,o)=>a+o.observedDMastery,0).toFixed(2));

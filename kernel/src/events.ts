@@ -7,6 +7,7 @@
 
 import { buildBeliefModel, initialState, observe, timeUpdate, type BeliefModel, type BeliefState, type Onboarding } from "./belief.js";
 import { applyReview, newMemoryCell, DEFAULT_MEMORY_PARAMS, type MemoryCell, type MemoryParams } from "./memory.js";
+import { updateMisconception, newMisconceptionState, copyMisconceptionState, type MisconceptionState } from "./diagnosis.js";
 import type { Content } from "./content.js";
 import { expertDifficultyToLogit } from "./content.js";
 
@@ -39,6 +40,8 @@ export interface StudentEvent {
 export interface SystemState {
   belief: BeliefState;
   memory: Map<number, MemoryCell>; // conceptIdx → cell
+  /** B10: per-student misconception counters (evidence-driven, tiered). */
+  misconceptions: MisconceptionState;
   goal: { goalId: string; deadlineDay: number } | null;
   onboarding: Onboarding | null;
   appliedKeys: Set<string>;
@@ -49,6 +52,7 @@ export function newSystemState(model: BeliefModel): SystemState {
   return {
     belief: initialState(model),
     memory: new Map(),
+    misconceptions: newMisconceptionState(),
     goal: null,
     onboarding: null,
     appliedKeys: new Set(),
@@ -78,6 +82,7 @@ export function applyEvent(
       modelDisagreement: [...st.belief.modelDisagreement],
     },
     memory: new Map(st.memory),
+    misconceptions: copyMisconceptionState(st.misconceptions),
     goal: st.goal,
     onboarding: st.onboarding,
     appliedKeys: new Set(st.appliedKeys).add(ev.idempotency_key),
@@ -153,6 +158,16 @@ export function applyEvent(
         evidenceW,
         day: ev.day,
       });
+      // B10 misconception evidence: wrong answer on a tagged, CHOSEN distractor.
+      if (item && correct === false && typeof ev.payload.chosen_option === "number") {
+        updateMisconception(
+          next.misconceptions,
+          item,
+          ev.payload.chosen_option,
+          correct,
+          confidence,
+        );
+      }
       // Memory: assessment acts as a retrieval-practice touch — but MASSED
       // repetition within one day counts as ONE review (spacing effect).
       const ci = model.index.get(conceptId);

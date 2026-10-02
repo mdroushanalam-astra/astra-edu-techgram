@@ -14,12 +14,15 @@ import {
   buildBeliefModel, initialState, timeUpdate, expectedScore, reportConcept,
   DEFAULT_BELIEF_PARAMS,
 } from "../belief.js";
+import { newSystemState } from "../events.js";
 import { DEFAULT_MEMORY_PARAMS } from "../memory.js";
 import { makeRng, sigmoid } from "../linalg.js";
 import { planDay, DEFAULT_PLANNER_PARAMS } from "../planner.js";
 import { buildPlanReceipt } from "../receipts.js";
 import { simulateExam } from "../exam.js";
-import { makeSimStudent, runSim, aggregate, type Archetype } from "../lab.js";
+import { makeSimStudent, runSim, aggregate, simRespond, type Archetype } from "../lab.js";
+import { buildPolityAtomBank } from "../polity_atoms.js";
+import { runTeachingSession, type Responder } from "../teach_loop.js";
 
 const content = buildSeedContent();
 const DAYS = 60;
@@ -48,6 +51,7 @@ function main() {
     truthShares: [0.25, 0.25, 0.15, 0.35] as [number, number, number, number],
   };
   const st = initialState(model);
+  const bank = buildPolityAtomBank();
   const rng = makeRng(2026);
 
   hr("ACT 1 · DAY 1 — the plan and its receipt (why this, why now)");
@@ -95,8 +99,42 @@ function main() {
   console.log(`  Strongest topics: ${ranked.slice(0, 3).map(([t, m]) => `${content.topicById.get(t)!.name} (${m.toFixed(1)}m)`).join(", ")}`);
   console.log(`  At-risk topics:   ${ranked.slice(-3).map(([t, m]) => `${content.topicById.get(t)!.name} (${m.toFixed(1)}m)`).join(", ")}`);
 
-  // ---------- Act 4: the gate — planner vs baselines ----------
-  hr("ACT 4 · THE GATE — Techgram planner vs baselines (16 synthetic students each, 40 days)");
+  // ---------- Act 5: THE COMPLETE LOOP — plan → compose → teach → evidence ----------
+  hr("ACT 4 · THE COMPLETE LOOP — plan → compose → teach → evidence → state (zero LLM)");
+  const sys5 = newSystemState(model);
+  const plan5 = planDay(model, sys5.belief, { day: 1, daysToExam: DAYS, minutesAvailable: 40, memory: sys5.memory }, DEFAULT_PLANNER_PARAMS, rng);
+  const truth5 = makeSimStudent(model, { ...cfg, seed: 5150 });
+  const studentRng = makeRng(5150);
+  const responder: Responder = (move) => {
+    if (move.expectEvidence.kind === "none") return { kind: "none" };
+    if (move.expectEvidence.kind === "confidence_report") return { kind: "confidence_report", confidence: 2 };
+    const item = move.item!;
+    const ci = model.index.get(move.conceptId)!;
+    const correct = simRespond(model, truth5, model.content.items.indexOf(item), ci, studentRng);
+    if (correct) return { kind: "item_response", chosenOption: item.answer, correct: true, confidence: 2, timeSec: item.expectedTimeSec };
+    const tags = Object.keys(item.distractorTags);
+    const chosen = tags.length > 0 && studentRng.next() < 0.6 ? Number(tags[0]) : (item.answer + 1) % 4;
+    return { kind: "item_response", chosenOption: chosen, correct: false, confidence: 2, timeSec: item.expectedTimeSec };
+  };
+  const session = runTeachingSession(model, sys5, { day: 1, minutesAvailable: 40, plan: plan5, responder, atomBank: bank });
+  for (const e of session.transcript) {
+    const tag = e.studentTurn ? (e.studentTurn.kind === "item_response" ? (e.studentTurn.correct ? "✓" : "✗") : "◐") : "·";
+    console.log(`  ${String(e.seq).padStart(2)} [${e.move.padEnd(17)}] ${e.conceptId.padEnd(12)} ${tag} ${e.utterance.slice(0, 72)}${e.utterance.length > 72 ? "…" : ""}`);
+  }
+  const evidenceMoves = session.transcript.filter((t) => t.studentTurn && t.studentTurn.kind !== "none").length;
+  console.log(`\n  Moves: ${session.transcript.length} · evidence-bearing turns: ${evidenceMoves} · typed events: ${session.events.length}`);
+  console.log(`  Every segment traces to a plan block; every move carries a receipt-grade "why".`);
+  console.log(`  Belief shifts (before → after, evidence-driven):`);
+  for (const s of session.segmentSummaries) {
+    if (s.meanBefore !== null && s.meanAfter !== null) {
+      console.log(`    ${s.segmentId.padEnd(26)} ${(s.meanBefore * 100).toFixed(0)}% → ${(s.meanAfter * 100).toFixed(0)}%`);
+    }
+  }
+  console.log(`  AOM prediction vs evidence: predicted Δμ +${session.outcomeRecords.reduce((a, o) => a + o.predictedDMastery, 0).toFixed(2)}, observed ${session.outcomeRecords.reduce((a, o) => a + o.observedDMastery, 0).toFixed(2)} (the learning loop's fuel)`);
+  console.log(`  LLM calls used in this entire session: 0.`);
+
+  // ---------- Act 5: the gate — planner vs baselines ----------
+  hr("ACT 5 · THE GATE — Techgram planner vs baselines (16 synthetic students each, 40 days)");
   const t0 = Date.now();
   const agg = aggregate(model, 40, 4, 9001, ["techgram", "fixed_order", "random"]);
   const secs = ((Date.now() - t0) / 1000).toFixed(1);
