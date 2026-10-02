@@ -88,3 +88,17 @@ The 8-screen public demo per ADR-014: synthetic student → hidden truth → why
 ## 5. WHY THIS FRONTEND WINS
 
 Every competitor renders **content**; we render **the state of a mind**. The belief bands narrowing, the grey mist receding, the receipt behind every nudge — that's the Astra pattern (State + Evidence + Honesty) translated into pixels. Beautiful here means *truthful made tangible*, and that is copyable by no one who lacks the kernel.
+
+
+---
+
+## 11. THE FOUNDER DESIGN BRIEF (2026-10-03 — THE VISION THIS PRODUCT MUST SERVE) — pending ADR-032 sign-off
+> Recorded verbatim-in-spirit from the Founder. This section is the north light for the enterprise frontend. The full engineering proposal is the "Astra Design Proposal" report (session of 2026-10-03, in-chat).
+
+**The feeling (non-negotiable):** minimal, enterprise-grade, psychologically interactive. The app must feel like **a home where no one judges the student** — a future-looking intelligence engine that is **highly intelligent but a friend**: charismatic, humorous, easy to understand, authentic (never fraudulent — output presented must exactly match the intelligence that generated it).
+
+**The session (the killer surface):** must feel like a **live video call with a human teacher-friend** — a **holographic running teacher** (interactive, production-grade, animated character), a **blackboard for graphs**, live voice + text. Target: free, no external software, fully local.
+
+**Retention:** deeply retentive loops built on psychology — but the Founder's "dark psychology" instinct is answered with the ADR-023 ruling: the manipulation toolkit is banned AND the compounding-psychology toolkit (attachment through genuine memory, open loops, growth evidence, the buddy who was there) is the strong version of what he wants. Authenticity is the retention moat.
+
+**Engineering verdict (researched 2026-10-03):** achievable free + offline: Canvas 2D hologram avatar (custom rig, no Live2D license), Web Speech API TTS (offline system voices, quality-tiered with text-first fallback), on-device Whisper (transformers.js, ~40–75 MB, WASM/WebGPU) as optional voice input, canvas blackboard with draw-on animation, IndexedDB persistence (Wave-2). CUT: photoreal human (uncanny valley, not free), continuous two-way voice chat in V1. The persona renders kernel truth only (Claim-Provenance law: every sentence the teacher says carries kernel provenance — no invented facts, no mismatch).
