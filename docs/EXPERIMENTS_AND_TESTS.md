@@ -179,3 +179,23 @@ py -m pytest backend/tests -q             # archived prototype reference suite (
 **Seal:** `worlds.hidden.json` sealed at FNV-1a `c31cd9d5` (UTF-8 bytes); test fails on any tamper. First incident: the seal check itself caught a real hash mismatch during bring-up (the test initially hashed UTF-16 code units; the em-dash in the JSON note exposed it) — fixed by hashing bytes; an honest example of the seal working.
 
 **Suite:** 10 files / **77 tests green**, typecheck clean. New tests: aom.test.ts (11 — prediction sanity, single triage application, shrinkage, provenance ban, named human gate, lineage), g0_worlds.test.ts (5 — four worlds + visible table), end-to-end loop test (sim → outcome records → learner → lineage-linked proposal → ban enforced).
+
+---
+
+## §11 — CAMPAIGN: THE TEACHING LAYER + FREEZE INSPECTION (B7/B8/B10/B11/B9)
+**When:** 2026-10-02, ~13:00–14:30 · **Model:** GLM-5.3-Flash (Z.ai) via ZCode · **Commits:** `c5229c8` + freeze-inspection commit
+
+**Built & tested:** composer (B7), teacher (B8, 14-move state machine over 84 verified atoms), misconception/diagnosis engine (B10, wired into event fabric via chosen_option), mock post-mortem + attempt coach (B11), behaviour engine (B9, internal flags only), and `runTeachingSession` — the closed loop with the student injected as a Responder.
+
+**The inspection question, answered as executable tests:**
+- **Complete session:** 12-move transcript generated (probe → explain → retrieval → misses → encouragement → summary → calibration); every move carries a receipt-grade "why"; every content utterance is a bank atom or explicit tier-4 template (tier discipline asserted).
+- **Evidence flows:** typed events folded through applyEvent — belief nEff grows, memory cells dated, misconception counters incremented, AOM outcome records produced (predicted vs observed Δμ).
+- **The loop LEARNS:** 10-day closed loop — taught student's TRUE exam marks > no-teaching control (real learning, not noise); calibration error bounded <0.25; weak-topic recovery (sabotaged topic scheduled and improved); 3-day log replays bit-for-bit (μ, Σ, misconceptions).
+
+**Bugs caught by the new tests (all fixed same-session):** calibration_wrap segment never appended; hint ladder preempted by the next retrieval; ladder depth leaked from probe-phase misses; HINT_L3 infinite loop; missing c_fr_21 example atom (tier discipline refused to invent one — authored instead). Each is a permanent regression test.
+
+**Bugs found by the tests: 5 · all fixed · zero carried.**
+
+**Suite:** 13 files / **111 tests green** + typecheck clean. Cumulative commits: d535e9b → b44fa3c → 6c21c66 → c5229c8 → freeze commit.
+
+**Verdict: BACKEND FREEZE INSPECTION PASSED for the intelligence kernel + teaching loop** (V1-A scope). Remaining before V1-A "public": Brain Lab web (8 screens), content depth (atoms 84→150, items 80→500), pilot hardening. V1-B (student PWA + sync) not started — gated on V1-A.

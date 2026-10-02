@@ -164,3 +164,28 @@ Also, at the founder's direction, established the **self-sufficiency rule** (reg
 **What we inferred:** the AOM is cheap (one session) and high-leverage (the planner can never again silently encode a pedagogy assumption); the four-world gate converts our old honesty *caveat* into an honesty *test*; and the robustness result reframes the public story — the brain's value is largest where reality is messiest, which is exactly where students live.
 
 **Way forward (remaining V1-A, in order):** B7 composer + B8 teacher + first 30–50 atoms → B11 mock post-mortem → B9 behaviour (personalization, ADR-018) → 8-screen Brain Lab web → pilot hardening. Content sprint and founder's aspirant conversations continue in parallel.
+
+---
+
+<a name="entry-08"></a>
+## ENTRY 08 — THE TEACHING LAYER + FREEZE INSPECTION (B7/B8/B10/B11/B9, closed loop)
+**Model:** GLM-5.3-Flash (Z.ai), agentic runtime: ZCode CLI · directed by the Founder · **When:** 2026-10-02, ~13:00–14:30 · **Commits:** `c5229c8` (teaching layer), freeze-inspection commit (same session).
+
+**What we did** (Founder's 2-hour autonomous mandate: build the smallest deterministic teaching loop, lock the five contracts first, then B7→B8→atoms→evidence loop→B11→B9→Brain Lab→stop at the backend-freeze inspection gate; no docs until the end):
+1. **B10 diagnosis.ts** — misconception counters wired into `applyEvent` via `chosen_option` evidence; tiers per ADR-019 (candidate n≥1 / probable n≥3 / confirmed n≥3+sureWrong≥2); root-cause suspects = (1−σ(μ_p))·posterior-correlation via the belief covariance.
+2. **Atom bank** — `atoms.ts` (contract: provenance, version, riskLevel) + `polity_atoms.ts`: **84 verified atoms** — 41 explanations (one per concept), 4 worked examples, 6 common-mistake traps, 18 hint-ladder atoms (L1 cue → L2 eliminate → L3 rationale) for the six highest-weight concepts, 7 contrast atoms for the classic confusable pairs (14↔19, 19↔21, 72↔161, 262↔263, PAC↔Estimates, Golak↔Kesavananda, 275↔282), 3 rotating encouragements.
+3. **B7 composer.ts** — plan blocks → ordered segments (retrieval_warmup → probe → teach ⇄ practice → calibration_wrap), interleaving layout, minute trimming (never drops the wrap), full receipt lineage back to plan blocks. Layout only — zero re-planning.
+4. **B8 teacher.ts** — the 14-move deterministic state machine (12 v2x moves + FADE_EXAMPLE path + summaries). Renders ONLY tier-1 bank atoms or explicit tier-4 templates — the LLM tier does not exist inside the kernel. Hint ladder keyed to wrongs on the ACTIVE item (each level once → worked example); misconception-confirmed → CONTRAST; encouragement rotation; segment summaries from state deltas.
+5. **teach_loop.ts** — `runTeachingSession` with the student injected as a `Responder` (the kernel never simulates students; the PWA will inject real humans through the same interface). Loop: plan → compose → teach → student turn → typed events → belief/memory/misconception update → AOM outcome records → session receipt.
+6. **B11 postmortem.ts** — deterministic marks-loss classification (bad_guess checked FIRST — a self-declared guess is direct evidence; then knowledge_gap/trap/careless/time_pressure; unclassified shown as unclassified) + attempt-policy coach with the student's own confidence→accuracy calibration.
+7. **B9 behaviour.ts** — measured features (adherence, streaks, hint rate, rapid guesses, confidence-accuracy gap), archetype flags as INTERNAL action changes (fade hints, calibration drills, lighter plan, rest day — never labels), missed-session hypothesis distribution + one-tap probe, notification policy (silence when done, back off when ignored, gentle re-entry).
+8. **Brain Lab Act 4** — the complete loop as a public demo (transcript with ✓/✗ per move, belief shifts per segment, AOM predicted-vs-observed Δμ).
+9. **FREEZE INSPECTION tests** — multi-day closed loop (10 days), bounded calibration error, TRUE LEARNING (taught student's true marks > no-teaching control), weak-topic recovery (sabotaged topic visited and improved), bit-for-bit 3-day replay.
+
+**Bugs the tests caught and fixed (the honest list):** composer never appended the calibration_wrap segment; hint ladder was preempted by the next retrieval (reordered); ladder depth leaked from probe-phase misses (re-keyed to active-item wrongs); HINT_L3 looped forever (hintShownLevel cap + worked-example handover); missing example atom for c_fr_21 (tier discipline refused to invent one — we wrote the atom instead).
+
+**What happened (results):** **111/111 tests green, typecheck clean.** The inspection question — *can one complete session run where every major decision is brain-generated, every teaching move produces measurable evidence, and the evidence flows back without the LLM owning anything?* — **answered YES, as executable tests**: Brain Lab Act 4 shows a full 12-move session; a struggling concept's belief moved 51%→24% on real (simulated) evidence; replay rebuilds state bit-for-bit; the weak topic gets scheduled and improves.
+
+**What we inferred:** the teacher's discipline (moves from vocabulary, words from atoms) is what makes the loop auditable at the SENTENCE level, not just the decision level; the injected Responder is the exact seam where the real PWA will plug in; B5.5's prediction-vs-evidence loop now runs inside every session (predicted Δμ vs observed Δμ printed per session).
+
+**Way forward (V1-A remaining):** Brain Lab web (8 screens), content sprint (84 atoms → 150; items 80 → 500), pilot hardening. V1-B (student PWA) may start only after V1-A gates stay green. Founder's parallel track unchanged: recruit 20–30 aspirants, arrange expert content verification.

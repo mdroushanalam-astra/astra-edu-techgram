@@ -3,13 +3,13 @@
 
 > **Read me alone:** this page is refreshed after every session and is written to stand on its own — what works, what doesn't, what's next, and how to verify it. Non-technical readers: `FOUNDER_GUIDE.md` tells the same story in plain language.
 
-**Snapshot:** 2026-10-02, ~13:00 (local) · Kernel 0.1.0+ (commits `d535e9b`, `b44fa3c`) · **77/77 tests green, typecheck clean** · Phase: **V1-A "The Brain" — AOM + four worlds DONE; teacher next** · Git: initialized (`main`, 2 commits) · Session model: GLM-5.3-Flash (Z.ai) via ZCode
+**Snapshot:** 2026-10-02, ~14:30 (local) · Kernel 0.1.0+ (commits `d535e9b`→`b44fa3c`→`6c21c66`→`c5229c8`→freeze) · **111/111 tests green, typecheck clean** · Phase: **V1-A — TEACHING LAYER COMPLETE, backend freeze inspection PASSED** · Git: `main`, 5 commits · Session model: GLM-5.3-Flash (Z.ai) via ZCode
 
 ---
 
 ## 1. One-paragraph position
 
-The complete deterministic intelligence core exists and is proven — now with its learning organ. The TS kernel carries: envelope → events → belief (graph-prior Kalman) → memory → exam Monte-Carlo → CAT diagnostic → **B5.5 Action Outcome Model** (predictions recorded before every action, evidence-based outcomes, shrinkage learning, human-gated updates, closed-loop ban enforced in code) → robust planner → receipts. The simulator gate is now **four generative worlds** (friendly/misspecified/adversarial/sealed-hidden), and the planner passed all of them — its edge *grows* as worlds diverge from its assumptions. Zero LLM anywhere. Polity seed (10 topics / 40 concepts / 80 tagged items). What does NOT exist yet: the teaching surface (composer/teacher/atoms), mock post-mortem, behaviour engine, any UI. The Python prototype is archived as reference. Repo is now git-versioned.
+The full closed loop now exists in the TypeScript kernel: envelope → events → belief (graph-prior Kalman) → memory → exam Monte-Carlo → CAT diagnostic → AOM → robust planner → **composer (B7) → teacher (B8: 14 moves over 84 verified atoms) → student turns → typed evidence → belief/memory/misconception update (B10) → AOM prediction errors** — with receipts on every layer, plus mock post-mortem + attempt coach (B11) and the behaviour engine (B9, internal flags only). The freeze inspection proves it end-to-end: a 10-day closed loop produces TRUE learning vs a no-teaching control, beliefs track hidden truth (error <0.25), weak topics get scheduled and improve, 3-day logs replay bit-for-bit, and not one decision touches an LLM. What remains for V1-A: Brain Lab web (8 screens) + content depth (84→150 atoms, 80→500 items). V1-B (student PWA + sync) is gated on V1-A.
 
 ## 2. What works (verified — see EXPERIMENTS_AND_TESTS for numbers)
 
@@ -39,16 +39,14 @@ The complete deterministic intelligence core exists and is proven — now with i
 - **Misconception engine consumption** (tags exist; B10 posterior + CONTRAST wiring pending).
 - **Git:** no repo initialized — single-copy risk.
 
-## 4. Next actions (V1-A "The Brain" first — ADR-017; build order per ADR-015/016/018)
+## 4. Next actions (V1-A completion, then V1-B)
 
-1. **B5.5 Action Outcome Model:** extract gain priors from planner params into a versioned `aom.ts`; record predictions in receipts BEFORE actions; wire `joinOutcome` + prediction-error into the session loop. The never-self-fooling loop becomes code.
-2. **Four simulator worlds (G0 re-run):** extend `lab.ts` with World B (misspecified) and World C (adversarial) configs; freeze a World D hidden-benchmark pack; re-run the gate — expect honest re-baselining of the friendly-world numbers.
-3. **B7+B8:** session composer + teacher state machine + first 30–50 verified atoms — makes a *teachable* loop.
-4. **B11:** mock post-mortem + attempt-policy coach (two 50Q sectional mocks; deterministic error classification).
-5. **B9 behaviour engine (priority RAISED, ADR-018):** daily features, archetype hypotheses (internal only), belief probes, notification policy — the personalization engine.
-6. **Brain Lab web (8 screens)** + PWA shell + sync + server recompute-and-verify (chaos + tamper tests).
-7. **Content sprint:** items 80→500 (quality bar per ADR-014 point 38), atoms 0→150, PYQ weights refine.
-8. **Git init (overdue).**
+1. **Brain Lab web (8 screens, ADR-014 pt.32)** — the public proof page; the CLI demo already runs all acts.
+2. **Content sprint:** atoms 84→150 (2 variants for top 20 concepts), items 80→500, PYQ weights refine — **needs founder/mentor verification hours (the critical path)**.
+3. **B11 wiring into the PWA surface** (mock centre) + B9 flags feeding the planner (lighten/rest).
+4. **V1-B (only after V1-A gates hold):** PWA shell (offline queue, service worker), sync server + recompute-and-verify, tamper tests, chaos day.
+5. **Pilot:** 20–30 aspirants, 3+ weeks, pre-registered kill/continue criteria (G3).
+6. **Overdue hygiene:** none — git live; keep committing per session.
 
 ## 5. Known risks & open questions
 

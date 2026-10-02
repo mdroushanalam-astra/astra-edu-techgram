@@ -1,10 +1,10 @@
 {
   "project": "Techgram / Astra Edu — Student Intelligence Kernel",
-  "updated_at": "2026-10-02T13:00:00+05:30",
+  "updated_at": "2026-10-02T14:30:00+05:30",
   "session_model": "GLM-5.3-Flash (Z.ai) via ZCode",
-  "kernel_version": "0.1.0+ (commits d535e9b, b44fa3c)",
-  "position": "V1-A 'The Brain': B5.5 AOM + four-world G0 IMPLEMENTED (77/77 tests, planner useful in all worlds, edge grows hostile); next: B7/B8 teacher + atoms, B11, B9, Brain Lab web",
-  "tests": { "passed": 77, "failed": 0, "typecheck": "clean" },
+  "kernel_version": "0.1.0+ (commits d535e9b..freeze, 5 commits)",
+  "position": "V1-A: TEACHING LAYER COMPLETE + backend freeze inspection PASSED (111/111 tests). Closed loop proven: plan->compose->teach->evidence->state, multi-day true learning, bit-for-bit replay. Remaining for V1-A: Brain Lab web + content depth. V1-B (PWA/sync) gated on V1-A.",
+  "tests": { "passed": 111, "failed": 0, "typecheck": "clean" },
   "read_first": [
     "docs/FOUNDER_GUIDE.md",
     "docs/00_CHARTER.md",
@@ -22,14 +22,12 @@
     "sweep": "npx tsx kernel/src/demo/debug_sweep.ts"
   },
   "next_actions": [
-    "B7 session composer + B8 teacher state machine (12 moves) + first 30-50 verified atoms",
-    "B11 mock post-mortem + attempt-policy coach",
-    "B9 behaviour engine (priority raised, ADR-018 — the personalization engine; no labels ever)",
-    "Brain Lab web demo, 8 screens (ADR-014 point 32)",
-    "Content sprint: items 80->500 (high-information instrument bar), atoms 0->150, PYQ weights refine",
-    "PWA shell + sync + server recompute-and-verify",
-    "Pilot recruitment by founder (20-30 aspirants)",
-    "DONE 2026-10-02: B5.5 AOM (aom.ts, closed-loop ban in code), four worlds + sealed hidden benchmarks, G0 re-run — see EXPERIMENTS §10"
+    "Brain Lab web demo, 8 screens (ADR-014 point 32) — CLI demo already runs all acts",
+    "Content sprint: atoms 84->150 (2 variants top-20), items 80->500, PYQ weights refine — FOUNDER/MENTOR VERIFICATION IS THE CRITICAL PATH",
+    "B11 mock centre into PWA surface; B9 flags feeding the planner (lighten/rest)",
+    "V1-B (gated on V1-A gates holding): PWA shell (offline queue), sync server + recompute-and-verify, tamper tests, chaos day",
+    "Pilot: 20-30 aspirants, 3+ weeks, pre-registered kill/continue (G3) — founder recruits",
+    "DONE 2026-10-02: B5.5 AOM, four worlds, B7/B8/B10/B11/B9 teaching layer, closed loop + freeze inspection — see EXPERIMENTS §10-§11"
   ],
   "gates": {
     "G0_simulator": "aggregate over archetypes: techgram beats random (+6.2 marks 30d) and fixed order (+2.4)",
