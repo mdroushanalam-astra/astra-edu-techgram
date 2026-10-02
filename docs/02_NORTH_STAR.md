@@ -32,6 +32,9 @@ The four realms of the original vision (Learn / Connect / Career / Life) all rem
 
 ---
 
+## 2b. THE SESSION LOOP (the evolved form, 2026-10-02)
+Student → diagnose → **understand the student** → choose objective → **compose the experience** (narrative arc, prerequisite activation, goal connections, curiosity, personalization, artifacts) → teach → observe → **update the student model** → **show meaningful change** → **create the next curiosity** → continue. One brain. One loop. The session is an adaptive experiment; validation is its output, not its decoration.
+
 ## 3. HOW WE SEE TECHGRAM NOW (the reframe, post-audit)
 
 1. **A decision engine with slots — not a chatbot with features.** Every surface (session UI, mocks, notifications, threads, parent report, and later career/connect) asks the kernel one question: *"what is the best thing to put here for this student right now, and why?"* and renders the answer. Features are config and rendering; intelligence is written once.

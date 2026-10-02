@@ -18,6 +18,7 @@ import {
   type TeachingMove, type TeacherState, type MemoryOpenSignal,
 } from "./teacher.js";
 import { confirmedMisconceptions } from "./diagnosis.js";
+import type { NarrativeSessionPlan } from "./session.js";
 import type { BeliefModel, BeliefState } from "./belief.js";
 import { reportConcept } from "./belief.js";
 import type { SystemState } from "./events.js";
@@ -89,6 +90,8 @@ export interface RunSessionOptions {
   maxMoves?: number;
   /** A2 [ADR-025]: "auto" derives the continuity signal from confirmed misconceptions. */
   memoryOpen?: MemoryOpenSignal | "auto";
+  /** S2 [ADR-028]: execute the compiled narrative arc instead of raw blocks. */
+  narrative?: NarrativeSessionPlan;
 }
 
 /**
@@ -103,7 +106,11 @@ export function runTeachingSession(
 ): SessionResult {
   const memParams = opts.memParams ?? DEFAULT_MEMORY_PARAMS;
   const planReceipt = buildPlanReceipt(opts.plan, unknownsOf(model), aomVersionOf(opts.plan));
-  const session = composeSession(opts.plan, opts.minutesAvailable, undefined, planReceipt);
+  // S2 [ADR-028]: when a compiled narrative is supplied, the session IS the
+  // narrative — beats carry machinery kinds so the teacher flow still runs.
+  const session: ComposedSession = opts.narrative
+    ? ({ ...opts.narrative, receipt: planReceipt } as unknown as ComposedSession)
+    : composeSession(opts.plan, opts.minutesAvailable, undefined, planReceipt);
 
   const teacher: TeacherState = startTeacherSession();
   const transcript: SessionTranscriptEntry[] = [];
@@ -126,6 +133,24 @@ export function runTeachingSession(
     const seg = session.segments[segIdxAtStart];
     if (!seg) break;
 
+      // Frame beats: template utterance, no evidence, advance segment.
+      if ((seg as { narrativeTemplate?: string }).narrativeTemplate !== undefined) {
+        transcript.push({
+          seq: transcript.length + 1,
+          segmentId: seg.id,
+          segmentKind: seg.kind,
+          move: "SUMMARISE_CLOSE" as TeacherMoveId, // frame marker (rendered by the UI as a beat label)
+          // The real beat label is in the utterance field above.
+          conceptId: seg.conceptId,
+          utterance: (seg as { narrativeTemplate?: string }).narrativeTemplate ?? "",
+          why: seg.objective,
+          eventIds: [],
+        });
+        teacher.segmentIndex += 1;
+        teacher.segmentMoveLog = [];
+        teacher.segmentMinutesSpent = 0;
+        continue;
+      }
     let movesThisSegment = 0;
     // Run the segment to its budget (or until the teacher advances it).
     while (teacher.segmentIndex === segIdxAtStart && guard < maxMoves * 2) {

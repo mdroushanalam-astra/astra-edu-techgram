@@ -145,3 +145,15 @@
 Twenty weeks from now there exists a Polity brain that plans a real aspirant's day against their real exam date, diagnoses *why* they missed questions through a prerequisite graph and misconception ontology, forecasts what they'll forget, teaches from verified atoms through a scripted pedagogy, decomposes their mocks into marks lost by cause and coaches their guessing policy — and every one of those decisions carries a receipt with its assumptions honestly labelled, proven in a public simulator demo, running fully offline, with the LLM unplugged and nothing changing. Twenty to thirty real aspirants are using it, the first calibration curves exist, and the moat sensors — uplift, misconceptions, outcomes, memory — have been quietly accruing proprietary data since the first session of the first user.
 
 *Roadmap complete. The document set: `README.md`.*
+
+---
+
+# SESSION-EXPERIENCE GATES [ADR-027/028, 2026-10-02]
+| Gate | Build | Pass condition |
+|---|---|---|
+| **S1 — Core contracts** | SessionSpec/SessionPlan/narrative segments · PreferenceState (AOM-style) · CuriosityState · StudentArtifact · BreakPolicy · SessionOutcome · social slots · integration into B7/teach_loop — no new brain | 7 ADR-027 invariants green in tests |
+| **S2 — Golden replay** | Class 8 → IAS → Geomorphology → 40 min → LLM OFF + **Worlds A–H** (clean/false-confidence/low-energy/resistant/unusual-preference/preference-wrong/no-LLM/missing-asset) | All verification points + deterministic replay + graceful fallbacks. **A machinery gate, not an efficacy proof.** |
+| **S3 — Validation surfaces** | Growth Receipt · Capability Journey · Changed-My-Mind · Teach-it-back · Curiosity Ledger · mismatch transparency · anonymous social proof | Surfaces render only kernel output |
+| **S4 — Limited public beta** | Classes 6–10 + UPSC, invited cohort, full measurement list + Capability Gain metric + parent-summary payer experiment | Content floor per goal + compliance (minors) + Wave-2 backend |
+
+**Sequencing law:** every hour adds verified content, reaches a real aspirant, or ships something a student can touch. No new intelligence subsystems before a real student uses the loop — only the session-experience layer above.

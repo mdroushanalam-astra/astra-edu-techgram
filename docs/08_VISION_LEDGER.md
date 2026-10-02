@@ -24,7 +24,7 @@
 | 14 | Knowledge layer (books/notes/papers) | 🔶 PARTIAL — compiler + verified atoms (~105 items, 104 atoms) | Verification hours = bottleneck | — |
 | 15 | RAG / embeddings / vector DB | 🔶 DEFERRED | Verified atoms first; pgvector when doubt cascade + content justify it | **Trigger:** doubt-cascade build (idea #6) |
 | 16 | Speech / vision models | 🔶 DEFERRED | Nothing in the loop needs them; voice natural for Indian students later | **Trigger:** pilot shows typing is a barrier |
-| 17 | Connect Realm (feed) | ❌ CUT from V1 → 🔶 DESIGNED as concept threads | Empty-restaurant + moderation + accuracy risk | **Trigger:** pilot users ask for community, or >30% of doubts unresolved by verified notes |
+| 17 | Connect Realm (feed) | 🔶 **EVOLVED [2026-10-02, ADR-028]**: brain social DECISIONS before beta (anonymous aggregate proof + compatibility study-room invitations); the social product post-beta | Rooms need Wave-2 backend + consent/moderation ADR; named-peer comparison for minors out | **Trigger:** Wave-2 backend live + consent/moderation ADR + beta demand (users ask for community) |
 | 18 | Career Realm | 🔶 DEFERRED 6+ months | Needs trustworthy skill measurement first | **Trigger:** skill measurement validated for ≥1 skill area |
 | 19 | Parent intelligence (weekly reports) | 🔶 DEFERRED (template-only, opt-in) — **cheap payer test planned in pilot** | Every screen multiplies design/privacy; but "will parents pay?" must be tested | **Trigger:** ≥5 pilot parents say a parent would pay/ask — then WhatsApp/PDF weekly summary experiment |
 | 20 | Mental/behavioural indicators for parents | ✅ POLICY — observable signals only, never diagnoses | Ethics wall (ADR-023) | — |
@@ -43,6 +43,10 @@
 | 33 | Minute-one "wow" for non-technical users | 🔶 DESIGNED — mock post-mortem is the **candidate** activation wedge | Candidate, not established — test in pilot | **Trigger:** pilot activation/first-session data |
 
 ---
+
+| 34 | Session-experience layer (narrative sessions, preference model, curiosity engine, artifacts, break policy) | ✅ BUILT (S1) — golden replay pending (S2) | Founder vision: \"a beautiful date with the topic\" | — |
+| 35 | Evidence-based validation stack (growth receipts, capability journey, changed-my-mind, milestones, curiosity ledger) | 🔶 S3 — surfaces after the golden gate | Validation must be earned from evidence, never copy | — |
+| 36 | Limited public beta (Classes 6–10 + UPSC, invited cohort) instead of a private pilot | 🔶 GATED — after S2 golden gate + content floor per goal | Same measurement list, earlier public contact [ADR-028] | — |
 
 ## THE PERMANENT CUTS (not deferred — dropped with cause)
 

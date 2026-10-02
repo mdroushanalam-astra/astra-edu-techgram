@@ -8,6 +8,10 @@
 import { buildBeliefModel, initialState, observe, timeUpdate, type BeliefModel, type BeliefState, type Onboarding } from "./belief.js";
 import { applyReview, newMemoryCell, DEFAULT_MEMORY_PARAMS, type MemoryCell, type MemoryParams } from "./memory.js";
 import { updateMisconception, newMisconceptionState, copyMisconceptionState, type MisconceptionState } from "./diagnosis.js";
+import { initialPreferenceState, copyPreferenceState, observePreference, type PreferenceState, type PreferenceDimension } from "./preference.js";
+import { initialCuriosityState, copyCuriosityState, type CuriosityState } from "./curiosity.js";
+import { initialCuriosityState as initCuriosity } from "./curiosity.js";
+import type { StudentArtifact } from "./artifact.js";
 import type { Content } from "./content.js";
 import { expertDifficultyToLogit } from "./content.js";
 
@@ -23,7 +27,11 @@ export type EventType =
   | "session_abandoned"
   | "review_completed"
   | "mock_completed"
-  | "scorecard_imported";
+  | "scorecard_imported"
+  | "artifact_added"
+  | "curiosity_captured"
+  | "preference_observed"
+  | "self_report";
 
 export interface StudentEvent {
   event_id: string;
@@ -43,6 +51,14 @@ export interface SystemState {
   memory: Map<number, MemoryCell>; // conceptIdx → cell
   /** B10: per-student misconception counters (evidence-driven, tiered). */
   misconceptions: MisconceptionState;
+  /** B12: preference model (AOM-style prediction-error learning). */
+  preferences: PreferenceState;
+  /** B12: curiosity ledger — student questions are evidence. */
+  curiosity: CuriosityState;
+  /** B12: student-produced cognition (notes/explanations) — reasoning lineage. */
+  artifacts: StudentArtifact[];
+  /** B12: optional self-reported session state (energy/focus/stress/motivation). */
+  selfReports: { day: number; energy?: number; focus?: number; stress?: number; motivation?: number }[];
   goal: { goalId: string; deadlineDay: number } | null;
   onboarding: Onboarding | null;
   appliedKeys: Set<string>;
@@ -54,6 +70,10 @@ export function newSystemState(model: BeliefModel): SystemState {
     belief: initialState(model),
     memory: new Map(),
     misconceptions: newMisconceptionState(),
+    preferences: initialPreferenceState(),
+    curiosity: initCuriosity(),
+    artifacts: [],
+    selfReports: [],
     goal: null,
     onboarding: null,
     appliedKeys: new Set(),
@@ -84,6 +104,10 @@ export function applyEvent(
     },
     memory: new Map(st.memory),
     misconceptions: copyMisconceptionState(st.misconceptions),
+    preferences: copyPreferenceState(st.preferences),
+    curiosity: copyCuriosityState(st.curiosity),
+    artifacts: st.artifacts.map((a) => ({ ...a })),
+    selfReports: st.selfReports.map((s) => ({ ...s })),
     goal: st.goal,
     onboarding: st.onboarding,
     appliedKeys: new Set(st.appliedKeys).add(ev.idempotency_key),
@@ -196,6 +220,51 @@ export function applyEvent(
         );
         next.memory.set(ci, applyReview(cell, correct, ev.day, memParams));
       }
+      break;
+    }
+    case "artifact_added": {
+      const art: StudentArtifact = {
+        id: String(ev.payload.artifact_id ?? ev.event_id),
+        type: (ev.payload.type as StudentArtifact["type"]) ?? "note",
+        content: String(ev.payload.content ?? ""),
+        conceptIds: (ev.payload.concept_ids as string[]) ?? [],
+        day: ev.day,
+        provenance: String(ev.payload.provenance ?? ev.source),
+      };
+      next.artifacts.push(art);
+      break;
+    }
+    case "curiosity_captured": {
+      const q = ev.payload.question as string | undefined;
+      if (q) {
+        next.curiosity.questions.push({
+          id: String(ev.payload.question_id ?? ev.event_id),
+          question: q,
+          conceptIds: (ev.payload.concept_ids as string[]) ?? [],
+          source: (ev.payload.source as "student" | "system") ?? "student",
+          status: "unresolved",
+          day: ev.day,
+        });
+      }
+      break;
+    }
+    case "preference_observed": {
+      const dim = ev.payload.dimension as PreferenceDimension | undefined;
+      const option = ev.payload.option as string | undefined;
+      const observed = ev.payload.observed as number | undefined;
+      if (dim && option && typeof observed === "number") {
+        observePreference(next.preferences, dim, option, Math.max(0, Math.min(1, observed)), ev.day);
+      }
+      break;
+    }
+    case "self_report": {
+      next.selfReports.push({
+        day: ev.day,
+        energy: ev.payload.energy as number | undefined,
+        focus: ev.payload.focus as number | undefined,
+        stress: ev.payload.stress as number | undefined,
+        motivation: ev.payload.motivation as number | undefined,
+      });
       break;
     }
     case "session_started":

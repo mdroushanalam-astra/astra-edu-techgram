@@ -184,6 +184,18 @@ Measured behavioural features computed from the event log and consumed by planne
 
 ---
 
+### B12 — Session-Experience Layer [ADR-027/028, added 2026-10-02 — an UPGRADE of B7/teach_loop, not a second brain]
+Single-brain invariant (ADR-027.7): no parallel session planner. B7 becomes **the compiler from brain decisions + student state + content into an executable learning session**:
+- **SessionSpec → SessionPlan (narrative arc)**: orientation → prior-knowledge probe → hook → discovery → micro-quiz → concept construction → real-world application → transfer → retrieval → synthesis → **open loop** (curiosity) — minute-budgeted, every segment carrying objective, concepts, teacher-move hint, expected evidence, personalization policy, fallback, completion condition.
+- **PreferenceState** [AOM-style]: preference hypothesis → predicted response → observed → prediction error → update. No personality labels — estimates with n and error.
+- **CuriosityState**: educationally-useful curiosity only (relevance + difficulty-fit + novelty + student interest − interruption cost); student-generated questions preserved as evidence.
+- **StudentArtifact**: student-produced cognition (notes/answers/explanations) with **reasoning lineage** (claim → reason → evidence → confidence → correction → later reasoning). Powers THEN/NOW conceptual-change moments and notebook linkage.
+- **BreakPolicy**: from measured fatigue slopes — \"your response time rose 28% over 9 questions; recommend a 12-minute break.\"
+- **SessionOutcome**: planned vs actual, mastery deltas, misconception changes, preference signals, return outcome, predicted vs observed — the AOM's session-grade fuel.
+- **Mismatch detection**: \"I thought you preferred diagrams; examples work better for you — adjusting.\" A trustworthy system must know when its model of the student is wrong, and say so.
+- **Social slots** [ADR-028]: anonymous aggregate social proof + compatibility-based study-room invitations as brain decisions; the social product is post-beta (gated).
+- **Golden replay gate**: Class 8 → IAS → Geomorphology → 40 min → LLM OFF, Worlds A–H (clean/false-confidence/low-energy/resistant/unusual-preference/preference-wrong/no-LLM/missing-asset). A machinery gate, not an efficacy proof.
+
 ## 3. GOAL SPEC (how everything later is config)
 
 ```json

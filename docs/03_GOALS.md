@@ -101,6 +101,11 @@ Before any new feature or realm is ever discussed, Techgram must keep answering 
 | Product | 🟡 HIGH | Will students find the loop useful enough to return? Unknown until the pilot |
 | Scientific / learning-effect | 🔴 VERY HIGH | Does the AOM predict real interventions? Does durable learning improve? Needs delayed outcomes from real students |
 
+## 4.6 LIMITED PUBLIC BETA + CAPABILITY GAIN [ADR-028, 2026-10-02]
+The private-pilot phase is replaced by a **limited public beta** (invited cohort, Classes 6–10 + UPSC): same measurement list, earlier public contact. The beta tests the hypothesis per student — believed → decided → why → did → evidence → updated → predicted → happened → was the next decision better — and separately: did they learn, retain, transfer, feel understood, did personalization/curiosity/goal-connections help, did they become more independent?
+
+**New metric — Capability Gain:** CG_c = P(independent successful performance after) − P(before), aggregated over a Capability Graph (goal → capabilities → concepts). We say \"Riya independently demonstrated 8 capabilities she could not at baseline\" — never \"14 hours spent\".
+
 ## 5. WHAT SUCCESS LOOKS LIKE 90 DAYS AFTER LAUNCH (from the audit's standard)
 
 1. Kernel passing simulator, replay, and no-LLM drills continuously.
