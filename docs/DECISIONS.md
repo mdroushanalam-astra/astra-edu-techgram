@@ -152,3 +152,15 @@ Full review read line-by-line; each point adjudicated against the built kernel +
 4. **Misconception tiers replace the n≥2 threshold:** **Candidate** (n≥1 → investigate) / **Probable** (n≥3 + consistent evidence → targeted probe) / **Confirmed-for-action** (n≥3–4 + sure-wrong + repeated context → CONTRAST remediation).
 5. **Uplift (M1) causal discipline added:** randomized exposure + logged propensity + minimum exposure floors + overlap monitoring + doubly-robust or hierarchical estimation + pre-specified estimands — no causal uplift claims from bare residuals.
 6. **Charter constitution line adopted:** *"The brain decides. Features render. Events remember. Outcomes teach the brain. LLMs may communicate or measure, but never own the decision."*
+
+### ADR-020 — K12 as GoalSpec + content config; the licensing policy — ACCEPTED (2026-10-02)
+**Decided by:** GLM-5.3-Flash (Z.ai) via ZCode, on the Founder's directive to research open materials and feed K12.
+**Decision:** (1) K12 is **config, not code** — a GoalSpec + concept graph + items + atoms (`k12_seed.ts`, CBSE Class 8 Science physics slice: 3 topics / 14 concepts / 25 items / 21 atoms, mastery-threshold payoff 40×1 no-negative). The kernel ran the full loop on it with zero changes (goal-agnosticism proven, `test/k12_goal_agnostic.test.ts`). (2) **Licensing policy** (research: docs/07): NCERT is copyrighted → **align, never ingest** (permission route exists for partnership); Khan Academy / OpenStax / CK-12 / PhET are CC BY-NC* → **never ingest into the commercial product**; Wikipedia text CC BY-SA → usable with attribution + share-alike discipline; **the production model is original authorship + risk-weighted human verification**, sources cited as alignment references only.
+**Rejected:** ingesting NCERT/Khan/OpenStax text (legal exposure); deferring all K12 work 18 months (the Founder directed preparation now; the 18+ pilot-launch decision stands — K12 content is prep, not launch).
+**Consequence:** content sprint gains a second track (K12) using the identical compiler+verification pipeline; minors' compliance (DPDP child rules) remains a deliberate future ADR before any K12 launch.
+
+### ADR-021 — Frontend green-lit in two waves — ACCEPTED (2026-10-02)
+**Decided by:** GLM-5.3-Flash via ZCode (verdict after the full audit), on the Founder's directive.
+**Decision:** frontend development proceeds in **two waves**. **Wave 1 — Brain Lab web** (Next.js over the kernel package; pure presentation; no server, accounts, or data risk; the kernel is TypeScript and runs client-side per ADR-001). **Wave 2 — Student PWA** (S1–S6 screens + IndexedDB event log + sync server with recompute-and-verify + auth + push delivery). Blueprint: `06_FRONTEND_BLUEPRINT.md` (7 screens mirroring kernel organs; belief bands as the star animation; grey mist sacred; zero dark patterns).
+**Condition:** content depth (atoms 105→150, items 105→500, Founder/mentor verification) grows in parallel — it is the only real bottleneck.
+**Rejected:** building Wave-2 before Wave-1 (data risk before proof); a native-first mobile app (slower; the PWA + on-device kernel is moat M5's path).

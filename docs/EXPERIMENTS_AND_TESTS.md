@@ -122,15 +122,17 @@ Archetypes: consistent, crammer, avoidant, drifter (adherence varies; pedagogy i
 | 2026-10-02 | Brain-Lab level error grows over 60 days | Understood (conservative gain priors vs fast simulated learners); monitored; slow-loop re-fitting is the designed cure — registered, not hidden |
 | 2026-10-02 | 1/3 sampled concepts outside 80% band in demo | Within tolerance given inflation; watch in CI coverage test |
 | 2026-10-02 (pre-history) | Python prototype: replay bug, JWT unenforced, subject inference hardcode | Archived with defects registered (§2); port contracts supersede |
+| 2026-10-02 | 5 teaching-layer build bugs (calibration_wrap never appended; hint ladder preempted by next retrieval; ladder depth leaked from probe misses; HINT_L3 infinite loop; missing c_fr_21 example atom) | All caught by closed-loop tests, all fixed same-session, each now a regression test (§11) |
+| 2026-10-02 | K12 test bring-up: promise-assertion misuse; missing k_f_noncontact explanation atom | Test fixed; atom AUTHORED (tier discipline refused to invent it) — the discipline working as designed |
 
 ---
 
 ## §8 — PROGRESS CHART (project-level, updated per campaign)
 
-| Metric | 2026-10-01 (prototype) | 2026-10-02 (kernel sprint) | 2026-10-02 (B5.5 + four worlds) | Target V1-A |
+| Metric | 2026-10-01 (prototype) | 2026-10-02 (kernel sprint) | 2026-10-02 (B5.5 + worlds) | 2026-10-02 (teaching layer + K12) | Target V1-A |
 |---|---|---|---|---|
-| Runtime kernel | Python (archived) | **TS: 11 modules, ~2,900 lines** | **TS: 12 modules incl. aom.ts** | + B7/B8/B9/B11 |
-| Tests | 50/50 (Python) | 58/58 (TS) | **77/77 (TS) + typecheck clean** | 100+ incl. chaos |
+| Runtime kernel | Python (archived) | TS: 11 modules | TS: 12 modules (aom) | **TS: 17 modules (+composer/teacher/diagnosis/atoms/postmortem/behaviour/teach_loop)** | + Brain Lab web |
+| Tests | 50/50 (Python) | 58/58 | 77/77 | **116/116 (14 files) + typecheck clean** | 100+ incl. chaos |
 | Simulator gate | — | 1 world (friendly) | **4 worlds, planner useful in ALL** | maintain |
 | Action outcomes | hardcoded in planner | hardcoded in planner | **AOM: predicted, recorded, versioned, human-gated** | measured from pilot |
 | Verified items | ~40 (Python bank) | **80 (TS seed, tagged)** | 80 (TS seed, tagged) | 500 |
@@ -138,7 +140,8 @@ Archetypes: consistent, crammer, avoidant, drifter (adherence varies; pedagogy i
 | Misconception tags | 0 | **33** | 33 | 60–100 |
 | Planner vs random (30d, aggregate) | — | **+6.2 marks** | +6.2 marks (bit-identical regression ✓) | maintain |
 | Planner vs fixed (30d, aggregate) | — | **+2.4 marks** | +2.4 marks (bit-identical regression ✓) | grow via data |
-| LLM decisions | 0 | **0 (structural)** | 0 (structural) | 0 forever |
+| LLM decisions | 0 | **0 (structural)** | 0 (structural) | **0 (structural)** | 0 forever |
+| Goals supported | 1 (UPSC) | 1 | 1 | **2 (UPSC + CBSE Cl-8, config-only)** | any GoalSpec |
 | Gates passed | — | G1, G2, G0-lite (aggregate) | **G0 (four worlds), G1, G2, estimator honesty, AOM loop** | G3 pilot |
 
 ---

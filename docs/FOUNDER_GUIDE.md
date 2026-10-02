@@ -1,7 +1,7 @@
 # TECHGRAM — THE FOUNDER'S GUIDE
 ## Your personal window into everything we are building. Written for you, in plain language, no coding knowledge needed.
 
-*Updated: 2026-10-02, ~14:30 · Updated after EVERY major session — check the date at the top. Every chapter also records **which AI model did the work** (this guide and everything technical so far: GLM-5.3-Flash by Z.ai, working inside the ZCode coding tool, under your direction) — so you always know who wrote what, and the rule is now permanent: any model that works on Techgram must sign its name and its reasons into the documents. If anything in here confuses you, that is a defect in this document, not in you — ask and it gets rewritten.*
+*Updated: 2026-10-02, ~15:30 · Updated after EVERY major session — check the date at the top. Every chapter also records **which AI model did the work** (this guide and everything technical so far: GLM-5.3-Flash by Z.ai, working inside the ZCode coding tool, under your direction) — so you always know who wrote what, and the rule is now permanent: any model that works on Techgram must sign its name and its reasons into the documents. If anything in here confuses you, that is a defect in this document, not in you — ask and it gets rewritten.*
 
 ---
 
@@ -105,6 +105,12 @@ Think of Techgram as a **hospital for learning**, with specialist departments:
 - **The Mock Analyser** exists: hand it one mock test and it decomposes every lost mark — "9 knowledge gaps, 5 traps, 3 careless, 3 bad guesses, 2 you should have attempted" — and coaches the guessing policy with the student's OWN confidence-vs-accuracy numbers.
 - **The Behaviour Watcher** measures (never guesses): streaks, hint dependence, overconfidence, drift — and responds with *actions* (lighter plan, calibration drill, a rest day), never labels.
 - **The proof:** we ran a simulated student through the complete loop for 10 days — plan → compose → teach → answer → evidence → updated brain — while a hidden "true" version of that student learned in parallel. Result: the taught student's real exam marks beat a no-teaching twin by a clear margin, beliefs tracked the truth within bounds, a sabotaged weak topic got discovered and repaired, and the entire 3-day event log replays the state exactly. **111/111 tests green.** The backend freeze inspection is PASSED — the brain and its teaching loop are locked; what remains before public is the proof webpage and more verified content, then the student app.
+
+**Chapter 8 — The audit, the K12 discovery, and the green light (2 Oct, evening).** Three things happened in this session:
+- **The full audit:** every test re-run live — 116/116 green, zero errors, the four-world exam table re-verified. The backend passed its freeze inspection.
+- **The K12 discovery (the important one):** you asked us to research open materials for school students. The finding is a legal landmine avoided: **almost every famous free education source is legally closed to a commercial product** — NCERT textbooks are copyrighted (reading is free, reuse needs written permission), and Khan Academy, OpenStax, CK-12 and PhET are all licensed non-commercial. The safe and better path: we WRITE our own teaching content, aligned to the public curriculum structure (facts and syllabi aren't copyrightable — our words are ours). And we proved it works: we built a CBSE Class 8 Science pack (forces, pressure, friction, light — 14 concepts, 25 questions, 21 scripts) and **the same brain that studies UPSC Polity taught Class 8 Science with ZERO changes to itself.** One brain, any goal — no longer a promise, a demonstrated fact.
+- **The green light:** the frontend is approved to build, in two waves — first the public Brain Lab proof page (needs no server; the brain runs in the browser), then the student app with offline support and a tiny verification server. The design mirrors the brain: a calm Today screen, the teaching conversation, a living Brain Map where unknown topics glow as grey mist waiting to be sharpened, the exam-day mountain forecast, the mock waterfall, and the receipts behind everything. Full blueprint: docs/06.
+Full research and licensing table: docs/07. What it means for you: your content-verification hours and the 20–30 pilot students remain the only things standing between us and launch.
 
 ---
 
