@@ -1,0 +1,707 @@
+Please read the following forensic audit report for "Astra Climate" and answer the following questions:
+1. Understand the core of Astra Climate.
+2. Explain its intelligence layer.
+3. How is it different from its billion-dollar competitors?
+
+Here is the audit report:
+# ASTRA CLIMATE — COMPLETE FORENSIC AUDIT (pre-frontend certification)
+
+_Audit date: 1 Oct 2026 · HEAD `eb3d58f` (main, clean tree) · Auditor:
+full-repository forensic pass per the user's governance directive —
+"the final archaeological excavation before we build the interface."
+
+**Audit rules honoured:** documentation treated as claims and reconciled
+against code and live behaviour; commit messages verified against actual
+diffs; nothing fixed silently; every number below was measured this audit,
+not remembered. This document + the repository are sufficient to
+reconstruct Astra without any conversation history._
+
+---
+
+# EXECUTIVE ANSWERS (Part 28, placed first as directed)
+
+**1. What have we built?** A working, tested, live-verified environmental
+intelligence *backend* for India: 12 cities, 8 Place-State domains
+(atmosphere, hazards, land, water, ecology, population, climate, energy),
+a four-field epistemic envelope (knowledge_type, value_semantics,
+query_extent, observation_basis), deterministic screening engines
+(smoke/heat/runoff/flood), a spatial-relationship engine, an Evidence
+Bundle, a hazard-event substrate (HazardEvent + OfficialAlert + five
+voices), 22 verified external sources, and a 135-test suite that runs
+green with the LLM key removed. A v1 frontend (6 views, 2,452 lines)
+exists but consumes only the v1 API — the State/Energy/Hazards/Evidence
+intelligence is currently **invisible to users**.
+
+**2. Is Astra what we intended?** The architecture is *ahead* of the
+original blueprint (it now has provenance semantics the blueprint never
+imagined) and the *interface* is behind it (v1 UI predates the envelope).
+The wedge — Project Impact & Site Screening — is implemented end-to-end
+at the API level but its evidence richness is not surfaced.
+
+**3. Current intelligence architecture:** WORLD → PROVIDERS (22) →
+EPISTEMIC ENVELOPE → PLACE STATE (composition, never recompute) →
+DETERMINISTIC ENGINES (frozen) → RELATIONSHIPS (spatial predicates) →
+EVIDENCE (five voices, no-upgrade invariant) → SCENARIOS (orchestrated
+engines) → HAZARD COMPOSITION (HazardEvent/OfficialAlert) → LLM
+(explanation only, optional) → API (24 routes) → FRONTEND (v1 only).
+
+**4. What works in reality?** Everything tested this audit returned
+HTTP 200 with correct semantics: full Place State, energy, hazards
+(USGS + FIRMS + flood case), evidence bundles, scenarios, PDF report,
+Ask Astra (grounded, 10.8 s), onboarding pipeline, caches, fallbacks.
+135/135 tests, twice (with and without LLM key). Frontend builds and
+serves; its API proxy works.
+
+**5. What doesn't?** Three latency paths (site-baseline **162 s cold**,
+briefing 21 s cold — NDVI decade, scenario 18.7 s cold); the Evidence
+route composes the **legacy hazards shape**, so its hazard block cannot
+see live events (semantically wrong, numerically coincidental — P1);
+grid state (CEA) unknown by design; smoke/flood/heat verification
+impossible until a ground-truth source clears its gate.
+
+**6. What is missing?** Frontend surfaces for the entire v2 intelligence
+layer; a ground-truth verification source; environmental memory
+(doctrine written, deliberately unbuilt); JRC GSW, Sentinel-5P, IMERG,
+SACHET/IMD/CWC feeds (all gated or deferred).
+
+**7. Biggest scientific limitation:** screening outputs are largely
+**unverifiable today** — no in-situ ground truth is wired, so engine
+calibration has no honest target (see docs/SELF_IMPROVEMENT_DOCTRINE.md §5).
+
+**8. Biggest frontend limitation:** it renders Astra v1's feature-shaped
+API, not Astra v2's epistemic State — no provenance, no unknown
+distinguishable from zero, no evidence surfaces, not responsive.
+
+**9. Biggest architectural risk:** the mismatch between backend honesty
+and frontend impression. The backend says "screening, unknown,
+lower-bound"; a dashboard inevitably reads as authority. Phase 5's
+entire job is to close that gap (R1–R8), and the warning-authority
+rules must carry into UI copy.
+
+**10. Current differentiation:** cross-domain provenance-aware State +
+epistemic envelope + evidence bundles + consequence composition. Data,
+APIs, and maps are commodity; the representation discipline is not
+(but see Part 22 for what is and is not yet a moat).
+
+**11. What Astra is NOT:** a warning system, a forecast authority, an
+EIA substitute, real-time monitoring, a disaster product, an LLM
+product, and (today) a memory-ful system.
+
+**12. Backend ready to freeze?** **Yes, conditionally** — one P1 wiring
+correction (evidence-route hazards composition, ~2 lines) should be
+authorized at the gate; everything else in docs/BACKEND_FREEZE_CHECKLIST.md
+is safe-to-leave or deferred.
+
+**13. Frontend ready to begin?** Yes, immediately after the freeze
+checklist is signed: payloads are stable, types are the contract of
+record, and every R1–R8 requirement has a verified backend behind it.
+
+**14. What should Phase 5 build?** A State-native, envelope-generic
+interface: domain-structured navigation over `/place/{slug}/state`,
+provenance and temporal validity as first-class layout, evidence
+surfaces, hazard five-voice UI with warning-authority separation,
+energy/water/ecology surfaces, R5 responsiveness, R6 onboarding,
+R7 comparison, R8 degradation states. Full blueprint: Part 24 +
+docs/FRONTEND_AUDIT.md (v2).
+
+---
+
+# PART 1–2 — SOURCES CONSULTED & REPOSITORY FORENSICS
+
+**Read in full or in structural depth this audit:** AGENTS.md,
+CURRENT_STATE.md, RESUME.json, all 9 docs under `docs/`, all 15 backend
+app modules + 13 providers + 5 scenario engines + 8 test files,
+frontend `src/` (App, 6 views, 4 components, api.ts, types.ts,
+package.json), vite config, and the live system.
+
+**Git forensics:** branch `main`, HEAD `eb3d58f`, working tree clean.
+Milestone sequence verified against actual diffs (`git show --stat`):
+
+| Commit | Claim | Verified content |
+|---|---|---|
+| `3cbc990` | 3.6A energy audit, read-only | exactly 1 file: ENERGY_SOURCE_AUDIT.md (+191) — clean |
+| `74e155f` | reconciliation | 5 files: RESUME authoritative + 3.6B contract + recovery rule (+246/−65) |
+| `a9b3389` | 3.6B Energy v0 | 11 files (+1313/−63): epistemics + energy provider + state builder + 16 tests + docs |
+| `0007e30` | H contract + Gate-0 | 3 files: HAZARD_H_CONTRACT + RESUME + AGENTS (constraint 6) |
+| `0a0c0ae` | Phase H implementation | 12 files (+992/−22): usgs + cap_alerts + hazard_events + state/evidence/main wiring + 14 tests |
+| `eb3d58f` | self-improvement doctrine | doctrine doc + AGENTS/RESUME governance lines only — no code |
+
+Full phase ladder (27 entries) is machine-readable in `RESUME.json`.
+**Intentionally frozen:** engine physics, route contracts, payload shapes
+(freeze declaration, CURRENT_STATE.md). **Intentionally deferred:**
+self-improvement machinery (post-deployment), Level 3 self-monitoring,
+JRC GSW, SACHET/IMD/CWC wiring, IMERG, GWA, south-Mumbai building union.
+
+# PART 3 — THE ARCHITECTURE, AS VERIFIED IN CODE
+
+```
+WORLD (India, 12 cities)
+  ↓ 22 external sources (see Part 4)
+PROVIDERS (backend/app/providers/*, 13 modules)
+  fetch by coordinates · cache-first (SQLite, TTLs) · mirror fallback
+  (Overpass) · graceful {available:false, reason} · unit normalization
+  at the provider boundary only
+  ↓
+EPISTEMIC ENVELOPE (epistemics.py, 110 lines)
+  WHAT/WHERE/WHEN/SOURCE/KIND/QUALITY + value_semantics + query_extent
+  + observation_basis · constructor VALIDATES: null value ⇒ unknown,
+  invalid basis rejected, lower_bound cleared on null
+  ↓
+PLACE STATE (state.py, 864 lines) — COMPOSITION ONLY, never recomputes
+  8 domains: atmosphere · hazards(items+events+official+exposure) ·
+  land · water · ecology · population · climate · energy
+  + domain-payload normalization wrapper (legacy list domains intact)
+  ↓
+DETERMINISTIC ENGINES (scenarios/*, frozen physics)
+  smoke (Gaussian screening) · heat (linear LST) · runoff (SCS-CN) ·
+  flood (DEM+design storm+surge class) · baseline (WorldCover→S2→OSM proxy)
+  ↓                                    ↓
+RELATIONSHIPS (near / count_within_threshold)   HAZARD COMPOSITION
+  explicit thresholds, geodesic        (hazard_events.py: HazardEvent,
+  OfficialAlert CAP, five voices,      stateless ids, exposure predicates)
+  ↓                                    ↓
+EVIDENCE (evidence.py: bundle — observations/derived/relationships/
+  hazards block/provenance/assumptions/semantics/uncertainty/unknowns/
+  conclusion_scope; no-upgrade invariant)
+  ↓
+SCENARIOS (orchestrator composes engines; outputs stay scenario)
+  ↓
+LLM LAYER (llm.py — 3 touchpoints, all optional-with-fallback:
+  Ask grounding, NL→params, explanation; banned-vocabulary rule in
+  EXPLAIN prompt; the LLM computes nothing)
+  ↓
+API (main.py, 24 routes) → FRONTEND (v1: 6 views, v1 payloads only)
+```
+
+Layer properties (all verified in code): every layer is deterministic
+except the three LLM touchpoints; every layer degrades to
+`{available:false, reason}` rather than failing; unknown is a first-class
+state everywhere; the LLM cannot reach the scientific layers (imported
+only by main.py); the Place State cannot drift from legacy payloads
+(fixture-driven anti-drift tests).
+
+# PART 4 — DATA SOURCE / API FORENSICS (complete inventory)
+
+### LIVE IMPLEMENTED (verified this audit)
+| Source | Purpose | Key | Licence | Temporal | knowledge_type / observation_basis | Cache |
+|---|---|---|---|---|---|---|
+| Open-Meteo forecast | weather now + 7-day + wind grid | no | free, non-commercial | hourly/LIVE | observed / model-derived | 30 min |
+| Open-Meteo archive (ERA5) | normals 1991–2020, anomalies, design storm | no | same | hourly/HISTORICAL→now | observed / reanalysis-derived | 14 d |
+| Open-Meteo climate (CMIP6) | SSP3-7.0 decades to 2050 (labelled) | no | same | static per release | observed / model-derived | long |
+| Open-Meteo elevation (Copernicus DEM) | 5×5 grid, low-lying share | no | open | static | observed / remote-sensed | 30 d |
+| Open-Meteo air quality (CAMS) | AQI + 6 pollutants, 48 h past/72 h fcst | no | open | hourly/LIVE | observed / model-derived | 30 min |
+| CAMS radiation (AQ host) | shortwave radiation | no | open | hourly | observed / model-derived | 1 h — **currently gapping (live-verified 3.6B: 200 + all-null)** |
+| Open-Meteo forecast radiation | second current-GHI source | no | open | hourly | observed / model-derived | 1 h |
+| NASA POWER | hourly/daily GHI, T2M, WS2M | no | public domain | daily-updated analysis | observed / remote-sensed | 12 h; hourly solar lags weeks (labelled) |
+| PVGIS v5.3 seriescalc | GHI climatology 2014–2023 | no | CC BY 4.0 | STATIC | observed / reanalysis-derived | 30 d |
+| NASA FIRMS VIIRS | fire hotspots + FRP | MAP_KEY | open | NRT passes | observed / remote-sensed | 1 h — **live: 0 hotspots (post-monsoon honest zero)** |
+| USGS earthquakes | regional M≥2.5 events, 7 d | no | public domain | LIVE | observed / **in-situ** | 30 min — **live: 0 events this window** |
+| Sentinel-2 / CDSE | NDVI decade, true colour, S2 fractions | OAuth | Copernicus open | ~5-day revisit | observed / remote-sensed | per-year/month |
+| OSM/Overpass | water, wetlands, waterways, counts, power=* | no | ODbL | CONTINUOUS | observed / crowdsourced | 24 h–7 d; mirror fallback; never cache failures |
+| Ramsar/RSIS (Gate-0 shapefile) | 75 India sites w/ published boundaries | file | CC BY 4.0 | STATIC registry | observed / registry | on disk |
+| Microsoft GlobalML footprints | buildings (3 cities ingested) | no | ODbL-attr | 2026-08-13 release | observed / ml-derived | on disk |
+| Census of India 2011 | district populations | table | public | decennial | observed / registry | in code |
+| geoBoundaries gbOpen IND ADM2 | district polygons + outline | no | CC BY 4.0 | static | observed / registry | on disk |
+
+### IMPLEMENTED BUT DEGRADED
+- **CAMS radiation feed** — returns HTTP 200 with all-null values during
+  the current window (live-verified); the State carries the honest unknown
+  and the separate forecast-model GHI source covers current conditions.
+
+### IMPLEMENTED WITH FALLBACK
+- baseline land fractions: ESA WorldCover → Sentinel-2 fractions →
+  OSM-density proxy (labelled `quality: Proxy`)
+- smoke emission proxy: FRP → brightness fallback
+- wind-oriented fire window → 350 km circular pad if wind unavailable
+
+### IMPLEMENTED BUT CURRENTLY UNKNOWN (honest nulls, by design)
+- grid state (CEA/Grid-India — no verified machine API)
+- official alerts (SACHET — Gate-0 pending; CAP parser ready, fixture-tested)
+- water level, water quality (no gauge source wired)
+- protected areas (WDPA), National Wetlands Atlas (licence pending)
+- IMD cyclone track (NO-GO as API), CWC FloodWatch (pending)
+
+### VERIFIED SOURCE BUT NOT WIRED
+- JRC Global Surface Water (CC BY 4.0 — cleared, implementation deferred)
+
+### PENDING GATE-0
+- SACHET CAP RSS (existence corroborated; sandbox access blocked)
+- CWC FloodWatch (host unresolvable from audit environment)
+- Global Wind Atlas (licence/access unverified; adapter boundary documented)
+
+### NOT IMPLEMENTED
+- Sentinel-5P (CAMS covers the gas variables instead), NASA IMERG
+  (GES DISC auth), WorldPop (Census is the anchor), NIWE (never
+  researched to gate), any notifications/dispatch infrastructure.
+
+### NOT AUTHORIZED
+- CEA integration attempts without a verified API; grid-capacity or
+  connection-feasibility claims from OSM power; new domains post-H;
+  self-improvement machinery (docs/SELF_IMPROVEMENT_DOCTRINE.md).
+
+# PART 5 — EPISTEMIC SYSTEM FORENSICS
+
+**`knowledge_type`** (validated against a frozen tuple at construction):
+- `observed` — the cited source reports it, *including source-run models*
+  (CAMS, CMIP6, PVGIS, POWER). Never read as ground measurement.
+- `inferred` — derived by Astra from provenance-bearing inputs
+  (aggregates, spatial predicates, exposure counts).
+- `scenario` — computed under a defined hypothetical by a frozen engine.
+- `unknown` — value is null WITH a reason. The constructor **forces**
+  this: a null value downgrades any claimed type to unknown and clears
+  value_semantics and observation_basis.
+
+**`observation_basis`** (7 values, primary-lineage rule): `in-situ`
+(USGS — the only one), `remote-sensed` (Sentinel-2, FIRMS, POWER),
+`model-derived` (CAMS, CMIP6, weather models), `reanalysis-derived`
+(ERA5 archive, PVGIS-ERA5), `registry` (Census, Ramsar, geoBoundaries),
+`crowdsourced` (OSM), `ml-derived` (Microsoft footprints). Primary
+lineage = the mechanism the source's own documentation names as
+dominant; mixed lineage is described in `method`/`limitations` — the
+smoke index (fires × wind) carries null basis for exactly this reason.
+Invalid values raise `ValueError` at construction.
+
+**Temporal semantics:** `observed_at` (when the source produced it —
+for CONTINUOUS sources like OSM this is Astra's retrieval time),
+`valid_from`/`valid_until` (when the value holds — future windows for
+CMIP6 decades, open for Census, exact analysis windows for POWER GHI),
+`cadence` (hourly / continuous-upstream / static registry / decennial…).
+
+**Spatial semantics:** `footprint` (what the value is valid for — a
+grid cell, a district polygon, a point), `query_extent` (the bbox an
+aggregate was computed over). Both present on capped counts, distinct
+by design (the B3-inspection fix).
+
+**`value_semantics`:** `exact` | `lower_bound`. Every capped Overpass
+count (60-element cap) is marked `lower_bound` — live Delhi currently
+reports `osm_power_substation_count = 60 [lower_bound]`.
+
+**How false precision/fabrication is prevented (mechanisms, not hopes):**
+fabricated zero ⇒ retrieval-statement rule + per-category Overpass
+failure tracking (a failed query is unknown, never 0 — live-proven by
+the OSM power *lines* category during 3.6B); source substitution ⇒
+cross-source rule + separately enveloped channels (CAMS gap live-proved);
+semantic upgrade ⇒ no-upgrade invariant tests on the bundle; provenance
+loss ⇒ provenance-walk tests over every State item; scenario→observation
+⇒ `scenario_item()` hardcodes knowledge_type scenario. **Concrete live
+examples this audit:** energy State `solar_ghi_current = null (unknown,
+"CAMS radiation feed returned no values at retrieval time")`;
+`power_ghi_period_mean` unknown with the solar-lag reason while
+`power_ghi_daily_mean = 5.18 kWh/m²/day` observed; hazards zero-event
+rendering as a retrieval statement, not an existence claim.
+
+# PART 6 — PLACE STATE FORENSICS
+
+| Domain | Legacy supplier (composed, never recomputed) | Items (live Delhi) | Mix |
+|---|---|---|---|
+| atmosphere | city_air, city_wind | AQI + 6 pollutants + wind mean | observed |
+| hazards | city_smoke, city_fires + hazard_events | fire count, smoke index/band + **events(USGS/FIRMS) + official(unknown) + exposure** | observed+inferred+unknown |
+| land | briefing.ndvi, city_buildings | NDVI, change, building aggregates | observed+inferred |
+| water | water provider | counts by class, nearest named | observed (lower_bounds) + unknowns |
+| ecology | ramsar + water | Ramsar count (75, lower_bound, partial-coverage note), near-sites, OSM wetlands | observed+inferred |
+| population | cities registry | per-district Census + total | observed+inferred, unknowns labelled |
+| climate | climate_decades | CMIP6 per-decade temp/precip | observed (validity windows) |
+| energy | energy provider | 13 items: GHI×4 sources, temp, wind, OSM power, grid unknown | observed+inferred+unknown |
+
+**Anti-drift:** fixture tests assert every enveloped value equals the
+legacy payload it maps from; a live cross-check historically confirmed
+State == legacy /air. **No duplicated truths:** domains call the *same*
+route functions the frontend uses; there is exactly one computation path.
+**Comparability today:** within-domain comparisons are provenance-honest;
+cross-domain comparison is possible only through the Evidence Bundle
+(which preserves types). What cannot be compared: anything involving
+the unknowns (grid state vs anything), or values with different
+verifier tiers (none wired yet).
+
+# PART 7–8 — ENGINE FORENSICS (incl. smoke deep audit)
+
+**smoke** (`scenarios/smoke.py`, 297 lines, read in full): wind-oriented
+capsule (550 up/60 down/220 cross km) → FIRMS queried on capsule AABB →
+hotspots filtered → FRP/50 MW emission weight (brightness fallback,
+clamped 0.05–10) → mass-conserving Gaussian
+`conc = w/(d·σ)·exp(−½(lateral/σ)²)`, σ = 0.14·d·env-multiplier
+(min 1.2 km) → saturating absolute scale (REF 2.8e-4) → bands
+low/moderate/high/severe → **dominant-fire arrival** (C1 fix verified in
+code: `if conc > entry["dominant_conc"]`), suppressed below score 5 →
+calm-wind skip at 0.5 km/h → TOP_FIRES=120 brightest-first cap →
+exposure sums Census where known; **population_status**
+complete/partial/unknown and `exposed_population = None` (never 0) when
+high-exposure districts lack Census. Physically grounded: mass
+conservation, 1/d² centreline (measured in INDEPENDENT_AUDIT).
+Heuristic: σ rate, environment multipliers (coastal 1.15, mountainous
+0.85), 12 h transport, no stability classes/plume rise/chemistry.
+Does NOT claim: dispersion modelling, air-quality warnings, forecasts.
+Tests: 12 invariants + 2 golden cases. **Live: available, 0 fires
+(post-monsoon), window cached.**
+
+**flood** (`estimate` read in full): DEM 5×5 low-lying share (within 2 m
+of local min) + 24 h design storm scaled by pct + coastal/delta surge
+*classification* (elevated ≥15% low-lying or min ≤5 m). NOT a forecast;
+confidence Low. **heat:** linear −0.05 °C LST per green-% point
+(published range 0.03–0.08), ×0.3 air transfer, always Low confidence.
+**runoff:** SCS curve number (CN built 92/green 61/other 78/water 100,
+soil group B assumed) → runoff depth + % change. Medium confidence.
+**baseline:** WorldCover → S2 → OSM proxy chain (quality labelled).
+**building validation:** land-normalised gate, population-anchored roof
+band (15–35 m²/person × 0.2–3×) with recorded absolute fallback;
+anti-circularity pin test. **relationships:** near/count-within-threshold,
+explicit thresholds, geodesic approximation, knowledge_type inferred.
+**hazard composition:** see Part 11. **Environment classification:**
+curated per-city blocks + onboarded review_required flag.
+
+# PART 9 — WATER / ECOLOGY / RAMSAR (verified)
+
+OSM water with 60-element caps → counts are `lower_bound`s; per-category
+`query_failures` (failed query = unknown, never 0 — this audit's live
+smoke test of that rule was the 3.6B lines-query failure); 24 h TTL
+self-heal for flaky-empty; retrieval timestamps on every count. Ramsar:
+114 India polygon records → 75 unique sites (re-derived independently
+from the raw 145 MB shapefile this session: **every number reproduces**);
+12 multipart groups; ramsarid 2370–2597 (post-2018 wave); 26 pre-2019
+classics (Chilika, Keoladeo, Wular…) have no published polygons in RSIS
+— carried as `value_semantics: lower_bound` + explicit status_note
+("101 designated / 75 with published boundaries"). OSM wetland tags are
+never equated to official designation (separate items, separate bases).
+
+# PART 10 — ENERGY DEEP AUDIT (3.6B verified live)
+
+Four GHI sources kept **separately enveloped** (cross-source rule):
+CAMS current (unknown — feed gap), Open-Meteo weather-model current
+(0.0 W/m² at 23:00 UTC = night, correct; 24 h mean 217.7), POWER
+hourly (unknown — solar-lag; labelled window logic), POWER daily
+(5.18 kWh/m²/day observed), PVGIS climatology (5.19 kWh/m²/day annual;
+Dec 3.75/Jul 4.78 — the ×1000 unit bug was caught by physical
+plausibility and fixed, poisoned cache rows dropped). Temperature
+25.4 °C, wind 1.5 m/s (7-day analysis windows labelled). OSM power:
+60 substations `[lower_bound]`, nearest 2.52 km (inferred,
+crowdsourced); **no voltage/capacity attribute is parsed anywhere** —
+the no-capacity ban is structural (exact envelope-key-set test).
+Grid state: permanent unknown-with-reason. Canonical units
+(W/m², kWh/m²/day, °C, m/s, km) normalized at the provider boundary
+only; the kWh→W/m² ×1000 conversion is test-pinned.
+
+# PART 11 — HAZARD FORENSICS (Phase H verified live)
+
+HazardEvent: source-stable `usgs:` ids; FIRMS snapshot clusters with
+deterministic content-hash ids (same payload → same id, test-pinned);
+**no persistence, no tracking store** (stateless by contract).
+OfficialAlert: CAP 1.2 parser, fixture-tested, `quoted_text` is the
+ONLY permitted location for institutional vocabulary; no feed wired —
+unknown-with-reason. Five voices structurally separated in the bundle.
+Banned-vocabulary firewall: payload token scan + LLM prompt rule,
+test-enforced. H4 flood case: orchestrator-level wrap, engine frozen
+(contract-verified `engine_contract` string in the live payload), live
+anomaly +173 mm vs 32% low-lying / 16.79M population. Zero-event
+semantics live-verified: retrieval statement, never existence claim.
+Unknowns preserved: IMD (NO-GO), SACHET/CWC (pending), IMERG (deferred).
+
+# PART 12 — EVIDENCE BUNDLE / SCENARIO FORENSICS
+
+Bundle structure (live-verified keys): scenario, observations
+(23 items, provenance intact + retrieval statements), derived
+(scenario-tagged engine metrics), relationships (10 near-predicates),
+**hazards block (five voices)**, provenance (llm_role documented),
+assumptions, semantics, uncertainty, unknowns, conclusion_scope.
+No-upgrade invariant: observations pass through with their types;
+derived is always scenario; `test_bundle_claims_never_exceed_engines`.
+**Live anomaly found (registered, not fixed):** the evidence ROUTE
+composes the legacy `hazards_items` (items-only) rather than
+`hazards_domain`, so through HTTP the hazard block reports
+`observed: 0, unknowns: earthquakes/fires (reason: None)` even though
+the State hazards domain fetches live events. Numerically coincidental
+this window (both feeds legitimately zero); semantically wrong. P1
+pre-freeze correction (~2 lines, route-level), documented in
+BACKEND_FREEZE_CHECKLIST.md.
+
+# PART 13 — LLM AUDIT
+
+`llm` is imported **only by main.py** (verified by grep). Touchpoints:
+`/ask` (grounded Q&A), `parse_scenario_params` (NL→JSON, validated
+against an intervention whitelist), `explain_result` (prose).
+Deterministic fallbacks: without a key, /ask degrades, /scenario
+requires explicit intervention, explanation returns None. The suite
+passes 135/135 with `LLM_API_KEY` unset (**re-run this audit: 1.81 s
+vs 15.73 s with key**). The LLM computes nothing. Live Ask
+verified: grounded US AQI 159 answer with correct labels, 10.8 s.
+
+# PART 14 — LIVE SYSTEM AUDIT (measured this audit, HTTP surface)
+
+| Route | Status | Latency | Size | Note |
+|---|---|---|---|---|
+| /api/health | 200 | 2 ms | 59 B | llm:true sentinel:true database:false |
+| /cities | 200 | 4 ms | 1.5 KB | 12 complete |
+| /geocode | 200 | 1.16 s | 0.6 KB | live |
+| /city/delhi (profile) | 200 | 5.8 s | 4.4 KB | district counts background-filled |
+| /air | 200 | 2.0 s | 23 KB | live CAMS |
+| /wind | 200 | 1.3 s | 10.7 KB | 100 points |
+| /fires | 200 | 5 ms | 232 B | **available, count 0 (post-monsoon)** |
+| /smoke | 200 | 3.1 s | 3.9 KB | cached window |
+| /buildings | 200 | 44 ms | **851 KB** | payload includes map sample |
+| /boundaries | 200 | 5 ms | 18 KB | cached |
+| /briefing | 200 | **21.3 s** | 6.6 KB | NDVI decade cold (documented first-load) |
+| /place/delhi/state (FULL) | 200 | 6.6 s | 42 KB | 8 domains |
+| state/hazards · water | 200 | 8 ms / 5 ms | 4.8/7.3 KB | cached |
+| state/energy | 200 | 0.95 s | 9.2 KB | cached sources |
+| /city/delhi/hazards | 200 | 8 ms | 3.5 KB | events view (cached) |
+| /city/delhi/energy | 200 | 1.08 s | 8.9 KB | |
+| POST /scenario | 200 | **18.7 s** | 2.1 KB | cold WorldCover→S2→proxy chain |
+| POST /place/delhi/evidence-scenario | 200 | 0.12 s | — | hazards block PRESENT; legacy-wiring gap (P1) |
+| POST /site-baseline | 200 | **162.5 s** | 1.6 KB | cold: Overpass water+counts+WorldCover chain — worst latency in the system |
+| POST /report | 200 | 20 ms | 1.9 KB | PDF |
+| POST /ask | 200 | 10.8 s | — | grounded, labelled |
+| Frontend build | pass | 25.8 s | — | tsc clean; >500 kB chunk warning |
+| Frontend preview | 200 | — | 850 B | title correct; **/api proxy verified** |
+
+Flakiness honoured, not hidden: Overpass mirrors degrade under load
+(water.py 24 h TTL self-heal); CAMS radiation feed currently gapping;
+POWER hourly solar lags weeks. None of these produced failures — all
+degrade to honest unknowns.
+
+# PART 15–16 — FRONTEND AUDIT & CONTRACT MATRIX
+
+Full refreshed audit lives in **docs/FRONTEND_AUDIT.md (v2)** — including
+the complete route-by-route contract matrix. Headline: the frontend is a
+faithful v1 client; **four v2 intelligence surfaces have no frontend
+consumer at all** (`/place/{slug}/state[/{domain}]`, `/city/{slug}/energy`,
+`/city/{slug}/hazards`, `/place/{slug}/evidence-scenario` — plus
+`/platform/onboard`), `api.ts` contains zero State/envelope types, and
+no screen shows provenance, unknowns-as-unknowns, lower bounds, or
+scenario/observation distinction. `npm run build` passes; the bundle
+chunk exceeds 500 kB (Phase 5 item). The v1 code has no dead routes;
+its ignored-fields inventory carries over from B1 and remains accurate.
+
+# PART 17 — "WHAT HAVE WE ACTUALLY BUILT?" (the human reconstruction)
+
+**What is Astra Climate?** An environmental intelligence system for
+India that fuses 22 external sources into one provenance-bearing
+representation of a place — what is observed, by whom, when, how
+physically obtained, how far it holds, and what remains unknown — and
+reasons over that representation with deterministic, labelled,
+screening-grade engines.
+
+**The problem:** Earth data is fragmented, unlabelled and unevenly
+trustworthy; decisions (site screening, exposure, climate risk) need
+fused, honest context, not another map.
+
+**Core intelligence layer:** the epistemic envelope + Place State +
+relationships + Evidence Bundle. The "intelligence" is the discipline:
+every number carries its epistemics; composition can never upgrade a
+claim; the LLM explains and never computes.
+
+**vs a dashboard:** a dashboard shows values; Astra shows values *with
+their types, dates, lineages, validity windows and reasons for absence*,
+and composes cross-domain consequences with evidence chains.
+**vs a chatbot:** the LLM is an interface; remove it and 100% of the
+science survives (proven twice by drill).
+**vs a weather API:** APIs return data; Astra returns *reconciled state*
+across domains with conflict preservation (four GHI sources side by side).
+**vs disaster-warning systems:** Astra represents official warnings and
+computes independent context; it claims no warning authority (test-enforced).
+**vs Copernicus/SACHET/IMD/CWC:** they are upstream authorities and
+inputs; Astra is the cross-domain, provenance-aware consequence layer
+on top — different layer, explicitly not competitors.
+
+**Can do (verified):** 8-domain State for 12 cities; smoke/heat/runoff/
+flood screening; hazard events + exposure; evidence bundles; scenario
+orchestration; PDF reports; grounded AI Q&A; onboarding by name.
+**Cannot do:** warnings, forecasts-of-record, engine verification
+(no ground truth), environmental memory (by design, until deployment),
+grid intelligence (no licensed feed), anything requiring the unbuilt
+frontend surfaces. **Knows:** current state per domain. **Infers:**
+aggregates, distances, exposure, bands. **Simulates:** three
+interventions under labelled assumptions. **Explicitly does not know:**
+grid state, official alerts, water level/quality, protected areas,
+smoke arrival truth, flood outcomes — each with a written reason.
+
+# PART 18 — EXECUTION TRACES (live-measured)
+
+1. *"What's Delhi's environmental state?"* → `GET /place/delhi/state` →
+   8 domain builders → ~10 provider calls (cache-first) → envelope →
+   42 KB JSON, 6.6 s warm-ish. LLM: none.
+2. *"Are fires affecting Delhi?"* → `/city/delhi/smoke` → FIRMS on the
+   wind-oriented capsule AABB → capsule filter → Gaussian screening →
+   bands/exposure, 3.1 s; plus FIRMS raw (`count 0` post-monsoon).
+   LLM: none.
+3. *"What hazards are present?"* → `/city/delhi/hazards` → USGS query
+   (30-min cache) + FIRMS clustering + CAP unknown + exposure
+   predicates + frozen flood engine baseline → five-voice payload.
+   LLM: none.
+4. *"How would +20% rainfall affect Mumbai?"* → POST evidence-scenario →
+   orchestrator routes the flood engine only → engine metrics tagged
+   scenario → observations (23) + relationships (10) + hazard block →
+   bundle; legacy wiring gap applies to the hazard block (P1). LLM: none.
+5. *"What energy resources exist around Delhi?"* → `/city/delhi/energy`
+   → POWER hourly+daily, PVGIS climatology, CAMS + forecast-model GHI,
+   OSM power, CEA unknown → 13 enveloped items, 1.08 s cached. LLM: none.
+6. *Ask Astra (NL)* → briefing + AQI + environment → LLM with hard
+   grounding rules → labelled prose, 10.8 s. LLM: explanation only.
+
+# PART 19 — CAPABILITY MATRIX
+
+| Capability | Status | Evidence |
+|---|---|---|
+| Multi-source State (8 domains) | VERIFIED LIVE | 42 KB payload this audit |
+| Epistemic envelope (4 extensions) | VERIFIED LIVE | constructor validation + tests |
+| Air quality (CAMS) | VERIFIED LIVE | US AQI 159 live |
+| Wind field + particles feed | VERIFIED LIVE | 100 points |
+| Fire detection (FIRMS) | VERIFIED LIVE | honest zero this window |
+| Smoke screening | VERIFIED BUT LIMITED | frozen engine; unverifiable arrival |
+| Heat/runoff/flood screening | VERIFIED BUT LIMITED | Low/Medium confidence, labelled |
+| Earthquake events (USGS) | VERIFIED LIVE | 0 events rendered as retrieval statement |
+| Fire event clustering | VERIFIED (fixture+live) | deterministic ids |
+| Official alerts | UNKNOWN (by design) | CAP parser ready; no feed |
+| Energy v0 | VERIFIED LIVE | 13 items, 4 sources |
+| Water/Ecology/Ramsar | VERIFIED LIVE | 75/101 reconciliation re-derived |
+| Evidence Bundle | VERIFIED LIVE | 200, 12 keys; P1 hazard wiring gap |
+| Scenario orchestration | VERIFIED LIVE | engines frozen, outputs scenario |
+| PDF report | VERIFIED LIVE | 1.9 KB PDF |
+| Ask Astra | VERIFIED LIVE | grounded, 10.8 s |
+| Onboarding (L2) | VERIFIED (prior) + route live | Nagpur acceptance run |
+| Frontend v1 | VERIFIED (build+serve+proxy) | no v2 surfaces |
+| LLM independence | VERIFIED TWICE | 135/135 without key |
+| Grid intelligence | UNKNOWN | no licensed feed |
+| Environmental memory | PLANNED | doctrine only |
+| Self-improvement | NOT AUTHORIZED (pre-deployment) | doctrine + RESUME |
+
+# PART 20 — ANOMALY REGISTER (severity-ordered; nothing fixed silently)
+
+**P1 — Evidence route composes legacy hazards shape**
+`main.py::place_evidence_scenario` builds `state_domains` via
+`place_state.hazards_items(...)` instead of `place_state.hazards_domain(...)`,
+so the bundle's hazard block shows `observed 0 / unknowns (reason None)`
+regardless of live events. Live-reproduced this audit. Affects
+intelligence *presentation* (not the State itself). Must-fix before
+freeze (≈2 lines + test update). Reproduction: POST evidence-scenario,
+inspect `hazards.observed.count` vs `/city/{slug}/hazards`.
+
+**P2 — Cold-path latency:** `/site-baseline` 162 s (Overpass water +
+context counts + WorldCover attempts on a cold cache);
+`/briefing` 21 s cold (NDVI decade); `POST /scenario` 18.7 s cold.
+Currently absorbed by caches and acceptable for screening UX, but the
+frontend MUST show progress narratives (R8) or these reads as hangs.
+Safe to leave functionally; must inform Phase 5 design.
+
+**P2 — Config/doc drift (cosmetic):** `config.py` LLM defaults are
+`api.z.ai` / `glm-4.6` while docs say CodeCraft/deepseek — `.env`
+overrides, so behaviour follows the docs; the default strings are
+stale. Documentation-only fix.
+
+**P3 — Frontend bundle >500 kB** (build warning): code-splitting at
+Phase 5.
+
+**P3 — `fires` route returns bare `{"available":true,"count":0}` days:**
+semantically correct (post-monsoon) but frontends must render retrieval
+zero distinctly from "no fire season" — a Phase 5 copy requirement.
+
+**Standing (documented, accepted):** smoke assumptions list (steady
+wind, σ heuristic, 120-fire cap); Census 2011 vintage; south-Mumbai
+MS-dataset hole (union = future methodology change); CMIP6 2046–2050
+clamp; no automated live-path onboarding test in CI; key rotation
+before any public demo (keys were shared in chat); L3 self-monitoring
+deferred; OSM power lines query flakiness.
+
+**Security:** secrets only in gitignored `backend/.env` (verified by
+config reading); no keys in code or docs; **rotation still outstanding
+before any public exposure.**
+
+# PART 21 — FEASIBILITY AUDIT
+
+**Possible** (architecture supports): all of the above plus memory,
+verification, more cities (onboarding proven), more domains
+(demand-gated). **Implemented:** everything in Part 19's verified rows.
+**Validated:** engines by invariant+golden tests, not by field data —
+*validation vs reality is the missing tier* (no ground truth wired).
+**Commercially useful:** the wedge (site screening + PDF evidence) is
+usable today at screening grade; monetisation gates: Open-Meteo
+non-commercial tier, key rotation, and the honesty labels that keep it
+defensible. Deployment feasible on modest hosting (SQLite cache,
+background fills, ~600-line frontend); scaling to 100+ cities is a
+cache/ingest-ops problem, not an architecture problem. Research
+feasibility: the self-improvement program is realistic in the doctrine's
+order; its flagship target is verifier-blocked.
+
+# PART 22 — MOAT AUDIT (brutally skeptical)
+
+**Commodity (not moat):** every individual source; AQI numbers; maps;
+fire points; an LLM chat; "many APIs"; UI polish.
+**Genuinely differentiated today:** (1) the epistemic envelope as a
+*machine-enforced* contract (four semantic extensions, constructor-level
+validation); (2) cross-domain consequence composition with preserved
+types (evidence bundles); (3) the retrieval-statement/unknown discipline
+(a_zero is not "none"); (4) the five-voice hazard separation with a
+structural no-authority ban; (5) the audit trail itself as a trust
+artifact. **Merely good architecture (copyable in months):** provider
+abstraction, caching, fallbacks, the route design. **Could compound over
+years (future moat, not yet real):** the verified outcome corpus
+(verifier-tiered), regime-validated calibrations, place-based
+environmental memory. **NOT a moat:** "AI", data breadth, warnings, the
+word "platform". **Honest current statement:** Astra's moat today is
+*epistemic discipline + composition architecture + India focus + audit
+culture*; the compounding moat begins only at deployment, one verified
+day at a time (docs/SELF_IMPROVEMENT_DOCTRINE.md).
+
+# PART 23 — SELF-IMPROVEMENT FUTURE (documented, not built)
+
+Governed by `docs/SELF_IMPROVEMENT_DOCTRINE.md`: constitution
+(immutable epistemics vs mutable config), Outcome Memory recorder at
+deployment readiness (append-only, async, no authority), verifier-tiered
+evaluation (seed pairs: Open-Meteo→ERA5, FIRMS persistence, CAMS→CAMS),
+falsification checklist, promotion ladder ending in human gates and
+config commits. **Stated plainly: environmental memory is not yet a
+corpus; replay-ready is not replay; self-improvement is
+post-deployment and demand-gated** (RESUME.json NOT_AUTHORIZED).
+
+# PART 24 — FRONTEND IMPLEMENTATION BLUEPRINT (Phase 5)
+
+Design law: **render the envelope generically.** One `<Value/>` component
+consumes any enveloped item and renders: value + unit + knowledge-type
+chip (observed/inferred/scenario/unknown) + observation date + validity
+window + cadence + source + basis tag + lower-bound marker + unknown
+reason. A new provider then requires zero UI redesign.
+
+Information architecture (State-native, replaces feature-tabs):
+**Place page** = identity header (place, environment class, data
+freshness band) + domain navigation (Atmosphere / Hazards / Land /
+Water / Ecology / Population / Climate / Energy) driven by
+`/place/{slug}/state/{domain}` + cross-domain surfaces:
+- **Hazards view**: five-voice layout — OFFICIAL (represented verbatim,
+  visibly external) physically separated from OBSERVED events (map +
+  list, snapshot labels) / INFERRED exposure / UNKNOWN reasons; urgent
+  styling is reserved for official items only; Astra blocks are
+  permanently labelled "Assessment (screening)".
+- **Evidence view**: bundle viewer — scenario params, observations with
+  retrieval statements, derived (scenario-styled), relationships chain,
+  conclusion scope; the PDF report button.
+- **Project Impact**: polygon draw → site baseline (with progress
+  narrative for the 162 s cold path) → evidence → PDF.
+- **Ask Astra**: grounded chat, answers quote their data block.
+- **Onboarding**: name → live ingest progress → gate verdict (rejected
+  states with reasons visible).
+- **Comparison (R7)**: two places side-by-side per domain, envelope-aware.
+- **Degradation states (R8)**: every `available:false` renders reason +
+  fix; unknown renders its reason; stale renders its date.
+Non-goals: no alert/notification UI, no prediction language, no
+"safe/unsafe" copy (banned-vocabulary list applies to the frontend).
+Build notes: code-split the >500 kB chunk; `api.ts` grows State/envelope
+types mirroring backend payloads (types change together, tsc gates).
+
+# PART 25 — See `docs/BACKEND_FREEZE_CHECKLIST.md` (formal boundary).
+
+# PART 26 — Repository updates made by this audit
+
+CURRENT_STATE.md (position + pointer), docs/PROJECT_CONTEXT.md §13
+(continuation point), docs/SCIENTIFIC_AUDIT.md §15 (this certification),
+docs/FRONTEND_AUDIT.md (v2 rewrite — v1 preserved in git history),
+docs/BACKEND_FREEZE_CHECKLIST.md (new), RESUME.json (post-audit gate),
+AGENTS.md (freeze line). Historical sections preserved unmodified.
+
+# PART 27 — TEST & VERIFICATION NUMBERS (run this audit, exact)
+
+- Backend: **135 passed, 1 warning** (15.7 s) — with LLM key.
+- No-LLM drill: **135 passed** (1.8 s) with `LLM_API_KEY` unset.
+- Frontend: `tsc && vite build` **pass** (25.8 s; >500 kB chunk warning).
+- Live endpoints: **21/21 HTTP 200** (one initial 422 was the probe's own
+  malformed body, re-run correct: 200). Latency table in Part 14.
+- Live frontend: preview 200, title verified, **API proxy 200**.
+- Flaky/external noted: CAMS radiation feed gapping; Overpass mirrors
+  intermittently slow (self-healing); no test flakiness observed.

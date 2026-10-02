@@ -1,0 +1,85 @@
+/**
+ * B12 — Intelligence Receipt: every decision is auditable.
+ * The receipt is the contract between the kernel and every stakeholder:
+ * student ("why this?"), parent ("why Geography not Economics?"),
+ * founder ("is the system actually calibrated?").
+ */
+
+import type { Plan, PlanBlock } from "./planner.js";
+import { round4, Envelope } from "./envelope.js";
+
+export interface ReceiptInput {
+  fact: string;
+  envelope: Envelope | Record<string, unknown>;
+}
+
+export interface Receipt {
+  receipt_id: string;
+  slot: string;
+  decision: string;
+  day: number;
+  inputs: ReceiptInput[];
+  expected: Record<string, unknown>;
+  alternatives: { action: string; score: number; why?: string }[];
+  assumptions: { id: string; status: "assumed" | "measured"; sensitivity?: string }[];
+  constraints_checked: string[];
+  unknowns: string[];
+  what_would_change_my_mind: string;
+  params_version: string;
+  propensity?: number;
+  actual_outcome?: Record<string, unknown> | null;
+  prediction_error?: number | null;
+}
+
+let receiptCounter = 0;
+
+export function buildPlanReceipt(plan: Plan, unknowns: string[]): Receipt {
+  receiptCounter += 1;
+  const id = `rcpt_d${plan.day}_${String(receiptCounter).padStart(6, "0")}`;
+  const alternatives = plan.blocks.slice(0, 5).map((b: PlanBlock) => ({
+    action: `${b.action}:${b.conceptId}`,
+    score: round4(b.gainPerMinute),
+    why: b.reason,
+  }));
+  return {
+    receipt_id: id,
+    slot: "NEXT_SESSION",
+    decision:
+      plan.blocks.length === 0
+        ? "No plan blocks (insufficient information or no candidates)"
+        : plan.blocks
+            .map((b) => `${b.action} ${b.conceptName} (${b.minutes}m)`)
+            .join(" → "),
+    day: plan.day,
+    inputs: [], // filled by the caller from state reports where relevant
+    expected: {
+      total_gain_marks: round4(plan.expectedGainMarks),
+      total_minutes: plan.totalMinutes,
+      basis: "robust mean over posterior draws; gain priors assumed",
+    },
+    alternatives,
+    assumptions: [
+      { id: "gain.learn", status: "assumed", sensitivity: "stable ±50% (checked in sim)" },
+      { id: "gain.practice", status: "assumed" },
+      { id: "gain.review", status: "assumed", sensitivity: "FSRS-lite preview" },
+      { id: "memory.initial_stability", status: "assumed" },
+    ],
+    constraints_checked: ["prerequisites", "minutes", "review share", "block cap"],
+    unknowns,
+    what_would_change_my_mind:
+      "Two correct no-hint responses on a grey concept, or a failed delayed check on a reviewed one",
+    params_version: plan.paramsVersion,
+    actual_outcome: null,
+    prediction_error: null,
+  };
+}
+
+/** Join an actual outcome back to a receipt (the slow loop's fuel). */
+export function joinOutcome(receipt: Receipt, actual: Record<string, unknown>): Receipt {
+  const expected = receipt.expected.total_gain_marks as number | undefined;
+  receipt.actual_outcome = actual;
+  if (typeof expected === "number" && typeof actual.gain_marks === "number") {
+    receipt.prediction_error = round4(actual.gain_marks - expected);
+  }
+  return receipt;
+}

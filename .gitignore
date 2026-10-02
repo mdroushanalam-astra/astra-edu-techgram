@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+*.tsbuildinfo
+
+# Environment & secrets
+.env
+.env.*
+
+# Databases / local state
+*.db
+*.sqlite
+
+# Python
+__pycache__/
+*.pyc
+
+# Local scripts containing hardcoded credentials (founder's call: out of scope,
+# but they must never enter version control)
+ask_nemotron*.mjs
+test.mjs
+
+# OS noise
+Thumbs.db
+.DS_Store

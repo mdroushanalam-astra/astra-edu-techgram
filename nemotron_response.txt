@@ -1,0 +1,92 @@
+Based on the forensic audit report, here are the answers to your questions:
+
+---
+
+### 1. The Core of Astra Climate
+
+**Astra Climate is a provenance-bearing environmental intelligence backend for India, not a dashboard, warning system, or LLM product.**
+
+At its essence, it is a **discipline for representing environmental reality honestly**. It fuses 22 external data sources (satellites, models, registries, crowdsourced) into a single, versioned **Place State** for 12 Indian cities across 8 domains (atmosphere, hazards, land, water, ecology, population, climate, energy).
+
+**Its core mandate is "screening-grade honesty":**
+*   **It answers:** "What is known about this place, by whom, when, how physically obtained, how far it holds, and—critically—what remains unknown."
+*   **It refuses to:** Issue warnings, forecast authoritatively, substitute for an EIA, monitor in real-time, or claim "ground truth" for its screening engines (smoke, heat, runoff, flood).
+*   **The wedge product:** **Project Impact & Site Screening**—draw a polygon, get a deterministic, evidence-bundled PDF report assessing smoke/heat/runoff/flood exposure with every number carrying its epistemic pedigree.
+
+> **Auditor’s one-liner (Part 17):** *"An environmental intelligence system for India that fuses 22 external sources into one provenance-bearing representation of a place… and reasons over that representation with deterministic, labelled, screening-grade engines."*
+
+---
+
+### 2. The Intelligence Layer
+
+The "intelligence" is **not the LLM** (which is optional, explanation-only, and banned from computing). The intelligence is a **six-layer deterministic pipeline** that treats *epistemics as a first-class data type*.
+
+#### The Pipeline (Part 3, verified in code)
+```
+WORLD → 22 PROVIDERS → EPISTEMIC ENVELOPE → PLACE STATE (composition only)
+      → DETERMINISTIC ENGINES (frozen physics) → SPATIAL RELATIONSHIPS
+      → EVIDENCE BUNDLE (5 voices, no-upgrade invariant) → SCENARIOS
+      → HAZARD COMPOSITION (HazardEvent + OfficialAlert + 5 voices)
+      → LLM (explanation only, optional) → API
+```
+
+#### The Four Pillars of the Intelligence Layer
+
+| Pillar | What It Is | Why It Matters |
+| :--- | :--- | :--- |
+| **Epistemic Envelope** (`epistemics.py`) | A **machine-enforced constructor** wrapping every scalar. 4 semantic extensions: `knowledge_type` (observed/inferred/scenario/unknown), `observation_basis` (7 lineages: in-situ, remote-sensed, model-derived, reanalysis, registry, crowdsourced, ml-derived), `value_semantics` (exact/lower_bound), `query_extent` (bbox of aggregate). | **Prevents fabrication:** Null values *force* `knowledge_type: unknown` and clear semantics. Capped counts (OSM 60-element limit) are auto-marked `lower_bound`. Invalid basis raises `ValueError`. |
+| **Place State** (`state.py`, 864 lines) | **Composition-only** (never recomputes). 8 domains, each item enveloped. Anti-drift tests assert State == legacy payloads. Single computation path. | **No duplicated truths.** Cross-domain comparison only possible via Evidence Bundle (which preserves types). Unknowns (grid state, official alerts, water quality) are explicit, not missing. |
+| **Deterministic Engines** (frozen) | Smoke (Gaussian, mass-conserving), Heat (linear LST), Runoff (SCS-CN), Flood (DEM + design storm + surge class), Baseline (WorldCover→S2→OSM proxy chain). Confidence labels: Low/Medium. | **Screening-grade, not predictive.** Physics grounded where possible (mass conservation, 1/d²), heuristics labelled (σ rate, env multipliers, 12h transport, no stability classes). **Unverifiable today**—no ground-truth source wired (Part 7, Part 21). |
+| **Evidence Bundle** (`evidence.py`) | The **only cross-domain reasoning artifact**. Structure: observations (23 items, retrieval statements intact), derived (scenario-tagged), relationships (10 predicates), **hazards block (5 voices)**, provenance, assumptions, semantics, uncertainty, unknowns, conclusion_scope. **No-upgrade invariant:** observations pass through with types; derived is always `scenario`. | **Audit trail as product.** A human (or auditor) can walk from conclusion → engine metric → observation → source → retrieval timestamp. The LLM never touches this layer. |
+
+#### The LLM's Role (Strictly Constrained)
+*   **3 touchpoints only** (all in `main.py`): `/ask` (grounded Q&A), `parse_scenario_params` (NL→validated JSON), `explain_result` (prose).
+*   **Banned-vocabulary firewall** (test-enforced) on explanation prompt.
+*   **Proven independence:** 135/135 tests pass **with `LLM_API_KEY` unset** (1.8 s vs 15.7 s with key). The science survives the LLM's removal.
+
+---
+
+### 3. Differentiation from Billion-Dollar Competitors
+
+The audit is brutally honest: **Data, APIs, maps, and "AI chat" are commodities.** Astra’s differentiation lies in **representation discipline**—architectural choices that are currently enforced in code and tests, not marketing.
+
+#### What Competitors (Copernicus, SACHET/IMD/CWC, Commercial Climate Risk Platforms, LLM Wrappers) Do
+| Competitor Class | Role | Astra's Position |
+| :--- | :--- | :--- |
+| **Upstream Authorities** (Copernicus, IMD, CWC, USGS, Census) | **Inputs.** They *are* the sources. | Astra is the **cross-domain, provenance-aware consequence layer on top**. Different layer, explicitly not competitors (Part 17). |
+| **Disaster Warning Systems** (SACHET, GDACS) | **Authority.** Issue alerts, evacuations. | Astra **represents official warnings verbatim (CAP parser)** and computes independent context; **claims no warning authority** (test-enforced banned-vocabulary rule). |
+| **Commercial Climate Risk Platforms** (Jupiter, Cervest, One Concern, etc.) | **Black-box risk scores.** Proprietary models, "asset-level" ratings, often forecast-language. | Astra **shows the math, the sources, the unknowns, and the confidence labels**. No secret sauce. Engines are frozen, labelled "screening", confidence Low/Medium. |
+| **LLM Climate Chatbots** | **Interface.** Hallucination risk, no provenance, compute ≠ reason. | Astra's LLM is **optional interface only**. Remove the key → 100% science survives (proven twice). The intelligence is the *envelope + composition + evidence*, not the prose. |
+| **Data Marketplaces / API Aggregators** | **Plumbing.** Sell access to raw feeds. | Astra **reconciles conflicts** (4 GHI sources side-by-side, each enveloped), **preserves lineage**, and **composes cross-domain consequences** (evidence bundles) with spatial predicates. |
+
+#### Astra's Genuine Moat Today (Part 22 — "Brutally Skeptical")
+| Differentiator | Status | Why It's Hard to Copy Quickly |
+| :--- | :--- | :--- |
+| **Epistemic Envelope as Machine Contract** | **LIVE** | Constructor-level validation (null→unknown, basis enum, lower_bound auto-mark). Not a schema—**enforced at object creation**. |
+| **Cross-Domain Consequence Composition with Preserved Types** | **LIVE** | Evidence Bundle carries `knowledge_type` through engines → relationships → scenario → bundle. No semantic upgrade possible (invariant tests). |
+| **Retrieval-Statement / Unknown Discipline** | **LIVE** | "Zero fires" = retrieval statement (honest), not existence claim. `grid_state = unknown (reason: no licensed feed)` vs `null`. Distinguishable in JSON. |
+| **Five-Voice Hazard Separation + No-Authority Ban** | **LIVE** | Official (CAP, verbatim) / Observed (USGS/FIRMS) / Inferred (exposure) / Unknown (IMD/SACHET/IMERG) / Assessment (Astra engines). **Structural ban** on warning vocabulary (payload scan + LLM prompt + tests). |
+| **Audit Trail as Trust Artifact** | **LIVE** | This document + repo = full reconstruction. Every number measured, not remembered. Commit-forensic verification. |
+
+#### What Is **Not** a Moat (Commodity)
+*   Individual sources (CAMS, FIRMS, OSM, ERA5, PVGIS—all free/open).
+*   AQI numbers, fire points, maps.
+*   "Many APIs" aggregation.
+*   UI polish (frontend is v1, invisible to v2 intelligence).
+*   The word "Platform" or "AI".
+
+#### The Compounding Moat (Future, Not Yet Real)
+*   **Verified Outcome Corpus** (verifier-tiered: seed pairs like Open-Meteo→ERA5, FIRMS persistence, CAMS→CAMS).
+*   **Regime-Validated Calibrations** (engine parameters tuned against ground truth).
+*   **Place-Based Environmental Memory** (append-only Outcome Memory, post-deployment, demand-gated per `SELF_IMPROVEMENT_DOCTRINE.md`).
+
+> **Auditor's Honest Statement (Part 22):** *"Astra's moat today is epistemic discipline + composition architecture + India focus + audit culture; the compounding moat begins only at deployment, one verified day at a time."*
+
+---
+
+### Summary
+| Question | Answer |
+| :--- | :--- |
+| **Core** | A **provenance-bearing environmental intelligence backend** for India. The product is *honest representation* (State + Envelope + Evidence), not data or predictions. |
+| **Intelligence Layer** | **Deterministic pipeline:** Providers → **Epistemic Envelope (machine contract)** → Place State (composition) → Frozen Engines → Relationships → **Evidence Bundle (5 voices, no-upgrade)** → Scenarios. LLM = optional explainer only. |
+| **Differentiation** | **Not data, not models, not AI.** It is **epistemic discipline enforced in code**: every number carries its type, lineage, validity, and reason for absence; cross-domain reasoning preserves those types; warning authority is structurally banned. Competitors sell *answers*; Astra sells *auditable reasoning*. |

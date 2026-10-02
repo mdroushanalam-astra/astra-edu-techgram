@@ -1,0 +1,19 @@
+{
+  "name": "@techgram/kernel",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Techgram Brain V1 — pure, deterministic, replayable student intelligence kernel. No LLM. No I/O.",
+  "type": "module",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "brainlab": "tsx src/demo/brainlab.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0"
+  }
+}

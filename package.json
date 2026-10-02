@@ -1,0 +1,19 @@
+{
+  "name": "astra-edu-techgram",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Techgram / Astra Edu — Student Intelligence Kernel (deterministic, LLM-free decisions)",
+  "type": "module",
+  "workspaces": [
+    "kernel"
+  ],
+  "scripts": {
+    "test": "npm -w kernel run test",
+    "typecheck": "npm -w kernel run typecheck",
+    "brainlab": "npm -w kernel run brainlab"
+  },
+  "license": "UNLICENSED",
+  "dependencies": {
+    "openai": "^7.25.0"
+  }
+}

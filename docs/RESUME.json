@@ -1,0 +1,53 @@
+{
+  "project": "Techgram / Astra Edu — Student Intelligence Kernel",
+  "updated_at": "2026-10-02T11:45:00+05:30",
+  "session_model": "GLM-5.3-Flash (Z.ai) via ZCode",
+  "kernel_version": "0.1.0",
+  "position": "Phase 1 COMPLETE; external ChatGPT review adjudicated (ADR-014..019) — spec updated, code deliberately unchanged; next: V1-A 'The Brain' build (AOM + four worlds + teacher + Brain Lab web)",
+  "tests": { "passed": 58, "failed": 0, "typecheck": "clean" },
+  "read_first": [
+    "docs/FOUNDER_GUIDE.md",
+    "docs/00_CHARTER.md",
+    "docs/CURRENT_STATE.md",
+    "docs/PROJECT_JOURNAL.md",
+    "docs/EXPERIMENTS_AND_TESTS.md",
+    "docs/DECISIONS.md",
+    "docs/04_ARCHITECTURE.md",
+    "docs/05_ROADMAP.md"
+  ],
+  "commands": {
+    "test": "npm test",
+    "typecheck": "npm -w kernel run typecheck",
+    "brainlab": "npm run brainlab",
+    "sweep": "npx tsx kernel/src/demo/debug_sweep.ts"
+  },
+  "next_actions": [
+    "B5.5 Action Outcome Model: extract gain priors into versioned aom.ts; predictions recorded in receipts BEFORE actions; prediction-error loop wired",
+    "Four simulator worlds (ADR-016): World B misspecified + World C adversarial + frozen World D hidden benchmark; G0 re-run",
+    "B7 session composer + B8 teacher state machine (12 moves) + first 30-50 verified atoms",
+    "B11 mock post-mortem + attempt-policy coach",
+    "B9 behaviour engine (priority raised, ADR-018 — the personalization engine; no labels ever)",
+    "Brain Lab web demo, 8 screens (ADR-014 point 32)",
+    "Content sprint: items 80->500 (high-information instrument bar), atoms 0->150, PYQ weights refine",
+    "Initialize git repo (overdue)",
+    "PWA shell + sync + server recompute-and-verify",
+    "Pilot recruitment by founder (20-30 aspirants)"
+  ],
+  "gates": {
+    "G0_simulator": "aggregate over archetypes: techgram beats random (+6.2 marks 30d) and fixed order (+2.4)",
+    "G1_replay": "bit-identical replay from events+seed — green",
+    "G2_no_llm": "structural (kernel has no LLM import path) — green",
+    "G3_pilot": "pending (20-30 aspirants, week-3 retention >= 40%)"
+  },
+  "hard_invariants": [
+    "kernel is pure: no I/O, no wall-clock, no LLM imports",
+    "every decision emits a receipt; every randomised choice logs propensity",
+    "unknown != zero; no-upgrade invariant on envelopes",
+    "models/params versioned; human gate on deploys",
+    "wellbeing outranks engagement; no diagnosis ever",
+    "docs updated after every session per docs/README.md protocol",
+    "MODEL STAMP RULE: every journal entry, ADR, experiment campaign and ledger row records the exact model ID + runtime + directing human"
+  ],
+  "banned_scope": ["PG/rooms/food (permanent cut)", "social feed", "career engine (deferred)", "K12 (deferred)", "minors at launch", "DKT/RL/counterfactuals in V1"],
+  "founder_constraints": ["no budget", "no dataset", "solo + AI assist", "50-hour sprint to public-ready", "LLM must never decide"]
+}
