@@ -220,3 +220,23 @@ py -m pytest backend/tests -q             # archived prototype reference suite (
 **Licensing research (docs/07):** NCERT © (align-never-ingest) · Khan/OpenStax/CK-12/PhET CC BY-NC (never ingest commercially) · Wikipedia CC BY-SA (usable w/ discipline) · original authorship = the model. Landmine avoided.
 
 **Bugs this campaign: 0 carried. (2 test-side fixes: promise-assertion misuse; missing k_f_noncontact atom — authored.)**
+
+---
+
+## §13 — CAMPAIGN: DOC-INTEGRITY GATE + WAVE-1 BRAIN LAB WEB
+**When:** 2026-10-02, ~15:15–16:10 · **Model:** GLM-5.3-Flash (Z.ai) via ZCode · **Commits:** `aa0c73c` + protocol commit
+
+**Confirmed external finding:** CURRENT_STATE.md snapshot drift (fresh head over stale §3/§5 body — B7/B8/B11/B9 listed as missing, "150 atoms = 0", "no repo initialized"). Self-found: our own "105 atoms" claim was wrong — generated truth = **104** (83 Polity + 21 K12).
+
+**Fixes shipped:**
+1. `scripts/write_counters.mts` → `docs/COUNTERS.json`: all doc counts now GENERATED from code (imports the live banks; reads git).
+2. `kernel/test/docs_integrity.test.ts` (3 tests): COUNTERS == live banks; CURRENT_STATE claims == COUNTERS; registered stale lies fail the build if they ever reappear.
+3. CURRENT_STATE.md rebuilt coherent; "V1-A runway" phrasing adopted; §5 replaced by the three-bucket uncertainty register (engineering 🟢 low-med / product 🟡 HIGH / scientific 🔴 VERY HIGH).
+4. Charter §2.2b: "the idea became a falsifiable machine" — nine standing experiment questions.
+5. docs/06 refinements adopted: mistakes panel (errors on display), Vite+React runtime note.
+
+**WAVE-1 VERIFICATION (live in-browser):** app built (238 KB JS / 78.5 KB gzip) and verified in the in-app browser: title correct · brain state renders 40 concepts in grey mist at cold start · "Why this question?" panel computes info value (0.401) + alternative considered + misconception risk · simulated answer updates belief (63% predicted) while the mist honestly REMAINS (n_eff 1.3 < 3 — by design) · tomorrow's plan composes 37 min with per-segment AOM σ predictions + full receipt · exam scenario band 75–110, P(clear) 69.8% (800 draws) · 30-day race runs client-side (Techgram 139.0 / fixed 139.6 / random 135.3) · mistakes panel renders amber error dots · LLM-unplug toggle: decision hashes identical (e55522dc = e55522dc). Screenshots archived in session artifacts.
+
+**Bugs this campaign: 0 carried. (2 test-side fixes: promise-assertion misuse; missing k_f_noncontact atom — authored. §8 chart + §7 register brought current.)**
+
+**Suite:** 14 files / **116 tests + 3 docs-integrity tests green** · typecheck clean · commits `d535e9b`→`aa0c73c` (10).

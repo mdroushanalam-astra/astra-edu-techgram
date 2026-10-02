@@ -207,3 +207,23 @@ Also, at the founder's direction, established the **self-sufficiency rule** (reg
 **What we inferred:** (a) the kernel's TypeScript-in-browser decision (ADR-001) means Wave-1 frontend needs NO server at all — the brain runs client-side; (b) K12-as-config proves the long-term thesis (one brain, every goal) with executable evidence; (c) the licensing research converts "we should be careful" into a concrete rule table that protects the company.
 
 **Way forward:** Wave-1 Brain Lab web build → Wave-2 PWA + sync server → content sprint (atoms 105→150+, items 105→500 — founder/mentor verification = critical path) → pilot (G3).
+
+---
+
+<a name="entry-10"></a>
+## ENTRY 10 — DOCUMENT REPAIR + WAVE-1 BRAIN LAB WEB (built, browser-verified)
+**Model:** GLM-5.3-Flash (Z.ai), agentic runtime: ZCode CLI · directed by the Founder · **When:** 2026-10-02, ~15:15–16:10 · **Commits:** `aa0c73c` + protocol commit.
+
+**What we did:**
+1. **Adjudicated the external audit's snapshot-drift finding: CONFIRMED.** CURRENT_STATE.md was internally contradictory — fresh head (116/116, frontend green-lit) over a stale body (§3 claimed B7/B8/B11/B9 don't exist, "150 atoms = 0", "no repo initialized"). Additional self-found drift: our own "105 atoms" claim was wrong — generated count = **104** (83 Polity + 21 K12). Hand-counted numbers failed us exactly as the critic predicted.
+2. **Killed hand-counting** [ADR-022]: `scripts/write_counters.mts` generates `docs/COUNTERS.json` from the live code (imports the banks, counts, reads git); `kernel/test/docs_integrity.test.ts` fails CI when CURRENT_STATE claims diverge from COUNTERS.json and when the registered stale lies ("150 atoms = 0", "no repo initialized", "no teaching surface yet") reappear. Evidence-over-recall is now a gate.
+3. **CURRENT_STATE.md fully rebuilt** — head AND body coherent, true numbers, "V1-A intelligence-kernel gate substantially complete — on the public-release runway" phrasing (external review §14 adopted), §2 extended to 17 capability rows, §3 rewritten to the TRUE remaining gaps, §5 risks replaced by the three-bucket uncertainty register (engineering low-med / product HIGH / scientific VERY HIGH).
+4. **Charter + Goals updated:** §2.2b "the idea became a falsifiable machine" (nine standing experiment questions); Goals §4.5 uncertainty register; §14 runway phrasing.
+5. **WAVE-1 BUILT: Brain Lab web** (`apps/brainlab`, Vite+React+TS over the kernel — the brain runs client-side, no server): 7 blueprint screens live — hero ("The learning intelligence system. Watch it think."), brain state (grey-mist bands), why-this-question (info-value panel + belief-shift BEFORE/AFTER animation), tomorrow's plan (segments with AOM σ predictions + full receipt modal), exam-day Monte-Carlo mountain (cutoff line, scenario framing), 30-day race + **THE MISTAKES PANEL** (amber dots = days the belief was wrong, on display), LLM-unplug toggle (decision hashes proven identical). **Browser-verified live**: rendering, interactions, race computation, hash equality — all confirmed in the in-app browser with screenshots.
+6. Runtime note [docs/06 refined]: Wave-1 ships as Vite+React (static build — deploys anywhere); Next.js deferred to Wave-2 when server routes matter.
+
+**What happened:** 116/116 tests + 3 new docs-integrity tests green; app built (238 KB JS, 78.5 KB gzip) and verified in-browser. The verified-findings ledger: external audit confirmed (drift real), my own 105-atom claim corrected to 104, one false-alarm investigated (the "0 of 40 with evidence" counter after one answer — CORRECT behaviour: n_eff 1.3 < 3 means the mist honestly remains).
+
+**What we inferred:** the docs-integrity gate converts the culture into machinery — ChatGPT found by reading what `npm test` now catches automatically; and the mistakes panel is the most persuasive screen precisely because it displays failure.
+
+**Way forward (Wave-2, gated):** content sprint (105→500 items, 104→150 atoms — founder/mentor hours), deploy Brain Lab web, exercise it against sealed hidden worlds publicly, then persistence → sync/recompute → tamper/chaos → student PWA → pilot G3. No new intelligence subsystems until real student data flows.

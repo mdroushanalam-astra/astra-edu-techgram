@@ -33,11 +33,12 @@ The full closed loop exists, is proven, and now teaches: envelope → events →
 | **Goal-agnosticism** (UPSC + CBSE Cl-8 as config) | ✅ live | `test/k12_goal_agnostic.test.ts` |
 | **Docs-integrity gate** (COUNTERS.json vs docs vs code) | ✅ live | `test/docs_integrity.test.ts` |
 | Brain Lab demo (CLI, 5 acts) | ✅ runs | `npm run brainlab` |
+| **Brain Lab web (Wave 1)** — 7 screens over the kernel, browser-verified | ✅ live | `apps/brainlab` · `npm run brainlabweb` · screenshots in session artifacts |
 | Python prototype | 🗄️ archived reference (50/50) | EXPERIMENTS §2 |
 
 ## 3. What does NOT exist yet (honest — the true remaining gaps)
 
-- **Brain Lab web (Wave 1)** — IN BUILD this session (`apps/brainlab`, Vite+React over the kernel; blueprint `06`). Not deployed yet.
+- ~~Brain Lab web (Wave 1)~~ — **BUILT + browser-verified** (`apps/brainlab`, Vite+React over the kernel). Deployment pending. Source: `npm run brainlabweb`.
 - **Content floor** — 105/500 items; 104/150 atoms; PYQ weight table coarse. **Founder/mentor verification hours = the critical path.**
 - **Wave-2 backend pieces:** IndexedDB persistence, sync server (recompute-and-verify), student auth, push delivery. Gated until Wave-1 lands + content moves.
 - **Real-student evidence:** AOM parameters are `assumed`; calibration curves need the pilot (G3). Simulator results prove machinery, not real-world efficacy.
@@ -46,7 +47,7 @@ The full closed loop exists, is proven, and now teaches: envelope → events →
 
 ## 4. Next actions (ordered)
 
-1. **Wave 1 — Brain Lab web** (this session): 7 screens over the kernel, built + browser-tested.
+1. ~~Wave 1 — Brain Lab web~~ **DONE (16:10)** — built + browser-verified; deployment pending.
 2. **Content sprint** (parallel, Founder + mentor): items 105→500, atoms 104→150, PYQ weights refine.
 3. **Exercise Brain Lab against sealed hidden worlds** before any public claim (ADR-016 claim discipline).
 4. **Wave-2 (gated):** persistence → sync/recompute → tamper test → offline chaos → student PWA.

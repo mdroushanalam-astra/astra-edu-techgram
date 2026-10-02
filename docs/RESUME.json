@@ -1,10 +1,10 @@
 {
   "project": "Techgram / Astra Edu — Student Intelligence Kernel",
-  "updated_at": "2026-10-02T15:10:00+05:30",
+  "updated_at": "2026-10-02T16:15:00+05:30",
   "session_model": "GLM-5.3-Flash (Z.ai) via ZCode",
   "kernel_version": "0.1.0+ (commits d535e9b..freeze, 5 commits)",
-  "position": "FRONTEND GREEN-LIT (2 waves). V1-A complete except Brain Lab web + content depth. 116/116 tests. K12 goal-agnosticism PROVEN (CBSE Class 8 seed runs the full brain, zero kernel changes). Licensing research: original-authorship model confirmed (NCERT copyrighted; Khan/OpenStax/CK-12/PhET all non-commercial). Blueprint: docs/06_FRONTEND_BLUEPRINT.md.",
-  "tests": { "passed": 116, "failed": 0, "typecheck": "clean" },
+  "position": "WAVE-1 BRAIN LAB WEB BUILT + browser-verified (apps/brainlab, 7 screens, zero LLM). Doc-integrity gate live (COUNTERS.json + tests). 116/116 tests. V1-A public remaining: deploy web + content floor. Wave-2 (PWA/sync) gated.",
+  "tests": { "passed": 116, "failed": 0, "typecheck": "clean", "docs_integrity": "green" },
   "read_first": [
     "docs/FOUNDER_GUIDE.md",
     "docs/00_CHARTER.md",
@@ -22,7 +22,7 @@
     "sweep": "npx tsx kernel/src/demo/debug_sweep.ts"
   },
   "next_actions": [
-    "Brain Lab web demo, 8 screens (ADR-014 point 32) — CLI demo already runs all acts",
+    "Deploy Brain Lab web (built + verified; Vercel/static)",
     "Content sprint: atoms 84->150 (2 variants top-20), items 80->500, PYQ weights refine — FOUNDER/MENTOR VERIFICATION IS THE CRITICAL PATH",
     "B11 mock centre into PWA surface; B9 flags feeding the planner (lighten/rest)",
     "K12 feed: expand CBSE Class 8 seed (14 concepts/25 items/21 atoms) toward full-term coverage — same config pattern, licensing-safe (docs/07)",
