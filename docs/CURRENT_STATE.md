@@ -4,7 +4,7 @@
 > **Read me alone:** refreshed after every session; stands on its own. Non-technical readers: `FOUNDER_GUIDE.md` tells the same story in plain language.
 > **Integrity:** all counts in this file are backed by `COUNTERS.json` (generated from the code by `npm run counters`) and enforced by `kernel/test/docs_integrity.test.ts`. If this page contradicts reality, the docs-integrity test fails — fix reality or the doc, never silently.
 
-**Snapshot:** 2026-10-02, ~16:00 (local) · Kernel 0.1.0+ · **116/116 tests green, 14 files, typecheck clean** · Phase: **V1-A INTELLIGENCE-KERNEL GATE SUBSTANTIALLY COMPLETE — on the public-release runway** (public V1-A ships when Brain Lab web + content floor land; see `05_ROADMAP.md`) · Git: `main`, 9 commits (`9b9ffb3`) · Session model: GLM-5.3-Flash (Z.ai) via ZCode
+**Snapshot:** 2026-10-02, ~20:15 (local) · Kernel 0.1.0+ · **134/134 tests green, 16 files, typecheck clean** · Phase: **V1-A INTELLIGENCE-KERNEL GATE SUBSTANTIALLY COMPLETE — on the public-release runway** (public V1-A ships when Brain Lab web + content floor land; see `05_ROADMAP.md`) · Git: `main`, 14 commits (`5036cee`) · Session model: GLM-5.3-Flash (Z.ai) via ZCode
 
 ---
 
@@ -32,6 +32,9 @@ The full closed loop exists, is proven, and now teaches: envelope → events →
 | **Closed teaching loop** (`runTeachingSession`, injected Responder) | ✅ live | `test/freeze_inspection.test.ts` |
 | **Goal-agnosticism** (UPSC + CBSE Cl-8 as config) | ✅ live | `test/k12_goal_agnostic.test.ts` |
 | **Docs-integrity gate** (COUNTERS.json vs docs vs code) | ✅ live | `test/docs_integrity.test.ts` |
+| **Personalisation State v1** (momentum, fatigue, frustration, load, session length, chronotype, avoidance, recovery — measured, no labels) | ✅ live [ADR-024] | `test/personalisation.test.ts` |
+| **MEMORY_OPEN** continuity move | ✅ live | `test/personalisation.test.ts` |
+| **Return Model v0 + engagement experiments** (ethics-wall registry) | ✅ live [ADR-025] | `test/personalisation.test.ts` |
 | Brain Lab demo (CLI, 5 acts) | ✅ runs | `npm run brainlab` |
 | **Brain Lab web (Wave 1)** — 7 screens over the kernel, browser-verified | ✅ live | `apps/brainlab` · `npm run brainlabweb` · screenshots in session artifacts |
 | Python prototype | 🗄️ archived reference (50/50) | EXPERIMENTS §2 |
@@ -75,5 +78,6 @@ cd apps/brainlab && npm run preview  # Wave-1 web (production build, localhost:4
 ```
 
 ## 7. Pointers
+> **Observable-State Law [ADR-023]:** all personalisation is a model of the student's OBSERVABLE learning state and behaviour — explicitly uncertain, never internal-state claims, never labels. The Engagement Ethics Wall bans guilt/urgency/exploitation mechanics permanently.
 
 **Non-technical:** `FOUNDER_GUIDE.md` · Soul: `00_CHARTER.md` · Memory: `PROJECT_JOURNAL.md` · Evidence: `EXPERIMENTS_AND_TESTS.md` · Changes: `DECISIONS.md` (ADR-001…021) · Machine pointer: `RESUME.json` · Protocol: `README.md` · Architecture: `04_ARCHITECTURE.md` · Roadmap: `05_ROADMAP.md` · Frontend: `06_FRONTEND_BLUEPRINT.md` · K12 research: `07_OPEN_MATERIALS_RESEARCH.md` · Counts: `COUNTERS.json`

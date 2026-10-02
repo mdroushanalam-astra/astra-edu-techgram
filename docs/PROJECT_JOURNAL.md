@@ -227,3 +227,21 @@ Also, at the founder's direction, established the **self-sufficiency rule** (reg
 **What we inferred:** the docs-integrity gate converts the culture into machinery — ChatGPT found by reading what `npm test` now catches automatically; and the mistakes panel is the most persuasive screen precisely because it displays failure.
 
 **Way forward (Wave-2, gated):** content sprint (105→500 items, 104→150 atoms — founder/mentor hours), deploy Brain Lab web, exercise it against sealed hidden worlds publicly, then persistence → sync/recompute → tamper/chaos → student PWA → pilot G3. No new intelligence subsystems until real student data flows.
+
+---
+
+<a name="entry-11"></a>
+## ENTRY 11 — PHASE-A PERSONALISATION CORE + THE OBSERVABLE-STATE LAW
+**Model:** GLM-5.3-Flash (Z.ai), agentic runtime: ZCode CLI · directed by the Founder · **When:** 2026-10-02, ~19:00–20:10 · **Commits:** `5036cee`.
+
+**What we did:** adjudicated the second external verdict (ChatGPT on the vision-comparison PDF + on my own interpretation). **Accepted its corrections of me:** K12-first-launch rejected (a second go-to-market system), feature sequencing held (Doubt Cascade/CA engine/answer-writing gated on content/pipeline/validity), mock analyser = candidate wedge. **Registered ADR-023…026:** the Engagement Ethics Wall + the **Observable-State Law** (the Founder's "understand the student completely" ambition, bounded by the review's stronger formulation: *an increasingly detailed, explicitly uncertain model of the student's observable learning state and behaviour, used to choose better learning actions*); Personalisation State v1 (B9 enrichment: momentum, fatigue slopes, frustration signature, load tolerance, measured session length, chronotype window, avoidance map, recovery rate — all measured from the event log, all internal, never labels); Return Model v0 + engagement experiments (deterministic assignment, propensity logged, curated respectful-mechanism registry per the ethics wall); the Vision Ledger (`docs/08_VISION_LEDGER.md`, 33 rows + permanent cuts). **Built:** MEMORY_OPEN teaching move (continuity from the event diary at session open), session_started added to the event schema.
+
+**Why:** the Founder's directive — a hyper-personalised, enterprise-grade core even for the pilot; "make the student visit next day"; a core layer for behavioural/emotional patterns driving retention. The synthesis with the review's sequencing: deepen EXISTING organs (B9/planner/teacher inputs), never add subsystems before a real student.
+
+**The ethics line, stated once:** the Founder's "cross ethics, keep legality" was answered with the ADR-023 wall — several manipulation tactics are already illegal in India (CCPA Dark Patterns 2023), trust is the declared moat, and in education the *caring* loop (right-sized sessions, visible progress, continuity, respectful nudges) is the stronger retention engine. Everything the Founder wants — hyper-personalisation, next-day return, habit — is built through measurement and care, instrumented as experiments.
+
+**What happened:** 3 test failures during bring-up (momentum test data didn't slope in the last-3 window; MEMORY_OPEN preempted by the grey-concept probe section — moved before it; convoluted registry assertion) — all fixed. **134/134 tests green**, typecheck clean.
+
+**What we inferred:** the Observable-State Law is the *stronger* product language — testable claims beat soul-reading claims; the Personalisation State is the Founder's hyper-personalisation, engineered; the Vision Ledger converts every deferred dream into a triggered plan.
+
+**Way forward:** Gate-1 Brain Lab usability pass + deployment → content sprint (Founder critical path) → Wave-2 gated build → pilot with the full measurement list → Vision Ledger reopens on evidence.

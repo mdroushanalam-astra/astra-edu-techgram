@@ -240,3 +240,31 @@ py -m pytest backend/tests -q             # archived prototype reference suite (
 **Bugs this campaign: 0 carried. (2 test-side fixes: promise-assertion misuse; missing k_f_noncontact atom — authored. §8 chart + §7 register brought current.)**
 
 **Suite:** 14 files / **116 tests + 3 docs-integrity tests green** · typecheck clean · commits `d535e9b`→`aa0c73c` (10).
+
+---
+
+## §14 — CAMPAIGN: PHASE-A PERSONALISATION CORE (ADR-023…026)
+**When:** 2026-10-02, ~19:00–20:10 · **Model:** GLM-5.3-Flash (Z.ai) via ZCode · **Commits:** `5036cee`
+
+**Built & tested:** Personalisation State v1 (behaviour.ts) · MEMORY_OPEN move (teacher.ts) · Return Model v0 + engagement experiments (experiments.ts) · session_started event type · Vision Ledger (docs/08) · Observable-State Law + Ethics Wall (ADR-023, Charter §2.6).
+
+**Verification results:**
+| Feature | Test evidence |
+|---|---|
+| Fatigue signature | 10-day stream with late-day slowdowns: fatigueTimeSlope > 0.5, fatigueErrorSlope > 0.2 |
+| Momentum | Rising last-3-day accuracy → momentum > 0.3; flat → 0 |
+| Load/length | loadToleranceMin = 40, optimalSessionMin = 40 from completed sessions |
+| Chronotype | Measured (median + IQR) ONLY when time_of_day_min logged; undefined otherwise |
+| Avoidance | 4× scheduled-and-untouched sessions → concept flagged (missedSessions ≥ 2) |
+| Recovery | Always-recovers pattern → recoveryRate = 1.0 |
+| Thin evidence | Honest neutrals (momentum 0, null session length) — nothing invented |
+| Return Model | Deterministic, monotonic (streak↑/gap↓ → p↑), bounded, `assumed` |
+| Experiments | Deterministic per-student assignment, propensity 0.5 logged, underpowered-evaluation honesty |
+| MEMORY_OPEN | Fires once at first teach segment with a confirmed misconception ("Yesterday… tripped you up 3 time(s)"), never without a signal |
+| No-labels guarantee | Personalisation State contains only numbers + concept ids — structural |
+
+**Bugs this campaign: 3 test-side + 0 carried.** (momentum window data; MEMORY_OPEN preempted by probe section — moved; registry assertion.)
+
+**Suite:** 16 files / **134 tests green** · typecheck clean · commits → `5036cee`.
+
+**The Observable-State Law now governs all personalisation claims** (Charter §2.6, ADR-023): observed/inferred behavioural features, explicitly uncertain, serving learning actions. The Ethics Wall tripwires are permanent.
