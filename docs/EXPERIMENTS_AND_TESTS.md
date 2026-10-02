@@ -199,3 +199,21 @@ py -m pytest backend/tests -q             # archived prototype reference suite (
 **Suite:** 13 files / **111 tests green** + typecheck clean. Cumulative commits: d535e9b → b44fa3c → 6c21c66 → c5229c8 → freeze commit.
 
 **Verdict: BACKEND FREEZE INSPECTION PASSED for the intelligence kernel + teaching loop** (V1-A scope). Remaining before V1-A "public": Brain Lab web (8 screens), content depth (atoms 84→150, items 80→500), pilot hardening. V1-B (student PWA + sync) not started — gated on V1-A.
+
+---
+
+## §12 — CAMPAIGN: FULL AUDIT + K12 GOAL-AGNOSTICISM PROOF
+**When:** 2026-10-02, ~14:35–15:10 · **Model:** GLM-5.3-Flash (Z.ai) via ZCode · **Commits:** `6eb4466`
+
+**Audit results (all live):** typecheck 0 errors · **116/116 tests** across 14 files · G0 four-worlds re-verified in-run (A +0.43, B +5.31, C +4.11, D +5.22/+1.42) · git tree clean, 7 commits.
+
+**K12 experiment (`k12_goal_agnostic.test.ts`):**
+- CBSE Class 8 Science physics slice fed as pure config: 3 topics / 14 concepts / 25 items / 21 atoms / mastery-threshold GoalSpec (40×1, no negative).
+- Prior positive-definite on the K14 graph ✓ · weights derive to the 40-question paper ✓ · full teaching loop runs (teach + calibration_wrap segments present, outcome records per segment) ✓
+- 10-day K12 closed loop: true marks RISE above prior baseline (learning through the loop on non-UPSC content), beliefs track hidden truth (mean |σ(μ)−σ(θ)| < 0.3) ✓
+- Tier discipline holds outside Polity: every one of the first 6 concepts has a verified explanation atom ✓
+- **Verdict: the kernel is exam-agnostic — UPSC Polity and CBSE Class 8 are both just content config. Zero kernel changes.**
+
+**Licensing research (docs/07):** NCERT © (align-never-ingest) · Khan/OpenStax/CK-12/PhET CC BY-NC (never ingest commercially) · Wikipedia CC BY-SA (usable w/ discipline) · original authorship = the model. Landmine avoided.
+
+**Bugs this campaign: 0 carried. (2 test-side fixes: promise-assertion misuse; missing k_f_noncontact atom — authored.)**

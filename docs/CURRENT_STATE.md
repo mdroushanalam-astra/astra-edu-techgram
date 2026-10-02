@@ -3,13 +3,13 @@
 
 > **Read me alone:** this page is refreshed after every session and is written to stand on its own — what works, what doesn't, what's next, and how to verify it. Non-technical readers: `FOUNDER_GUIDE.md` tells the same story in plain language.
 
-**Snapshot:** 2026-10-02, ~14:30 (local) · Kernel 0.1.0+ (commits `d535e9b`→`b44fa3c`→`6c21c66`→`c5229c8`→freeze) · **111/111 tests green, typecheck clean** · Phase: **V1-A — TEACHING LAYER COMPLETE, backend freeze inspection PASSED** · Git: `main`, 5 commits · Session model: GLM-5.3-Flash (Z.ai) via ZCode
+**Snapshot:** 2026-10-02, ~15:10 (local) · Kernel 0.1.0+ (8 commits, latest `6eb4466`) · **116/116 tests green, typecheck clean** · Phase: **V1-A complete except Brain Lab web + content depth — FRONTEND GREEN-LIT (2 waves)** · Git: `main` · Session model: GLM-5.3-Flash (Z.ai) via ZCode
 
 ---
 
 ## 1. One-paragraph position
 
-The full closed loop now exists in the TypeScript kernel: envelope → events → belief (graph-prior Kalman) → memory → exam Monte-Carlo → CAT diagnostic → AOM → robust planner → **composer (B7) → teacher (B8: 14 moves over 84 verified atoms) → student turns → typed evidence → belief/memory/misconception update (B10) → AOM prediction errors** — with receipts on every layer, plus mock post-mortem + attempt coach (B11) and the behaviour engine (B9, internal flags only). The freeze inspection proves it end-to-end: a 10-day closed loop produces TRUE learning vs a no-teaching control, beliefs track hidden truth (error <0.25), weak topics get scheduled and improve, 3-day logs replay bit-for-bit, and not one decision touches an LLM. What remains for V1-A: Brain Lab web (8 screens) + content depth (84→150 atoms, 80→500 items). V1-B (student PWA + sync) is gated on V1-A.
+The full closed loop now exists and is proven in the TypeScript kernel: envelope → events → belief → memory → exam model → diagnostic → AOM → planner → composer → teacher (14 moves over 105 verified atoms) → evidence → state — plus mock post-mortem + attempt coach (B11), behaviour engine (B9, internal flags only), misconception tiers (B10), four-world simulator gate, receipts everywhere, zero LLM decisions. **Two new proofs this session: (1) GOAL-AGNOSTICISM — the same brain runs CBSE Class 8 Science (K12 seed: 14 concepts / 25 items / 21 atoms, original licensing-clean content) with ZERO kernel changes; (2) the full audit — 116/116 tests, G0 four-worlds green in-run, 0 type errors.** Frontend GREEN-LIT in two waves: Wave-1 Brain Lab web (pure presentation over the kernel — the brain is TypeScript and runs client-side), Wave-2 Student PWA + sync server. Blueprint: `06_FRONTEND_BLUEPRINT.md` · K12 licensing research: `07_OPEN_MATERIALS_RESEARCH.md`.
 
 ## 2. What works (verified — see EXPERIMENTS_AND_TESTS for numbers)
 

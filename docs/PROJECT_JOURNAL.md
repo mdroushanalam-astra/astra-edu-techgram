@@ -189,3 +189,21 @@ Also, at the founder's direction, established the **self-sufficiency rule** (reg
 **What we inferred:** the teacher's discipline (moves from vocabulary, words from atoms) is what makes the loop auditable at the SENTENCE level, not just the decision level; the injected Responder is the exact seam where the real PWA will plug in; B5.5's prediction-vs-evidence loop now runs inside every session (predicted Δμ vs observed Δμ printed per session).
 
 **Way forward (V1-A remaining):** Brain Lab web (8 screens), content sprint (84 atoms → 150; items 80 → 500), pilot hardening. V1-B (student PWA) may start only after V1-A gates stay green. Founder's parallel track unchanged: recruit 20–30 aspirants, arrange expert content verification.
+
+---
+
+<a name="entry-09"></a>
+## ENTRY 09 — AUDIT + K12 RESEARCH FEED + FRONTEND VERDICT
+**Model:** GLM-5.3-Flash (Z.ai), agentic runtime: ZCode CLI · directed by the Founder · **When:** 2026-10-02, ~14:35–15:10 · **Commits:** `6eb4466` (K12 seed), audit/protocol commit.
+
+**What we did:**
+1. **Real-time audit:** typecheck 0 errors · **116/116 tests** (incl. four-world G0 table re-verified) · git clean · full demo runs.
+2. **Deep internet research on open K12 materials** (5 searches; sources: NCERT advisory/CIET, DIKSHA/PIB/UNESCO, Khan Academy/OpenStax/CK-12 licensing pages, PhET licensing, Wikipedia reuse + CC BY-SA deed). Findings registered in **`docs/07_OPEN_MATERIALS_RESEARCH.md`**: NCERT is copyrighted (align-never-ingest); Khan/OpenStax/CK-12/PhET are ALL non-commercial (CC BY-NC*) — a legal landmine avoided; Wikipedia text is CC BY-SA (usable with attribution+share-alike); the safe model is ORIGINAL authorship aligned to curriculum structure — exactly our existing content-compiler architecture.
+3. **K12 fed into the kernel** (commit `6eb4466`): `k12_seed.ts` — CBSE Class 8 Science physics slice (3 topics, 14 concepts, 25 tagged items, 21 original atoms, mastery-threshold GoalSpec). **GOAL-AGNOSTICISM PROVEN EXECUTABLY**: the entire brain (belief/prior PD, exam model, planner, composer, teacher, 10-day closed loop with true learning + honest tracking) runs on K12 content with ZERO kernel changes.
+4. **Frontend audit + verdict + blueprint** — `docs/06_FRONTEND_BLUEPRINT.md`: gap matrix (persistence/sync/auth/push are Wave-2 backend pieces; Wave-1 Brain Lab web needs nothing), 7-screen information architecture mapping 1:1 to kernel organs, visual language (belief bands as the star; grey mist sacred; zero dark patterns), 3-wave build plan with gates.
+
+**What happened:** all green. The K12 test file needed two honest fixes (a broken promise-based assertion; a missing k_f_noncontact explanation atom — authored, not skipped).
+
+**What we inferred:** (a) the kernel's TypeScript-in-browser decision (ADR-001) means Wave-1 frontend needs NO server at all — the brain runs client-side; (b) K12-as-config proves the long-term thesis (one brain, every goal) with executable evidence; (c) the licensing research converts "we should be careful" into a concrete rule table that protects the company.
+
+**Way forward:** Wave-1 Brain Lab web build → Wave-2 PWA + sync server → content sprint (atoms 105→150+, items 105→500 — founder/mentor verification = critical path) → pilot (G3).
