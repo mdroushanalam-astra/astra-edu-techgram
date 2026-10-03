@@ -130,5 +130,5 @@ Two attempts, two founder rejections in one day: v1 "Intelligent Sanctuary" deep
 
 ---
 
-## 14. WARM ROOM v3 — THE TWO-CHARACTER BUILD [ADR-033, 2026-10-04]
+## 14. WARM ROOM v3 — THE TWO-CHARACTER BUILD [ADR-033, 2026-10-04] — ✅ BUILT & VERIFIED (S1–S4, Entries 20–23)
 **ASTRA (orb, orchestrates)** + **MENTOR (teaches)** + **ONE brain** (frozen). The Meeting: auth → Layer A → real-computation pause → read-back → "How wrong am I?" → Layer B calibration → three horizons (NOW/NEAR/JOURNEY — never a detailed-year promise) → plan overrides → handoff (amber→cyan fade). Session: colour = interaction state (cyan listen / violet think / amber insight / coral correction / still silence); interruption first-class; density control (no praise spam). The Return: debrief (perception × performance × prediction error), two options + recommendation + override, Library moment. Praise = hybrid: always warm, always specific, always TRUE. VoiceIntent {pace, energy, pauses, emphasis, interruptible}; voice-in = mic→VAD→transcript→evidence. Stack: Vite+React+TS PWA, kernel unchanged (ZERO backend changes), IDB profile + events locally. Board = externalized working memory: types her words, draws the journey tree, writes the plan in chalk. Homepage layout: orb top-center-right, conversation strip below it, board right 45%, mentor seated at the desk, cat stays.

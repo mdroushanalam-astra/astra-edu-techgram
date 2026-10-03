@@ -4,7 +4,7 @@
 > **Read me alone:** refreshed after every session; stands on its own. Non-technical readers: `FOUNDER_GUIDE.md` tells the same story in plain language.
 > **Integrity:** all counts in this file are backed by `COUNTERS.json` (generated from the code by `npm run counters`) and enforced by `kernel/test/docs_integrity.test.ts`. If this page contradicts reality, the docs-integrity test fails — fix reality or the doc, never silently.
 
-**Snapshot:** 2026-10-03, ~02:30 (local) · Kernel 0.1.0+ · **183/183 tests green (kernel 174 + frontend contracts 9), 21 files, typecheck clean** · Phase: **WARM ROOM v3 BUILD UNDERWAY [ADR-033] — founder-approved two-character system (Astra orb orchestrates, Mentor teaches, ONE brain); S1 "The Meeting" in progress: local auth → onboarding → Astra conversation → handoff. v2 verdict recorded: "40% of what I wanted, otherwise I like the things"**
+**Snapshot:** 2026-10-03, ~02:30 (local) · Kernel 0.1.0+ · **183/183 tests green (kernel 174 + frontend contracts 9), 21 files, typecheck clean** · Phase: **WARM ROOM v3 COMPLETE [ADR-033] — S1–S4 DONE, the full journey exists end-to-end and browser-verified: auth → onboarding (Layer A+B) → the Meeting (real pause, read-back, "How wrong am I?", horizons, handoff) → the mood-lit 40-min session (real kernel loop, colour-as-state) → the Return (debrief → self-reports → two options + override → Library). 183/183 tests, 81 KB gzip, ZERO kernel changes. NEXT (founder directive): the DRASTIC VISUAL + ANIMATION PASS, then deploy decision + content sprint**
 
 ---
 
@@ -61,8 +61,9 @@ The full closed loop exists, is proven, and now teaches: envelope → events →
 
 ## 4. Next actions (ordered)
 
-1. **v3 BUILD per ADR-033:** S1 The Meeting → S2 voice/conversation → S3 session mood-colour → S4 the Return. Founder watches live. Full plan: DECISIONS ADR-033.
-2. **Content sprint** (parallel, Founder + mentor): items 105→500, atoms 104→150 — **still the true critical path, unaffected by the redesign.**
+1. ~~v3 BUILD per ADR-033~~ **S1–S4 ALL DONE** (commits ac96b12, f391c97, 5074bff, 920af72 — Journal Entries 20–23). The Meeting, VoiceIntent + interruption, mood-lit classroom + real loop, the Return — all browser-verified.
+2. **THE DRASTIC VISUAL + ANIMATION PASS** (founder directive): mentor seated at desk, generated-art swap-in (ART-SWAP slots), cinematic transitions, richer ambient motion — founder watches live.
+3. **Content sprint** (parallel, Founder + mentor): items 105→500, atoms 104→150 — **still the true critical path.**
 3. ~~Wire Personalisation State + Agency Index into kernel decisions~~ **DONE (ADR-030, Entry 14)** — measured behaviour now changes plans; agency measured end-to-end.
 4. **Exercise Brain Lab against sealed hidden worlds** before any public claim (ADR-016 claim discipline).
 5. **Wave-2 (gated):** persistence → sync/recompute → tamper test → offline chaos → student PWA.
