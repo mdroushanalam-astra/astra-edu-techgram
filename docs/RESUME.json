@@ -11,6 +11,7 @@
     "docs_integrity": "green"
   },
   "read_first": [
+    "docs/10_MASTER_ROADMAP.md",
     "docs/BACKEND_FREEZE_CHECKLIST.md",
     "docs/FOUNDER_GUIDE.md",
     "docs/00_CHARTER.md",
