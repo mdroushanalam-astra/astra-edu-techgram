@@ -267,3 +267,20 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 600; margin: 0; }
 }
 .inp:focus { border-color: var(--panel-line-hi); box-shadow: var(--glow-cyan); }
 textarea.inp { min-height: 84px; resize: vertical; }
+
+/* ================= v3: mood-lit classroom ================= */
+.sess-stage-v3 { transition: background 900ms cubic-bezier(.22,1,.36,1); }
+.sess-stage-v3[data-mood="orientation"] { background: linear-gradient(165deg, #241610, #120c16 60%); }
+.sess-stage-v3[data-mood="orientation"]::before { content: ""; position: absolute; inset: 0; background: radial-gradient(700px 400px at 80% 0%, rgba(255,157,69,0.14), transparent 60%); pointer-events: none; }
+.sess-stage-v3[data-mood="exploration"] { background: linear-gradient(165deg, #161226, #100c18 60%); }
+.sess-stage-v3[data-mood="exploration"]::before { content: ""; position: absolute; inset: 0; background: radial-gradient(700px 400px at 80% 0%, rgba(157,123,255,0.13), transparent 60%); pointer-events: none; }
+.sess-stage-v3[data-mood="reasoning"] { background: linear-gradient(165deg, #0d1b26, #0b0f18 60%); }
+.sess-stage-v3[data-mood="reasoning"]::before { content: ""; position: absolute; inset: 0; background: radial-gradient(700px 400px at 50% 0%, rgba(77,216,255,0.10), transparent 55%); pointer-events: none; }
+.sess-stage-v3[data-mood="retrieval"] { background: linear-gradient(165deg, #0e0c14, #0a0810 60%); }
+.sess-stage-v3[data-mood="retrieval"]::before { content: ""; position: absolute; inset: 0; background: radial-gradient(500px 300px at 50% 100%, rgba(255,255,255,0.03), transparent 60%); pointer-events: none; }
+.sess-stage-v3[data-mood="correction"]::before { content: ""; position: absolute; inset: 0; background: radial-gradient(600px 360px at 50% 20%, rgba(255,143,163,0.10), transparent 60%); pointer-events: none; }
+.sess-stage-v3[data-mood="correction"] { background: linear-gradient(165deg, #1d1218, #100a12 60%); }
+.sess-stage-v3[data-mood="eureka"] { background: linear-gradient(165deg, #241a0e, #12100c 60%); }
+.sess-stage-v3[data-mood="eureka"]::before { content: ""; position: absolute; inset: 0; background: radial-gradient(800px 450px at 50% 10%, rgba(255,190,92,0.20), transparent 60%); pointer-events: none; }
+.sess-stage-v3[data-mood="mastery"] { background: linear-gradient(165deg, #10201a, #0b1210 60%); }
+.sess-stage-v3[data-mood="mastery"]::before { content: ""; position: absolute; inset: 0; background: radial-gradient(700px 400px at 50% 0%, rgba(87,217,163,0.12), transparent 60%); pointer-events: none; }

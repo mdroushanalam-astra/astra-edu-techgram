@@ -19,7 +19,7 @@
 **Way forward:** …
 ```
 
-**Entry index:** [00 Pre-history](#entry-00) · [01 Context absorption](#entry-01) · [02 Version-lineage audit + governance docs](#entry-02) · [03 Kernel build sprint](#entry-03) · [04 Living documentation system](#entry-04) · [05 Founder's Guide + self-sufficiency rule](#entry-05) · [06 External review adjudication (ChatGPT)](#entry-06) · [07 AOM + four-world gate](#entry-07) · [08 Teaching layer + freeze inspection](#entry-08) · [09 Audit + K12 research + frontend verdict](#entry-09) · [10 Doc repair + Wave-1 Brain Lab web](#entry-10) · [11 Phase-A personalisation core](#entry-11) · [12 S2 golden replay + S3 validation surfaces + inspection gate](#entry-12) · [13 Allocation Principle + Agency Transfer + Ship Mandate](#entry-13) · [14 The allocation wires (implemented)](#entry-14) · [15 Gate-0 inspection + Brain Freeze v0.1](#entry-15) · [16 Design gate closes + Sprint-0 contracts](#entry-16) · [17 The Sanctuary is built](#entry-17) · [18 The Warm Room (founder boards)](#entry-18) · [19 v2 rejected — huge redesign tomorrow](#entry-19) · [20 The Meeting (S1) built](#entry-20) · [21 S2: VoiceIntent + interruption](#entry-21)
+**Entry index:** [00 Pre-history](#entry-00) · [01 Context absorption](#entry-01) · [02 Version-lineage audit + governance docs](#entry-02) · [03 Kernel build sprint](#entry-03) · [04 Living documentation system](#entry-04) · [05 Founder's Guide + self-sufficiency rule](#entry-05) · [06 External review adjudication (ChatGPT)](#entry-06) · [07 AOM + four-world gate](#entry-07) · [08 Teaching layer + freeze inspection](#entry-08) · [09 Audit + K12 research + frontend verdict](#entry-09) · [10 Doc repair + Wave-1 Brain Lab web](#entry-10) · [11 Phase-A personalisation core](#entry-11) · [12 S2 golden replay + S3 validation surfaces + inspection gate](#entry-12) · [13 Allocation Principle + Agency Transfer + Ship Mandate](#entry-13) · [14 The allocation wires (implemented)](#entry-14) · [15 Gate-0 inspection + Brain Freeze v0.1](#entry-15) · [16 Design gate closes + Sprint-0 contracts](#entry-16) · [17 The Sanctuary is built](#entry-17) · [18 The Warm Room (founder boards)](#entry-18) · [19 v2 rejected — huge redesign tomorrow](#entry-19) · [20 The Meeting (S1) built](#entry-20) · [21 S2: VoiceIntent + interruption](#entry-21) · [22 S3: mood-lit classroom](#entry-22)
 
 ---
 
@@ -430,3 +430,15 @@ Also, at the founder's direction, established the **self-sufficiency rule** (reg
 **What happened (browser-verified):** interrupted her mid-sentence — voice stopped instantly, orb shifted cyan-listen, bubble: "Yep — stop me there. Which part?" with the three recovery chips; "Start that again" replayed the script cleanly; board re-armed. Typecheck clean, 183/183 tests, 76.8 KB gzip.
 
 **Way forward:** S3 — session colour-states + full conversation loop in the Warm Room skin; S4 — the Return (debrief, two options, Library moment).
+
+---
+
+<a name="entry-22"></a>
+## ENTRY 22 — S3 BUILT: the mood-lit classroom + the real conversation loop
+**Model:** GLM-5.3-Flash (Z.ai), agentic runtime: ZCode CLI · directed by the Founder · **When:** 2026-10-04, ~11:00–11:30 · **Commits:** this entry
+
+**What we did:** S3 of ADR-033. **Colour-as-state classroom** (v3/session.tsx + mood CSS): the room's ambient light follows the teacher's interaction state — orientation warm amber, exploration violet, reasoning deep teal, retrieval visual quiet, correction restrained coral (never red), eureka gold bloom, mastery subtle green — 900ms transitions, mood name shown as a whisper in the top bar. **The REAL kernel loop wired into the Warm Room skin:** askNext → move (mood-mapped) → item options → answer → thinking overlay (REAL kernel work beneath: applyEvent belief/memory/misconception updates) → adaptive next move (hint ladder, segment closes) → evidence-based praise only ("Whoa — that was yours. No hint." on streaks). Why-rail shows the live kernel reason per move.
+
+**What happened (browser-verified):** session ran via the real loop to a segment close — bubble: "Segment closed… My belief is now still forming — more evidence soon."; room in mastery mood-light; why-rail live ("n_eff now 0.0, band 0.08–0.76 — live from the kernel"). 183/183, typecheck clean, 79.6 KB gzip.
+
+**Way forward:** S4 the Return — post-session debrief by Astra (perception × performance × prediction error), two next-step options + override, Library moment, horizons refresh.

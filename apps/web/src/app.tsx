@@ -9,7 +9,8 @@ import { loadEvents, saveEvents } from "./persist/idb.js";
 import { loadProfile, saveProfile, type Profile } from "./persist/profile.js";
 import { Onboarding } from "./v3/onboarding.js";
 import { Meeting } from "./v3/meeting.js";
-import { HomeV2, SessionV2, MapV2, GrowthV2, ArtifactsV2, AgencyV2, SettingsV2 } from "./v2/screens.js";
+import { HomeV2, MapV2, GrowthV2, ArtifactsV2, AgencyV2, SettingsV2 } from "./v2/screens.js";
+import { SessionV3 } from "./v3/session.js";
 
 type Surface = "home" | "session" | "map" | "growth" | "artifacts" | "library" | "agency" | "settings";
 
@@ -73,7 +74,7 @@ export function App() {
       </div>
       <div className="stage">
         {surface === "home" && <Meeting profile={profile} sanct={sanct} onStart={() => setSurface("session")} onCorrected={(pref) => { const p = { ...profile, preferredName: pref, metAstra: true }; saveProfile(p); setProfile(p); }} />}
-        {surface === "session" && <SessionV2 sanct={sanct} onEnd={() => persist(sanct.events)} />}
+        {surface === "session" && <SessionV3 sanct={sanct} onEnd={(evts) => persist(evts)} />}
         {surface === "map" && <MapV2 sanct={sanct} />}
         {surface === "growth" && <GrowthV2 sanct={sanct} />}
         {surface === "artifacts" && <ArtifactsV2 sanct={sanct} />}
