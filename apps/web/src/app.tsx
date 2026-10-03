@@ -15,6 +15,8 @@ import { Confirm4 } from "./v4/confirm4.js";
 import { Return } from "./v3/return.js";
 import { HomeV2, MapV2, GrowthV2, ArtifactsV2, AgencyV2, SettingsV2 } from "./v2/screens.js";
 import { SessionV3 } from "./v3/session.js";
+import { SessionV4 } from "./v4/session4.js";
+import { SessionV5 } from "./v4/session5.js";
 
 type Surface = "home" | "session" | "map" | "growth" | "artifacts" | "library" | "agency" | "settings";
 
@@ -34,6 +36,7 @@ export function App() {
   const [sanct, setSanct] = useState<SanctuaryState | null>(null);
   const [profile, setProfile] = useState<Profile | null>(() => loadProfile());
   const [entered, setEntered] = useState(false);
+  const [navOpen, setNavOpen] = useState(true);
   const [confirming, setConfirming] = useState(false);
   const [tiny, setTiny] = useState(false);
   const [justFinished, setJustFinished] = useState(false);
@@ -74,7 +77,7 @@ export function App() {
 
   return (
     <div className="shell">
-      <div className="sidebar">
+      <div className="sidebar" style={{ width: navOpen ? 190 : 0, padding: navOpen ? undefined : 0, overflow: navOpen ? undefined : "hidden", transition: "all 300ms var(--ease)" }}>
         <div className="logo">
           <span className="mark">T</span>
           <span className="name">Techgram</span>
@@ -98,7 +101,7 @@ export function App() {
           : profile.metAstra
             ? <Home4 sanct={sanct} profile={profile} onStart={() => setConfirming(true)} onTiny={() => setTiny(true)} onMap={() => setSurface("map")} />
             : <Meeting profile={profile} sanct={sanct} onStart={() => setConfirming(true)} onCorrected={(pref) => { const p = { ...profile, preferredName: pref, metAstra: true }; saveProfile(p); setProfile(p); }} />)}
-        {surface === "session" && <SessionV3 sanct={sanct} onEnd={(evts) => { persist(evts); setJustFinished(true); }} />}
+        {surface === "session" && <SessionV5 sanct={sanct} profileName={profile.preferredName ?? profile.name} onEnd={(evts) => { persist(evts); setJustFinished(true); }} />}
         {surface === "map" && <MapV2 sanct={sanct} />}
         {surface === "growth" && <GrowthV2 sanct={sanct} />}
         {surface === "artifacts" && <ArtifactsV2 sanct={sanct} />}

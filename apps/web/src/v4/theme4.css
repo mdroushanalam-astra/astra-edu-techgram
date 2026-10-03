@@ -387,3 +387,50 @@ body { background: var(--obsidian) !important; color: var(--ink); }
   transform: skewX(-20deg); animation: sweep 3.4s ease-in-out infinite;
 }
 @keyframes sweep { 0%, 60% { left: -80%; } 90%, 100% { left: 130%; } }
+
+/* ============ SESSION v5 — the neon workspace zones ============ */
+.zchip {
+  display: inline-flex; align-items: center; gap: 7px;
+  font: 500 11px var(--font-m); letter-spacing: 0.06em;
+  color: var(--ink-2); border: 1px solid var(--hairline-2);
+  padding: 6px 12px; border-radius: 8px; background: rgba(8,14,26,0.45);
+  backdrop-filter: blur(3px); cursor: default;
+}
+.zonebtn {
+  appearance: none; cursor: pointer; border: 1px solid var(--hairline-2);
+  background: rgba(8,14,26,0.4); color: var(--ink-2);
+  font: 500 12px var(--font-d); padding: 9px 14px; border-radius: 9px;
+  display: inline-flex; align-items: center; gap: 7px;
+  backdrop-filter: blur(3px); transition: all 200ms var(--ease);
+}
+.zonebtn:hover { color: var(--amber); border-color: rgba(255,180,92,0.5); box-shadow: 0 0 20px rgba(245,158,11,0.15); }
+.zbubble {
+  position: relative; padding: 12px 16px; font-size: 13.5px; line-height: 1.5;
+  color: var(--ink); background: rgba(6,12,22,0.55); backdrop-filter: blur(4px);
+  border: 1px solid rgba(110,219,255,0.3); border-radius: 4px 14px 14px 14px;
+  box-shadow: 0 0 24px rgba(110,219,255,0.12);
+}
+.zwave { display: inline-block; width: 2.6px; height: 14px; border-radius: 2px; animation: zwaveA 0.9s ease-in-out infinite; }
+@keyframes zwaveA { 0%, 100% { height: 5px; opacity: 0.45; } 50% { height: 17px; opacity: 1; } }
+.micbtn5 {
+  width: 64px; height: 64px; border-radius: 50%; border: 2.5px solid #4dd8ff;
+  background: radial-gradient(circle at 50% 32%, rgba(110,219,255,0.4), rgba(110,219,255,0.08));
+  color: #bfe8ff; cursor: pointer; display: grid; place-items: center;
+  box-shadow: 0 0 34px rgba(77,216,255,0.55), 0 0 90px rgba(77,216,255,0.2);
+  position: relative; transition: transform 200ms var(--ease);
+}
+.micbtn5:hover { transform: scale(1.05); }
+.micbtn5::after { content: ""; position: absolute; inset: -9px; border-radius: 50%; border: 1.5px solid rgba(77,216,255,0.45); animation: micpulse 2.2s ease-out infinite; }
+@keyframes micpulse { 0% { transform: scale(0.9); opacity: 0.85; } 100% { transform: scale(1.4); opacity: 0; } }
+
+/* session v5: font sizes scale with the locked stage (vw = viewport width,
+   but the stage is letterboxed — sizes are close enough and consistent) */
+.s5stage { --stageFont: 1; }
+
+/* sidebar toggle */
+.navtoggle {
+  margin-left: auto; appearance: none; background: transparent; border: 0;
+  color: var(--ink-3); cursor: pointer; font-size: 15px; padding: 4px 6px;
+  border-radius: 6px; transition: all 200ms var(--ease);
+}
+.navtoggle:hover { color: var(--amber); background: var(--panel-2); }
