@@ -46,8 +46,11 @@ export function speakIntent(v: VoiceOut, intent: VoiceIntent, h: SpeakHandlers):
   const totalWords = intent.text.split(/\s+/).filter(Boolean).length;
   const { rate, pitch } = prosodyFor(intent);
   let cancelled = false;
+  let ended = false;
   const timers: number[] = [];
   let spoken = 0;
+
+  const finish = () => { if (!cancelled && !ended) { ended = true; h.onEnd?.(); } };
 
   const cancel = () => {
     cancelled = true;
@@ -60,8 +63,8 @@ export function speakIntent(v: VoiceOut, intent: VoiceIntent, h: SpeakHandlers):
   const speakChunkTTS = (idx: number) => {
     if (cancelled) return;
     if (idx >= chunks.length) {
-      if ((intent.pauseAfterMs ?? 0) > 0) timers.push(window.setTimeout(() => { if (!cancelled) h.onEnd?.(); }, intent.pauseAfterMs));
-      else h.onEnd?.();
+      if ((intent.pauseAfterMs ?? 0) > 0) timers.push(window.setTimeout(() => { if (!cancelled) finish(); }, intent.pauseAfterMs));
+      else finish();
       return;
     }
     const chunk = chunks[idx]!;
@@ -83,8 +86,8 @@ export function speakIntent(v: VoiceOut, intent: VoiceIntent, h: SpeakHandlers):
   const speakChunkText = (idx: number) => {
     if (cancelled) return;
     if (idx >= chunks.length) {
-      if ((intent.pauseAfterMs ?? 0) > 0) timers.push(window.setTimeout(() => { if (!cancelled) h.onEnd?.(); }, intent.pauseAfterMs));
-      else h.onEnd?.();
+      if ((intent.pauseAfterMs ?? 0) > 0) timers.push(window.setTimeout(() => { if (!cancelled) finish(); }, intent.pauseAfterMs));
+      else finish();
       return;
     }
     const chunk = chunks[idx]!;
