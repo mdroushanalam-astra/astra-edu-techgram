@@ -3,7 +3,7 @@
   "updated_at": "2026-10-04T23:55:00+05:30",
   "session_model": "GLM-5.3-Flash (Z.ai) via ZCode",
   "kernel_version": "0.1.0+ (BRAIN FREEZE v0.1 + ADR-032 design locked)",
-  "position": "S-SERIES ADOPTED [ADR-037, Entry 35] replacing the G-series: self-discovery over self-monitoring. S0 SelfModel contract (+activeHypotheses about the system +recentSelfPredictionErrors) -> S1 Self-prediction (3-5 predictions per session about ITSELF, logged before acting) -> S2 the self-error ledger -> S3 ONE self-improvement experiment before the pilot (strategy-level, external evaluation). Genesis reframed as a developmental phase; self-generated inquiry bounded deterministically (VoI applied to self-uncertainties). Eight acceptance tests adopted (4 pre-pilot in-simulator, 4 post-pilot Lab). C1 Executive already built (ADR-035). NEXT: build S0-S2 (small), then S3 the first strategy experiment, then the founder full-journey test -> pilot judges.",
+  "position": "EXPERIENCE ARCHITECTURE LOCKED [ADR-038, Entry 36]: the two external documents merged with ADR-035/036/037 into one architecture — the UCS (S-series self-development: S0 SelfModel, S1 self-prediction, S2 self-error ledger, S3 self-inquiry + three modification depths) -> Techgram World Adapter -> C1 Executive -> the EXPERIENCE PLAN (six action classes: Learning/Presence/Expression/Evidence/Experience/Agency) -> Session Conductor -> Presence Layer -> Renderer -> Student -> Sensors -> Engine. The demo gate is binding: a skeptical stranger must say it noticed/tested/was wrong/changed/got better. Build stages: A engine (S0-S4) -> B body (Experience Plan + Conductor + Presence + Evidence UI) -> C proof (3-min demo + G4 + deploy). 194 tests, kernel organs untouched.",
   "tests": {
     "passed": 183,
     "failed": 0,
@@ -30,6 +30,9 @@
     "sweep": "npx tsx kernel/src/demo/debug_sweep.ts"
   },
   "next_actions": [
+    "STAGE A: deepen cognitive/ (S0 SelfModel v1 w/ activeHypotheses + self-prediction records + self-error ledger)",
+    "STAGE B: the Experience Plan (six action classes) + Session Conductor + Presence Layer over the neon workspace",
+    "STAGE C: the 3-minute demo (knows nothing -> hypothesis -> tests -> I was wrong -> strategy change -> what I learned + what I am still uncertain about) + G4 with the founder",
     "S0-S2: extend cognitive/contracts.ts + assemble.ts — SelfModel v1 w/ activeHypotheses + recentSelfPredictionErrors; SelfPrediction + SelfErrorLedger records emitted by the executive per session",
     "S3: ONE strategy-level self-improvement experiment in the simulator (hypothesis -> Strategy A vs B -> external evaluation -> retain/reject)",
     "G1 GENESIS: cognitive/genesis.ts — the self-science epoch (capability/calibration/limitation experiments on the four-world harness -> SelfModel from measurement)",
