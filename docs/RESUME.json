@@ -30,7 +30,7 @@
     "sweep": "npx tsx kernel/src/demo/debug_sweep.ts"
   },
   "next_actions": [
-    "v4 build NEXT: screen 6 Homepage (Astra in-room, debrief greeting) -> 7 Mountain Climb -> 8 Confirm -> 9-11 session polish + teacher wrap-up -> 12 metrics debrief -> 13-15 -> motion pass -> Real-World Layer. Screens 1-5 DONE (Welcome, Onboard4).",
+    "v4 build NEXT: screen 8 Confirm rows -> 9-11 session polish + teacher wrap-up screen -> 12 metrics debrief card -> 13-15 -> motion pass -> Real-World Layer. Screens 1-7 DONE (Welcome, Onboard4, Home4, Mountain).",
     "DRASTIC VISUAL/ANIMATION PASS (founder directive, next session): mentor seated at desk composition, swap founder generated art into ART-SWAP slots, cinematic beat transitions, richer ambient motion, then founder walkthrough",
     "S4: the Return — Astra post-session debrief (perception x performance x prediction error), two next-step options + recommendation + override, Library moment, three horizons refresh",
     "S3: session colour-states (orientation amber / exploration violet / reasoning teal / eureka gold / retrieval quiet) + wire the full answer loop into the Warm Room skin",

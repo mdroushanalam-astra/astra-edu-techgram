@@ -10,6 +10,7 @@ import { loadProfile, saveProfile, type Profile } from "./persist/profile.js";
 import { Onboard4 } from "./v4/onboard4.js";
 import { Meeting } from "./v3/meeting.js";
 import { Welcome } from "./v4/welcome.js";
+import { Home4 } from "./v4/home4.js";
 import { Return } from "./v3/return.js";
 import { HomeV2, MapV2, GrowthV2, ArtifactsV2, AgencyV2, SettingsV2 } from "./v2/screens.js";
 import { SessionV3 } from "./v3/session.js";
@@ -60,6 +61,14 @@ export function App() {
     setSurface("home");
   }
 
+  if (surface === "home") {
+    return justFinished
+      ? <Return profile={profile} sanct={sanct} onDone={() => setJustFinished(false)} />
+      : profile.metAstra
+        ? <Home4 sanct={sanct} profile={profile} onStart={() => setSurface("session")} onMap={() => setSurface("map")} />
+        : <Meeting profile={profile} sanct={sanct} onStart={() => setSurface("session")} onCorrected={(pref) => { const p = { ...profile, preferredName: pref, metAstra: true }; saveProfile(p); setProfile(p); }} />;
+  }
+
   return (
     <div className="shell">
       <div className="sidebar">
@@ -81,8 +90,6 @@ export function App() {
         </div>
       </div>
       <div className="stage">
-        {surface === "home" && justFinished && <Return profile={profile} sanct={sanct} onDone={() => setJustFinished(false)} />}
-        {surface === "home" && !justFinished && <Meeting profile={profile} sanct={sanct} onStart={() => setSurface("session")} onCorrected={(pref) => { const p = { ...profile, preferredName: pref, metAstra: true }; saveProfile(p); setProfile(p); }} />}
         {surface === "session" && <SessionV3 sanct={sanct} onEnd={(evts) => { persist(evts); setJustFinished(true); }} />}
         {surface === "map" && <MapV2 sanct={sanct} />}
         {surface === "growth" && <GrowthV2 sanct={sanct} />}
