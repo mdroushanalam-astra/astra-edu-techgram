@@ -11,6 +11,7 @@ import { Onboard4 } from "./v4/onboard4.js";
 import { Meeting } from "./v3/meeting.js";
 import { Welcome } from "./v4/welcome.js";
 import { Home4 } from "./v4/home4.js";
+import { Confirm4 } from "./v4/confirm4.js";
 import { Return } from "./v3/return.js";
 import { HomeV2, MapV2, GrowthV2, ArtifactsV2, AgencyV2, SettingsV2 } from "./v2/screens.js";
 import { SessionV3 } from "./v3/session.js";
@@ -33,6 +34,7 @@ export function App() {
   const [sanct, setSanct] = useState<SanctuaryState | null>(null);
   const [profile, setProfile] = useState<Profile | null>(() => loadProfile());
   const [entered, setEntered] = useState(false);
+  const [confirming, setConfirming] = useState(false);
   const [justFinished, setJustFinished] = useState(false);
 
   useEffect(() => {
@@ -61,11 +63,15 @@ export function App() {
     setSurface("home");
   }
 
+  if (surface === "home" && confirming) {
+    return <Confirm4 profile={profile} onStart={() => { setConfirming(false); setSurface("session"); }} onBack={() => setConfirming(false)} />;
+  }
+
   if (surface === "home") {
     return justFinished
       ? <Return profile={profile} sanct={sanct} onDone={() => setJustFinished(false)} />
       : profile.metAstra
-        ? <Home4 sanct={sanct} profile={profile} onStart={() => setSurface("session")} onMap={() => setSurface("map")} />
+        ? <Home4 sanct={sanct} profile={profile} onStart={() => setConfirming(true)} onMap={() => setSurface("map")} />
         : <Meeting profile={profile} sanct={sanct} onStart={() => setSurface("session")} onCorrected={(pref) => { const p = { ...profile, preferredName: pref, metAstra: true }; saveProfile(p); setProfile(p); }} />;
   }
 
