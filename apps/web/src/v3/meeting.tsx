@@ -71,7 +71,7 @@ export function Meeting({ profile, sanct, onStart, onCorrected }: {
     if (!line) { setPhase(returning ? "board" : "reflect"); return; }
     say(line, () => {
       if (phase === "greet") {
-        later(() => { setPhase("read"); setMood("think"); }, 300);
+        later(() => { setPhase("read"); setMood("think"); setLineIdx((i) => i + 1); }, 300);
       } else {
         later(() => setLineIdx((i) => i + 1), line.pauseAfterMs ?? 250);
       }

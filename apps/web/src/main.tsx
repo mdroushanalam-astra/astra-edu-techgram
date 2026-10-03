@@ -10,9 +10,10 @@ import "@fontsource/jetbrains-mono/400.css";
 import "@fontsource/jetbrains-mono/500.css";
 import "./v4/theme4.css";
 import { App } from "./app.js";
+import { Witness } from "./v4/witness.js";
 
 createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <App />
+    <Witness><App /></Witness>
   </React.StrictMode>,
 );
