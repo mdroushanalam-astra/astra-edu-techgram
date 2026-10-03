@@ -7,7 +7,7 @@ import { newSanctuary, type SanctuaryState } from "./kernel/adapter.js";
 import type { StudentEvent } from "@techgram/kernel";
 import { loadEvents, saveEvents } from "./persist/idb.js";
 import { loadProfile, saveProfile, type Profile } from "./persist/profile.js";
-import { Onboarding } from "./v3/onboarding.js";
+import { Onboard4 } from "./v4/onboard4.js";
 import { Meeting } from "./v3/meeting.js";
 import { Welcome } from "./v4/welcome.js";
 import { Return } from "./v3/return.js";
@@ -43,7 +43,7 @@ export function App() {
   }
 
   if (!profile) {
-    return <Onboarding onDone={(p) => { saveProfile(p); setProfile(p); }} />;
+    return <Onboard4 onDone={(p) => { saveProfile(p); setProfile(p); }} />;
   }
 
   if (!sanct) {

@@ -72,3 +72,32 @@ h1, h2, h3 { font-family: var(--font-d); font-weight: 600; letter-spacing: -0.01
 .div4 { height: 1px; background: linear-gradient(90deg, transparent, rgba(255,180,92,0.35), transparent); border: 0; margin: 0; }
 .sec-label { font: 500 11px var(--font-m); letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-4); }
 .sec-label b { color: var(--amber); font-weight: 500; }
+
+/* onboarding v4 */
+.inp4 {
+  width: 100%; background: var(--panel-2); border: 1px solid var(--hairline);
+  border-radius: 8px; color: var(--ink); padding: 12px 15px;
+  font: 14.5px var(--font-d); outline: none; transition: border-color 200ms, box-shadow 200ms;
+}
+.inp4:focus { border-color: rgba(255,180,92,0.5); box-shadow: 0 0 24px var(--amber-glow); }
+.inp4::placeholder { color: var(--ink-4); }
+.tabs4 { display: flex; flex-wrap: wrap; gap: 8px; }
+.tabs4 button {
+  appearance: none; cursor: pointer; border: 1px solid var(--hairline);
+  background: var(--panel); color: var(--ink-3); font: 500 13.5px var(--font-d);
+  padding: 9px 16px; border-radius: 8px; transition: all 200ms var(--ease); text-align: left;
+}
+.tabs4 button:hover { color: var(--ink); border-color: var(--hairline-2); }
+.tabs4 button.on { color: var(--amber); border-color: rgba(255,180,92,0.45); background: rgba(245,158,11,0.07); box-shadow: 0 0 18px rgba(245,158,11,0.12); }
+.opt4 {
+  display: flex; align-items: center; gap: 13px; appearance: none; cursor: pointer;
+  border: 1px solid var(--hairline); background: var(--panel); color: var(--ink-2);
+  font: 500 14px var(--font-d); padding: 12px 16px; border-radius: 9px;
+  transition: all 200ms var(--ease); text-align: left;
+}
+.opt4:hover { border-color: rgba(110,219,255,0.4); }
+.opt4-key {
+  width: 24px; height: 24px; border-radius: 7px; display: grid; place-items: center;
+  font: 600 11.5px var(--font-m); border: 1px solid var(--hairline-2); color: var(--cyan);
+  flex-shrink: 0;
+}
