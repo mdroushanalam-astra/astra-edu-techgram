@@ -19,7 +19,7 @@
 **Way forward:** …
 ```
 
-**Entry index:** [00 Pre-history](#entry-00) · [01 Context absorption](#entry-01) · [02 Version-lineage audit + governance docs](#entry-02) · [03 Kernel build sprint](#entry-03) · [04 Living documentation system](#entry-04) · [05 Founder's Guide + self-sufficiency rule](#entry-05) · [06 External review adjudication (ChatGPT)](#entry-06) · [07 AOM + four-world gate](#entry-07) · [08 Teaching layer + freeze inspection](#entry-08) · [09 Audit + K12 research + frontend verdict](#entry-09) · [10 Doc repair + Wave-1 Brain Lab web](#entry-10) · [11 Phase-A personalisation core](#entry-11) · [12 S2 golden replay + S3 validation surfaces + inspection gate](#entry-12) · [13 Allocation Principle + Agency Transfer + Ship Mandate](#entry-13) · [14 The allocation wires (implemented)](#entry-14) · [15 Gate-0 inspection + Brain Freeze v0.1](#entry-15) · [16 Design gate closes + Sprint-0 contracts](#entry-16) · [17 The Sanctuary is built](#entry-17) · [18 The Warm Room (founder boards)](#entry-18) · [19 v2 rejected — huge redesign tomorrow](#entry-19) · [20 The Meeting (S1) built](#entry-20)
+**Entry index:** [00 Pre-history](#entry-00) · [01 Context absorption](#entry-01) · [02 Version-lineage audit + governance docs](#entry-02) · [03 Kernel build sprint](#entry-03) · [04 Living documentation system](#entry-04) · [05 Founder's Guide + self-sufficiency rule](#entry-05) · [06 External review adjudication (ChatGPT)](#entry-06) · [07 AOM + four-world gate](#entry-07) · [08 Teaching layer + freeze inspection](#entry-08) · [09 Audit + K12 research + frontend verdict](#entry-09) · [10 Doc repair + Wave-1 Brain Lab web](#entry-10) · [11 Phase-A personalisation core](#entry-11) · [12 S2 golden replay + S3 validation surfaces + inspection gate](#entry-12) · [13 Allocation Principle + Agency Transfer + Ship Mandate](#entry-13) · [14 The allocation wires (implemented)](#entry-14) · [15 Gate-0 inspection + Brain Freeze v0.1](#entry-15) · [16 Design gate closes + Sprint-0 contracts](#entry-16) · [17 The Sanctuary is built](#entry-17) · [18 The Warm Room (founder boards)](#entry-18) · [19 v2 rejected — huge redesign tomorrow](#entry-19) · [20 The Meeting (S1) built](#entry-20) · [21 S2: VoiceIntent + interruption](#entry-21)
 
 ---
 
@@ -418,3 +418,15 @@ Also, at the founder's direction, established the **self-sufficiency rule** (reg
 **What happened (browser-verified):** fresh load → onboarding → the meeting ran end-to-end: orb cycled cyan→violet(reading)→amber(insight)→teal(ready), the board wrote the full journey + kernel plan, handoff completed. 183/183 tests unchanged, typecheck clean, build 75.9 KB gzip. Test-script artifact noted: a scripted click misclicked the exam chip (profile recorded "Class 8" — the UI records what the user actually selects; no app bug).
 
 **Way forward:** S2 (VoiceIntent engine, interruption, density control, board word-sync) → S3 (session colour states + full conversation loop) → S4 (the Return: debrief, two options, Library). Founder walks the Meeting and directs the polish.
+
+---
+
+<a name="entry-21"></a>
+## ENTRY 21 — S2 BUILT: VoiceIntent, interruption, density — Astra becomes conversational
+**Model:** GLM-5.3-Flash (Z.ai), agentic runtime: ZCode CLI · directed by the Founder · **When:** 2026-10-04, ~10:15–10:45 · **Commits:** this entry
+
+**What we did:** S2 of ADR-033. **VoiceIntent engine** (v3/voiceIntent.ts): every Astra line is typed data {pace, energy, pauseBefore/After, emphasis, interruptible} → TTS chunked by sentence with per-chunk prosody (emphasis slightly brighter), text-first cadence honouring the same pauses, and a CANCEL function — interruption is first-class. **The Meeting rewired:** density control (override clicks get orb pulses, never lines; "Not yet" → genuine silence state); the interrupt chip ("✋ wait — I don't get this") appears while she speaks; recovery chips (Start that again / Why this plan? / I disagree — the last routes to the agency contract line).
+
+**What happened (browser-verified):** interrupted her mid-sentence — voice stopped instantly, orb shifted cyan-listen, bubble: "Yep — stop me there. Which part?" with the three recovery chips; "Start that again" replayed the script cleanly; board re-armed. Typecheck clean, 183/183 tests, 76.8 KB gzip.
+
+**Way forward:** S3 — session colour-states + full conversation loop in the Warm Room skin; S4 — the Return (debrief, two options, Library moment).
