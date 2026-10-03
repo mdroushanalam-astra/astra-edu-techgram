@@ -67,14 +67,6 @@ export function App() {
     return <Confirm4 profile={profile} onStart={() => { setConfirming(false); setSurface("session"); }} onBack={() => setConfirming(false)} />;
   }
 
-  if (surface === "home") {
-    return justFinished
-      ? <Return profile={profile} sanct={sanct} onDone={() => setJustFinished(false)} />
-      : profile.metAstra
-        ? <Home4 sanct={sanct} profile={profile} onStart={() => setConfirming(true)} onMap={() => setSurface("map")} />
-        : <Meeting profile={profile} sanct={sanct} onStart={() => setSurface("session")} onCorrected={(pref) => { const p = { ...profile, preferredName: pref, metAstra: true }; saveProfile(p); setProfile(p); }} />;
-  }
-
   return (
     <div className="shell">
       <div className="sidebar">
@@ -96,6 +88,11 @@ export function App() {
         </div>
       </div>
       <div className="stage">
+        {surface === "home" && (justFinished
+          ? <Return profile={profile} sanct={sanct} onDone={() => setJustFinished(false)} />
+          : profile.metAstra
+            ? <Home4 sanct={sanct} profile={profile} onStart={() => setConfirming(true)} onMap={() => setSurface("map")} />
+            : <Meeting profile={profile} sanct={sanct} onStart={() => setConfirming(true)} onCorrected={(pref) => { const p = { ...profile, preferredName: pref, metAstra: true }; saveProfile(p); setProfile(p); }} />)}
         {surface === "session" && <SessionV3 sanct={sanct} onEnd={(evts) => { persist(evts); setJustFinished(true); }} />}
         {surface === "map" && <MapV2 sanct={sanct} />}
         {surface === "growth" && <GrowthV2 sanct={sanct} />}

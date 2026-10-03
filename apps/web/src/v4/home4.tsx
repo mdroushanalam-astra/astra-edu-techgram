@@ -28,7 +28,7 @@ export function Home4({ sanct, profile, onStart, onMap }: {
   }));
 
   return (
-    <div style={{ height: "100vh", background: "var(--obsidian)", position: "relative", overflow: "hidden" }}>
+    <div style={{ height: "100%", background: "var(--obsidian)", position: "relative", overflow: "hidden" }}>
       {/* ambient obsidian field */}
       <div style={{ position: "absolute", inset: 0, background: "radial-gradient(1000px 560px at 78% 12%, rgba(245,158,11,0.07), transparent 60%), radial-gradient(800px 460px at 6% 92%, rgba(110,219,255,0.04), transparent 55%)" }} />
       <div style={{ position: "absolute", inset: 0, opacity: 0.4, backgroundImage: "radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px)", backgroundSize: "36px 36px" }} />
