@@ -80,9 +80,17 @@ export function Home4({ sanct, profile, onStart, onMap }: {
                   </div>
                 </div>
               ))}
-              <div style={{ display: "flex", gap: 12, marginTop: 16 }}>
+              <div className="stagger" style={{ display: "flex", gap: 12, marginTop: 16 }}>
                 <button className="btn4 solid" onClick={onStart}>Start Session →</button>
                 <button className="btn4 ghost" onClick={onMap}>See why this plan?</button>
+              </div>
+              <div className="stagger" style={{ display: "flex", gap: 10, marginTop: 14 }}>
+                {[["Tomorrow", "retrieval practice — keep it alive"], ["Next 7 days", "3 sessions planned around your week"], ["Your Journey", "on track — every session updates the map"]].map(([k, v]) => (
+                  <div key={k} className="panel4" style={{ padding: "10px 14px", flex: 1 }}>
+                    <div className="mono" style={{ color: "var(--amber)", fontSize: 10 }}>{k}</div>
+                    <div className="whisper" style={{ fontSize: 11.5, marginTop: 3 }}>{v}</div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>

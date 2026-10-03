@@ -365,3 +365,25 @@ body { background: var(--obsidian) !important; color: var(--ink); }
 .sess-top, .sess-right { background: rgba(8,10,16,0.8); }
 .stage, .stage-top { background: transparent; }
 .stage-top { border-bottom: 1px solid var(--hairline); color: var(--ink-3); }
+
+/* ============ SESSION POLISH: answers + motion pass v1 ============ */
+.answers { position: relative; z-index: 5; padding: 12px 26px 2px; background: linear-gradient(0deg, rgba(3,5,7,0.9), transparent); }
+.answers .chip {
+  background: rgba(16,20,32,0.92); border: 1px solid var(--hairline-2);
+  padding: 11px 18px; font-size: 14px; backdrop-filter: blur(6px);
+}
+.answers .chip:hover { transform: translateY(-1px); border-color: rgba(255,180,92,0.5); color: var(--amber); }
+.mic-bar { position: relative; z-index: 5; background: linear-gradient(0deg, rgba(3,5,7,0.95), rgba(3,5,7,0.4)); }
+.stagger > * { animation: rise 560ms var(--ease) both; }
+.stagger > *:nth-child(1) { animation-delay: 60ms; }
+.stagger > *:nth-child(2) { animation-delay: 150ms; }
+.stagger > *:nth-child(3) { animation-delay: 240ms; }
+.stagger > *:nth-child(4) { animation-delay: 330ms; }
+.stagger > *:nth-child(5) { animation-delay: 420ms; }
+.btn4.solid, .btn.amber { position: relative; overflow: hidden; }
+.btn4.solid::after, .btn.amber::after {
+  content: ""; position: absolute; top: 0; left: -80%; width: 50%; height: 100%;
+  background: linear-gradient(105deg, transparent, rgba(255,255,255,0.35), transparent);
+  transform: skewX(-20deg); animation: sweep 3.4s ease-in-out infinite;
+}
+@keyframes sweep { 0%, 60% { left: -80%; } 90%, 100% { left: 130%; } }
