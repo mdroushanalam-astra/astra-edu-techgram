@@ -3,7 +3,7 @@
   "updated_at": "2026-10-04T23:55:00+05:30",
   "session_model": "GLM-5.3-Flash (Z.ai) via ZCode",
   "kernel_version": "0.1.0+ (BRAIN FREEZE v0.1 + ADR-032 design locked)",
-  "position": "GENESIS & THE UCS ADOPTED [ADR-036, Entry 34]: the founder's deepest idea — a persistent, self-modeling, prediction-driven cognitive organism; Techgram becomes the first world adapter. G-series adopted pre-pilot: G1 Genesis (self-science epoch -> SelfModel from measurement), G2 Self-Prediction (Loop 2: predict the session, calibrate per organ), G3 the Improvement Loop (strategy hypotheses -> simulator test -> keep/reject), G4 the UCS boundary + the value vector + the external evaluator. Architectural law: world adapter cannot modify the self; self-model cannot rewrite reality; evidence decides. Never-built: consciousness/personality/emotion-detector. C1 Executive already built (ADR-035). 194 tests. NEXT: build G1+G2, then G3, G4, pilot judges.",
+  "position": "S-SERIES ADOPTED [ADR-037, Entry 35] replacing the G-series: self-discovery over self-monitoring. S0 SelfModel contract (+activeHypotheses about the system +recentSelfPredictionErrors) -> S1 Self-prediction (3-5 predictions per session about ITSELF, logged before acting) -> S2 the self-error ledger -> S3 ONE self-improvement experiment before the pilot (strategy-level, external evaluation). Genesis reframed as a developmental phase; self-generated inquiry bounded deterministically (VoI applied to self-uncertainties). Eight acceptance tests adopted (4 pre-pilot in-simulator, 4 post-pilot Lab). C1 Executive already built (ADR-035). NEXT: build S0-S2 (small), then S3 the first strategy experiment, then the founder full-journey test -> pilot judges.",
   "tests": {
     "passed": 183,
     "failed": 0,
@@ -30,6 +30,8 @@
     "sweep": "npx tsx kernel/src/demo/debug_sweep.ts"
   },
   "next_actions": [
+    "S0-S2: extend cognitive/contracts.ts + assemble.ts — SelfModel v1 w/ activeHypotheses + recentSelfPredictionErrors; SelfPrediction + SelfErrorLedger records emitted by the executive per session",
+    "S3: ONE strategy-level self-improvement experiment in the simulator (hypothesis -> Strategy A vs B -> external evaluation -> retain/reject)",
     "G1 GENESIS: cognitive/genesis.ts — the self-science epoch (capability/calibration/limitation experiments on the four-world harness -> SelfModel from measurement)",
     "G2 SELF-PREDICTION: SelfPrediction records before/after every session -> per-organ calibration curves -> surfaced on the Return (\"I predicted X; you delivered Y\")",
     "G3 IMPROVEMENT LOOP: executive strategy parameters as hypotheses -> simulator test -> keep/reject -> CognitiveImprovement records",
