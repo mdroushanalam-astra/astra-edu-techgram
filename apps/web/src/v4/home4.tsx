@@ -10,8 +10,8 @@ import { Mountain } from "./mountain.js";
 import { conceptRows, type SanctuaryState } from "../kernel/adapter.js";
 import type { Profile } from "../persist/profile.js";
 
-export function Home4({ sanct, profile, onStart, onMap }: {
-  sanct: SanctuaryState; profile: Profile; onStart: () => void; onMap: () => void;
+export function Home4({ sanct, profile, onStart, onMap, onTiny }: {
+  sanct: SanctuaryState; profile: Profile; onStart: () => void; onMap: () => void; onTiny: () => void;
 }) {
   const rows = useMemo(() => conceptRows(sanct.sys.belief), [sanct]);
   const shaky = rows.find((r) => !r.grey && r.mean < 0.6) ?? rows.find((r) => r.grey);
@@ -83,6 +83,9 @@ export function Home4({ sanct, profile, onStart, onMap }: {
               <div className="stagger" style={{ display: "flex", gap: 12, marginTop: 16 }}>
                 <button className="btn4 solid" onClick={onStart}>Start Session →</button>
                 <button className="btn4 ghost" onClick={onMap}>See why this plan?</button>
+              </div>
+              <div style={{ marginTop: 12 }}>
+                <button className="chip" onClick={onTiny}>⚡ tiny-win: just 8 minutes today</button>
               </div>
               <div className="stagger" style={{ display: "flex", gap: 10, marginTop: 14 }}>
                 {[["Tomorrow", "retrieval practice — keep it alive"], ["Next 7 days", "3 sessions planned around your week"], ["Your Journey", "on track — every session updates the map"]].map(([k, v]) => (

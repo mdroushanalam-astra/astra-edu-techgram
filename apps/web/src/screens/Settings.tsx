@@ -4,6 +4,7 @@
  */
 import { useState } from "react";
 import { wipeEverything } from "../persist/idb.js";
+import { exportAll, importAll } from "../persist/backup.js";
 import { probeVoiceOut, type VoiceOut } from "../voice/tts.js";
 
 export function SettingsScreen({ onWipe }: { onWipe: () => void }) {
@@ -46,6 +47,21 @@ export function SettingsScreen({ onWipe }: { onWipe: () => void }) {
               : "no good voice found on this device — astra will use beautiful text-first delivery. the session never depends on voice."}
           </p>
         )}
+      </div>
+
+      <div className="glass" style={{ padding: "22px 26px", marginBottom: 16 }}>
+        <div className="mono whisper" style={{ marginBottom: 8 }}>recovery</div>
+        <p className="dim" style={{ fontSize: 14 }}>Your room lives on this device — keep a backup file for a lost phone.</p>
+        <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+          <button className="btn" onClick={() => exportAll()}>Export my data →</button>
+          <label className="btn" style={{ cursor: "pointer" }}>
+            Import a backup
+            <input type="file" accept="application/json" style={{ display: "none" }} onChange={async (e) => {
+              const f = e.target.files?.[0];
+              if (f) { const r = await importAll(f); if (r.ok) location.reload(); }
+            }} />
+          </label>
+        </div>
       </div>
 
       <div className="glass" style={{ padding: "22px 26px" }}>

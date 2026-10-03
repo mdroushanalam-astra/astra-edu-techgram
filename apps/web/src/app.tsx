@@ -35,6 +35,7 @@ export function App() {
   const [profile, setProfile] = useState<Profile | null>(() => loadProfile());
   const [entered, setEntered] = useState(false);
   const [confirming, setConfirming] = useState(false);
+  const [tiny, setTiny] = useState(false);
   const [justFinished, setJustFinished] = useState(false);
 
   useEffect(() => {
@@ -47,6 +48,10 @@ export function App() {
 
   if (!profile) {
     return <Onboard4 onDone={(p) => { saveProfile(p); setProfile(p); }} />;
+  }
+
+  if (tiny && sanct) {
+    return <SessionV3 sanct={newSanctuary(sanct.events, 12)} onEnd={(evts) => { persist(evts); setTiny(false); }} />;
   }
 
   if (!sanct) {
@@ -91,7 +96,7 @@ export function App() {
         {surface === "home" && (justFinished
           ? <Return profile={profile} sanct={sanct} onDone={() => setJustFinished(false)} />
           : profile.metAstra
-            ? <Home4 sanct={sanct} profile={profile} onStart={() => setConfirming(true)} onMap={() => setSurface("map")} />
+            ? <Home4 sanct={sanct} profile={profile} onStart={() => setConfirming(true)} onTiny={() => setTiny(true)} onMap={() => setSurface("map")} />
             : <Meeting profile={profile} sanct={sanct} onStart={() => setConfirming(true)} onCorrected={(pref) => { const p = { ...profile, preferredName: pref, metAstra: true }; saveProfile(p); setProfile(p); }} />)}
         {surface === "session" && <SessionV3 sanct={sanct} onEnd={(evts) => { persist(evts); setJustFinished(true); }} />}
         {surface === "map" && <MapV2 sanct={sanct} />}

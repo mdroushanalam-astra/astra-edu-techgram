@@ -30,15 +30,15 @@ export interface SanctuaryState {
   events: StudentEvent[];
 }
 
-export function newSanctuary(events: StudentEvent[] = []): SanctuaryState {
+export function newSanctuary(events: StudentEvent[] = [], minutes = 40): SanctuaryState {
   const sys = replay(model, events);
   const day = (events.at(-1)?.day ?? 0) + 1;
   const rng = makeRng(20261003 + day);
-  const plan = planDay(model, sys.belief, { day, daysToExam: 89, minutesAvailable: 40, prepHorizonDays: 90, memory: sys.memory }, DEFAULT_PLANNER_PARAMS, rng);
-  const composed = composeSession(plan, 40, undefined, buildPlanReceipt(plan, []));
+  const plan = planDay(model, sys.belief, { day, daysToExam: 89, minutesAvailable: minutes, prepHorizonDays: 90, memory: sys.memory }, DEFAULT_PLANNER_PARAMS, rng);
+  const composed = composeSession(plan, minutes, undefined, buildPlanReceipt(plan, []));
   const pers = computePersonalisationState(events, day - 1);
   const arc = compileNarrativeArc(model, composed, pers, sys.curiosity, {
-    spec: { goalId: GEO_GOAL.id, durationMin: 40, objectives: ["understand geomorphic processes"], constraints: [], studentStateVersion: "v1" },
+    spec: { goalId: GEO_GOAL.id, durationMin: minutes, objectives: ["understand geomorphic processes"], constraints: [], studentStateVersion: "v1" },
     goalConnection: GEO_GOAL.aspiration,
     hook: GEO_HOOKS[day % GEO_HOOKS.length] ?? GEO_HOOKS[0]!,
   });

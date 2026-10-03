@@ -9,6 +9,8 @@
 import { useEffect, useRef, useState } from "react";
 import type { TeachingMove } from "@techgram/kernel";
 import { Room } from "../art/Room.js";
+import { stopSpeaking } from "../voice/tts.js";
+import { saveEvents } from "../persist/idb.js";
 import { Mentor, type MentorMood } from "../art/Mentor.js";
 import { RiverBoard } from "../art/Board.js";
 import { WhyThisPanel, UnderstandingPanel } from "../v2/screens.js";
@@ -51,6 +53,30 @@ export function SessionV3({ sanct, onEnd }: Props) {
   useEffect(() => {
     const iv = setInterval(() => setSecs((s) => Math.max(0, s - 1)), 1000);
     return () => clearInterval(iv);
+  }, []);
+  // interruption playbook: page hidden -> voice stops + progress saved; long idle -> gentle, never guilt
+  useEffect(() => {
+    let lastActive = Date.now();
+    let idleSaid = false;
+    const bump = () => { lastActive = Date.now(); idleSaid = false; };
+    window.addEventListener("pointerdown", bump);
+    window.addEventListener("keydown", bump);
+    const onVis = () => {
+      if (document.hidden) { stopSpeaking(); saveEvents(sanctRef.current.events); }
+      else bump();
+    };
+    document.addEventListener("visibilitychange", onVis);
+    const idleIv = setInterval(() => {
+      const idle = Date.now() - lastActive;
+      if (idle > 600000) { saveEvents(sanctRef.current.events); onEnd(sanctRef.current.events); }
+      else if (idle > 60000 && !idleSaid) { idleSaid = true; setBubble("still there? no rush. i'll hold your place."); setMentorMood("listen"); }
+    }, 5000);
+    return () => {
+      window.removeEventListener("pointerdown", bump);
+      window.removeEventListener("keydown", bump);
+      document.removeEventListener("visibilitychange", onVis);
+      clearInterval(idleIv);
+    };
   }, []);
 
   function deliver(m: TeachingMove) {
