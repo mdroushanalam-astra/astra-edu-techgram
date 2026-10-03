@@ -19,7 +19,7 @@
 **Way forward:** …
 ```
 
-**Entry index:** [00 Pre-history](#entry-00) · [01 Context absorption](#entry-01) · [02 Version-lineage audit + governance docs](#entry-02) · [03 Kernel build sprint](#entry-03) · [04 Living documentation system](#entry-04) · [05 Founder's Guide + self-sufficiency rule](#entry-05) · [06 External review adjudication (ChatGPT)](#entry-06) · [07 AOM + four-world gate](#entry-07) · [08 Teaching layer + freeze inspection](#entry-08) · [09 Audit + K12 research + frontend verdict](#entry-09) · [10 Doc repair + Wave-1 Brain Lab web](#entry-10) · [11 Phase-A personalisation core](#entry-11) · [12 S2 golden replay + S3 validation surfaces + inspection gate](#entry-12) · [13 Allocation Principle + Agency Transfer + Ship Mandate](#entry-13) · [14 The allocation wires (implemented)](#entry-14) · [15 Gate-0 inspection + Brain Freeze v0.1](#entry-15) · [16 Design gate closes + Sprint-0 contracts](#entry-16) · [17 The Sanctuary is built](#entry-17) · [18 The Warm Room (founder boards)](#entry-18) · [19 v2 rejected — huge redesign tomorrow](#entry-19) · [20 The Meeting (S1) built](#entry-20) · [21 S2: VoiceIntent + interruption](#entry-21) · [22 S3: mood-lit classroom](#entry-22)
+**Entry index:** [00 Pre-history](#entry-00) · [01 Context absorption](#entry-01) · [02 Version-lineage audit + governance docs](#entry-02) · [03 Kernel build sprint](#entry-03) · [04 Living documentation system](#entry-04) · [05 Founder's Guide + self-sufficiency rule](#entry-05) · [06 External review adjudication (ChatGPT)](#entry-06) · [07 AOM + four-world gate](#entry-07) · [08 Teaching layer + freeze inspection](#entry-08) · [09 Audit + K12 research + frontend verdict](#entry-09) · [10 Doc repair + Wave-1 Brain Lab web](#entry-10) · [11 Phase-A personalisation core](#entry-11) · [12 S2 golden replay + S3 validation surfaces + inspection gate](#entry-12) · [13 Allocation Principle + Agency Transfer + Ship Mandate](#entry-13) · [14 The allocation wires (implemented)](#entry-14) · [15 Gate-0 inspection + Brain Freeze v0.1](#entry-15) · [16 Design gate closes + Sprint-0 contracts](#entry-16) · [17 The Sanctuary is built](#entry-17) · [18 The Warm Room (founder boards)](#entry-18) · [19 v2 rejected — huge redesign tomorrow](#entry-19) · [20 The Meeting (S1) built](#entry-20) · [21 S2: VoiceIntent + interruption](#entry-21) · [22 S3: mood-lit classroom](#entry-22) · [23 S4: the Return — loop closed](#entry-23)
 
 ---
 
@@ -442,3 +442,17 @@ Also, at the founder's direction, established the **self-sufficiency rule** (reg
 **What happened (browser-verified):** session ran via the real loop to a segment close — bubble: "Segment closed… My belief is now still forming — more evidence soon."; room in mastery mood-light; why-rail live ("n_eff now 0.0, band 0.08–0.76 — live from the kernel"). 183/183, typecheck clean, 79.6 KB gzip.
 
 **Way forward:** S4 the Return — post-session debrief by Astra (perception × performance × prediction error), two next-step options + override, Library moment, horizons refresh.
+
+---
+
+<a name="entry-23"></a>
+## ENTRY 23 — S4 BUILT: THE RETURN — the loop is closed
+**Model:** GLM-5.3-Flash (Z.ai), agentic runtime: ZCode CLI · directed by the Founder · **When:** 2026-10-04, ~11:45–12:15 · **Commits:** this entry
+
+**What we did:** S4 of ADR-033 — the final sprint. `v3/return.tsx`: when a session ends, Astra comes back ("Hey. I'm back, {name}.") — the orb in amber insight, the board showing AFTER TODAY (strong-with-evidence / uncertain-we're-on-it / notes→Library cleaned up / tomorrow's plan updates the moment you leave). The debrief: a perception line computed from REAL kernel data (answer count + accuracy + strongest/shakiest evidenced concept), then three tiny chip questions (energy Low/Okay/High → self_report events; bandwidth Light/Normal/Deep → focus self-reports) — evidence for PersonalisationState → Planner. Then the TWO options: "A — short repair tomorrow, 20 min (my recommendation — your delayed-retrieval uncertainty is still high)" vs "B — move forward, revisit in 3 days, spaced", with "I want something else" always present. Then the Library moment ("your notes are in the Library — I cleaned them up for you") → back to the room.
+
+**What happened (browser-verified):** ended a live session → the Return rendered: greeting typing with caret, amber orb, honest AFTER TODAY board. 183/183, typecheck clean, 81 KB gzip.
+
+**The complete journey now exists end-to-end:** auth → onboarding (Layer A+B) → the Meeting (real pause, read-back, "How wrong am I?", horizons, handoff) → the mood-lit 40-min session (real kernel loop) → the Return (debrief → options → Library) → the room remembers. Founder directive for the NEXT session: drastic visual and animation changes (the "drastic polish" pass — mentor-at-desk composition, generated-art swap-in, cinematic transitions).
+
+**Way forward:** the drastic visual/animation pass (founder-directed, live) → then Gates: deploy decision (Brain Lab + or the Sanctuary), content sprint (the true critical path).

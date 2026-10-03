@@ -9,6 +9,7 @@ import { loadEvents, saveEvents } from "./persist/idb.js";
 import { loadProfile, saveProfile, type Profile } from "./persist/profile.js";
 import { Onboarding } from "./v3/onboarding.js";
 import { Meeting } from "./v3/meeting.js";
+import { Return } from "./v3/return.js";
 import { HomeV2, MapV2, GrowthV2, ArtifactsV2, AgencyV2, SettingsV2 } from "./v2/screens.js";
 import { SessionV3 } from "./v3/session.js";
 
@@ -29,6 +30,7 @@ export function App() {
   const [surface, setSurface] = useState<Surface>("home");
   const [sanct, setSanct] = useState<SanctuaryState | null>(null);
   const [profile, setProfile] = useState<Profile | null>(() => loadProfile());
+  const [justFinished, setJustFinished] = useState(false);
 
   useEffect(() => {
     loadEvents<StudentEvent>().then((events) => setSanct(newSanctuary(events)));
@@ -73,8 +75,9 @@ export function App() {
         </div>
       </div>
       <div className="stage">
-        {surface === "home" && <Meeting profile={profile} sanct={sanct} onStart={() => setSurface("session")} onCorrected={(pref) => { const p = { ...profile, preferredName: pref, metAstra: true }; saveProfile(p); setProfile(p); }} />}
-        {surface === "session" && <SessionV3 sanct={sanct} onEnd={(evts) => persist(evts)} />}
+        {surface === "home" && justFinished && <Return profile={profile} sanct={sanct} onDone={() => setJustFinished(false)} />}
+        {surface === "home" && !justFinished && <Meeting profile={profile} sanct={sanct} onStart={() => setSurface("session")} onCorrected={(pref) => { const p = { ...profile, preferredName: pref, metAstra: true }; saveProfile(p); setProfile(p); }} />}
+        {surface === "session" && <SessionV3 sanct={sanct} onEnd={(evts) => { persist(evts); setJustFinished(true); }} />}
         {surface === "map" && <MapV2 sanct={sanct} />}
         {surface === "growth" && <GrowthV2 sanct={sanct} />}
         {surface === "artifacts" && <ArtifactsV2 sanct={sanct} />}
