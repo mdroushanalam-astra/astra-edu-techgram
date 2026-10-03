@@ -100,6 +100,16 @@ export function Return({ profile, sanct, onDone }: {
             setPhase("options");
           })}
           {phase === "options" && (
+            <div className="rise" style={{ display: "flex", gap: 10, marginBottom: 12, maxWidth: 460 }}>
+              {[["Accuracy", stats.acc !== null ? stats.acc + "%" : "—"], ["Answers", String(stats.n)], ["Strong", stats.top.slice(0, 18)]].map(([k, v]) => (
+                <div key={k} className="panel4" style={{ padding: "9px 14px", flex: 1 }}>
+                  <div className="mono" style={{ color: "var(--ink-4)", fontSize: 10 }}>{k}</div>
+                  <div style={{ font: "600 14px var(--font-d)", color: "var(--amber)" }}>{v}</div>
+                </div>
+              ))}
+            </div>
+          )}
+          {phase === "options" && (
             <div style={{ display: "flex", flexDirection: "column", gap: 8, maxWidth: 460 }}>
               <div className="panel" style={{ padding: "13px 17px", borderColor: "var(--panel-line-hi)" }}>
                 <b style={{ color: "var(--cyan)" }}>A — short repair tomorrow, 20 min.</b> <span className="dim">Close {stats.shaky} while it's fresh.</span>

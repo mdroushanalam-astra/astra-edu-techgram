@@ -65,7 +65,7 @@ export function SessionV3({ sanct, onEnd }: Props) {
 
   function next() {
     const t = askNext(sanctRef.current);
-    if (t.done) { setPhase("closing"); setMood("mastery"); setMentorMood("happy"); setBubble("We're done for today. Look at what moved — I'll show you at home. Meet you next session."); return; }
+    if (t.done) { setPhase("closing"); setMood("mastery"); setMentorMood("happy"); return; }
     deliver(t.move!);
   }
 
@@ -156,6 +156,21 @@ export function SessionV3({ sanct, onEnd }: Props) {
         </div>
       </div>
 
+      {phase === "closing" && (
+        <div style={{ position: "fixed", inset: 0, zIndex: 60, background: "rgba(6,8,14,0.88)", display: "grid", placeItems: "center", backdropFilter: "blur(6px)" }}>
+          <div className="panel4 raised rise" style={{ padding: "44px 54px", maxWidth: 560 }}>
+            <div className="sec-label" style={{ marginBottom: 14 }}>SESSION <b>COMPLETE</b></div>
+            <h2 style={{ fontSize: 26, marginBottom: 12 }}>We are done for today, Arjun.</h2>
+            <p className="dim" style={{ fontSize: 15.5, marginBottom: 8 }}>
+              You repaired the links we practised, and your explanation is more independent than when we started.
+            </p>
+            <p className="whisper" style={{ marginBottom: 20 }}>
+              There is still one interesting question we will check next time.
+            </p>
+            <button className="btn4 amber" onClick={() => onEnd(sanctRef.current.events)}>See what you achieved →</button>
+          </div>
+        </div>
+      )}
       {phase === "thinking" && (
         <div style={{ position: "fixed", inset: 0, zIndex: 60, background: "rgba(8,6,14,0.72)", display: "grid", placeItems: "center", backdropFilter: "blur(4px)" }}>
           <div className="panel think-panel rise" style={{ display: "flex", gap: 30, alignItems: "center", padding: "30px 40px" }}>
