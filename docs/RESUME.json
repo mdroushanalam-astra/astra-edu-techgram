@@ -3,7 +3,7 @@
   "updated_at": "2026-10-04T23:55:00+05:30",
   "session_model": "GLM-5.3-Flash (Z.ai) via ZCode",
   "kernel_version": "0.1.0+ (BRAIN FREEZE v0.1 + ADR-032 design locked)",
-  "position": "CORRECTED MASTER ROADMAP ADOPTED [docs/10_MASTER_ROADMAP.md v2, Entry 39]: the current position is stated at evidence level — frozen brain BUILT+FROZEN; universal primitives PARTIALLY FORMALIZED; cognitive runtime NEW CONSTRUCTION; Executive gate UNEARNED until matched behavioral testing passes; developmental core/self-model evolution/self-prediction/self-improvement NOT YET DEMONSTRATED; experience execution partially existing; expression LATER; real human efficacy UNKNOWN UNTIL PILOT. Evidence-level law adopted (SPECIFIED->IMPLEMENTED->UNIT-TESTED->INTEGRATION-TESTED->SIMULATED->MATCHED-BASELINE-VALIDATED->REAL-WORLD OBSERVED->PILOT VALIDATED->GENERALIZED) — every claim must name its level. System A (frozen brain) and System B (new cognitive runtime) must not be merged. Phase 0 redefined as the cognitive layer foundation (universal primitives + ownership boundaries + ExperiencePlan seam; gate = frozen organs behaviorally unchanged). NEXT: complete Phase 0 properly (universal primitives formalized, ownership map, ExperiencePlan typed), then Phase 1 (workspace + executive + receipts + the matched-baseline gate with runTeachingSession).",
+  "position": "TWO DEVELOPMENTS COMPLETE [Entries 40-41]: (1) Phase 0 Cognitive Architecture Foundation COMPLETE (universal primitives, ownership boundaries, ExperiencePlan kernel contract; gate PASSED — frozen organs proven behaviorally unchanged, purity verified by deep-compare); (2) Phase 1 deep gate RAN with honest results — the executive WINS on understanding (belief error halved: 0.245 vs 0.509, accuracy up 69%) but LOSES on true marks (-1) because its break evaluation is myopic (per-turn, no cumulative fatigue model). C2 multi-turn consequence modeling is the next build. The S-series self-development (S0-S4) follows after C2 proves the executive beat linear. 204 tests, typecheck clean.",
   "tests": {
     "passed": 183,
     "failed": 0,
@@ -31,6 +31,7 @@
     "sweep": "npx tsx kernel/src/demo/debug_sweep.ts"
   },
   "next_actions": [
+    "C2: multi-turn consequence modeling — the executive must model that a break NOW improves ALL FUTURE turns (cumulative fatigue cost, not just per-turn benefit). Then re-run the deep gate. If executive beats linear, proceed to Phase 2 S0-S4.",
     "STAGE A: deepen cognitive/ (S0 SelfModel v1 w/ activeHypotheses + self-prediction records + self-error ledger)",
     "STAGE B: the Experience Plan (six action classes) + Session Conductor + Presence Layer over the neon workspace",
     "STAGE C: the 3-minute demo (knows nothing -> hypothesis -> tests -> I was wrong -> strategy change -> what I learned + what I am still uncertain about) + G4 with the founder",
