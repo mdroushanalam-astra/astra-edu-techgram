@@ -1,0 +1,74 @@
+/* ============================================================
+   TECHGRAM v4 — OBSIDIAN & AMBER [astrahumanis.in design DNA]
+   Engineering-marvel aesthetic: obsidian canvas, hairline white
+   structure, golden-amber voice, cyan reserved for intelligence.
+   Desktop-first (1440 design grid). Plus Jakarta Sans + JetBrains Mono.
+   ============================================================ */
+:root {
+  --obsidian: #030507;
+  --obsidian-2: #07090d;
+  --panel: rgba(255, 255, 255, 0.03);
+  --panel-2: rgba(255, 255, 255, 0.055);
+  --hairline: rgba(255, 255, 255, 0.08);
+  --hairline-2: rgba(255, 255, 255, 0.14);
+  --amber: #ffb45c;
+  --amber-deep: #f59e0b;
+  --amber-glow: rgba(255, 180, 92, 0.16);
+  --cyan: #6edbff;
+  --cyan-glow: rgba(110, 219, 255, 0.12);
+  --ok: #22c55e;
+  --ink: #f2f2f2;
+  --ink-2: #e8edf2;
+  --ink-3: #94a3b8;
+  --ink-4: #64748b;
+  --font-d: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-b: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-m: "JetBrains Mono", ui-monospace, monospace;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; }
+body {
+  margin: 0; color: var(--ink); font: 15px/1.6 var(--font-b);
+  background: var(--obsidian);
+  -webkit-font-smoothing: antialiased; overflow-x: hidden;
+}
+h1, h2, h3 { font-family: var(--font-d); font-weight: 600; letter-spacing: -0.015em; margin: 0; }
+.mono { font-family: var(--font-m); font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; }
+.dim { color: var(--ink-3); } .whisper { color: var(--ink-4); font-size: 13px; }
+
+.chip4 {
+  display: inline-flex; align-items: center; gap: 8px;
+  font: 500 11px var(--font-m); letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--ink-3); border: 1px solid var(--hairline);
+  padding: 6px 12px; border-radius: 6px; background: var(--panel);
+}
+.chip4.amber { color: var(--amber); border-color: rgba(255,180,92,0.3); background: rgba(245,158,11,0.07); }
+.chip4.live::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--amber); animation: chipblink 1.6s ease-in-out infinite; }
+@keyframes chipblink { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+.panel4 {
+  background: var(--panel); border: 1px solid var(--hairline);
+  border-radius: 10px; backdrop-filter: blur(12px);
+}
+.panel4.raised { box-shadow: 0 30px 80px rgba(0,0,0,0.55); }
+
+.btn4 {
+  appearance: none; cursor: pointer; border: 1px solid var(--hairline-2);
+  background: var(--panel-2); color: var(--ink);
+  font: 500 14px var(--font-d); padding: 13px 26px; border-radius: 8px;
+  transition: all 220ms var(--ease); letter-spacing: 0.01em;
+}
+.btn4:hover { border-color: rgba(255,180,92,0.5); color: var(--amber); box-shadow: 0 0 30px var(--amber-glow); }
+.btn4.amber {
+  background: linear-gradient(135deg, rgba(255,180,92,0.14), rgba(245,158,11,0.05));
+  border: 1px solid rgba(255,180,92,0.45); color: var(--amber);
+}
+.btn4.amber:hover { box-shadow: 0 0 44px rgba(245,158,11,0.25); transform: translateY(-1px); }
+.btn4.ghost { background: transparent; }
+.btn4.solid { background: var(--amber); border-color: var(--amber); color: #0a0a0a; font-weight: 600; }
+.btn4.solid:hover { box-shadow: 0 8px 40px rgba(245,158,11,0.35); color: #000; }
+
+.div4 { height: 1px; background: linear-gradient(90deg, transparent, rgba(255,180,92,0.35), transparent); border: 0; margin: 0; }
+.sec-label { font: 500 11px var(--font-m); letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-4); }
+.sec-label b { color: var(--amber); font-weight: 500; }

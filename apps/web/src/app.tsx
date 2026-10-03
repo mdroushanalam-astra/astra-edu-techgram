@@ -9,6 +9,7 @@ import { loadEvents, saveEvents } from "./persist/idb.js";
 import { loadProfile, saveProfile, type Profile } from "./persist/profile.js";
 import { Onboarding } from "./v3/onboarding.js";
 import { Meeting } from "./v3/meeting.js";
+import { Welcome } from "./v4/welcome.js";
 import { Return } from "./v3/return.js";
 import { HomeV2, MapV2, GrowthV2, ArtifactsV2, AgencyV2, SettingsV2 } from "./v2/screens.js";
 import { SessionV3 } from "./v3/session.js";
@@ -30,11 +31,16 @@ export function App() {
   const [surface, setSurface] = useState<Surface>("home");
   const [sanct, setSanct] = useState<SanctuaryState | null>(null);
   const [profile, setProfile] = useState<Profile | null>(() => loadProfile());
+  const [entered, setEntered] = useState(false);
   const [justFinished, setJustFinished] = useState(false);
 
   useEffect(() => {
     loadEvents<StudentEvent>().then((events) => setSanct(newSanctuary(events)));
   }, []);
+
+  if (!entered) {
+    return <Welcome hasProfile={!!profile} onEnter={() => setEntered(true)} />;
+  }
 
   if (!profile) {
     return <Onboarding onDone={(p) => { saveProfile(p); setProfile(p); }} />;
