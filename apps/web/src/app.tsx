@@ -6,6 +6,9 @@ import { useEffect, useState } from "react";
 import { newSanctuary, type SanctuaryState } from "./kernel/adapter.js";
 import type { StudentEvent } from "@techgram/kernel";
 import { loadEvents, saveEvents } from "./persist/idb.js";
+import { loadProfile, saveProfile, type Profile } from "./persist/profile.js";
+import { Onboarding } from "./v3/onboarding.js";
+import { Meeting } from "./v3/meeting.js";
 import { HomeV2, SessionV2, MapV2, GrowthV2, ArtifactsV2, AgencyV2, SettingsV2 } from "./v2/screens.js";
 
 type Surface = "home" | "session" | "map" | "growth" | "artifacts" | "library" | "agency" | "settings";
@@ -24,10 +27,15 @@ const NAV: { id: Surface; label: string; icon: string }[] = [
 export function App() {
   const [surface, setSurface] = useState<Surface>("home");
   const [sanct, setSanct] = useState<SanctuaryState | null>(null);
+  const [profile, setProfile] = useState<Profile | null>(() => loadProfile());
 
   useEffect(() => {
     loadEvents<StudentEvent>().then((events) => setSanct(newSanctuary(events)));
   }, []);
+
+  if (!profile) {
+    return <Onboarding onDone={(p) => { saveProfile(p); setProfile(p); }} />;
+  }
 
   if (!sanct) {
     return (
@@ -64,7 +72,7 @@ export function App() {
         </div>
       </div>
       <div className="stage">
-        {surface === "home" && <HomeV2 sanct={sanct} onStart={() => setSurface("session")} />}
+        {surface === "home" && <Meeting profile={profile} sanct={sanct} onStart={() => setSurface("session")} onCorrected={(pref) => { const p = { ...profile, preferredName: pref, metAstra: true }; saveProfile(p); setProfile(p); }} />}
         {surface === "session" && <SessionV2 sanct={sanct} onEnd={() => persist(sanct.events)} />}
         {surface === "map" && <MapV2 sanct={sanct} />}
         {surface === "growth" && <GrowthV2 sanct={sanct} />}

@@ -4,7 +4,7 @@
 > **Read me alone:** refreshed after every session; stands on its own. Non-technical readers: `FOUNDER_GUIDE.md` tells the same story in plain language.
 > **Integrity:** all counts in this file are backed by `COUNTERS.json` (generated from the code by `npm run counters`) and enforced by `kernel/test/docs_integrity.test.ts`. If this page contradicts reality, the docs-integrity test fails — fix reality or the doc, never silently.
 
-**Snapshot:** 2026-10-03, ~02:30 (local) · Kernel 0.1.0+ · **183/183 tests green (kernel 174 + frontend contracts 9), 21 files, typecheck clean** · Phase: **FRONTEND REJECTED (v2) — founder verdict: "still fucked up" after two attempts (v1 deep-space "boring", v2 Warm Room); HUGE REDESIGN TOMORROW (2026-10-04), founder-led, live-in-the-loop, art swap-in first** · Kernel: Brain Freeze v0.1 intact [ADR-031] · Design language: founder's vision boards are the floor, not the ceiling
+**Snapshot:** 2026-10-03, ~02:30 (local) · Kernel 0.1.0+ · **183/183 tests green (kernel 174 + frontend contracts 9), 21 files, typecheck clean** · Phase: **WARM ROOM v3 BUILD UNDERWAY [ADR-033] — founder-approved two-character system (Astra orb orchestrates, Mentor teaches, ONE brain); S1 "The Meeting" in progress: local auth → onboarding → Astra conversation → handoff. v2 verdict recorded: "40% of what I wanted, otherwise I like the things"**
 
 ---
 
@@ -61,7 +61,7 @@ The full closed loop exists, is proven, and now teaches: envelope → events →
 
 ## 4. Next actions (ordered)
 
-1. **THE HUGE FRONTEND REDESIGN (tomorrow, 2026-10-04)** — founder-led, live-in-the-loop, screen by screen; art swap-in first (his generated illustrations into the ART-SWAP slots); motion/density erred rich; stack option (incl. desktop) stays open.
+1. **v3 BUILD per ADR-033:** S1 The Meeting → S2 voice/conversation → S3 session mood-colour → S4 the Return. Founder watches live. Full plan: DECISIONS ADR-033.
 2. **Content sprint** (parallel, Founder + mentor): items 105→500, atoms 104→150 — **still the true critical path, unaffected by the redesign.**
 3. ~~Wire Personalisation State + Agency Index into kernel decisions~~ **DONE (ADR-030, Entry 14)** — measured behaviour now changes plans; agency measured end-to-end.
 4. **Exercise Brain Lab against sealed hidden worlds** before any public claim (ADR-016 claim discipline).

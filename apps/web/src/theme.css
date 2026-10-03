@@ -255,3 +255,15 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 600; margin: 0; }
 .lamp-glow { animation: lampflicker 7s linear infinite; }
 .screen-pad { padding: 26px 30px; position: relative; z-index: 2; }
 .grid-2 { display: grid; grid-template-columns: 1fr 320px; gap: 20px; align-items: start; }
+
+/* ================= v3: the meeting ================= */
+.caret { display: inline-block; width: 2px; height: 1em; background: var(--cyan); margin-left: 3px; vertical-align: text-bottom; animation: caretblink 1s steps(2) infinite; }
+@keyframes caretblink { 0%,49% { opacity: 1; } 50%,100% { opacity: 0; } }
+.chalk-line { font-family: var(--font-mono); letter-spacing: 0.01em; }
+.inp {
+  width: 100%; background: var(--panel-2); border: 1px solid var(--panel-line);
+  border-radius: 11px; color: var(--ink); padding: 12px 15px; font: 14.5px var(--font-body);
+  outline: none; transition: border-color 200ms;
+}
+.inp:focus { border-color: var(--panel-line-hi); box-shadow: var(--glow-cyan); }
+textarea.inp { min-height: 84px; resize: vertical; }

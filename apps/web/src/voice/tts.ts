@@ -15,9 +15,11 @@ export function probeVoiceOut(): VoiceOut {
   const en = voices.filter((v) => v.lang.startsWith("en"));
   const pool = en.length ? en : voices;
   // heuristic quality: neural/named voices score higher; localService is a plus offline
+  const FEMALE = /female|woman|zira|samantha|susan|karen|moira|tessa|fiona|serena|allison|ava|joanna|kendra|google uk english female/i;
   const scored = pool.map((v) => {
     let q = 0.45;
     const n = v.name.toLowerCase();
+    if (FEMALE.test(n)) q += 0.34;
     if (/neural|natural|premium|enhanced|google|siri/.test(n)) q += 0.3;
     if (v.localService) q += 0.15;
     if (/compact|espeak|pico|festival/.test(n)) q -= 0.2;

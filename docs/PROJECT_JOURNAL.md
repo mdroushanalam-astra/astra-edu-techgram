@@ -19,7 +19,7 @@
 **Way forward:** …
 ```
 
-**Entry index:** [00 Pre-history](#entry-00) · [01 Context absorption](#entry-01) · [02 Version-lineage audit + governance docs](#entry-02) · [03 Kernel build sprint](#entry-03) · [04 Living documentation system](#entry-04) · [05 Founder's Guide + self-sufficiency rule](#entry-05) · [06 External review adjudication (ChatGPT)](#entry-06) · [07 AOM + four-world gate](#entry-07) · [08 Teaching layer + freeze inspection](#entry-08) · [09 Audit + K12 research + frontend verdict](#entry-09) · [10 Doc repair + Wave-1 Brain Lab web](#entry-10) · [11 Phase-A personalisation core](#entry-11) · [12 S2 golden replay + S3 validation surfaces + inspection gate](#entry-12) · [13 Allocation Principle + Agency Transfer + Ship Mandate](#entry-13) · [14 The allocation wires (implemented)](#entry-14) · [15 Gate-0 inspection + Brain Freeze v0.1](#entry-15) · [16 Design gate closes + Sprint-0 contracts](#entry-16) · [17 The Sanctuary is built](#entry-17) · [18 The Warm Room (founder boards)](#entry-18) · [19 v2 rejected — huge redesign tomorrow](#entry-19)
+**Entry index:** [00 Pre-history](#entry-00) · [01 Context absorption](#entry-01) · [02 Version-lineage audit + governance docs](#entry-02) · [03 Kernel build sprint](#entry-03) · [04 Living documentation system](#entry-04) · [05 Founder's Guide + self-sufficiency rule](#entry-05) · [06 External review adjudication (ChatGPT)](#entry-06) · [07 AOM + four-world gate](#entry-07) · [08 Teaching layer + freeze inspection](#entry-08) · [09 Audit + K12 research + frontend verdict](#entry-09) · [10 Doc repair + Wave-1 Brain Lab web](#entry-10) · [11 Phase-A personalisation core](#entry-11) · [12 S2 golden replay + S3 validation surfaces + inspection gate](#entry-12) · [13 Allocation Principle + Agency Transfer + Ship Mandate](#entry-13) · [14 The allocation wires (implemented)](#entry-14) · [15 Gate-0 inspection + Brain Freeze v0.1](#entry-15) · [16 Design gate closes + Sprint-0 contracts](#entry-16) · [17 The Sanctuary is built](#entry-17) · [18 The Warm Room (founder boards)](#entry-18) · [19 v2 rejected — huge redesign tomorrow](#entry-19) · [20 The Meeting (S1) built](#entry-20)
 
 ---
 
@@ -405,3 +405,16 @@ Also, at the founder's direction, established the **self-sufficiency rule** (reg
 **What survived the rejection (stable for tomorrow):** the kernel adapter + provenance law, the six-surface information architecture, the understanding bars / why-reasons / agency / growth data flows, IDB persistence, the ART-SWAP slots, the session mechanics from the v1 conductor. The redesign is a visual/experience rebuild on these rails.
 
 **Way forward:** tomorrow: the huge redesign session — founder directs live, screen by screen; art swap-in first; then and only then re-run the inspection gate.
+
+
+---
+
+<a name="entry-20"></a>
+## ENTRY 20 — S1 "THE MEETING" BUILT AND VERIFIED: Astra speaks, the board writes, the handoff lands
+**Model:** GLM-5.3-Flash (Z.ai), agentic runtime: ZCode CLI · directed by the Founder · **When:** 2026-10-04, ~09:00–10:00 · **Commits:** this entry
+
+**What we did:** executed S1 of ADR-033. Local profile store (device = account, privacy promise intact) · Layer A onboarding (3 short steps: name+goal, honest daily time + stage, journey note) · Layer B calibration (the two behavioural questions — "When something gets difficult…" / session-kind — stored as preference hypotheses) · **the Astra orb** (layered CSS sphere, mood = interaction state: cyan listen / violet think / amber insight / warm celebrate / teal ready / still silent / fade) · **The Meeting sequence**: greet → THE REAL PAUSE (the plan is genuinely computed during it) → read-back → **"How wrong am I?"** → horizons acknowledged → **the journey board writes itself** (JOURNEY/NOW-precise/NEAR-provisional/JOURNEY-trajectory + TODAY with the real kernel plan blocks + "provisional ≠ vague: it means I update when reality disagrees") → override chips → "Ready to start from today?" → **the handoff** ("I've scheduled your class — your teacher is ready. I'll be right here when you're done.") with the Start CTA blooming. Typewriter synced to speech (word-boundary events; female-voice preference added to the probe).
+
+**What happened (browser-verified):** fresh load → onboarding → the meeting ran end-to-end: orb cycled cyan→violet(reading)→amber(insight)→teal(ready), the board wrote the full journey + kernel plan, handoff completed. 183/183 tests unchanged, typecheck clean, build 75.9 KB gzip. Test-script artifact noted: a scripted click misclicked the exam chip (profile recorded "Class 8" — the UI records what the user actually selects; no app bug).
+
+**Way forward:** S2 (VoiceIntent engine, interruption, density control, board word-sync) → S3 (session colour states + full conversation loop) → S4 (the Return: debrief, two options, Library). Founder walks the Meeting and directs the polish.
