@@ -329,3 +329,34 @@ py -m pytest backend/tests -q             # archived prototype reference suite (
 **Also:** Brain Lab production build verified healthy (80 KB gzip) + CLI demo lift vs random +5.3 — internal instrument intact, no further polish cycles.
 
 **Suite:** 20 files / **174 tests green** · typecheck clean · **BRAIN FREEZE v0.1 SIGNED** (`docs/BACKEND_FREEZE_CHECKLIST.md`). Next gate: frontend design (founder decides), content sprint parallel.
+
+---
+
+## §17 — CAMPAIGN: THE DEVELOPMENTAL LOOP CLOSED + DEEP GATE RE-RUN [ADR-040]
+**When:** 2026-10-04, ~14:00–15:00 · **Model:** GLM-5.3-Flash (Z.ai) via ZCode · directed by the Founder · **Commits:** 3647521 (+ this docs commit)
+
+**Purpose:** the forensic audit (9c390db) proved with a counterfactual that the S-series was NOT wired into the Executive — disabling self-development changed NOTHING. The founder's gate order: wire it, close the loop, integrate the Conductor, beat linear on TRUE MARKS.
+
+**What was built:**
+1. **`cognitive/developmental-session.ts`** — the composed loop: S1 self-predictions emitted BEFORE every decision; after the turn, structural judging (category vs measured actual — not string overlap); real errors enter the SelfErrorLedger with pattern tags; `deriveSelfInsights()` maps experience kinds to self-knowledge (intervention wasted>missed → "early"; break missed>early → "reluctant"; etc.); insights are injected into the workspace of every later decision. A constructor flag (`learningEnabled:false`) is THE counterfactual switch — same experience recorded, zero decision influence.
+2. **`executive.ts` self-model consultation completed** — every insight now has a behavioral lever: early→evidence-first diagnose candidate; aggressive→break benefit ×0.6; reluctant→break benefit ×1.25; late→intervention candidates ×1.2; ≥3 self-errors→+0.03 caution margin on teach/practice.
+3. **`deep-gate.ts` rebuilt as a real session flow** — every executive turn: decideTurn (S1 before, insights in) → physiological wall (fatigue>0.85, counted) → directive → planFromDirective → validateExperiencePlan → conduct → advance (Conductor executes EVERY decision) → recordActual after the outcome. One DevelopmentalSession per policy RUN — experience persists across days.
+
+**Two world-honesty fixes (declared, both policies equally):** (a) 8 turns/day — at 4 turns/day fatigue never left the low band and rest decisions could not pay off for EITHER policy; (b) learning follows the outcome — correct retrieval teaches 0.07×eff, a failed attempt 0.015×eff (previously every turn paid the same regardless of correctness, which hid the entire value of rest+accuracy).
+
+**DEEP GATE RESULTS (executive vs linear, 10 days, matched):**
+| Metric | Executive | Linear |
+|---|---|---|
+| TRUE MARKS | **12** | **10** (+2; **12/12 seeds, +1..+3**) |
+| Belief error | **0.20** | 0.40 |
+| Accuracy | **37/70 (53%)** | 16/80 (20%) |
+| Breaks taken / missed | 10 / 0 | 0 / 56 |
+| Self-errors accumulated | 67 | 0 (no loop) |
+| Decisions informed by self-model | 79/80 | 0 |
+| Conductor plans / steps | 80 / 390 | 0 |
+
+**The counterfactual (the loop-closure proof, `kernel/test/counterfactual.test.ts` REWRITTEN from proving OPEN to proving CLOSED):** same scripted 5-turn session, learning off vs on → identical ledgers (same experience), turns 1–3 identical decisions, **turn 4 DIVERGES** (enabled: `diagnose` via the self-model's early-intervention insight, receipt says "self-model"; disabled: `teach` incumbent) and persists at turn 5. The causal chain is demonstrated: experience → self-prediction → error → self-model change → different next decision.
+
+**Evidence levels earned:** S0–S4 causal loop: NOT DEMONSTRATED → **INTEGRATION-TESTED** (counterfactual) · Executive beats linear on true marks: NOT EARNED (−1) → **MATCHED-BASELINE-VALIDATED (simulated world)** · Conductor in real sessions: NOT INTEGRATED → **INTEGRATION-TESTED** (gate flow) · still SIMULATED — real-student efficacy remains UNKNOWN UNTIL PILOT.
+
+**Suite:** 25 files / **215 kernel tests green** (+9 web contracts) · typecheck clean.

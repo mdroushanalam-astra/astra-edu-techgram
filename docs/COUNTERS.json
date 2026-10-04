@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-10-04T08:07:04.074Z",
+  "generated_at": "2026-10-04T09:17:16.320Z",
   "tests": {
-    "passed": 183,
-    "files": 21
+    "passed": 224,
+    "files": 26
   },
   "content": {
     "polity": {
@@ -25,7 +25,7 @@
     }
   },
   "git": {
-    "commits": 62,
-    "head": "f7efccc"
+    "commits": 64,
+    "head": "3647521"
   }
 }
