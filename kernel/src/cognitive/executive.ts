@@ -46,6 +46,8 @@ export interface TurnWorkspace {
   turn: number;
   elapsedMin: number;
   timeLeftMin: number;
+  /** How many productive turns remain in this session (drives consequence evaluation). */
+  turnsRemaining: number;
   /** Student state (from belief + behaviour — the organs speak, we assemble). */
   focusConcept: { id: string; name: string; mean: number; grey: boolean };
   alternativeConcept: { id: string; name: string; gainPerMinute: number } | null;
@@ -190,18 +192,25 @@ export function applyConstraints(
   return { survivors, blocked };
 }
 
-/** Select: top predicted benefit, seeded tie-break. Deterministic per seed. */
-export function select(survivors: Candidate[], seed: number): { chosen: Candidate; confidence: number } {
-  const sorted = [...survivors].sort((a, b) =>
-    (b.predictedBenefit - b.predictedCost) - (a.predictedBenefit - a.predictedCost) ||
-    (a.source === "incumbent" ? -1 : 1));
-  const top = sorted[0]!;
+/** Select: top predicted benefit adjusted by multi-turn consequence, seeded tie-break. */
+export function select(survivors: Candidate[], seed: number, w: TurnWorkspace): { chosen: Candidate; confidence: number } {
+  const scored = survivors.map((c) => {
+    const fatigueAfter = c.directive.learningAction === "break"
+      ? Math.max(0, w.fatigue - 0.45)
+      : Math.min(1, w.fatigue + 0.13);
+    const turns = Math.max(0, w.turnsRemaining);
+    // consequence: a break's fatigue recovery improves remaining turns; studying degrades them
+    const consequence = c.directive.learningAction === "break"
+      ? turns * 0.06 * Math.min(0.45, w.fatigue * 0.5)
+      : -turns * 0.012 * w.fatigue;
+    return { c, score: (c.predictedBenefit - c.predictedCost) + consequence };
+  }).sort((a, b) => b.score - a.score);
+  const top = scored[0]!.c;
   // exploration: near-ties occasionally explore (seeded, deterministic)
-  if (sorted.length > 1) {
+  if (scored.length > 1) {
     const rng = (seed * 9301 + 49297) % 233280 / 233280;
-    const second = sorted[1]!;
-    const gap = (top.predictedBenefit - top.predictedCost) - (second.predictedBenefit - second.predictedCost);
-    if (gap < 0.03 && rng > 0.72) return { chosen: second, confidence: 0.55 };
+    const gap = scored[0].score - scored[1].score;
+    if (gap < 0.03 && rng > 0.72) return { chosen: scored[1].c, confidence: 0.55 };
   }
   const uncertainty = Math.max(0.15, 0.5 - top.predictedBenefit * 0.2);
   return { chosen: top, confidence: Math.min(0.92, 0.55 + top.predictedBenefit * 0.5) };
@@ -216,7 +225,7 @@ export function decide(
 ): { directive: ExecutiveDirective; receipt: ExecutiveReceipt } {
   const candidates = generateCandidates(w, incumbent);
   const { survivors, blocked } = applyConstraints(candidates, w, limits);
-  const { chosen, confidence } = select(survivors.length ? survivors : [candidates[0]!], seed);
+  const { chosen, confidence } = select(survivors.length ? survivors : [candidates[0]!], seed, w);
   const receipt: ExecutiveReceipt = {
     id: `exec_t${w.turn}_s${seed}`,
     turn: w.turn,

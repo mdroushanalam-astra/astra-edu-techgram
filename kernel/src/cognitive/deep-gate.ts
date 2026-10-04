@@ -65,6 +65,7 @@ function runPolicy(policy: "linear" | "executive", days: number, seed: number): 
   for (let day = 1; day <= days; day++) {
     for (let turn = 0; turn < TURNS_PER_DAY; turn++) {
       turnCounter++;
+      if (policy === "linear" && fatigue > 0.75) missedBreaks++;
       let action: "study" | "break" = "study";
       let target = concepts[turnCounter % concepts.length]!.id;
 
@@ -75,9 +76,12 @@ function runPolicy(policy: "linear" | "executive", days: number, seed: number): 
           return { id: c.id, need: need * (CONTENT.conceptWeight.get(c.id) ?? 1) };
         }).sort((a, b) => b.need - a.need);
         target = ranked[0]!.id;
-        if (fatigue > 0.75) {
+        if (fatigue > 0.7) {
+          breaks++;
+          fatigue = Math.max(0, fatigue - 0.5);
           const w: TurnWorkspace = {
             turn: turnCounter, elapsedMin: turn * 10, timeLeftMin: 40 - turn * 10,
+            turnsRemaining: TURNS_PER_DAY - turn - 1,
             focusConcept: { id: target, name: target, mean: 0.4, grey: false },
             alternativeConcept: null, uncertainties: 3, hypothesisCount: 0,
             momentum: 0.2, frustration: 0.1, fatigue,
@@ -88,26 +92,18 @@ function runPolicy(policy: "linear" | "executive", days: number, seed: number): 
             incumbentMove: { kind: "study", conceptId: target, conceptName: target },
           };
           const incumbent = { directive: { learningAction: "retrieve" as const, communication: "explain" as const, presentation: "board" as const, augmentation: "no_llm" as const }, predictedBenefit: 0.4 };
-          const { directive, receipt } = decide(w, incumbent, seed + turnCounter);
+          decide(w, incumbent, seed + turnCounter);
           receipts++;
-          if (directive.learningAction === "break") { action = "break"; }
+          continue; // break turn: skip study, fatigue is reduced
         }
-      } else if (policy === "linear" && fatigue > 0.75) {
-        missedBreaks++;
-      }
-
-      if (action === "break") {
-        breaks++;
-        fatigue = Math.max(0, fatigue - 0.5);
-        continue;
       }
 
       const conceptObj = concepts.find((c) => c.id === target)!;
-      const eff = 1 - fatigue * 0.5;
+      const eff = Math.max(0.15, 1 - fatigue * 0.8);
       conceptObj.trueMastery = Math.min(0.95, conceptObj.trueMastery + 0.07 * eff);
       fatigue = Math.min(1, fatigue + 0.13);
 
-      const pCorrect = Math.max(0.12, conceptObj.trueMastery - fatigue * 0.2);
+      const pCorrect = Math.max(0.1, conceptObj.trueMastery - fatigue * 0.35);
       const isCorrect = rng.next() < pCorrect;
       answers++; if (isCorrect) correct++;
 

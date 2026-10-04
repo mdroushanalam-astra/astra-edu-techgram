@@ -7,7 +7,7 @@ import { runC1Gate } from "../src/cognitive/gate.js";
 
 function ws(over: Partial<TurnWorkspace> = {}): TurnWorkspace {
   return {
-    turn: 5, elapsedMin: 14, timeLeftMin: 26,
+    turn: 5, elapsedMin: 14, timeLeftMin: 26, turnsRemaining: 3,
     focusConcept: { id: "c_fr_14", name: "Friction", mean: 0.4, grey: false },
     alternativeConcept: { id: "c_fr_21", name: "Deposition", gainPerMinute: 0.2 },
     uncertainties: 4, hypothesisCount: 1,

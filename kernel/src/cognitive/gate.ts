@@ -31,7 +31,7 @@ function runSession(
       const w: TurnWorkspace = {
         turn: day * 4 + turn,
         elapsedMin: turn * 10,
-        timeLeftMin: 40 - turn * 10,
+        timeLeftMin: 40 - turn * 10, turnsRemaining: 4 - turn,
         focusConcept: { id: "c", name: "c", mean: 0.4, grey: false },
         alternativeConcept: { id: "alt", name: "alt", gainPerMinute: 0.2 },
         uncertainties: 5, hypothesisCount: 1,
