@@ -26,6 +26,7 @@ import type { SelfErrorRecord } from "../cognitive/self-development.js";
 import { planFromDirective, validateExperiencePlan } from "../cognitive/experience-plan.js";
 import { conduct } from "../cognitive/conductor.js";
 import { composeExpression } from "../cognitive/expression.js";
+import { conceptNeed } from "../cognitive/targeting.js";
 import { TechgramWorldAdapter, ARCHETYPES, makeWorldRng, type StudentProfile, type WorldState } from "../adapter/world-adapter.js";
 import { polityWorld } from "../adapter/worlds.js";
 
@@ -94,7 +95,7 @@ export function runDemo6(opts: { seed?: number; archetype?: keyof typeof ARCHETY
       turnCounter++;
       const ranked = world.concepts.map((c) => {
         const r = reportConcept(model, st, c.id);
-        return { id: c.id, need: (r.grey ? 0.85 : 1 - r.mean) * (world.priorWeights.get(c.id) ?? 1), mean: r.mean, grey: r.grey };
+        return { id: c.id, need: conceptNeed({ mean: r.mean, grey: r.grey, weight: world.priorWeights.get(c.id) ?? 1, lastObservedDay: r.lastObservedDay, day, staleness: true }), mean: r.mean, grey: r.grey }; // [ADR-046]
       }).sort((a, b) => b.need - a.need);
       const target = ranked[0]!;
       const w: TurnWorkspace = adapter.assembleWorkspace({

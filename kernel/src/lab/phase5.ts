@@ -22,6 +22,7 @@ import { conduct, initialState as initialConductorState, advance } from "../cogn
 import { composeExpression, validateUtterance } from "../cognitive/expression.js";
 import { proposeStrategy, runStrategyExperiment, makeStrategyHarness, BASE_SIM_PROFILE } from "../cognitive/strategy-experiments.js";
 import type { SelfErrorRecord } from "../cognitive/self-development.js";
+import { conceptNeed } from "../cognitive/targeting.js";
 import { TechgramWorldAdapter, ARCHETYPES, makeWorldRng, type StudentProfile } from "../adapter/world-adapter.js";
 import { minimalContent, polityWorld, cbseWorld, syntheticChainWorld, syntheticFlatWorld, syntheticHeavyWorld, syntheticSparseWorld } from "../adapter/worlds.js";
 
@@ -119,7 +120,7 @@ export function runCognitiveRun(adapter: TechgramWorldAdapter, profile: StudentP
       if (opts.policy === "executive") {
         const ranked = world.concepts.map((c) => {
           const r = reportConcept(model, st, c.id);
-          const need = (r.grey ? 0.85 : 1 - r.mean) * (world.priorWeights.get(c.id) ?? 1);
+          const need = conceptNeed({ mean: r.mean, grey: r.grey, weight: world.priorWeights.get(c.id) ?? 1, lastObservedDay: r.lastObservedDay, day, staleness: true }); // [ADR-046] keep the map fresh
           return { id: c.id, need, mean: r.mean, grey: r.grey };
         }).sort((a, b) => b.need - a.need);
         targetId = ranked[0]!.id;

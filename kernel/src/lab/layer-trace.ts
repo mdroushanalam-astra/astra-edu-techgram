@@ -28,6 +28,7 @@ import { DevelopmentalSession } from "../cognitive/developmental-session.js";
 import { planFromDirective, validateExperiencePlan } from "../cognitive/experience-plan.js";
 import { conduct, initialState as initialConductorState, advance } from "../cognitive/conductor.js";
 import { composeExpression, validateUtterance } from "../cognitive/expression.js";
+import { conceptNeed } from "../cognitive/targeting.js";
 import { TechgramWorldAdapter, ARCHETYPES, makeWorldRng, type StudentProfile, type WorldState } from "../adapter/world-adapter.js";
 import { minimalContent, polityWorld, cbseWorld } from "../adapter/worlds.js";
 
@@ -149,7 +150,7 @@ export function runSituation(s: Situation, cfg: RunCfg): { result: Omit<Situatio
       const fatigueAtDecision = wst.fatigue;
       const ranked = world.concepts.map((c) => {
         const r = reportConcept(model, st, c.id);
-        return { id: c.id, need: (r.grey ? 0.85 : 1 - r.mean) * (world.priorWeights.get(c.id) ?? 1), mean: r.mean, grey: r.grey };
+        return { id: c.id, need: conceptNeed({ mean: r.mean, grey: r.grey, weight: world.priorWeights.get(c.id) ?? 1, lastObservedDay: r.lastObservedDay, day, staleness: true }), mean: r.mean, grey: r.grey }; // [ADR-046]
       }).sort((a, b) => b.need - a.need);
       // Target selection — NEED (belief-driven, normal) vs ROUNDROBIN (the
       // belief-blind ablation: same executive, but it cannot aim by belief).

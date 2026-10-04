@@ -97,6 +97,8 @@ export function deriveSelfInsights(ledger: SelfErrorRecord[]): SelfInsights {
       if (r.error.includes("premature")) breakEarly++; else breakMissed++;
     }
   }
+  const iTotal = interventionWasted + interventionMissed;
+  const bTotal = breakEarly + breakMissed;
   return {
     recurringPatterns: detectPatterns(ledger),
     interventionTendency:
@@ -106,6 +108,10 @@ export function deriveSelfInsights(ledger: SelfErrorRecord[]): SelfInsights {
       breakEarly > breakMissed ? "aggressive" :
       breakMissed > breakEarly ? "reluctant" : "balanced",
     selfErrorCount: ledger.length,
+    // [ADR-046] PROPORTIONAL SELF-MODEL — continuous biases in −1..+1 so mild
+    // experience modulates mildly instead of firing all-or-nothing levers.
+    interventionBias: iTotal > 0 ? (interventionWasted - interventionMissed) / iTotal : 0,
+    breakBias: bTotal > 0 ? (breakMissed - breakEarly) / bTotal : 0,
   };
 }
 
@@ -146,6 +152,7 @@ export class DevelopmentalSession {
   readonly ledger: SelfErrorRecord[] = [];
   readonly decisions: TurnDecision[] = [];
   private pending: { sp: SelfPrediction; turnsLeft: number }[] = [];
+  private recentErrorCounts: number[] = []; // [ADR-046] rolling window for the live calibration channel
   private readonly config: DevelopmentalConfig;
 
   constructor(config: DevelopmentalConfig = { learningEnabled: true }) {
@@ -156,6 +163,14 @@ export class DevelopmentalSession {
   insights(): SelfInsights | null {
     if (this.ledger.length === 0) return null;
     return deriveSelfInsights(this.ledger);
+  }
+
+  /** [ADR-046] LIVE CALIBRATION CHANNEL — self-errors over the last 8 decisions, 0..1. */
+  errorDensity(): number {
+    const window = 8;
+    const recent = this.recentErrorCounts.slice(-window);
+    if (recent.length === 0) return 0;
+    return Math.min(1, recent.reduce((a, b) => a + b, 0) / window);
   }
 
   /** THE DECISION, developmentally wrapped: predict → consult self-model → decide. */
@@ -169,7 +184,8 @@ export class DevelopmentalSession {
     const sps = selfPredict(w.turn, w.fatigue, w.wrongStreak, w.focusConcept.mean);
     this.pending.push(...sps.map((sp) => ({ sp, turnsLeft: INTERVENTION_HORIZON })));
     // The self-model consultation: insights (if any) + the adopted strategy (S4)
-    // enter the workspace. With learning disabled: factory settings, no injection.
+    // + the live calibration channel enter the workspace. With learning
+    // disabled: factory settings, no injection.
     const insights = this.insights();
     let workspace: TurnWorkspace = w;
     if (this.config.learningEnabled && (insights || this.config.strategy)) {
@@ -178,6 +194,7 @@ export class DevelopmentalSession {
         selfInsights: {
           ...(insights ?? { recurringPatterns: [], interventionTendency: "balanced", breakCalibration: "balanced", selfErrorCount: 0 }),
           strategy: this.config.strategy,
+          errorDensity: this.errorDensity(),
         },
       };
     }
@@ -220,6 +237,7 @@ export class DevelopmentalSession {
     }
 
     this.ledger.push(...errors);
+    this.recentErrorCounts.push(errors.length); // [ADR-046] the live calibration channel
     return errors;
   }
 

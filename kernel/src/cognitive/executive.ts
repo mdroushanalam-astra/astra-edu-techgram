@@ -107,6 +107,11 @@ export interface TurnWorkspace {
     selfErrorCount: number;
     /** S4: the adopted strategy parameters this session runs under (absent = defaults). */
     strategy?: StrategyParameters;
+    /** [ADR-046] PROPORTIONAL SELF-MODEL — continuous biases; categorical fields above remain as the full-strength special case. interventionBias: −1 (misses/late) .. +1 (wastes/early). breakBias: −1 (over-breaks) .. +1 (under-breaks). Absent = derived from the categorical fields. */
+    interventionBias?: number;
+    breakBias?: number;
+    /** [ADR-046] LIVE CALIBRATION CHANNEL — self-error density (0..1): errors per decision so far. Modulates exploration and reported confidence in real time. */
+    errorDensity?: number;
   };
 }
 
@@ -223,40 +228,36 @@ export function generateCandidates(w: TurnWorkspace, incumbent: {
     // The adopted strategy parameters (S4) — absent means the defaults the
     // gates were validated with.
     const st = si.strategy ?? DEFAULT_STRATEGY;
-    // If past self-errors show early intervention, propose evidence collection instead
-    if (si.interventionTendency === "early" && w.uncertainties > 3) {
+    // [ADR-046] PROPORTIONAL SELF-MODEL — continuous biases; the categorical
+    // fields are the full-strength special case (backward compatible).
+    const iBias = si.interventionBias ?? (si.interventionTendency === "early" ? 1 : si.interventionTendency === "late" ? -1 : 0);
+    const bBias = si.breakBias ?? (si.breakCalibration === "reluctant" ? 1 : si.breakCalibration === "aggressive" ? -1 : 0);
+    // If the self-model says I lean early, collect evidence first —
+    // proportionally to how strong that bias is.
+    if (iBias > 0 && w.uncertainties > 3) {
       out.push({
         directive: { learningAction: "diagnose", communication: "question", presentation: "none", augmentation: "no_llm" },
         source: "executive",
-        predictedBenefit: st.earlyDiagnoseBenefit,
+        predictedBenefit: st.earlyDiagnoseBenefit * (0.5 + 0.5 * iBias),
         predictedCost: 0.02,
         reasons: ["self-model: I tend to intervene too early when uncertain — collecting evidence first"],
         evidenceRefs: ["self-model:interventionTendency", "self-error-ledger"],
       });
     }
-    // If past self-errors show break miscalibration, adjust break behavior —
-    // symmetrically: over-breaking quiets rest, under-breaking honors it sooner.
-    if (si.breakCalibration === "aggressive") {
-      for (const c of out) {
-        if (c.directive.learningAction === "break") {
-          c.predictedBenefit *= st.aggressiveBreakQuiet;
-          c.reasons.push("self-model: past break decisions were too aggressive — reducing break tendency");
-        }
-      }
-    }
-    if (si.breakCalibration === "reluctant") {
-      for (const c of out) {
-        if (c.directive.learningAction === "break") {
-          c.predictedBenefit *= st.reluctantBreakBoost;
-          c.reasons.push("self-model: I have under-breaked before — honoring rest sooner");
-        }
+    // Break miscalibration adjusts break behavior — proportionally:
+    // under-breaking honors rest sooner, over-breaking quiets it. The adopted
+    // strategy parameters are the FULL-STRENGTH anchors (S4 A/B compatibility).
+    for (const c of out) {
+      if (c.directive.learningAction === "break") {
+        if (bBias > 0) { c.predictedBenefit *= 1 + (st.reluctantBreakBoost - 1) * bBias; c.reasons.push("self-model: I have under-breaked before — honoring rest sooner"); }
+        if (bBias < 0) { c.predictedBenefit *= 1 - (1 - st.aggressiveBreakQuiet) * (-bBias); c.reasons.push("self-model: past break decisions were too aggressive — reducing break tendency"); }
       }
     }
     // If the self-model says I under-intervene, lean into intervention candidates.
-    if (si.interventionTendency === "late") {
+    if (iBias < 0) {
       for (const c of out) {
         if (c.directive.learningAction === "diagnose" || (c.directive.augmentation === "llm")) {
-          c.predictedBenefit *= st.lateInterventionLean;
+          c.predictedBenefit *= 1 + (st.lateInterventionLean - 1) * (-iBias);
           c.reasons.push("self-model: I have missed needed interventions before — leaning in");
         }
       }
@@ -294,6 +295,12 @@ export function applyConstraints(
 
 /** Select: top predicted benefit adjusted by multi-turn consequence, seeded tie-break. */
 export function select(survivors: Candidate[], seed: number, w: TurnWorkspace): { chosen: Candidate; confidence: number } {
+  // [ADR-046] LIVE CALIBRATION CHANNEL — a self-model that knows it errs a lot
+  // explores its own alternatives more: the near-tie window widens and the
+  // exploration trigger lowers, both bounded by the measured error density.
+  const errDensity = Math.min(1, Math.max(0, w.selfInsights?.errorDensity ?? 0));
+  const gapWindow = 0.03 + 0.02 * errDensity;
+  const exploreAbove = 0.72 - 0.15 * errDensity;
   const scored = survivors.map((c) => {
     const fatigueAfter = c.directive.learningAction === "break"
       ? Math.max(0, w.fatigue - 0.45)
@@ -306,14 +313,17 @@ export function select(survivors: Candidate[], seed: number, w: TurnWorkspace): 
     return { c, score: (c.predictedBenefit - c.predictedCost) + consequence };
   }).sort((a, b) => b.score - a.score);
   const top = scored[0]!.c;
-  // exploration: near-ties occasionally explore (seeded, deterministic)
+  // exploration: near-ties occasionally explore (seeded, deterministic);
+  // a self-model that knows it errs often explores more [ADR-046].
   if (scored.length > 1) {
     const rng = (seed * 9301 + 49297) % 233280 / 233280;
     const gap = scored[0].score - scored[1].score;
-    if (gap < 0.03 && rng > 0.72) return { chosen: scored[1].c, confidence: 0.55 };
+    if (gap < gapWindow && rng > exploreAbove) return { chosen: scored[1].c, confidence: 0.55 };
   }
   const uncertainty = Math.max(0.15, 0.5 - top.predictedBenefit * 0.2);
-  return { chosen: top, confidence: Math.min(0.92, 0.55 + top.predictedBenefit * 0.5) };
+  // [ADR-046] the reported confidence carries the live calibration: a machine
+  // that has been erring often SAYS so by moderating its confidence.
+  return { chosen: top, confidence: Math.min(0.92, (0.55 + top.predictedBenefit * 0.5) * (1 - 0.25 * Math.min(1, Math.max(0, w.selfInsights?.errorDensity ?? 0)))) };
 }
 
 /** THE DECISION — workspace in, directive + receipt out. Pure and replayable. */
