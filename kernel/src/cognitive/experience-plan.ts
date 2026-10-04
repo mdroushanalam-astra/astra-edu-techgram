@@ -66,3 +66,50 @@ export function validateExperiencePlan(p: ExperiencePlan): void {
     throw new ExperiencePlanError("ExperiencePlan: a non-rest plan must carry at least one evidence request or expression");
   }
 }
+
+
+/* ── the bridge: Executive directive → ExperiencePlan ────────────────────── */
+
+export interface DirectiveInput {
+  learningAction: string;
+  communication: string;
+  presentation: string;
+  augmentation: string;
+  conceptId?: string;
+  conceptName?: string;
+  reasons: string[];
+  evidenceRefs: string[];
+  predictedBenefit: number;
+  uncertainty: number;
+  receiptId: string;
+  fatigue: number;
+}
+
+/** The Executive's decision becomes an ExperiencePlan — the seam made real. */
+export function planFromDirective(d: DirectiveInput): ExperiencePlan {
+  const raw = d.learningAction;
+  const learning = (raw === "break" ? "rest" : raw) as LearningChannel["action"];
+  const isRest = learning === "rest";
+  const presenceState: PresenceChannel['state'] =
+    d.communication === 'silence' ? 'silent' :
+    d.communication === 'challenge' ? 'thinking' :
+    d.communication === 'reassure' ? 'speaking' : 'speaking';
+  const surface: ExpressionChannel['surface'] =
+    d.presentation === 'chart' ? 'chart' :
+    d.presentation === 'board' ? 'board' :
+    d.presentation === 'none' ? 'none' : 'text';
+  const agencyMode: AgencyChannel['mode'] =
+    d.communication === 'challenge' ? 'challenge' :
+    d.communication === 'question' ? 'invite-proposal' : 'recommend';
+  return {
+    id: `exp_${d.receiptId}`,
+    learning: { action: isRest ? 'rest' : learning, conceptId: d.conceptId, conceptName: d.conceptName },
+    presence: { state: presenceState, gaze: presenceState === 'silent' ? 'away' : 'student' },
+    expression: { surface },
+    evidence: { requests: d.communication === 'question' ? ['confidence'] : [], showWhy: true },
+    experience: { mode: isRest ? 'break' : 'continue' },
+    agency: { mode: agencyMode },
+    expectedOutcome: { predictionRef: d.receiptId, predictedBenefit: d.predictedBenefit, uncertainty: d.uncertainty },
+    rationale: { receiptId: d.receiptId, reasons: d.reasons, evidenceRefs: d.evidenceRefs },
+  };
+}
