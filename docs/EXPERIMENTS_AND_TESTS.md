@@ -388,3 +388,29 @@ The SAME proposal, two honest worlds: the evaluator keeps what helps and vetoes 
 **Five pre-pilot questions [ADR-039] — final state:** 1 decide ✓ · 2 explain why ✓ · 3 predict itself ✓ · 4 investigate itself ✓ (patterns now DRIVE experiments, not just flags) · 5 change how it behaves ✓ (proven twice: insight levers + adopted strategy). **THE COGNITIVE FRONTIER IS CLOSED. PHASE 4 (expression) IS NEXT — gated on the founder's order.**
 
 **Suite:** 26 files / **228 kernel tests green** (+9 web contracts = 237) · typecheck clean · deep gate unchanged (defaults = validated behavior).
+
+---
+
+## §19 — CAMPAIGN: PHASE 4 EXPRESSION — the decision becomes experience [ADR-042]
+**When:** 2026-10-04, ~15:55–16:20 · **Model:** GLM-5.3-Flash (Z.ai) via ZCode · directed by the Founder · **Commits:** 61ff2ec (+ this docs commit)
+
+**Purpose:** the founder opened the Phase 4 gate ("go"). The roadmap §10 contract: Communication Policy (10.1), Blackboard payload (10.2), capability-gated Voice (10.3), the LLM Bridge boundary (10.4) — and THE GATE: LLM OFF vs LLM ON, decisions/learning actions/state transitions/predictions/evidence must remain IDENTICAL.
+
+**What was built (`cognitive/expression.ts`):**
+1. **Communication Policy** — verbosity (overloaded student → terse; grey concept → deep), humor gating, silence-first. Expresses the decision; proven not to change it.
+2. **Typed Utterances with the claim-provenance law** — `validateUtterance` throws on missing evidence; the ethics wall is enforced AT THE VOICE (guilt/urgency phrasings throw).
+3. **The microscope** — `whyThis` (receipt reasons + what was given up) and `selfCorrectionMoment`: the ADR-039 experience ("I was about to step in again — my notes say I do that too early with you. Your turn first.") from REAL ledger patterns, all four tendencies covered, at most one per 3 turns, zero machinery IDs.
+4. **Praise hybrid (c)** — warm + specific + true: earned by TWO observed correct answers, names the concept, carries its evidence, capped 1-per-3-turns.
+5. **Density control** — transitions rotate deterministically (3 phrasings), reassurance never repeats within 3 turns, a break turn carries its rest line and nothing more, silence produces zero utterances (praise excepted — a correct answer deserves its beat).
+6. **Board payload (10.2)** — structured references (kind/concept/evidence/spec), never invented content.
+7. **Prosody hints** — interruption non-negotiable (always interruptible), struggling student gets slow+low.
+8. **LLM Bridge (10.4)** — bounded re-voicing requests ONLY where the Executive chose augmentation; `basis` = the utterance's own evidence; constraints carry the ethics wall; the deterministic text is always the fallback.
+9. **Deep gate integration** — the gate's session flow now EXPRESSES: decision → ExperiencePlan → Conductor → composeExpression. PolicyResult carries utterances/selfCorrections/llmVoiced.
+
+**THE PHASE 4 GATE (22 tests):** at the utterance, LLM OFF vs ON → identical text and evidence (only the bounded request differs; basis = evidence; constraints present). At the session, `runDeepGate(10, 7331, false)` vs `(..., true)` → byte-identical true marks, receipts, plans, conductor steps, self-errors, breaks — the bridge cannot make the brain smarter. PLUS: purity (expression mutates nothing it is given — workspace/receipt/plan/ledger deep-compare unchanged), capability independence (Tier-0-safe text always), gate verdict unchanged (12 vs 10 PASS).
+
+**Honest seam refinement (caught BY the gate):** the ExperiencePlan seam's rule "a non-rest plan must carry at least one evidence request or expression" rejected legitimate SILENT and voice-only plans — silence is a first-class presence and the learning channel always carries the turn. Rule amended (phase0/phase3 tests still green — only the missing-learning-channel check was ever pinned).
+
+**Evidence levels:** Phase 4 expression NOT BUILT → **INTEGRATION-TESTED** (kernel level; the product UI rendering of these utterances rides the adapter in Phase 5 + frontend v4) · LLM boundary: enforced by construction and by the identity gate · still SIMULATED-world.
+
+**Suite:** 27 files / **250 kernel tests green** (+9 web = 259) · typecheck clean.

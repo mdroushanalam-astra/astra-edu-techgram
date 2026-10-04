@@ -351,3 +351,20 @@ Full review read line-by-line; each point adjudicated against the built kernel +
 **The gate evidence [EXPERIMENTS §18]:** the full epoch is INTEGRATION-TESTED — session-1 experience → proposal → KEEP (+0.013 true learning in cheap-fatigue economics) / REJECT of the SAME proposal (−0.018 in punishing-fatigue economics) → session-2 decisions differ under the adopted strategy (fewer breaks) and are IDENTICAL under rejection → phase2Gate PASS (v0→v1 + evidence + decision change). The divergence is exercised on a seed where the marginal turns actually arise; multi-seed averaging guards the verdict.
 **The limits (honest):** the parameter space is deliberately Level 1–2 (parameter/strategy per ADR-037) — representation-level self-modification (Level 3) stays on the not-built list; the harness is a compact declared-constants world, not the full four-world harness; all evidence SIMULATED.
 **Standing after this ADR:** the five pre-pilot questions ALL pass (investigate-itself now ✓ — patterns drive experiments). The cognitive frontier is CLOSED. Per the founder's order, the next build is PHASE 4 (expression) — explicitly gated on the founder's go.
+
+### ADR-042 — PHASE 4 EXPRESSION: the decision becomes experience, the LLM never decides — ACCEPTED (2026-10-04)
+**Decided by:** the Founder ("go"); GLM-5.3-Flash via ZCode implemented per roadmap §10.
+**The law restated:** Executive decides → Conductor executes → Presence expresses → LLM voices → UI renders. Never the reverse. Expression EXPRESSES the cognitive decision; it does not create it.
+**What the layer owns (and nothing more):**
+1. **Communication Policy [§10.1]** — verbosity (overloaded → terse, grey → deep), humor gating, silence-first. Proven not to change the directive it is given.
+2. **Utterances under the claim-provenance law** — `validateUtterance` throws on missing evidence; the ETHICS WALL is enforced at the voice (guilt/urgency phrasings throw). Unproven claims may not be spoken.
+3. **The microscope** — why-this (the receipt's reasons AND what was given up) and earned self-correction from real ledger patterns: the student hears "it noticed, it was wrong, it changed" — never machinery IDs, at most one per 3 turns, null without evidence (no performed humility).
+4. **Praise hybrid (c)** — warm + specific + TRUE: earned by two observed corrects, concept-named, evidence-carrying, capped.
+5. **Density control** — deterministic rotation, no repeated reassurance within 3 turns, breaks carry one line, silence produces zero utterances.
+6. **Board payload [§10.2]** — structured references only; teaching content stays with the frozen teacher via the learning channel.
+7. **Prosody** — interruption non-negotiable; struggling student gets slow+low.
+8. **LLM Bridge [§10.4]** — bounded re-voicing (paraphrase/example) ONLY where the Executive chose augmentation; basis = the utterance's evidence; constraints carry the ethics wall; the deterministic text is always the fallback.
+**THE PHASE 4 GATE (the binding one):** LLM OFF vs LLM ON — identical utterance text + evidence at the utterance level; byte-identical deep gate at the session level (true marks, receipts, plans, conductor steps, self-errors, breaks). The bridge cannot make the brain smarter. Purity proven: expression mutates nothing it is given.
+**Seam refinement (discovered BY this gate):** the ExperiencePlan seam's "non-rest must carry evidence or expression" rule rejected silent and voice-only plans — silence is a first-class presence and the learning channel always carries the turn. Amended; the pinned invariants (six channels, learning action required) unchanged.
+**The limits (honest):** kernel-level evidence — the product rendering of these utterances (board, orb, voice tiers) rides the Phase 5 adapter + frontend v4; Hinglish/localization is an adapter concern; all evidence SIMULATED-world.
+**Standing:** Phases 0–4 all complete at kernel level with gates earned. Next per roadmap: Phase 5 (Techgram World Adapter) — GATED on the founder's direction.

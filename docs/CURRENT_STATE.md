@@ -4,7 +4,7 @@
 > **Read me alone:** refreshed after every session; stands on its own. Non-technical readers: `FOUNDER_GUIDE.md` tells the same story in plain language.
 > **Integrity:** all counts in this file are backed by `COUNTERS.json` (generated from the code by `npm run counters`) and enforced by `kernel/test/docs_integrity.test.ts`. If this page contradicts reality, the docs-integrity test fails — fix reality or the doc, never silently.
 
-**Snapshot:** 2026-10-04, ~15:45 (local) · Kernel 0.1.0+ · **237/237 tests green (kernel 228 in 26 files + frontend contracts 9), typecheck clean** · Phase: **S4 IN THE LOOP [ADR-041, Journal Entry 43] — the cognitive frontier is CLOSED: on top of the closed developmental loop [ADR-040], the Executive now runs LIVE strategy experiments — a ledger pattern becomes a falsifiable proposal, a matched A/B in the simulator decides on TRUE learning (keep/reject, ties reject), kept parameters are ADOPTED into future sessions and measurably change decisions; rejected proposals change nothing (the veto is proven). The five pre-pilot questions [ADR-039] ALL pass: decide ✓ explain ✓ predict itself ✓ investigate itself ✓ change behavior ✓. NEXT (founder's explicit order): PHASE 4 expression — gated on the founder's go; frontend v4 screens 9–15 in parallel**
+**Snapshot:** 2026-10-04, ~16:25 (local) · Kernel 0.1.0+ · **259/259 tests green (kernel 250 in 27 files + frontend contracts 9), typecheck clean** · Phase: **PHASE 4 EXPRESSION COMPLETE [ADR-042, Journal Entry 44] — the kernel now SPEAKS: typed utterances under the claim-provenance law, the ethics wall enforced at the voice, earned self-correction ("I was about to step in again — your turn first"), evidence-carrying praise, density control, silence first-class, board payloads, and the LLM Bridge bounded to re-voicing — with THE PHASE 4 GATE passed: LLM OFF vs LLM ON produces a byte-identical deep gate (the bridge cannot make the brain smarter). Phases 0–4 all complete at kernel level, gates earned. NEXT per roadmap: Phase 5 (Techgram World Adapter) — gated on the founder's direction; frontend v4 screens 9–15 in parallel**
 
 ---
 
@@ -19,6 +19,7 @@ System A (the frozen brain) is untouched and frozen: envelope → events → bel
 | **THE DEVELOPMENTAL LOOP** (S1 before decisions → S2 structural judging → ledger → insights → different decisions) | ✅ INTEGRATION-TESTED [ADR-040] | `test/counterfactual.test.ts` (rewritten OPEN→CLOSED) |
 | **S4 IN THE LOOP** (ledger pattern → falsifiable proposal → matched A/B → keep/reject on true learning → ADOPTED strategy changes future decisions; rejected = identical traces; ties reject) | ✅ INTEGRATION-TESTED [ADR-041] | `test/strategy-experiments.test.ts` (13 tests) |
 | **StrategyParameters** (the Executive's own tunables, explicit + versioned; frozen-organ params untouchable) | ✅ live | `cognitive/executive.ts` + S4 tests |
+| **PHASE 4 EXPRESSION** (typed utterances w/ claim-provenance, ethics wall at the voice, earned self-correction, why-this microscope, density control, silence first-class, board payloads, LLM Bridge bounded) | ✅ INTEGRATION-TESTED [ADR-042] | `test/expression.test.ts` (22) — LLM OFF/ON identity gate |
 | **Self-model levers in the Executive** (early/aggressive/reluctant/late/caution — each changes candidate generation or scoring) | ✅ live | `cognitive/executive.ts` + counterfactual test |
 | **DEEP GATE: executive beats linear on TRUE MARKS** — 12 vs 10, 12/12 seeds +1..+3; belief error 0.20 vs 0.40; accuracy 53% vs 20% | ✅ MATCHED-BASELINE-VALIDATED (simulated) | `cognitive/deep-gate.ts` + counterfactual test |
 | **Conductor in a real session flow** (directive → ExperiencePlan → validate → conduct → advance; 80 plans/390 steps per gate run) | ✅ INTEGRATION-TESTED | `deep-gate.ts` + counterfactual test |
@@ -42,7 +43,6 @@ System A (the frozen brain) is untouched and frozen: envelope → events → bel
 
 ## 3. What does NOT exist yet (honest — the true remaining gaps)
 
-- **Expression & Presence (Phase 4):** the Conductor emits ordered steps but nothing renders them in the product UI yet — expression work is GATED on the founder's explicit order (his standing directive: stop here until he says go).
 - **Level-3 self-modification (representation):** ADR-041 deliberately demonstrates levels 1–2 only (parameter/strategy); representation-level change stays on the not-built list.
 - **The S4 harness is a compact declared-constants world** — exercising proposals against the full four-world harness is future hardening.
 - **Content floor** — the bank holds **105 verified items · 104 verified atoms** (13 topics / 54 concepts) against the V1-A floor of 500 items / 150 atoms; PYQ weight table coarse. **Founder/mentor verification hours = the critical path.**
@@ -53,12 +53,13 @@ System A (the frozen brain) is untouched and frozen: envelope → events → bel
 
 ## 4. Next actions (ordered)
 
-1. **PHASE 4 — EXPRESSION (founder-gated, HIS explicit stop order):** Conductor steps → Presence Layer → renderer; "why-this" moments and visible self-correction in the product UI. DO NOT START without the founder's go.
-2. **Frontend v4 (parallel, founder-directed):** screens 9–11 session polish + teacher wrap-up → 13–15 → motion pass → Real-World Layer.
-3. **Content sprint (parallel, Founder + mentor):** items 105→500, atoms 104→150 — **still the true critical path.**
-4. **Exercise the S4 harness against sealed hidden worlds** before any public claim (ADR-016 claim discipline).
-5. **Wave-2 (gated):** persistence → sync/recompute → tamper test → offline chaos → student PWA.
-6. **Limited public beta:** 20–30 aspirants, 3+ weeks, 4-layer measurement (Learning / Retention / Decision quality / **Agency** [ADR-029]) — pre-registered G3 criteria, Founder recruits.
+1. ~~PHASE 4 — EXPRESSION~~ **COMPLETE [ADR-042, commit 61ff2ec]** at kernel level: expression.ts, the LLM OFF/ON identity gate, deep-gate integration, the seam refinement (silence first-class).
+2. **PHASE 5 — TECHGRAM WORLD ADAPTER (founder-gated):** the UCS boundary — curriculum/sensors/actions/outcomes as config; the cognitive engine must not know UPSC or geomorphology exists.
+3. **Frontend v4 (parallel, founder-directed):** screens 9–11 session polish + teacher wrap-up → 13–15 → motion pass → Real-World Layer.
+4. **Content sprint (parallel, Founder + mentor):** items 105→500, atoms 104→150 — **still the true critical path.**
+5. **Exercise the S4 harness against sealed hidden worlds** before any public claim (ADR-016 claim discipline).
+6. **Wave-2 (gated):** persistence → sync/recompute → tamper test → offline chaos → student PWA.
+7. **Limited public beta:** 20–30 aspirants, 3+ weeks, 4-layer measurement (Learning / Retention / Decision quality / **Agency** [ADR-029]) — pre-registered G3 criteria, Founder recruits.
 
 ## 5. Risks & standing uncertainty register [adopted 2026-10-02]
 
@@ -73,7 +74,7 @@ Also: content-verification throughput is the schedule risk; friendly-world plann
 ## 6. How to run / verify
 
 ```
-npm test                        # 237 tests (kernel 228 + frontend contracts 9) incl. G0 four-worlds + chaos injection + docs-integrity gate + the loop-closure counterfactual
+npm test                        # 259 tests (kernel 250 + frontend contracts 9) incl. G0 four-worlds + chaos injection + docs-integrity gate + the loop-closure counterfactual
 npx tsx kernel/src/cognitive/deep-gate.ts   # (import runDeepGate) the matched-baseline gate — see EXPERIMENTS §17
 npm run counters                # regenerate docs/COUNTERS.json from the code
 npm run brainlab                # CLI demo (5 acts)
@@ -86,4 +87,4 @@ cd apps/brainlab && npm run preview  # Wave-1 web (production build)
 > **Observable-State Law [ADR-023]:** all personalisation is a model of the student's OBSERVABLE learning state and behaviour — explicitly uncertain, never internal-state claims, never labels. The Engagement Ethics Wall bans guilt/urgency/exploitation mechanics permanently.
 > **The developmental law [ADR-037/040]:** no self-update without evidence; no strategy change without a falsifiable hypothesis and an evaluation path; the counterfactual (`learningEnabled:false`) is the standing proof that self-knowledge — not the passage of time — changes behavior.
 
-**Non-technical:** `FOUNDER_GUIDE.md` · Soul: `00_CHARTER.md` · Star: `02_NORTH_STAR.md` · Memory: `PROJECT_JOURNAL.md` · Evidence: `EXPERIMENTS_AND_TESTS.md` · Changes: `DECISIONS.md` (ADR-001…041) · **Freeze boundary: `BACKEND_FREEZE_CHECKLIST.md`** · Ideas registry: `08_VISION_LEDGER.md` · Machine pointer: `RESUME.json` · Protocol: `README.md` · Architecture: `04_ARCHITECTURE.md` · Roadmap: `05_ROADMAP.md` · Master roadmap: `10_MASTER_ROADMAP.md` · Frontend: `06_FRONTEND_BLUEPRINT.md` · K12 research: `07_OPEN_MATERIALS_RESEARCH.md` · Counts: `COUNTERS.json`
+**Non-technical:** `FOUNDER_GUIDE.md` · Soul: `00_CHARTER.md` · Star: `02_NORTH_STAR.md` · Memory: `PROJECT_JOURNAL.md` · Evidence: `EXPERIMENTS_AND_TESTS.md` · Changes: `DECISIONS.md` (ADR-001…042) · **Freeze boundary: `BACKEND_FREEZE_CHECKLIST.md`** · Ideas registry: `08_VISION_LEDGER.md` · Machine pointer: `RESUME.json` · Protocol: `README.md` · Architecture: `04_ARCHITECTURE.md` · Roadmap: `05_ROADMAP.md` · Master roadmap: `10_MASTER_ROADMAP.md` · Frontend: `06_FRONTEND_BLUEPRINT.md` · K12 research: `07_OPEN_MATERIALS_RESEARCH.md` · Counts: `COUNTERS.json`
