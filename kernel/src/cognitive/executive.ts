@@ -66,6 +66,17 @@ export interface TurnWorkspace {
   visualStructure: boolean;
   /** The incumbent: what the linear teacher would do this turn. */
   incumbentMove: { kind: string; conceptId: string; conceptName: string };
+  /** THE DEVELOPMENTAL LOOP — what the system knows about itself. When present, the Executive adjusts its own behavior based on self-knowledge. Without this, the developmental loop is open (the counterfactual proves it). */
+  selfInsights?: {
+    /** Recurring self-error patterns (from the Self-Error Ledger). */
+    recurringPatterns: string[];
+    /** Whether the system tends to intervene too early when uncertain. */
+    interventionTendency: "early" | "balanced" | "late";
+    /** Whether break decisions have been well-calibrated. */
+    breakCalibration: "aggressive" | "balanced" | "reluctant";
+    /** How many self-prediction errors have been accumulated. */
+    selfErrorCount: number;
+  };
 }
 
 export interface Candidate {
@@ -170,6 +181,61 @@ export function generateCandidates(w: TurnWorkspace, incumbent: {
       reasons: [`frustration ${(w.frustration * 100).toFixed(0)}% on this concept; ${w.alternativeConcept.name} offers ${w.alternativeConcept.gainPerMinute.toFixed(2)} gain/min`],
       evidenceRefs: ["behaviour:frustration", `concept:${w.alternativeConcept.id}`],
     });
+  }
+
+  // ── SELF-MODEL CONSULTATION — the developmental loop closing ──────────
+  // The system adjusts its own candidate generation based on what it has
+  // learned about itself. Without selfInsights, these candidates don't
+  // appear. With them, the system's behavior CHANGES based on self-knowledge.
+  if (w.selfInsights) {
+    const si = w.selfInsights;
+    // If past self-errors show early intervention, propose evidence collection instead
+    if (si.interventionTendency === "early" && w.uncertainties > 3) {
+      out.push({
+        directive: { learningAction: "diagnose", communication: "question", presentation: "none", augmentation: "no_llm" },
+        source: "executive",
+        predictedBenefit: 0.15,
+        predictedCost: 0.02,
+        reasons: ["self-model: I tend to intervene too early when uncertain — collecting evidence first"],
+        evidenceRefs: ["self-model:interventionTendency", "self-error-ledger"],
+      });
+    }
+    // If past self-errors show break miscalibration, adjust break behavior —
+    // symmetrically: over-breaking quiets rest, under-breaking honors it sooner.
+    if (si.breakCalibration === "aggressive") {
+      for (const c of out) {
+        if (c.directive.learningAction === "break") {
+          c.predictedBenefit *= 0.6;
+          c.reasons.push("self-model: past break decisions were too aggressive — reducing break tendency");
+        }
+      }
+    }
+    if (si.breakCalibration === "reluctant") {
+      for (const c of out) {
+        if (c.directive.learningAction === "break") {
+          c.predictedBenefit *= 1.25;
+          c.reasons.push("self-model: I have under-breaked before — honoring rest sooner");
+        }
+      }
+    }
+    // If the self-model says I under-intervene, lean into intervention candidates.
+    if (si.interventionTendency === "late") {
+      for (const c of out) {
+        if (c.directive.learningAction === "diagnose" || (c.directive.augmentation === "llm")) {
+          c.predictedBenefit *= 1.2;
+          c.reasons.push("self-model: I have missed needed interventions before — leaning in");
+        }
+      }
+    }
+    // If self-errors exist, add a caution flag to intervention-heavy candidates
+    if (si.selfErrorCount >= 3) {
+      for (const c of out) {
+        if (c.directive.learningAction === "teach" || c.directive.learningAction === "practice") {
+          c.predictedCost += 0.03;
+          c.reasons.push("self-model: accumulated self-errors — adding caution margin");
+        }
+      }
+    }
   }
 
   return out;
