@@ -191,17 +191,27 @@ export class TechgramWorldAdapter implements DomainAdapter {
     return { action, why: "translated by the world adapter from universal objects — the engine never saw the domain" };
   }
 
-  initTruth(base = 0.22): Map<string, number> {
+  initTruth(base = 0.22, shape: "default" | "novice" | "mixed" | "advanced" | "spiky" = "default"): Map<string, number> {
     const truth = new Map<string, number>();
+    const n = this.config.concepts.length;
     this.config.concepts.forEach((c, i) => {
-      truth.set(c.id, Math.min(0.6, base + 0.06 * (i % 5) + ((c.id.length * 7) % 10) * 0.008));
+      let v: number;
+      switch (shape) {
+        case "novice":   v = base * 0.35 + ((c.id.length * 7) % 10) * 0.004; break;
+        case "mixed":    v = base + 0.06 * (i % 5); break;
+        case "advanced": v = Math.min(0.8, base + 0.42); break;
+        case "spiky":    v = i % 2 === 0 ? Math.min(0.85, base + 0.5) : base * 0.4; break;
+        default:         v = Math.min(0.6, base + 0.06 * (i % 5) + ((c.id.length * 7) % 10) * 0.008);
+      }
+      truth.set(c.id, Math.max(0.05, v));
     });
+    void n;
     return truth;
   }
 
-  initState(profile: StudentProfile): WorldState {
+  initState(profile: StudentProfile, shape: "default" | "novice" | "mixed" | "advanced" | "spiky" = "default"): WorldState {
     return {
-      truth: this.initTruth(),
+      truth: this.initTruth(0.22, shape),
       fatigue: profile.startFatigue,
       wrongStreak: 0, lastOutcome: null,
       lastTwoOutcomes: [null, null],
