@@ -20,6 +20,35 @@ export type Communication = "explain" | "question" | "example" | "analogy" | "ch
 export type Presentation = "board" | "chart" | "text" | "voice" | "avatar" | "none";
 export type Augmentation = "llm" | "no_llm";
 
+/**
+ * THE EXECUTIVE'S OWN TUNABLES [S4, ADR-037 levels 1–2 self-modification] —
+ * the only parameters the cognitive layer may change about ITSELF, and only
+ * through a tested strategy experiment (strategy-experiments.ts: hypothesis →
+ * matched A/B in the simulator → keep/reject). Frozen-organ parameters
+ * (belief, memory, AOM) are NOT here — the ownership boundaries forbid it.
+ * Absent strategy = the defaults = the behavior the gates were run with.
+ */
+export interface StrategyParameters {
+  /** Break-benefit multiplier when the self-model says "I under-break". */
+  reluctantBreakBoost: number;
+  /** Break-benefit multiplier when the self-model says "I over-break". */
+  aggressiveBreakQuiet: number;
+  /** Intervention-candidate multiplier when the self-model says "I miss needed interventions". */
+  lateInterventionLean: number;
+  /** Cost margin added to teach/practice when self-errors are many. */
+  cautionMargin: number;
+  /** Predicted benefit of the evidence-first diagnose candidate when tendency is "early". */
+  earlyDiagnoseBenefit: number;
+}
+
+export const DEFAULT_STRATEGY: StrategyParameters = {
+  reluctantBreakBoost: 1.25,
+  aggressiveBreakQuiet: 0.6,
+  lateInterventionLean: 1.2,
+  cautionMargin: 0.03,
+  earlyDiagnoseBenefit: 0.15,
+};
+
 export interface ExecutiveDirective {
   learningAction: LearningAction;
   communication: Communication;
@@ -76,6 +105,8 @@ export interface TurnWorkspace {
     breakCalibration: "aggressive" | "balanced" | "reluctant";
     /** How many self-prediction errors have been accumulated. */
     selfErrorCount: number;
+    /** S4: the adopted strategy parameters this session runs under (absent = defaults). */
+    strategy?: StrategyParameters;
   };
 }
 
@@ -189,12 +220,15 @@ export function generateCandidates(w: TurnWorkspace, incumbent: {
   // appear. With them, the system's behavior CHANGES based on self-knowledge.
   if (w.selfInsights) {
     const si = w.selfInsights;
+    // The adopted strategy parameters (S4) — absent means the defaults the
+    // gates were validated with.
+    const st = si.strategy ?? DEFAULT_STRATEGY;
     // If past self-errors show early intervention, propose evidence collection instead
     if (si.interventionTendency === "early" && w.uncertainties > 3) {
       out.push({
         directive: { learningAction: "diagnose", communication: "question", presentation: "none", augmentation: "no_llm" },
         source: "executive",
-        predictedBenefit: 0.15,
+        predictedBenefit: st.earlyDiagnoseBenefit,
         predictedCost: 0.02,
         reasons: ["self-model: I tend to intervene too early when uncertain — collecting evidence first"],
         evidenceRefs: ["self-model:interventionTendency", "self-error-ledger"],
@@ -205,7 +239,7 @@ export function generateCandidates(w: TurnWorkspace, incumbent: {
     if (si.breakCalibration === "aggressive") {
       for (const c of out) {
         if (c.directive.learningAction === "break") {
-          c.predictedBenefit *= 0.6;
+          c.predictedBenefit *= st.aggressiveBreakQuiet;
           c.reasons.push("self-model: past break decisions were too aggressive — reducing break tendency");
         }
       }
@@ -213,7 +247,7 @@ export function generateCandidates(w: TurnWorkspace, incumbent: {
     if (si.breakCalibration === "reluctant") {
       for (const c of out) {
         if (c.directive.learningAction === "break") {
-          c.predictedBenefit *= 1.25;
+          c.predictedBenefit *= st.reluctantBreakBoost;
           c.reasons.push("self-model: I have under-breaked before — honoring rest sooner");
         }
       }
@@ -222,7 +256,7 @@ export function generateCandidates(w: TurnWorkspace, incumbent: {
     if (si.interventionTendency === "late") {
       for (const c of out) {
         if (c.directive.learningAction === "diagnose" || (c.directive.augmentation === "llm")) {
-          c.predictedBenefit *= 1.2;
+          c.predictedBenefit *= st.lateInterventionLean;
           c.reasons.push("self-model: I have missed needed interventions before — leaning in");
         }
       }
@@ -231,7 +265,7 @@ export function generateCandidates(w: TurnWorkspace, incumbent: {
     if (si.selfErrorCount >= 3) {
       for (const c of out) {
         if (c.directive.learningAction === "teach" || c.directive.learningAction === "practice") {
-          c.predictedCost += 0.03;
+          c.predictedCost += st.cautionMargin;
           c.reasons.push("self-model: accumulated self-errors — adding caution margin");
         }
       }

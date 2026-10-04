@@ -18,7 +18,7 @@
  */
 import {
   decide, type TurnWorkspace, type ExecutiveDirective, type ExecutiveReceipt,
-  type ConstraintLimits,
+  type ConstraintLimits, type StrategyParameters,
 } from "./executive.js";
 import {
   selfPredict, detectPatterns,
@@ -122,9 +122,16 @@ export interface DevelopmentalConfig {
   /**
    * THE COUNTERFACTUAL SWITCH. When true, derived insights are injected into
    * every decision. When false, experience is still recorded (the ledger still
-   * grows — the system still HAS experiences) but never changes a decision.
+   * grows — the system still HAS experiences) but never changes a decision —
+   * adopted strategy included: the system runs factory settings.
    */
   learningEnabled: boolean;
+  /**
+   * S4: the strategy parameters this session runs under — the ADOPTED result
+   * of past strategy experiments (strategy-experiments.ts). Absent = defaults.
+   * Flows into the workspace's selfInsights so the Executive's levers read it.
+   */
+  strategy?: StrategyParameters;
 }
 
 /** The intervention horizon, in turns, for "I will intervene within N turns". */
@@ -161,9 +168,19 @@ export class DevelopmentalSession {
     // S1 — before ANY decision, the system predicts its own behavior.
     const sps = selfPredict(w.turn, w.fatigue, w.wrongStreak, w.focusConcept.mean);
     this.pending.push(...sps.map((sp) => ({ sp, turnsLeft: INTERVENTION_HORIZON })));
-    // The self-model consultation: insights (if any) enter the workspace.
-    const insights = this.config.learningEnabled ? this.insights() : null;
-    const workspace: TurnWorkspace = insights ? { ...w, selfInsights: insights } : w;
+    // The self-model consultation: insights (if any) + the adopted strategy (S4)
+    // enter the workspace. With learning disabled: factory settings, no injection.
+    const insights = this.insights();
+    let workspace: TurnWorkspace = w;
+    if (this.config.learningEnabled && (insights || this.config.strategy)) {
+      workspace = {
+        ...w,
+        selfInsights: {
+          ...(insights ?? { recurringPatterns: [], interventionTendency: "balanced", breakCalibration: "balanced", selfErrorCount: 0 }),
+          strategy: this.config.strategy,
+        },
+      };
+    }
     const { directive, receipt } = decide(workspace, incumbent, seed, limits);
     const td: TurnDecision = { directive, receipt, selfPredictions: sps, insightsUsed: insights };
     this.decisions.push(td);
