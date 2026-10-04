@@ -22,6 +22,7 @@ import type { ExecutiveDirective, TurnWorkspace } from "./executive.js";
 import { DevelopmentalSession } from "./developmental-session.js";
 import { planFromDirective, validateExperiencePlan } from "./experience-plan.js";
 import { conduct, initialState as initialConductorState, advance, type ConductorState } from "./conductor.js";
+import { composeExpression } from "./expression.js";
 
 const CONTENT = buildSeedContent();
 const MODEL = buildBeliefModel(CONTENT, DEFAULT_MEMORY_PARAMS, DEFAULT_BELIEF_PARAMS, { selfRating: 3 });
@@ -54,17 +55,20 @@ interface PolicyResult {
   receipts: number;
   answers: number;
   correct: number;
-  /* Phase 2+3 integration evidence */
+  /* Phase 2+3+4 integration evidence */
   plans: number;
   conductorSteps: number;
   wallBreaks: number;
   selfErrors: number;
   decisionsWithInsights: number;
+  utterances: number;
+  selfCorrections: number;
+  llmVoiced: number;
 }
 
-export function runDeepGate(days = 10, seed = 7331): DeepGateResult {
-  const linear = runPolicy("linear", days, seed);
-  const executive = runPolicy("executive", days, seed);
+export function runDeepGate(days = 10, seed = 7331, llmBridgeOn = false): DeepGateResult {
+  const linear = runPolicy("linear", days, seed, llmBridgeOn);
+  const executive = runPolicy("executive", days, seed, llmBridgeOn);
   const margin = executive.trueMarks - linear.trueMarks;
   const verdict = margin >= 0 ? "PASS" : "FAIL";
   return {
@@ -73,7 +77,7 @@ export function runDeepGate(days = 10, seed = 7331): DeepGateResult {
   };
 }
 
-function runPolicy(policy: "linear" | "executive", days: number, seed: number): PolicyResult {
+function runPolicy(policy: "linear" | "executive", days: number, seed: number, llmBridgeOn = false): PolicyResult {
   const st = initialState(MODEL);
   const memory = new Map<number, ReturnType<typeof newMemoryCell>>();
   const rng = makeRng(seed * 31 + (policy === "executive" ? 1 : 0));
@@ -85,10 +89,15 @@ function runPolicy(policy: "linear" | "executive", days: number, seed: number): 
   // One developmental runtime per POLICY RUN — experience persists across days.
   const session = new DevelopmentalSession({ learningEnabled: true });
   let conductorState: ConductorState = initialConductorState();
+  // Expression state [Phase 4] — density tracking, deterministic.
+  let lastTwoOutcomes: ("correct" | "wrong" | null)[] = [null, null];
+  const praiseTurns: number[] = [];
+  let lastReassuranceTurn = -10;
 
   let fatigue = 0.1;
   let breaks = 0, missedBreaks = 0, receipts = 0, answers = 0, correct = 0;
   let plans = 0, conductorSteps = 0, wallBreaks = 0, decisionsWithInsights = 0;
+  let utterances = 0, selfCorrections = 0, llmVoiced = 0;
   let wrongStreak = 0;
   let lastOutcome: "correct" | "wrong" | null = null;
   let turnCounter = 0;
@@ -161,6 +170,17 @@ function runPolicy(policy: "linear" | "executive", days: number, seed: number): 
         for (const s of steps) conductorState = advance(conductorState, steps.length, s.waitForStudent);
         plans++; conductorSteps += steps.length;
 
+        // THE EXPRESSION — the decision becomes experience [Phase 4, §10].
+        // Expression renders the cognitive voice around the decision; it never
+        // changes the decision (proven by the LLM OFF/ON identity gate).
+        const expr = composeExpression(
+          { directive, receipt: td.receipt, workspace: w, plan, ledger: session.ledger, insights: session.insights(), llmBridgeOn },
+          { turn: turnCounter, lastTwoOutcomes, praiseTurns, lastReassuranceTurn },
+        );
+        utterances += expr.utterances.length;
+        selfCorrections += expr.utterances.filter((u) => u.kind === "self-correction").length;
+        llmVoiced += expr.utterances.filter((u) => u.llm !== undefined).length;
+
         if (directive.learningAction === "break") {
           breaks++; breaksThisDay++;
           fatigue = Math.max(0, fatigue - 0.5);
@@ -203,6 +223,7 @@ function runPolicy(policy: "linear" | "executive", days: number, seed: number): 
         });
         wrongStreak = isCorrect ? 0 : wrongStreak + 1;
         lastOutcome = isCorrect ? "correct" : "wrong";
+        lastTwoOutcomes = [lastTwoOutcomes[1]!, lastOutcome];
       }
     }
     dayEndFatigues.push(fatigue);
@@ -232,5 +253,6 @@ function runPolicy(policy: "linear" | "executive", days: number, seed: number): 
     plans, conductorSteps, wallBreaks,
     selfErrors: session.ledger.length,
     decisionsWithInsights,
+    utterances, selfCorrections, llmVoiced,
   };
 }

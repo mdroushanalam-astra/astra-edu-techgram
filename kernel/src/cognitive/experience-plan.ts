@@ -62,9 +62,10 @@ export function validateExperiencePlan(p: ExperiencePlan): void {
     if (!p[ch]) throw new ExperiencePlanError(`ExperiencePlan ${p.id}: missing channel "${ch}"`);
   }
   if (!p.learning.action) throw new ExperiencePlanError("ExperiencePlan: learning action required");
-  if (p.evidence.requests.length === 0 && p.expression.surface === "none" && p.learning.action !== "rest") {
-    throw new ExperiencePlanError("ExperiencePlan: a non-rest plan must carry at least one evidence request or expression");
-  }
+  // [Refined at Phase 4, discovered BY the gate] The learning channel itself
+  // always carries the turn, and SILENCE is a first-class presence — so a plan
+  // with no expression surface and no evidence request is coherent (voice-only
+  // teaching, silent reflection). What is NOT coherent is an unnamed action.
 }
 
 
