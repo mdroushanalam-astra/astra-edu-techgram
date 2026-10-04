@@ -67,6 +67,17 @@
 
 ---
 
+## ROWS 43–46 [added 2026-10-04, the cognitive-runtime era]
+
+| # | Idea | Status today | Why deferred / changed | **Reopen trigger** |
+|---|---|---|---|---|
+| 43 | Belief maintenance for advanced students (staleness-aware targeting) | ✅ DONE [ADR-046] | Fired by the Layer Study finding (selective observation → stale maps) | — |
+| 44 | Multi-seed sweeps of the experiment rigs | ⬜ PENDING (rigs run ~0.25 s each) | Single-seed per scenario is honest but thin | **Trigger:** before any public claim or pilot Gate-3 — run 5–10 seeds × all scenarios |
+| 45 | The rendered product demo of the Phase 6 arc | ⬜ PENDING | The kernel demo (demo6.ts) is the instrument; the pretty renderer rides the frontend | **Trigger:** founder go on the demo render (rides screens 9–15) |
+| 46 | Spiky-knowledge belief maintenance residual (t09/t10) | ⬜ PARTIAL [ADR-046] | The staleness boost helped; the accuracy floor still binds on half-mastered maps | **Trigger:** a layer-study re-run showing the t09/t10 inversions closed |
+
+---
+
 ## RULES
 1. Rows move only with evidence (pilot data, measured triggers) — never ambition.
 2. A row that fires opens a **new ADR** before any build.

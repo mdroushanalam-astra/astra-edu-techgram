@@ -11,6 +11,8 @@
 
 **Sharpened star [2026-10-02, external review]:** the brain is not "a brain that knows everything" — it is *a brain that knows what it knows, knows what it does not know, knows what evidence would reduce that uncertainty, and knows what action is worth taking despite uncertainty.* The real moat framing: **decision quality per unit of evidence** — from 20 answers, System B (honest bands + unknowns + chosen-next-questions-with-reasons) is more intelligent than System A (fake-precise percentages). That is Techgram. The working formula is **STRONG PRIOR + ACTIVE SENSING + SMALL EVIDENCE + UNCERTAINTY MODEL + DECISION OPTIMIZER → USEFUL DECISION** — never "no data → magical intelligence."
 
+**Status [2026-10-04]:** this is no longer only doctrine — the cognitive runtime EXISTS and is gate-earned [ADR-035..046]: it decides, explains why, predicts itself, investigates itself, improves itself by tested experiments, expresses itself with provenance under an ethics wall, runs any curriculum through the World Adapter, and every layer has been traced in real time and measured by ablation. Evidence: `EXPERIMENTS_AND_TESTS.md` §17–§23; reports: `PHASE5_EXPERIMENT_REPORT.md`, `LAYER_INTERACTION_REPORT.md`. All evidence SIMULATED-world — real-student efficacy remains UNKNOWN UNTIL PILOT.
+
 Brand line: **"the learning intelligence system."** Never "metaverse." Never "AI tutor" as the identity — the tutor is a feature.
 
 ---

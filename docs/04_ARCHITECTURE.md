@@ -319,4 +319,19 @@ techgram/
 - Fairness: calibration checked across language/device/region groups.
 - Content correction flow pauses a flagged atom immediately; correction is an event, auditable like everything else.
 
-*Spec complete. Sequence, dates, and gates: `05_ROADMAP.md`.*
+---
+
+## 11. SYSTEM B — THE COGNITIVE RUNTIME [ADR-035..046, built 2026-10-04]
+The frozen brain above (System A) is untouched — behavioral invariance is test-enforced (shadow-belief deep-compare in every Layer Study scenario; Phase 0 purity tests). Above it sits the cognitive runtime:
+- `cognitive/executive.ts` — C1: workspace → candidates → constraints (contract + ethics) → consequence-aware select → receipt. Owns StrategyParameters (its only self-tunables) + proportional self-model levers + the live calibration channel [ADR-041/046].
+- `cognitive/self-development.ts` — S0–S4: genesis, self-prediction, the Self-Error Ledger, VoI self-inquiry, strategy experiments, the phase2 gate.
+- `cognitive/developmental-session.ts` — THE COMPOSED LOOP: S1 predict before every decision → decide with insights → S2 structural judging → ledger → deriveSelfInsights → next decisions. Counterfactual switch: learningEnabled:false.
+- `cognitive/strategy-experiments.ts` — proposal → matched A/B → keep/reject on TRUE learning → adoption into future sessions.
+- `cognitive/expression.ts` — typed utterances under the claim-provenance law; the ethics wall enforced AT THE VOICE; why-this + earned self-correction; density control; board payloads; the bounded LLM bridge.
+- `cognitive/conductor.ts` + `experience-plan.ts` — the seam and the execution steps.
+- `cognitive/targeting.ts` — staleness-aware need [ADR-046]: long-untouched concepts get a bounded maintenance boost.
+- `adapter/world-adapter.ts` + `adapter/worlds.ts` — THE UCS BOUNDARY: worlds (UPSC Polity, CBSE-8, synthetic), 10 student archetypes, prior weights (the Executive may aim with) strictly apart from external weights (the evaluator — brain-inaccessible).
+
+**The laws:** the Executive decides → the Conductor executes → Presence expresses → the LLM voices → the UI renders (never the reverse) · no self-update without evidence (the counterfactual switch is the standing proof) · anti-Goodhart (the evaluator is never consulted by the brain — ablation-proven) · every layer traced and ablation-measured [ADR-045].
+
+*Spec complete. Cognitive-runtime sequence: `10_MASTER_ROADMAP.md` (Phases 0–6 COMPLETE). V1-A product sequence: `05_ROADMAP.md`.*

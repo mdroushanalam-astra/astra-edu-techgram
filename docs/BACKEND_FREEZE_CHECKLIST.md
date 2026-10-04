@@ -67,3 +67,10 @@
 - **Founder directive (2026-10-03):** "go for a complete audit and test all probes … then brain lab and then stop at inspection gate for design of frontend" — this document executes that directive.
 - **Audited & written by:** GLM-5.3-Flash (Z.ai) via ZCode, agentic runtime; the findings above are reproducible from this repo (`npm test`, `npx tsx scripts/freeze_probes.mts`).
 - **Human approval of the freeze:** the Founder, by directing the freeze and adopting ADR-031.
+
+---
+
+## 6. ADDENDUM [2026-10-04]: THE FREEZE HELD — AND WAS WELDED SHUT
+- The freeze HELD through the entire frontend build (v2 → v3 → v4) with ZERO kernel changes, and through the construction of the COGNITIVE RUNTIME above the frozen brain: frozen-organ invariance is test-enforced (Phase 0 purity deep-compares; shadow-belief identity in every one of the 24 Layer Study scenarios and the Phase 5 structural scenarios) [ADR-045/043].
+- The founder explicitly directed the cognitive RUNTIME (System B) above the frozen brain [the unfreeze directive; ADR-035..046] — that machinery lives ABOVE System A, never inside it. System A remains frozen exactly as signed below.
+- Current standing: 291 tests, including the Phase 5 thirty-scenario rig, the 24-situation layer study, the demo arc, and the strengthening gates — all permanent CI gates. The release ladder below is unchanged; the next external gate remains the content floor, then Wave-2, then the pilot.

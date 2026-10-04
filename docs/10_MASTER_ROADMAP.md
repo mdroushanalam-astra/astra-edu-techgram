@@ -1,5 +1,10 @@
 # TECHGRAM — CORRECTED MASTER ROADMAP
 
+> **STATUS [2026-10-04]: PHASES 0–6 ALL COMPLETE AT KERNEL LEVEL, EACH WITH ITS GATE EARNED.**
+> Phase 0 foundation [ADR-038/040 evidence, commit 5270d24] · Phase 1 deep gate [EXPERIMENTS §17: executive 12 vs linear 10 on 12/12 seeds, belief error halved] · Phase 2 loop CLOSED with counterfactual proof [ADR-040] · Phase 3 body integrated (Conductor executes every decision in the gate flow) · Phase 4 Expression [ADR-042: LLM OFF/ON byte-identical, ethics wall at the voice] · Phase 5 World Adapter + THE THIRTY [ADR-043: 30/30 scenarios, 30W/0L, mean +3.13] · Phase 6 demo [ADR-044: the arc BY the machinery + perturbation counterfactuals] — then the Layer Interaction Study [ADR-045: 24 students, influence by ablation] and the Strengthening Pass [ADR-046: staleness targeting closes the advanced-student inversions; proportional self-model; live calibration channel].
+> Evidence: EXPERIMENTS_AND_TESTS.md §17–§23 · reports: PHASE5_EXPERIMENT_REPORT.md, LAYER_INTERACTION_REPORT.md · 291 tests, all rigs permanent CI gates.
+> **NEXT: Phase 7 (the real human pilot) — gated on the founder, the content floor, and Wave-2.**
+
 ## Frozen Techgram Brain → Universal Cognitive Engine → Techgram Embodiment → Pilot
 
 ### Status: THE authoritative roadmap — replaces the conflated C/G/S consolidation (Entry 38). Adopted verbatim-in-structure from the founder's corrected roadmap document (2026-10-04).
