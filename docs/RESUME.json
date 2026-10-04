@@ -1,13 +1,13 @@
 {
   "project": "Techgram / Astra Edu — Student Intelligence Kernel",
-  "updated_at": "2026-10-04T16:30:00+05:30",
+  "updated_at": "2026-10-04T17:00:00+05:30",
   "session_model": "GLM-5.3-Flash (Z.ai) via ZCode",
-  "kernel_version": "0.1.0+ (BRAIN FREEZE v0.1 + cognitive runtime ADR-035..042)",
-  "position": "PHASE 4 EXPRESSION COMPLETE [ADR-042, Journal Entry 44, commit 61ff2ec]. The kernel now SPEAKS under the law (Executive decides -> Conductor executes -> Presence expresses -> LLM voices -> UI renders, never the reverse): cognitive/expression.ts — typed utterances under the claim-provenance law (validateUtterance throws on missing evidence), the ethics wall enforced AT THE VOICE (guilt/urgency phrasings throw), the microscope (why-this with the receipt's reasons AND what was given up; earned self-correction from real ledger patterns, all four tendencies, zero machinery IDs), praise hybrid (c) earned by two observed corrects, density control (rotation, no repeated reassurance, breaks = one line, silence = zero utterances), board payloads as structured references, prosody with the interruption non-negotiable, and the LLM Bridge bounded to re-voicing (basis = the utterance's evidence; deterministic text always the fallback). THE PHASE 4 GATE PASSED (22 tests): LLM OFF vs LLM ON — identical text/evidence at the utterance, BYTE-IDENTICAL deep gate at the session (12 vs 10 true marks unchanged); purity proven (expression mutates nothing it is given). The gate also caught a real seam bug: the ExperiencePlan rule 'non-rest must carry evidence or expression' rejected silent/voice-only plans — amended (silence is a first-class presence; the learning channel always carries the turn). Phases 0-4 all complete at kernel level with gates earned. Deep gate unchanged: executive 12 vs linear 10 TRUE MARKS 12/12 seeds. 259 tests (kernel 250 + web 9), typecheck clean, docs-integrity green. NEXT per roadmap: Phase 5 (Techgram World Adapter) — GATED on the founder's direction. All evidence SIMULATED-world.",
+  "kernel_version": "0.1.0+ (BRAIN FREEZE v0.1 + cognitive runtime ADR-035..043)",
+  "position": "PHASE 5 COMPLETE [ADR-043, Journal Entry 45, commit 57bc1cb]: THE TECHGRAM WORLD ADAPTER + THE THIRTY-SCENARIO EXPERIMENT. The UCS boundary is real: src/adapter/ owns worlds (curriculum, prerequisites, prior weights, learning rules, 10 student archetypes); cognitive/ stays universal — concept names cross as opaque strings; priorWeights (targeting) vs externalWeights (THE EXTERNAL EVALUATOR) strictly enforced apart. Worlds: real UPSC Polity + real CBSE-8 (from the frozen seeds) + synthetic chain/flat/heavy/sparse. THE THIRTY: 30/30 scenarios PASS — 10 archetypes on Polity, 7 cross-world, 5 adversarial (30% noise, skipped days, interruptions every turn), 8 structural proofs. Executive vs matched linear: 30 wins / 0 ties / 0 losses, mean +3.13 true marks (heavy-tail +11 — the edge tracks the mechanism); belief error ~half of linear's everywhere. Structural laws held everywhere: replay byte-identical, frozen-organ shadow-belief identical, anti-Goodhart isolation (flip evaluator → score changes, decisions never), LLM OFF/ON identity, developmental divergence 13/13 testable, 1925/1925 utterances provenance-valid, S4 veto enforced in-run. The rig is a PERMANENT regression gate (test/phase5.test.ts). Defects caught by the experiment itself: the evaluator flip was a no-op on uniform weights (fixed w/ rank-decay); minimalContent needs the full ExamSpec or observe() goes NaN. Phases 0-5 all complete at kernel level. FULL REPORT (simple + technical): docs/PHASE5_EXPERIMENT_REPORT.md; raw data: docs/PHASE5_EXPERIMENT_RESULTS.json. NEXT per roadmap: Phase 6 (the demo) — GATED on the founder's direction. 271 tests (kernel 262 + web 9), typecheck clean. All evidence SIMULATED-world; efficacy UNKNOWN UNTIL PILOT.",
   "tests": {
-    "passed": 259,
+    "passed": 271,
     "failed": 0,
-    "split": "kernel 250 in 27 files + frontend contracts 9",
+    "split": "kernel 262 in 28 files + frontend contracts 9",
     "typecheck": "clean",
     "docs_integrity": "green"
   },
@@ -15,11 +15,11 @@
     "docs/10_MASTER_ROADMAP.md",
     "docs/BACKEND_FREEZE_CHECKLIST.md",
     "docs/CURRENT_STATE.md",
-    "docs/PROJECT_JOURNAL.md (Entries 42-44 = loop closure + S4 + Phase 4 expression)",
-    "docs/DECISIONS.md (ADR-040..042 = the standing decisions)",
-    "docs/EXPERIMENTS_AND_TESTS.md (§17-§19 = the gate + epoch + expression numbers)",
-    "docs/00_CHARTER.md",
-    "docs/04_ARCHITECTURE.md"
+    "docs/PHASE5_EXPERIMENT_REPORT.md (the thirty-scenario report, simple + technical)",
+    "docs/PROJECT_JOURNAL.md (Entries 42-45 = loop closure + S4 + expression + the adapter)",
+    "docs/DECISIONS.md (ADR-040..043 = the standing decisions)",
+    "docs/EXPERIMENTS_AND_TESTS.md (§17-§20 = the campaign numbers)",
+    "docs/00_CHARTER.md"
   ],
   "commands": {
     "test": "npm test",
@@ -28,10 +28,10 @@
     "brainlab": "npm run brainlab"
   },
   "next_actions": [
-    "PHASE 5 — TECHGRAM WORLD ADAPTER (founder-gated, next per roadmap §11): the UCS boundary — curriculum, sensors, actions, outcomes as config; the cognitive engine must not know UPSC or geomorphology exists; Polity + CBSE Class 8 adapters prove goal-agnosticism at the runtime layer.",
-    "FRONTEND v4 (parallel, founder-directed): screens 9–11 session polish + teacher wrap-up screen → 13–15 → motion pass → Real-World Layer. Screens 1–8 + metrics debrief DONE. The kernel's expression.ts now provides the utterance/prosody/presence contracts the frontend renders.",
+    "PHASE 6 — THE DEMO (founder-gated, next per roadmap §12): the 3-minute show — OBSERVE → REPRESENT → PREDICT → DECIDE → ACT → OBSERVE OUTCOME → DETECT ERROR → INVESTIGATE → UPDATE → ADAPT, with receipts underneath; let the viewer change evidence/uncertainty/goal and watch the decision change.",
+    "HARDENING: multi-seed sweep per Phase 5 scenario (the rig runs in ~0.25 s; 5-10 seeds x 30 is cheap).",
+    "FRONTEND v4 (parallel, founder-directed): screens 9–11 session polish + teacher wrap-up screen → 13–15 → motion pass → Real-World Layer. Screens 1–8 + metrics debrief DONE.",
     "CONTENT SPRINT (parallel, founder+mentor hours = the true critical path): items 105→500, atoms 104→150.",
-    "PHASE 6 PREP (after Phase 5): the 3-minute demo — knows nothing → hypothesis → tests → I was wrong → strategy change → what I learned + what I am still uncertain about.",
     "Deploy decision (Gate-2) + Wave-2 (gated) + limited public beta (G3, pre-registered) per docs/10_MASTER_ROADMAP.md Phase 5–8.",
     "DO NOT resurrect banned scope; do not merge System A (frozen brain) with System B (cognitive runtime); Level-3 (representation) self-modification stays on the not-built list; the LLM may never decide."
   ],
@@ -43,6 +43,7 @@
     "DEVELOPMENTAL_GATE_phase2": "counterfactual-proven: learningEnabled off vs on → same ledger, divergent decisions; conductor integrated — CLOSED [ADR-040]",
     "S4_GATE": "live strategy experiments: proposal → matched A/B → KEEP (+0.013) / REJECT (−0.018, same proposal, harder world) → adopted strategy changes session-2 decisions; rejected = identical; phase2Gate PASS [EXPERIMENTS §18]",
     "PHASE4_GATE": "LLM OFF vs LLM ON — identical utterance text/evidence at the utterance level, BYTE-IDENTICAL deep gate at the session; claim-provenance + ethics wall enforced at the voice; purity proven [EXPERIMENTS §19]",
+    "PHASE5_GATE": "THE THIRTY: 30/30 scenarios; executive 30 wins/0 losses vs matched linear, mean +3.13; UCS boundary proven (domain-opaque engine, evaluator isolation); replay/frozen/anti-Goodhart/LLM-identity/divergence all green; permanent CI gate [EXPERIMENTS §20]",
     "G3_pilot": "pending (20-30 aspirants, week-3 retention >= 40%)"
   },
   "hard_invariants": [

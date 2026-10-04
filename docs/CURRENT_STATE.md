@@ -4,7 +4,7 @@
 > **Read me alone:** refreshed after every session; stands on its own. Non-technical readers: `FOUNDER_GUIDE.md` tells the same story in plain language.
 > **Integrity:** all counts in this file are backed by `COUNTERS.json` (generated from the code by `npm run counters`) and enforced by `kernel/test/docs_integrity.test.ts`. If this page contradicts reality, the docs-integrity test fails — fix reality or the doc, never silently.
 
-**Snapshot:** 2026-10-04, ~16:25 (local) · Kernel 0.1.0+ · **259/259 tests green (kernel 250 in 27 files + frontend contracts 9), typecheck clean** · Phase: **PHASE 4 EXPRESSION COMPLETE [ADR-042, Journal Entry 44] — the kernel now SPEAKS: typed utterances under the claim-provenance law, the ethics wall enforced at the voice, earned self-correction ("I was about to step in again — your turn first"), evidence-carrying praise, density control, silence first-class, board payloads, and the LLM Bridge bounded to re-voicing — with THE PHASE 4 GATE passed: LLM OFF vs LLM ON produces a byte-identical deep gate (the bridge cannot make the brain smarter). Phases 0–4 all complete at kernel level, gates earned. NEXT per roadmap: Phase 5 (Techgram World Adapter) — gated on the founder's direction; frontend v4 screens 9–15 in parallel**
+**Snapshot:** 2026-10-04, ~16:55 (local) · Kernel 0.1.0+ · **271/271 tests green (kernel 262 in 28 files + frontend contracts 9), typecheck clean** · Phase: **PHASE 5 COMPLETE [ADR-043, Journal Entry 45] — THE WORLD ADAPTER + THE THIRTY-SCENARIO EXPERIMENT: the cognitive runtime is world-blind by construction (the adapter owns curriculum/sensors/archetypes; concept names cross as opaque strings; two weight systems enforced — prior vs external evaluator). THE THIRTY: 30/30 scenarios PASS — 10 student archetypes on UPSC Polity, 7 cross-world (real CBSE + synthetic), 5 adversarial, 8 structural proofs; executive vs matched linear: 30 wins / 0 ties / 0 losses, mean +3.13 true marks; every structural law held (replay byte-identical, frozen organs identical, anti-Goodhart, LLM identity, divergence, provenance 1925/1925). Full report: docs/PHASE5_EXPERIMENT_REPORT.md (simple + technical). NEXT per roadmap: Phase 6 (the demo) — gated on the founder's direction**
 
 ---
 
@@ -20,6 +20,7 @@ System A (the frozen brain) is untouched and frozen: envelope → events → bel
 | **S4 IN THE LOOP** (ledger pattern → falsifiable proposal → matched A/B → keep/reject on true learning → ADOPTED strategy changes future decisions; rejected = identical traces; ties reject) | ✅ INTEGRATION-TESTED [ADR-041] | `test/strategy-experiments.test.ts` (13 tests) |
 | **StrategyParameters** (the Executive's own tunables, explicit + versioned; frozen-organ params untouchable) | ✅ live | `cognitive/executive.ts` + S4 tests |
 | **PHASE 4 EXPRESSION** (typed utterances w/ claim-provenance, ethics wall at the voice, earned self-correction, why-this microscope, density control, silence first-class, board payloads, LLM Bridge bounded) | ✅ INTEGRATION-TESTED [ADR-042] | `test/expression.test.ts` (22) — LLM OFF/ON identity gate |
+| **PHASE 5 WORLD ADAPTER + THE THIRTY** (UCS boundary; 10 archetypes; real CBSE + synthetic worlds; adversarial; structural proofs; 30/30 PASS, 30 wins/0 losses, mean +3.13) | ✅ INTEGRATION-TESTED [ADR-043] | `test/phase5.test.ts` (12, permanent CI gate) + `docs/PHASE5_EXPERIMENT_REPORT.md` |
 | **Self-model levers in the Executive** (early/aggressive/reluctant/late/caution — each changes candidate generation or scoring) | ✅ live | `cognitive/executive.ts` + counterfactual test |
 | **DEEP GATE: executive beats linear on TRUE MARKS** — 12 vs 10, 12/12 seeds +1..+3; belief error 0.20 vs 0.40; accuracy 53% vs 20% | ✅ MATCHED-BASELINE-VALIDATED (simulated) | `cognitive/deep-gate.ts` + counterfactual test |
 | **Conductor in a real session flow** (directive → ExperiencePlan → validate → conduct → advance; 80 plans/390 steps per gate run) | ✅ INTEGRATION-TESTED | `deep-gate.ts` + counterfactual test |
@@ -54,12 +55,13 @@ System A (the frozen brain) is untouched and frozen: envelope → events → bel
 ## 4. Next actions (ordered)
 
 1. ~~PHASE 4 — EXPRESSION~~ **COMPLETE [ADR-042, commit 61ff2ec]** at kernel level: expression.ts, the LLM OFF/ON identity gate, deep-gate integration, the seam refinement (silence first-class).
-2. **PHASE 5 — TECHGRAM WORLD ADAPTER (founder-gated):** the UCS boundary — curriculum/sensors/actions/outcomes as config; the cognitive engine must not know UPSC or geomorphology exists.
-3. **Frontend v4 (parallel, founder-directed):** screens 9–11 session polish + teacher wrap-up → 13–15 → motion pass → Real-World Layer.
-4. **Content sprint (parallel, Founder + mentor):** items 105→500, atoms 104→150 — **still the true critical path.**
-5. **Exercise the S4 harness against sealed hidden worlds** before any public claim (ADR-016 claim discipline).
-6. **Wave-2 (gated):** persistence → sync/recompute → tamper test → offline chaos → student PWA.
-7. **Limited public beta:** 20–30 aspirants, 3+ weeks, 4-layer measurement (Learning / Retention / Decision quality / **Agency** [ADR-029]) — pre-registered G3 criteria, Founder recruits.
+2. ~~PHASE 5 — TECHGRAM WORLD ADAPTER~~ **COMPLETE [ADR-043, commit 57bc1cb]** + THE THIRTY (30/30 scenarios, 30 wins/0 losses, mean +3.13) — `docs/PHASE5_EXPERIMENT_REPORT.md`.
+3. **PHASE 6 — THE DEMO (founder-gated):** the 3-minute show — knows nothing → hypothesis → tested → "I was wrong" → strategy change → what it learned + what it is still uncertain about.
+4. **Multi-seed sweep** per Phase 5 scenario (the rig runs in ~0.25 s; 5–10 seeds × 30 is cheap) — next hardening step.
+5. **Frontend v4 (parallel, founder-directed):** screens 9–11 session polish + teacher wrap-up → 13–15 → motion pass → Real-World Layer.
+6. **Content sprint (parallel, Founder + mentor):** items 105→500, atoms 104→150 — **still the true critical path.**
+7. **Wave-2 (gated):** persistence → sync/recompute → tamper test → offline chaos → student PWA.
+8. **Limited public beta:** 20–30 aspirants, 3+ weeks, 4-layer measurement (Learning / Retention / Decision quality / **Agency** [ADR-029]) — pre-registered G3 criteria, Founder recruits.
 
 ## 5. Risks & standing uncertainty register [adopted 2026-10-02]
 
@@ -74,7 +76,7 @@ Also: content-verification throughput is the schedule risk; friendly-world plann
 ## 6. How to run / verify
 
 ```
-npm test                        # 259 tests (kernel 250 + frontend contracts 9) incl. G0 four-worlds + chaos injection + docs-integrity gate + the loop-closure counterfactual
+npm test                        # 271 tests (kernel 262 + frontend contracts 9) incl. the 30-scenario Phase 5 rig incl. G0 four-worlds + chaos injection + docs-integrity gate + the loop-closure counterfactual
 npx tsx kernel/src/cognitive/deep-gate.ts   # (import runDeepGate) the matched-baseline gate — see EXPERIMENTS §17
 npm run counters                # regenerate docs/COUNTERS.json from the code
 npm run brainlab                # CLI demo (5 acts)

@@ -414,3 +414,28 @@ The SAME proposal, two honest worlds: the evaluator keeps what helps and vetoes 
 **Evidence levels:** Phase 4 expression NOT BUILT → **INTEGRATION-TESTED** (kernel level; the product UI rendering of these utterances rides the adapter in Phase 5 + frontend v4) · LLM boundary: enforced by construction and by the identity gate · still SIMULATED-world.
 
 **Suite:** 27 files / **250 kernel tests green** (+9 web = 259) · typecheck clean.
+
+---
+
+## §20 — CAMPAIGN: PHASE 5 — THE WORLD ADAPTER + THE THIRTY-SCENARIO EXPERIMENT [ADR-043]
+**When:** 2026-10-04, ~16:20–16:45 · **Model:** GLM-5.3-Flash (Z.ai) via ZCode · directed by the Founder · **Commits:** 57bc1cb (+ this docs commit) · **Full report: `docs/PHASE5_EXPERIMENT_REPORT.md` · Raw data: `docs/PHASE5_EXPERIMENT_RESULTS.json`**
+
+**Purpose:** the founder opened Phase 5 ("go for phase 5 than a rigorous experiment and simulation of 30 different scenarios and test all the structure"). The roadmap §11 contract: the cognitive engine must not know that "geomorphology" or "UPSC" exists — the Techgram World Adapter tells it what those things mean.
+
+**Built:** `src/adapter/world-adapter.ts` (the UCS boundary: WorldConfig + priorWeights vs externalWeights strictly apart + 10 student archetypes + satisfies the DomainAdapter contract) · `src/adapter/worlds.ts` (UPSC Polity + CBSE-8 from the frozen seeds + 4 synthetic worlds + minimalContent skeletons) · `src/lab/phase5.ts` (the thirty-scenario rig with structural proofs).
+
+**RESULTS — 30/30 PASS:**
+| Family | Scenarios | Passed | Notable |
+|---|---|---|---|
+| Archetypes on UPSC Polity (10 student types) | 10 | 10 | margins +1..+3 |
+| Cross-world (CBSE ×3 + synthetic ×4) | 7 | 7 | heavy-tailed exam: **+11** (targeting pays where weight concentrates) |
+| Adversarial (noise/skips/interruptions/combined) | 5 | 5 | 512 interruptions absorbed; loop intact |
+| Structural proofs | 8 | 8 | replay byte-identical · frozen organs identical · anti-Goodhart holds · LLM identity · divergence · S4 veto in-run |
+
+**Aggregate:** Executive vs matched linear on TRUE MARKS: **30 wins / 0 ties / 0 losses**, mean margin **+3.13** (median +3, min +1, max +11). Belief error ≈ half of linear's across families. Totals: 1580 self-errors · 1962/2024 decisions (97%) self-model-informed · 2024 plans / 9811 conductor steps · **1925 utterances, 100% provenance-valid** · 400 self-corrections voiced · 512 interruptions handled. Developmental divergence (learning off → different decisions) in 13/13 testable scenarios (4 honestly `"no-errors"` where the ledger never grew).
+
+**Defects found by the experiment itself (both fixed):** (1) the anti-Goodhart evaluator flip was a NO-OP on uniform weights (max+min−v) — scenarios 26/27 correctly FAILED and named it; replaced with a rank-decay flip that always changes values. (2) minimalContent's exam stub lacked `guessFloor` → the frozen `observe()` degraded to NaN — any world skeleton must carry the full exam spec. A check that catches its own rig is the rig working.
+
+**Evidence levels:** runtime-layer goal-agnosticism NOT DEMONSTRATED → **INTEGRATION-TESTED** (the rig is also a permanent CI regression gate, `test/phase5.test.ts`, 12 tests, ~0.25 s) · cross-world matched-baseline superiority → **MATCHED-BASELINE-VALIDATED (simulated)**. Real-student efficacy remains UNKNOWN UNTIL PILOT.
+
+**Threats to validity (honest):** simulated worlds with declared constants; single-seed per scenario (multi-seed sweep = next hardening); the linear baseline is the matched floor, not a strong teacher; rare paths (llm-augmented directives, in-run adoption) under-exercised here — their dedicated gates (§18–§19) remain their proof.
