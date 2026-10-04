@@ -4,7 +4,7 @@
 > **Read me alone:** refreshed after every session; stands on its own. Non-technical readers: `FOUNDER_GUIDE.md` tells the same story in plain language.
 > **Integrity:** all counts in this file are backed by `COUNTERS.json` (generated from the code by `npm run counters`) and enforced by `kernel/test/docs_integrity.test.ts`. If this page contradicts reality, the docs-integrity test fails — fix reality or the doc, never silently.
 
-**Snapshot:** 2026-10-04, ~16:55 (local) · Kernel 0.1.0+ · **271/271 tests green (kernel 262 in 28 files + frontend contracts 9), typecheck clean** · Phase: **PHASE 5 COMPLETE [ADR-043, Journal Entry 45] — THE WORLD ADAPTER + THE THIRTY-SCENARIO EXPERIMENT: the cognitive runtime is world-blind by construction (the adapter owns curriculum/sensors/archetypes; concept names cross as opaque strings; two weight systems enforced — prior vs external evaluator). THE THIRTY: 30/30 scenarios PASS — 10 student archetypes on UPSC Polity, 7 cross-world (real CBSE + synthetic), 5 adversarial, 8 structural proofs; executive vs matched linear: 30 wins / 0 ties / 0 losses, mean +3.13 true marks; every structural law held (replay byte-identical, frozen organs identical, anti-Goodhart, LLM identity, divergence, provenance 1925/1925). Full report: docs/PHASE5_EXPERIMENT_REPORT.md (simple + technical). NEXT per roadmap: Phase 6 (the demo) — gated on the founder's direction**
+**Snapshot:** 2026-10-04, ~17:20 (local) · Kernel 0.1.0+ · **282/282 tests green (kernel 273 in 30 files + frontend contracts 9), typecheck clean** · Phase: **PHASE 6 DEMO COMPLETE [ADR-044] + THE LAYER INTERACTION STUDY [ADR-045, Journal Entries 46-47] — the 3-minute arc runs BY the machinery (hypothesis → tested → wrong → PROVEN divergence from a no-learning twin → learned/uncertain) with 6 one-input perturbations showing the mechanism; 24 real-time student situations (1,152 turns) traced layer-by-layer with influence measured by ABLATION: executive 84.6% of decisions, belief-aiming 82.9% (−0.42 marks), wall 15.4% (−0.71; 65% for exam-panic), self-model levers 0% in-regime (honest — causal role proven in S4 gate); executive 23W/1T/0L vs linear. Reports: docs/LAYER_INTERACTION_REPORT.md + docs/PHASE5_EXPERIMENT_REPORT.md. Phases 0-6 COMPLETE at kernel level. NEXT: multi-seed hardening + rendered product demo + content sprint — real-student pilot remains the final gate
 
 ---
 
@@ -21,6 +21,7 @@ System A (the frozen brain) is untouched and frozen: envelope → events → bel
 | **StrategyParameters** (the Executive's own tunables, explicit + versioned; frozen-organ params untouchable) | ✅ live | `cognitive/executive.ts` + S4 tests |
 | **PHASE 4 EXPRESSION** (typed utterances w/ claim-provenance, ethics wall at the voice, earned self-correction, why-this microscope, density control, silence first-class, board payloads, LLM Bridge bounded) | ✅ INTEGRATION-TESTED [ADR-042] | `test/expression.test.ts` (22) — LLM OFF/ON identity gate |
 | **PHASE 5 WORLD ADAPTER + THE THIRTY** (UCS boundary; 10 archetypes; real CBSE + synthetic worlds; adversarial; structural proofs; 30/30 PASS, 30 wins/0 losses, mean +3.13) | ✅ INTEGRATION-TESTED [ADR-043] | `test/phase5.test.ts` (12, permanent CI gate) + `docs/PHASE5_EXPERIMENT_REPORT.md` |
+| **PHASE 6 DEMO + LAYER STUDY** (the 3-min arc BY the machinery w/ perturbation counterfactuals; 24 students, 1,152 turns traced; influence by ablation: executive 84.6% / belief 82.9% / wall 15.4% / self-model 0% in-regime) | ✅ INTEGRATION-TESTED [ADR-044/045] | `test/demo6.test.ts` + `test/layer-study.test.ts` + `docs/LAYER_INTERACTION_REPORT.md` |
 | **Self-model levers in the Executive** (early/aggressive/reluctant/late/caution — each changes candidate generation or scoring) | ✅ live | `cognitive/executive.ts` + counterfactual test |
 | **DEEP GATE: executive beats linear on TRUE MARKS** — 12 vs 10, 12/12 seeds +1..+3; belief error 0.20 vs 0.40; accuracy 53% vs 20% | ✅ MATCHED-BASELINE-VALIDATED (simulated) | `cognitive/deep-gate.ts` + counterfactual test |
 | **Conductor in a real session flow** (directive → ExperiencePlan → validate → conduct → advance; 80 plans/390 steps per gate run) | ✅ INTEGRATION-TESTED | `deep-gate.ts` + counterfactual test |
@@ -76,7 +77,7 @@ Also: content-verification throughput is the schedule risk; friendly-world plann
 ## 6. How to run / verify
 
 ```
-npm test                        # 271 tests (kernel 262 + frontend contracts 9) incl. the 30-scenario Phase 5 rig incl. G0 four-worlds + chaos injection + docs-integrity gate + the loop-closure counterfactual
+npm test                        # 282 tests (kernel 273 + frontend contracts 9) incl. the Phase 5 rig + the layer study + the demo arc incl. G0 four-worlds + chaos injection + docs-integrity gate + the loop-closure counterfactual
 npx tsx kernel/src/cognitive/deep-gate.ts   # (import runDeepGate) the matched-baseline gate — see EXPERIMENTS §17
 npm run counters                # regenerate docs/COUNTERS.json from the code
 npm run brainlab                # CLI demo (5 acts)

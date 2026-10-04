@@ -439,3 +439,33 @@ The SAME proposal, two honest worlds: the evaluator keeps what helps and vetoes 
 **Evidence levels:** runtime-layer goal-agnosticism NOT DEMONSTRATED → **INTEGRATION-TESTED** (the rig is also a permanent CI regression gate, `test/phase5.test.ts`, 12 tests, ~0.25 s) · cross-world matched-baseline superiority → **MATCHED-BASELINE-VALIDATED (simulated)**. Real-student efficacy remains UNKNOWN UNTIL PILOT.
 
 **Threats to validity (honest):** simulated worlds with declared constants; single-seed per scenario (multi-seed sweep = next hardening); the linear baseline is the matched floor, not a strong teacher; rare paths (llm-augmented directives, in-run adoption) under-exercised here — their dedicated gates (§18–§19) remain their proof.
+
+---
+
+## §21 — CAMPAIGN: PHASE 6 — THE DEMO ARC [ADR-044]
+**When:** 2026-10-04, ~16:35–16:45 · **Model:** GLM-5.3-Flash (Z.ai) via ZCode · directed by the Founder · **Commits:** b7fdbbe
+
+**The arc (demo6.ts, on the real UPSC Polity world):** minute 1 — "everything is grey", hypothesis stated with receipt `exec_t0_s606001`, confidence 74%; minute 2 — "I predict my confidence is low" → the student delivered a clean answer → **I was wrong, recorded** → and from turn N the engine's decisions DIVERGE from a twin that cannot learn (proof, not narration); minute 3 — learned about you (top-3 belief shifts), learned about myself (tendencies from the ledger), still uncertain (the honest grey list). Six viewer perturbations: one-answer-flip → candidate pool reshapes (reflect appears); fatigue 0.4→0.9 → **break appears**; frustration → **switchTopic appears**; self-knowledge injected → **diagnose appears**; streak heals → **LLM option withdraws**; time-budget cut → no flip at the probe (honest). 5/6 changed with the mechanism visible. The arc runs unchanged on CBSE.
+
+**Gate:** `test/demo6.test.ts` (5 tests). Evidence level: INTEGRATION-TESTED (kernel instrument; the rendered product demo rides the frontend).
+
+---
+
+## §22 — CAMPAIGN: THE LAYER INTERACTION STUDY [ADR-045]
+**When:** 2026-10-04, ~16:45–17:10 · **Model:** GLM-5.3-Flash (Z.ai) via ZCode · directed by the Founder · **Commits:** b7fdbbe + this commit · **Full report: `docs/LAYER_INTERACTION_REPORT.md` · Raw data: `docs/LAYER_STUDY_RESULTS.json`**
+
+**Design:** 24 student situations (mindset × knowledge-shape × behaviour; incl. chaos combos and 2 CBSE boundary checks) × 6 days × 8 turns = **1,152 turns**, per-turn per-layer traces + five run configurations per situation (full / no-self-model / linear / no-wall / belief-blind) → influence = fraction of (directive, target) decisions changed by ablating a layer.
+
+**Choreography (what worked, per turn):** S1 self-predictions before **100%** of decisions · self-model consulted **97%** · S2 ledger errors on **63%** of turns · contract/ethics constraints active on **87%** · expression spoke on **82%** (self-correction **20%**, praise **7%**, provenance **100%**) · wall forced **121** rests.
+
+**Influence by ablation (the headline):**
+| Ablated | Decisions changed | Marks effect |
+|---|---|---|
+| Whole Executive (→linear) | **84.6%** (83–90) | −1.5 marks avg (23W/1T/0L) |
+| Belief-driven aiming | **82.9%** (81–85) | **−0.42** |
+| Physiological wall | **15.4%** (8–**65**) | **−0.71** (rest IS the strategy for exam-panic: 65%) |
+| Self-model live levers | **0%** (honest — its causal role is proven where it can act: §18 S4 gate) | 0 |
+
+**Findings:** influence is two-shouldered (belief-aiming + the wall); the restraint layer is the busiest layer; the calibration advantage INVERTS for advanced students (selective observation → stale untouched concepts; marks still never lose) — belief maintenance for advanced students registered as a candidate fix; chaos (t24) survivable: +3 marks, zero violations. Suite: `test/layer-study.test.ts` (6 tests) is a permanent gate.
+
+**Defects the study caught in its own rig (fixed):** exponential ledger duplication across days (408 vs ~44 real errors); ablation comparator blind to break turns and target concepts (reported 0% even for the linear ablation).

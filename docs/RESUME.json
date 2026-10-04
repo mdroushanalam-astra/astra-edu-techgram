@@ -1,24 +1,24 @@
 {
   "project": "Techgram / Astra Edu — Student Intelligence Kernel",
-  "updated_at": "2026-10-04T17:00:00+05:30",
+  "updated_at": "2026-10-04T17:25:00+05:30",
   "session_model": "GLM-5.3-Flash (Z.ai) via ZCode",
-  "kernel_version": "0.1.0+ (BRAIN FREEZE v0.1 + cognitive runtime ADR-035..043)",
-  "position": "PHASE 5 COMPLETE [ADR-043, Journal Entry 45, commit 57bc1cb]: THE TECHGRAM WORLD ADAPTER + THE THIRTY-SCENARIO EXPERIMENT. The UCS boundary is real: src/adapter/ owns worlds (curriculum, prerequisites, prior weights, learning rules, 10 student archetypes); cognitive/ stays universal — concept names cross as opaque strings; priorWeights (targeting) vs externalWeights (THE EXTERNAL EVALUATOR) strictly enforced apart. Worlds: real UPSC Polity + real CBSE-8 (from the frozen seeds) + synthetic chain/flat/heavy/sparse. THE THIRTY: 30/30 scenarios PASS — 10 archetypes on Polity, 7 cross-world, 5 adversarial (30% noise, skipped days, interruptions every turn), 8 structural proofs. Executive vs matched linear: 30 wins / 0 ties / 0 losses, mean +3.13 true marks (heavy-tail +11 — the edge tracks the mechanism); belief error ~half of linear's everywhere. Structural laws held everywhere: replay byte-identical, frozen-organ shadow-belief identical, anti-Goodhart isolation (flip evaluator → score changes, decisions never), LLM OFF/ON identity, developmental divergence 13/13 testable, 1925/1925 utterances provenance-valid, S4 veto enforced in-run. The rig is a PERMANENT regression gate (test/phase5.test.ts). Defects caught by the experiment itself: the evaluator flip was a no-op on uniform weights (fixed w/ rank-decay); minimalContent needs the full ExamSpec or observe() goes NaN. Phases 0-5 all complete at kernel level. FULL REPORT (simple + technical): docs/PHASE5_EXPERIMENT_REPORT.md; raw data: docs/PHASE5_EXPERIMENT_RESULTS.json. NEXT per roadmap: Phase 6 (the demo) — GATED on the founder's direction. 271 tests (kernel 262 + web 9), typecheck clean. All evidence SIMULATED-world; efficacy UNKNOWN UNTIL PILOT.",
+  "kernel_version": "0.1.0+ (BRAIN FREEZE v0.1 + cognitive runtime ADR-035..045)",
+  "position": "PHASES 0-6 ALL COMPLETE AT KERNEL LEVEL [ADR-035..045, Journal Entries 40-47]. Latest: PHASE 6 DEMO [ADR-044] — the 3-minute arc performed BY the machinery (hypothesis with receipt -> self-prediction contradicted -> I was wrong -> PROVEN divergence from a no-learning twin -> learned/uncertain lists) + six one-input perturbations each showing the mechanism (fatigue->break, frustration->switchTopic, self-knowledge->diagnose, streak-heal->LLM withdraws; 5/6 flipped, the non-flip recorded). THE LAYER INTERACTION STUDY [ADR-045] — 24 real-time student situations (mindset x knowledge x behaviour, incl. chaos + CBSE boundary checks), 1,152 turns traced layer-by-layer, influence measured BY ABLATION: executive 84.6% of decisions (vs linear 23W/1T/0L, mean +1.5), belief-aiming 82.9% (-0.42 marks), physiological wall 15.4% (-0.71; 65% for exam-panic), self-model levers 0% in-regime (honest; causal role proven in the S4 gate). Choreography: S1 before 100% of decisions, insights on 97%, ledger errors on 63%, constraints on 87%, expression 82% w/ 20% self-correction + 7% praise, provenance 100%. Reports: docs/LAYER_INTERACTION_REPORT.md + docs/PHASE5_EXPERIMENT_REPORT.md (both simple+technical). 282 tests (kernel 273 in 30 files + web 9), typecheck clean, docs-integrity green. NEXT: multi-seed hardening, rendered product demo, content sprint (founder/mentor hours), Wave-2, THE PILOT (the final gate). All evidence SIMULATED-world.",
   "tests": {
-    "passed": 271,
+    "passed": 282,
     "failed": 0,
-    "split": "kernel 262 in 28 files + frontend contracts 9",
+    "split": "kernel 273 in 30 files + frontend contracts 9",
     "typecheck": "clean",
     "docs_integrity": "green"
   },
   "read_first": [
     "docs/10_MASTER_ROADMAP.md",
-    "docs/BACKEND_FREEZE_CHECKLIST.md",
     "docs/CURRENT_STATE.md",
-    "docs/PHASE5_EXPERIMENT_REPORT.md (the thirty-scenario report, simple + technical)",
-    "docs/PROJECT_JOURNAL.md (Entries 42-45 = loop closure + S4 + expression + the adapter)",
-    "docs/DECISIONS.md (ADR-040..043 = the standing decisions)",
-    "docs/EXPERIMENTS_AND_TESTS.md (§17-§20 = the campaign numbers)",
+    "docs/LAYER_INTERACTION_REPORT.md (how each layer functions, simple + technical)",
+    "docs/PHASE5_EXPERIMENT_REPORT.md",
+    "docs/PROJECT_JOURNAL.md (Entries 40-47)",
+    "docs/DECISIONS.md (ADR-035..045)",
+    "docs/EXPERIMENTS_AND_TESTS.md (s17-s22 = all campaign numbers)",
     "docs/00_CHARTER.md"
   ],
   "commands": {
@@ -28,12 +28,11 @@
     "brainlab": "npm run brainlab"
   },
   "next_actions": [
-    "PHASE 6 — THE DEMO (founder-gated, next per roadmap §12): the 3-minute show — OBSERVE → REPRESENT → PREDICT → DECIDE → ACT → OBSERVE OUTCOME → DETECT ERROR → INVESTIGATE → UPDATE → ADAPT, with receipts underneath; let the viewer change evidence/uncertainty/goal and watch the decision change.",
-    "HARDENING: multi-seed sweep per Phase 5 scenario (the rig runs in ~0.25 s; 5-10 seeds x 30 is cheap).",
-    "FRONTEND v4 (parallel, founder-directed): screens 9–11 session polish + teacher wrap-up screen → 13–15 → motion pass → Real-World Layer. Screens 1–8 + metrics debrief DONE.",
-    "CONTENT SPRINT (parallel, founder+mentor hours = the true critical path): items 105→500, atoms 104→150.",
-    "Deploy decision (Gate-2) + Wave-2 (gated) + limited public beta (G3, pre-registered) per docs/10_MASTER_ROADMAP.md Phase 5–8.",
-    "DO NOT resurrect banned scope; do not merge System A (frozen brain) with System B (cognitive runtime); Level-3 (representation) self-modification stays on the not-built list; the LLM may never decide."
+    "PHASE 7 PREP + HARDENING: multi-seed sweeps (Phase 5 rig ~0.25s, layer study ~0.2s — 5-10 seeds each is cheap); belief maintenance for advanced students (review quota for targeting — the one inversion found).",
+    "FRONTEND v4 (parallel, founder-directed): screens 9-11 session polish + teacher wrap-up -> 13-15 -> motion pass -> Real-World Layer; the rendered product demo of the Phase 6 arc.",
+    "CONTENT SPRINT (parallel, founder+mentor hours = the true critical path): items 105->500, atoms 104->150.",
+    "Wave-2 (gated) + limited public beta (G3, pre-registered) — THE PILOT is the only place real-student efficacy can be answered.",
+    "DO NOT resurrect banned scope; do not merge System A with System B; Level-3 self-modification stays unbuilt; the LLM may never decide."
   ],
   "gates": {
     "G0_simulator": "aggregate over archetypes: techgram beats random (+6.2 marks 30d) and fixed order (+2.4)",
@@ -44,7 +43,9 @@
     "S4_GATE": "live strategy experiments: proposal → matched A/B → KEEP (+0.013) / REJECT (−0.018, same proposal, harder world) → adopted strategy changes session-2 decisions; rejected = identical; phase2Gate PASS [EXPERIMENTS §18]",
     "PHASE4_GATE": "LLM OFF vs LLM ON — identical utterance text/evidence at the utterance level, BYTE-IDENTICAL deep gate at the session; claim-provenance + ethics wall enforced at the voice; purity proven [EXPERIMENTS §19]",
     "PHASE5_GATE": "THE THIRTY: 30/30 scenarios; executive 30 wins/0 losses vs matched linear, mean +3.13; UCS boundary proven (domain-opaque engine, evaluator isolation); replay/frozen/anti-Goodhart/LLM-identity/divergence all green; permanent CI gate [EXPERIMENTS §20]",
-    "G3_pilot": "pending (20-30 aspirants, week-3 retention >= 40%)"
+    "G3_pilot": "pending (20-30 aspirants, week-3 retention >= 40%)",
+    "PHASE6_GATE": "the demo arc is structural: receipt-stated hypothesis, ledger-caught error, twin divergence, kernel-computed learned/uncertain lists; 5/6 perturbations flip with the mechanism shown [EXPERIMENTS s21]",
+    "LAYER_STUDY": "24 situations, 1,152 turns traced; influence by ablation: executive 84.6% / belief-aiming 82.9% / wall 15.4% / self-model 0% in-regime; executive 23W/1T/0L; permanent CI gate [EXPERIMENTS s22]"
   },
   "hard_invariants": [
     "kernel is pure: no I/O, no wall-clock, no LLM imports",
