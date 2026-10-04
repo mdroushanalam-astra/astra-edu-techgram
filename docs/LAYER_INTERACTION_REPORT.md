@@ -191,3 +191,17 @@ npx tsx scripts/run_layer_study.mts            # the study → docs/LAYER_STUDY_
 npx vitest run kernel/test/layer-study.test.ts # the study as a permanent gate
 npx vitest run kernel/test/demo6.test.ts       # the Phase 6 demo arc
 ```
+
+---
+
+# ADDENDUM — THE STRENGTHENING PASS [ADR-046, EXPERIMENTS §23]
+**After this report was written, the founder asked the three follow-ups — any ethical findings? anything critical to fix? can the intelligent layers be strengthened and coordinated better in real time? — and this addendum is the answer.**
+
+**1. Ethical findings: NONE.** The ethics wall held in every scenario of every campaign: 1,925/1,925 utterances provenance-valid, zero forbidden phrasings, the restraint layer active on 87% of turns. A quiet ethics wall is the goal.
+
+**2. The critical fix — the advanced-student inversion is CLOSED.** The Layer Study found that for advanced/spiky students the machine's belief maps went stale where it never looked (t07 belief error 0.40 vs linear's 0.34). Fix: staleness-aware targeting — long-untouched concepts get a bounded maintenance boost (≤ +25%, 10-day horizon). AFTER: all four advanced inversions closed (t07 0.41 vs 0.50 — now better; t08 0.32/0.41; t18 0.24/0.40; t23 0.32/0.42), and the CBSE advanced margin rose from +4 to **+7**. Residual spiky-knowledge gaps (t09/t10) are recorded honestly — the boost helps but the accuracy floor binds.
+
+**3. The intelligent layers are now stronger AND better coordinated in real time:**
+- **Proportional self-model:** insights now carry continuous biases (−1..+1); mild experience modulates mildly instead of firing all-or-nothing levers. The S4 adopted-strategy anchors are untouched (all S4 gates green).
+- **Live calibration channel:** the machine tracks its own error rate over the last 8 decisions and lets it act in real time — it explores alternatives more when it knows it errs (bounded window widening), and it SAYS so by moderating its reported confidence. Influence measured by the same ablation method: **0% → 3.2% mean, 77% for the exam-panic student.**
+- Re-run after strengthening: Layer Study **22W/2T/0 losses** (t23 CBSE +7), Phase 5 rig **30/30 PASS**, provenance 100%, 291 tests green. Permanent gate: `test/strengthening.test.ts`.

@@ -469,3 +469,18 @@ The SAME proposal, two honest worlds: the evaluator keeps what helps and vetoes 
 **Findings:** influence is two-shouldered (belief-aiming + the wall); the restraint layer is the busiest layer; the calibration advantage INVERTS for advanced students (selective observation → stale untouched concepts; marks still never lose) — belief maintenance for advanced students registered as a candidate fix; chaos (t24) survivable: +3 marks, zero violations. Suite: `test/layer-study.test.ts` (6 tests) is a permanent gate.
 
 **Defects the study caught in its own rig (fixed):** exponential ledger duplication across days (408 vs ~44 real errors); ablation comparator blind to break turns and target concepts (reported 0% even for the linear ablation).
+
+---
+
+## §23 — CAMPAIGN: THE STRENGTHENING PASS [ADR-046]
+**When:** 2026-10-04, ~17:15–17:35 · **Model:** GLM-5.3-Flash (Z.ai) via ZCode · directed by the Founder · **Commits:** da5e753 (+ this docs commit)
+
+**Purpose:** answer the founder's questions after the Layer Study — (1) were there ethical findings? NO VIOLATIONS: the ethics wall held everywhere (1,925/1,925 provenance-valid, zero forbidden phrasings; the "busiest layer" IS the restraint working). (2) Anything critical to fix? YES, one: the calibration inversion for advanced/spiky students. (3) Can the intelligent layers be strengthened and coordinated better in real time? YES — three upgrades, each answering a measured finding.
+
+**Upgrade 1 — STALENESS-AWARE TARGETING (`cognitive/targeting.ts`):** believed need now carries a bounded maintenance boost (≤ +25%, 10-day horizon) for long-untouched concepts. BEFORE: selective observation left untouched concepts' beliefs stale → the calibration advantage inverted for advanced/spiky students (t07 exec 0.40 vs lin 0.34 — worse). AFTER: **all four inversions closed** — t07 0.41/0.50, t08 0.32/0.41, t18 0.24/0.40, t23 0.32/0.42 (exec better everywhere); t23 CBSE margin +4 → **+7**. The deep gate keeps staleness OFF (frozen historical baseline; claim re-verified 12 vs 10 PASS with the new calibration channel live).
+
+**Upgrade 2 — PROPORTIONAL SELF-MODEL (executive.ts, developmental-session.ts):** `deriveSelfInsights` emits continuous biases (interventionBias, breakBias ∈ −1..+1); the Executive's levers scale with strength. The categorical tendencies remain the full-strength special case, and the S4 adopted strategy parameters remain the full-strength anchors — all S4/counterfactual tests green unchanged.
+
+**Upgrade 3 — LIVE CALIBRATION CHANNEL (executive.ts select/decide):** the session tracks self-error density (last 8 decisions); high density WIDENS the exploration window (near-ties get real alternatives when the machine knows it errs) and SHRINKS the reported confidence. **The self-model goes from watcher-only to in-regime actor: influence 0% → 3.2% mean, and 77% for the exam-panic student (t16)** — for high-error students the channel dominates.
+
+**Re-run after strengthening:** Layer Study **22W / 2T / 0 losses** (mean +1.5; t23 +7); Phase 5 rig **30/30 PASS**; provenance 100%. Suite: 31 files / **282 kernel tests** (+9 web = 291) · typecheck clean. New permanent gate: `test/strengthening.test.ts` (9 tests).

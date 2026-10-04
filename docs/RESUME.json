@@ -1,13 +1,13 @@
 {
   "project": "Techgram / Astra Edu — Student Intelligence Kernel",
-  "updated_at": "2026-10-04T17:25:00+05:30",
+  "updated_at": "2026-10-04T17:50:00+05:30",
   "session_model": "GLM-5.3-Flash (Z.ai) via ZCode",
-  "kernel_version": "0.1.0+ (BRAIN FREEZE v0.1 + cognitive runtime ADR-035..045)",
-  "position": "PHASES 0-6 ALL COMPLETE AT KERNEL LEVEL [ADR-035..045, Journal Entries 40-47]. Latest: PHASE 6 DEMO [ADR-044] — the 3-minute arc performed BY the machinery (hypothesis with receipt -> self-prediction contradicted -> I was wrong -> PROVEN divergence from a no-learning twin -> learned/uncertain lists) + six one-input perturbations each showing the mechanism (fatigue->break, frustration->switchTopic, self-knowledge->diagnose, streak-heal->LLM withdraws; 5/6 flipped, the non-flip recorded). THE LAYER INTERACTION STUDY [ADR-045] — 24 real-time student situations (mindset x knowledge x behaviour, incl. chaos + CBSE boundary checks), 1,152 turns traced layer-by-layer, influence measured BY ABLATION: executive 84.6% of decisions (vs linear 23W/1T/0L, mean +1.5), belief-aiming 82.9% (-0.42 marks), physiological wall 15.4% (-0.71; 65% for exam-panic), self-model levers 0% in-regime (honest; causal role proven in the S4 gate). Choreography: S1 before 100% of decisions, insights on 97%, ledger errors on 63%, constraints on 87%, expression 82% w/ 20% self-correction + 7% praise, provenance 100%. Reports: docs/LAYER_INTERACTION_REPORT.md + docs/PHASE5_EXPERIMENT_REPORT.md (both simple+technical). 282 tests (kernel 273 in 30 files + web 9), typecheck clean, docs-integrity green. NEXT: multi-seed hardening, rendered product demo, content sprint (founder/mentor hours), Wave-2, THE PILOT (the final gate). All evidence SIMULATED-world.",
+  "kernel_version": "0.1.0+ (BRAIN FREEZE v0.1 + cognitive runtime ADR-035..046)",
+  "position": "PHASES 0-6 COMPLETE + STRENGTHENED [ADR-035..046, Journal Entries 40-48]. The founders three post-study questions answered: (1) NO ethical violations anywhere (the wall held in every campaign); (2) the critical finding (advanced-student calibration inversion) FIXED via staleness-aware targeting (cognitive/targeting.ts — bounded +25% maintenance boost, 10-day horizon; all four inversions closed, t23 CBSE +4->+7; the deep gate keeps staleness OFF as the frozen historical baseline, claim re-verified 12 vs 10 PASS); (3) the intelligent layers strengthened + coordinated in real time: PROPORTIONAL self-model (continuous biases, categorical = full-strength, S4 params = anchors) + LIVE CALIBRATION CHANNEL (self-error density widens exploration and moderates reported confidence — self-model influence 0%->3.2% mean, 77% exam-panic). Re-runs: layer study 22W/2T/0L (t23 +7), Phase 5 rig 30/30, provenance 100%. 291 tests (kernel 282 + web 9), typecheck clean. NEXT: content floor (founder/mentor hours = the critical path), multi-seed hardening, rendered product demo, Wave-2, THE PILOT. All evidence SIMULATED-world.",
   "tests": {
-    "passed": 282,
+    "passed": 291,
     "failed": 0,
-    "split": "kernel 273 in 30 files + frontend contracts 9",
+    "split": "kernel 282 in 31 files + frontend contracts 9",
     "typecheck": "clean",
     "docs_integrity": "green"
   },
@@ -28,10 +28,10 @@
     "brainlab": "npm run brainlab"
   },
   "next_actions": [
-    "PHASE 7 PREP + HARDENING: multi-seed sweeps (Phase 5 rig ~0.25s, layer study ~0.2s — 5-10 seeds each is cheap); belief maintenance for advanced students (review quota for targeting — the one inversion found).",
-    "FRONTEND v4 (parallel, founder-directed): screens 9-11 session polish + teacher wrap-up -> 13-15 -> motion pass -> Real-World Layer; the rendered product demo of the Phase 6 arc.",
-    "CONTENT SPRINT (parallel, founder+mentor hours = the true critical path): items 105->500, atoms 104->150.",
-    "Wave-2 (gated) + limited public beta (G3, pre-registered) — THE PILOT is the only place real-student efficacy can be answered.",
+    "CONTENT FLOOR (the founder moves here next; founder+mentor hours = the true critical path): items 105->500, atoms 104->150.",
+    "HARDENING: multi-seed sweeps (rigs are ~0.25s each); the spiky-knowledge residual (t09/t10 inversions partially persist).",
+    "FRONTEND v4 (parallel, founder-directed): screens 9-15 + motion pass + Real-World Layer; rendered product demo of the Phase 6 arc.",
+    "Wave-2 (gated) + limited public beta (G3, pre-registered) — THE PILOT is the final gate for real-student efficacy.",
     "DO NOT resurrect banned scope; do not merge System A with System B; Level-3 self-modification stays unbuilt; the LLM may never decide."
   ],
   "gates": {
@@ -45,7 +45,8 @@
     "PHASE5_GATE": "THE THIRTY: 30/30 scenarios; executive 30 wins/0 losses vs matched linear, mean +3.13; UCS boundary proven (domain-opaque engine, evaluator isolation); replay/frozen/anti-Goodhart/LLM-identity/divergence all green; permanent CI gate [EXPERIMENTS §20]",
     "G3_pilot": "pending (20-30 aspirants, week-3 retention >= 40%)",
     "PHASE6_GATE": "the demo arc is structural: receipt-stated hypothesis, ledger-caught error, twin divergence, kernel-computed learned/uncertain lists; 5/6 perturbations flip with the mechanism shown [EXPERIMENTS s21]",
-    "LAYER_STUDY": "24 situations, 1,152 turns traced; influence by ablation: executive 84.6% / belief-aiming 82.9% / wall 15.4% / self-model 0% in-regime; executive 23W/1T/0L; permanent CI gate [EXPERIMENTS s22]"
+    "LAYER_STUDY": "24 situations, 1,152 turns traced; influence by ablation: executive 84.6% / belief-aiming 82.9% / wall 15.4% / self-model 0% in-regime; executive 23W/1T/0L; permanent CI gate [EXPERIMENTS s22]",
+    "STRENGTHENING_GATE": "inversions closed (t07/t08/t18/t23 exec belief error < linear); proportional levers preserve S4 anchors; the calibration channel is a real in-regime actor (77% for exam-panic, 3.2% mean); deep-gate claim re-verified [EXPERIMENTS s23]"
   },
   "hard_invariants": [
     "kernel is pure: no I/O, no wall-clock, no LLM imports",
