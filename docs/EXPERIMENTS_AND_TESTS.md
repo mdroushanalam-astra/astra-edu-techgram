@@ -360,3 +360,31 @@ py -m pytest backend/tests -q             # archived prototype reference suite (
 **Evidence levels earned:** S0–S4 causal loop: NOT DEMONSTRATED → **INTEGRATION-TESTED** (counterfactual) · Executive beats linear on true marks: NOT EARNED (−1) → **MATCHED-BASELINE-VALIDATED (simulated world)** · Conductor in real sessions: NOT INTEGRATED → **INTEGRATION-TESTED** (gate flow) · still SIMULATED — real-student efficacy remains UNKNOWN UNTIL PILOT.
 
 **Suite:** 25 files / **215 kernel tests green** (+9 web contracts) · typecheck clean.
+
+---
+
+## §18 — CAMPAIGN: S4 IN THE LOOP — live strategy experiments [ADR-041]
+**When:** 2026-10-04, ~15:00–15:30 · **Model:** GLM-5.3-Flash (Z.ai) via ZCode · directed by the Founder · **Commits:** fffa71f (+ this docs commit)
+
+**Purpose:** ADR-040 closed the developmental loop on FIXED levers (hardcoded multipliers). S4 demands the loop's crown: the system PROPOSES its own strategy change, TESTS it against an external evaluator, and only ADOPTS what wins — into future behavior.
+
+**What was built:**
+1. **`StrategyParameters`** (executive.ts) — the Executive's OWN tunables, explicit and versioned (reluctantBreakBoost, aggressiveBreakQuiet, lateInterventionLean, cautionMargin, earlyDiagnoseBenefit). DEFAULT_STRATEGY = the values the deep gate was validated with. The self-model consultation reads the adopted strategy; frozen-organ parameters are untouchable.
+2. **`strategy-experiments.ts`** — the S4 runtime: `proposeStrategy` (ledger pattern ≥3 same-tag errors → ONE falsifiable proposal; deterministic, bounded, no evidence → no proposal) · `makeStrategyHarness` (matched A/B simulator: deep-gate declared constants, same world + seeds + student truth for both arms, ONLY the strategy parameter differs) · `runStrategyExperiment` (multi-seed arms, external metric = TRUE learning, keep/reject via the S4 organ `runSelfImprovementExperiment`; a tie REJECTS — change must EARN adoption).
+3. **`developmental-session.ts`** — sessions run under the adopted strategy (`config.strategy`); `learningEnabled:false` freezes factory settings (the counterfactual switch covers adoption too).
+
+**THE EPOCH PROOF (`kernel/test/strategy-experiments.test.ts`, 13 tests):** session 1 over-breaks and lives the experience (3 premature-break errors) → `proposeStrategy` → falsifiable proposal (aggressiveBreakQuiet 0.6 → 0.5) → matched A/B:
+| World economics | old metric | new metric | Verdict |
+|---|---|---|---|
+| Cheap-to-study (fatigue rise 0.20) | 0.105 | **0.118** | **KEEP** → adopted |
+| Punishing fatigue (rise 0.10) | **0.141** | 0.123 | **REJECT** → unchanged |
+
+The SAME proposal, two honest worlds: the evaluator keeps what helps and vetoes what harms. Then the behavior proof: session 2 runs the same matched trajectory through the real developmental runtime — **under the adopted strategy the decisions DIFFER and breaks drop**; under a rejected experiment the traces are IDENTICAL (the veto is real). `phase2Gate` formalizes the epoch: state v0→v1 + evidence + decision change = PASS. The adopted parameter space contains ONLY the Executive's own tunables.
+
+**Probe-seed honesty:** seeds 11/33 happen to never reach the marginal turns where the strategies disagree (identical decisions, tie metrics) — the divergence is EXERCISED (seed 22), not assumed. Multi-seed averaging protects the keep/reject verdict from single-seed noise.
+
+**Evidence levels:** S4 self-improvement NOT DEMONSTRATED → **INTEGRATION-TESTED** (live epoch, counterfactual keep/reject) · ADR-037 levels 1–2 (parameter/strategy) demonstrated; level 3 (representation) remains future work · still SIMULATED-world.
+
+**Five pre-pilot questions [ADR-039] — final state:** 1 decide ✓ · 2 explain why ✓ · 3 predict itself ✓ · 4 investigate itself ✓ (patterns now DRIVE experiments, not just flags) · 5 change how it behaves ✓ (proven twice: insight levers + adopted strategy). **THE COGNITIVE FRONTIER IS CLOSED. PHASE 4 (expression) IS NEXT — gated on the founder's order.**
+
+**Suite:** 26 files / **228 kernel tests green** (+9 web contracts = 237) · typecheck clean · deep gate unchanged (defaults = validated behavior).
