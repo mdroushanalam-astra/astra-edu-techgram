@@ -45,3 +45,4 @@ export * from "./cognitive/gate.js";
 export * from "./cognitive/assemble.js";
 export * from "./cognitive/executive.js";
 export * from "./cognitive/gate.js";
+export * from "./cognitive/self-development.js";
