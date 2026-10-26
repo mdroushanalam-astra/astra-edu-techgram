@@ -1,4 +1,7 @@
 # TECHGRAM — GOALS
+
+> **Current status (10 October 2026):** connected authority and reference frontend implemented; Founder review/release/pilot gates open. See the dated addendum and CURRENT_STATE. Older sections retain historical context.
+
 ## Long-term goals, the V1 public-release bar, and the constraints register. Every goal here is measurable or it doesn't belong in the document.
 
 ---
@@ -116,3 +119,17 @@ The private-pilot phase is replaced by a **limited public beta** (invited cohort
 6. A "why this?" demo that no wrapper can fake — recorded, public, reproducible.
 
 *Goals set. The machine that meets them: `04_ARCHITECTURE.md`. The sequence and dates: `05_ROADMAP.md`.*
+
+## Delivery clarification — 10 October 2026 [ADR-047–049]
+
+Owned server learning and all 15 frontend stages are implemented; Founder visual review and release gates remain open. This supersedes obsolete no-app/archived-backend status, without changing Charter commitments or pilot success criteria. Connected mode requires the API; offline preview is not authenticated offline sync. Institutional controls, expert coverage and real delayed-retention proof remain required. Old simulation/291-test references are historical; current generated total is 298.
+
+
+## 11 October engineering delivery [ADR-051]
+**Model:** OpenAI GPT-6-based Codex via Codex desktop (exact serving model ID unavailable; not guessed) · **Directed by:** Md Roushan · **When:** 2026-10-11T00:30:18+05:30.
+
+Connected lessons now persist teaching steps, pause/resume, preferences, completion notes and reflections on the account. The existing kernel composer/teacher executes question and explanation steps; independent checks reject hints, and assisted/revealed answers do not create independent mastery or memory evidence. Eight original Geography Markdown lessons compile into 48 source-linked seed atoms with expert review explicitly pending. Local bounded source search, lesson-specific boards and browser-provided read-aloud are available. Live web, speech recognition, unrestricted conversation and translation are not configured.
+
+Migration 0002_learning_journey must be applied before serving (production schema guard requires it). Owned commands use UUID/revision/step contracts and the existing transaction lock. Used-item rotation survives serialization; independent checks reject help; assistance carries no independent evidence weight. Versioned active lessons require explicit migration on pack changes. Executive recommendations and delivered teacher directives remain distinguishable. No new brain or cloud service was added.
+
+Fresh checks: 306 JS / 69 Python passes, one PostgreSQL skip; kernel/web/scripts typechecks and both builds pass. Browser upgrade QA: `node scripts/frontend_upgrade_qa.cjs`, disposable API database only, report frontend/upgrade-qa.json. Preview QA remains `node scripts/frontend_qa.cjs`. Founder visual acceptance, expert curriculum review, load/restore/staging and enterprise operations remain open. Learners/pilots are later by Founder instruction; frozen Charter/audit and historical experiments remain intact.

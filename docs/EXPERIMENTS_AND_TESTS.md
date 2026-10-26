@@ -125,6 +125,16 @@ Archetypes: consistent, crammer, avoidant, drifter (adherence varies; pedagogy i
 | 2026-10-02 | 5 teaching-layer build bugs (calibration_wrap never appended; hint ladder preempted by next retrieval; ladder depth leaked from probe misses; HINT_L3 infinite loop; missing c_fr_21 example atom) | All caught by closed-loop tests, all fixed same-session, each now a regression test (§11) |
 | 2026-10-02 | K12 test bring-up: promise-assertion misuse; missing k_f_noncontact explanation atom | Test fixed; atom AUTHORED (tier discipline refused to invent it) — the discipline working as designed |
 
+### 10 October additions to the failure register
+
+| Date | Finding | Disposition |
+|---|---|---|
+| 2026-10-10 | Six production blockers | Repaired; §24; staging/enterprise gates open |
+| 2026-10-10 | UI footer and harness/tool construction errors | Corrected; §25 |
+| 2026-10-10 | Stale bootstrap/counters and incomplete protocol closure | Reconciled; ADR-049 / §26 |
+| 2026-10-10 | PostgreSQL case skipped; 114 warnings | Recorded; upgrade/staging follow-up open |
+| 2026-10-10 | Live Founder Guide claimed exclusivity/infinite memory/offline operation and automatic margins; duplicate chapter label | Corrected current explanation/label; history preserved; §27 / ADR-050 |
+
 ---
 
 ## §8 — PROGRESS CHART (project-level, updated per campaign)
@@ -484,3 +494,94 @@ The SAME proposal, two honest worlds: the evaluator keeps what helps and vetoes 
 **Upgrade 3 — LIVE CALIBRATION CHANNEL (executive.ts select/decide):** the session tracks self-error density (last 8 decisions); high density WIDENS the exploration window (near-ties get real alternatives when the machine knows it errs) and SHRINKS the reported confidence. **The self-model goes from watcher-only to in-regime actor: influence 0% → 3.2% mean, and 77% for the exam-panic student (t16)** — for high-error students the channel dominates.
 
 **Re-run after strengthening:** Layer Study **22W / 2T / 0 losses** (mean +1.5; t23 +7); Phase 5 rig **30/30 PASS**; provenance 100%. Suite: 31 files / **282 kernel tests** (+9 web = 291) · typecheck clean. New permanent gate: `test/strengthening.test.ts` (9 tests).
+
+---
+## §24 — CONNECTED PRODUCTION FOUNDATION [ADR-047]
+**When:** 10 October work, retrospectively registered 2026-10-10 23:31 IST · **Model:** OpenAI GPT-6-based Codex via Codex desktop (exact serving model ID unavailable; not guessed) · **Directed by:** Md Roushan.
+
+Six blockers repaired: auth/ownership, secret fallback, shared session/cache authority, split commits, inaccurate replay and incomplete dependencies. Canonical TypeScript scoring/decisions run behind owned UUID/revision commands; migration/containers/gateway/CI scaffolding exists. Earlier session evidence: 291 JavaScript passes, 64 Python passes, one PostgreSQL-only skip; runtime/typechecks/builds and dependency audit passed. These are earlier results, not a fresh dependency audit in this documentation session. Current suite execution is §26. PostgreSQL/staging/capacity/restore, institutional controls and learner efficacy remain open.
+
+## §25 — REFERENCE FRONTEND AND REAL API RECOVERY [ADR-048]
+**When:** 10 October frontend session · **Model:** OpenAI GPT-6-based Codex via Codex desktop (exact serving model ID unavailable; not guessed) · **Directed by:** Md Roushan.
+
+| Check | Result/evidence |
+|---|---|
+| Frontend regression | 16 passes in two files; frontend typecheck and both builds pass |
+| Complete preview | Four viewports: 1440×900, 1920×1080, 820×1180, 390×844; no overflow/errors/API calls; frontend/preview-qa.json |
+| Real API browser | Registration/Polity onboard; committed-answer response loss; same UUID retry and one local record; genuine cross-client revision conflict/reload; return login; connected-qa.json |
+| Pending thinking | Captured in all four sizes during an actually delayed response, not a simulated processing claim |
+| Notes | Native dialog Tab containment/Escape and text download pass |
+| Client boundary | Connected JS excludes private/demo item identifiers; token not persisted |
+| Art | Nine generated originals, transparent characters, responsive WebP exports; art-contact-sheet and prompts |
+
+Reproduce with `npm -w @techgram/web run test`, workspace build/typecheck and scripts/frontend_qa.cjs / frontend_connected_qa.cjs. Browser tools allow PLAYWRIGHT_MODULE/CHROME_PATH overrides; connected QA creates synthetic accounts and must use a disposable database.
+
+**Failures preserved:** rejected patch duplicate-file operations; accessible-name/duplicate signout selectors; reused consumed Response mock; PowerShell apostrophe quoting; mobile footer inherited desktop offset; accidental early image base64 output. Each corrected; recorded in Journal 50. Screenshots prove reviewable implementation, not pixel identity or Founder approval. SQLite browser QA does not prove PostgreSQL/staging. Accuracy is not mastery/retention; voice/free-text/translation/server notes/preferences remain deferred. No new learner efficacy campaign occurred.
+
+## §26 — SESSION PROTOCOL AND MEASURED COUNTERS [ADR-049]
+**When:** 2026-10-10 23:31 IST · **Model:** OpenAI GPT-6-based Codex via Codex desktop (exact serving model ID unavailable; not guessed) · **Directed by:** Md Roushan.
+
+`npm run counters` actually executed both Vitest suites: **298 passes (282 kernel + 16 web), zero failures, 33 files**. Python `-m pytest backend/tests -q`: **64 passed, one skipped, 114 warnings in 27.04 seconds**. Skip requires PostgreSQL; warnings concern FastAPI/httpx, deprecated UTC datetime usage and Alembic path_separator. No Docker/PostgreSQL/load/efficacy campaign was executed here.
+
+**Anomalies corrected:** stale October-4 snapshot/resume/index, backend described as archived, Founder Guide saying no app, rejected/incomplete frontend statuses, old simple-client/default-goal production guide, hardcoded 291 generator, and missing full protocol closure for the last two implementation sessions. Historical entries/external references/raw datasets are preserved. Windows rejected a too-large shell command before execution; writes were split. Validation caught an incomplete header replacement and Windows default-codepage read; corrected the header and restored clean text using explicit UTF-8. The system Python alias was unavailable; the bundled Python runtime completed closure.
+
+**Final documentation validation:** kernel/web typechecks passed; counter generator strict TypeScript check passed; documentation integrity suite passed (3 tests). Generated counts agree with resume/current state; new journal and ADR identifiers are unique; checked local Markdown links resolve. Frozen charter/audit/freeze/external-guide/raw-data files have no changes.
+
+## §27 — INTELLIGENCE/KNOWLEDGE DESIGN REVIEW [ADR-050]
+**When:** 2026-10-10T23:49:11+05:30 · **Model:** OpenAI GPT-6-based Codex via Codex desktop (exact serving model ID unavailable; not guessed) · **Directed by:** Md Roushan.
+
+Analysis/documentation session only. Read the supplied 527 physical lines and compared all eleven sections with current code. Attachment archive-size/exchange claims were not independently verified. Primary sources and code findings appear in INTELLIGENCE_AND_KNOWLEDGE_PLAN.md. Found fixed predictedBenefit input, narrower connected teaching execution, local preference boundary, foundation Geography exam spec, limited author-review provenance and structural-only utterance checks. These findings are inspection evidence, not newly measured learner outcomes. Prior complete-suite counts remain 298 JavaScript and 64 Python passes/one skip/114 warnings; no full-suite, load or learner campaign re-run here.
+
+Corrected current Founder Guide's unsupported competitor-exclusivity/infinite-memory/offline/margin claims and duplicate chapter label; historic Journal/Experiments and frozen sources remain intact. Read-output truncation and guessed nonexistent paths were resolved with bounded reads and actual module lookup. Official exam-notice PDF fetch timed out; no claims derived from it.
+
+**Validation:** focused documentation integrity check passed: 3 tests, 1 file (319 ms). Resume JSON parses; new journal/ADR identifiers are unique; attachment physical-line count checked; current document counts remain unchanged. No product source changes. Reproduce with `npm -w kernel run test -- test/docs_integrity.test.ts`.
+
+
+## 28. Connected teaching/knowledge engineering campaign — 11 October 2026
+**Model:** OpenAI GPT-6-based Codex via Codex desktop (exact serving model ID unavailable; not guessed) · **Directed by:** Md Roushan · **When:** 2026-10-11T00:30:18+05:30.
+
+`npm test`: **306 passed** (290 kernel + 16 web; 34 files). `python -m pytest backend/tests -q`: **69 passed, 1 skipped, 120 warnings**; PostgreSQL-specific case unavailable locally. `npm run typecheck` and `npx tsc -p scripts/tsconfig.json --noEmit` passed. `npm run build:runtime` compiled eight Geography seed lessons / 48 atoms. Both Vite modes built successfully.
+
+`node scripts/frontend_upgrade_qa.cjs` uses a disposable API database and verifies persistent teaching, server notes/preferences, cross-browser pause/resume, actual revision conflicts, committed-answer lost-response idempotency, local source search and speech control dispatch. Four sizes pass without errors/overflow; see frontend/upgrade-qa.json. Read-aloud uses a stub in QA: device/provider quality and latency unknown. `node scripts/frontend_qa.cjs` passes the preview journey and sidebar checks at the same sizes with zero API calls. New tests explicitly verify stale steps, assistance evidence, teacher rotation across serialization and compiler rejection cases.
+
+**Observed failures and corrections:** preference envelope empty before initial ORM flush; outdated question-only lifecycle test; test fixture/module typing issues; pause/sidebar icon accessible names; exact toast-text selector. All corrected and relevant suites rerun. A PowerShell file-write option failed before editing, then explicit file write succeeded. Teaching board now restricts river diagrams to river concepts. These checks establish local correctness, not learning gains or enterprise certification. Journal 53 records the same limits.
+
+**Counter reconciliation:** initial regeneration failed because CURRENT_STATE had new test totals while the prior registry still held 298. Kept the measured historical baseline explicitly labelled, regenerated from actual test reports, and reran integrity checks. Geography is now separately generated in COUNTERS; legacy totals retain Polity/K12 scope to avoid rewriting historical inventory semantics.
+
+
+## 29. Connected production-build Polity workflow — 11 October 2026
+**Model:** OpenAI GPT-6-based Codex via Codex desktop (exact serving model ID unavailable; not guessed) · **Directed by:** Md Roushan · **When:** 2026-10-11T00:45:27+05:30.
+
+Fresh `npm run counters`: **307 JS passes (291 kernel + 16 web; 34 files)**. It runs both full suites and publishes only passing reports. `npx tsc -p scripts/tsconfig.json --noEmit` passed. Connected Vite build and runtime compilation passed. New test walks complete Polity and Geography sessions through serialization; closing confidence figures use independent recorded answers and exclude assisted practice.
+
+`$env:QA_DOMAIN='polity'; $env:QA_COMPLETE='true'; node scripts/frontend_upgrade_qa.cjs` verifies the built connected page at 5175 against the API at 8000. Report: frontend/polity-qa.json. Registration to natural completion, debrief, notes and fresh-browser login pass at 1440×900, 1920×1080, 820×1180 and 390×844, without browser errors/overflow. Response-loss retries and actual cross-client revision conflicts pass; pause persists. QA responses are synthetic and fast: no learner efficacy, session-duration benefit or voice quality inference. Backend /ready is ready through same-origin proxy; unauthenticated /students returns 401. Docker executable unavailable; production PostgreSQL/container deployment not tested here.
+
+**Failures included:** root Alembic invocation could not import app; backend cwd succeeds. Natural harness missed calibration/final-summary button variants; corrected after observing actual rendered text. Calibration closing template lacked a rating control; runtime now summarizes the ratings already collected per answer instead of requesting nonexistent input. Earlier full Python campaign remains 69 pass/one PostgreSQL skip/120 warnings; targeted revalidation recorded separately below.
+
+Targeted final Python revalidation: **18 passed, one PostgreSQL skip, 73 warnings**, `pytest backend/tests/test_connected_session.py backend/tests/test_enterprise_learning.py -q`. Final targeted kernel/docs checks: **12 passed**. The fresh browser report confirms servedBuild=production and naturalCompletion=true.
+
+
+## 30. Supplied Geography reference campaign — 12 October 2026
+**Model:** OpenAI GPT-6-based Codex via Codex desktop (exact serving model ID unavailable; not guessed) · **Directed by:** Md Roushan · **When:** 2026-10-12T11:29:54+05:30.
+
+Read 1,483 lines and verified byte identity (100,579 bytes). Generated inventory: 173 headings / 85 indexed subject sections. `npm run counters`: **311 passes (295 kernel + 16 web; 35 files)**, including four new source-boundary tests. `npm run typecheck`, scripts TypeScript check, compiled runtime and both frontend builds pass. Targeted `pytest backend/tests/test_connected_session.py -q`: **five passed / 17 warnings**. Prior full Python results remain historical, not a fresh whole-suite claim.
+
+Browser QA_REFERENCE=true, QA_DOMAIN=geography, QA_COMPLETE=true against the production frontend: source excerpt + monsoon retrieval + natural completion (eight steps after reference exploration), retry/conflict recovery, pause/re-login, notes/preferences/return pass at four viewport sizes; errors=[] and issues=[]. frontend/reference-qa.json records evidence. Speech remains stubbed. Connected bundle scan finds no master schema/index/private-item sentinel. Checks establish local integration, not exhaustive source audit or educational outcomes.
+
+Failures: underscore-token splitting created unrelated source matches; fixed and regression passes. HTTPS-only seed-source assertion needed document checksum provenance; changed without dropping source requirements. Missing Alembic/backend dependencies restored from lock. Oversized shell write rejected before execution; safe apply_patch created review. Content anomalies are flagged below/GEOGRAPHY_SOURCE_REVIEW; source not globally certified.
+
+**Anomaly register addendum to §7:** new reference exposes old seed-item ambiguity (g_i_6 desert agent, g_i_8 deposition, g_i_9 delta conditions) and source line 407 abrasion/weathering overlap. Preserve existing pack ground truth and historical replay; require subject review and a new immutable pack version. No silent correction or efficacy inference.
+
+Final documentation checks: seven targeted source/docs regressions passed. Snapshot/Founder changes saved before a Windows default-codepage JSON read failed; remaining closure rerun with explicit UTF-8. No historical entry rewritten.
+
+
+## 31. Geography assessed-unit campaign — 12 October 2026
+**Model:** OpenAI GPT-6-based Codex via Codex desktop (exact serving model ID unavailable; not guessed) · **Directed by:** Md Roushan · **When:** 2026-10-12T12:09:50+05:30.
+
+Compiled four units / twenty concepts / eighty items / 120 atoms. Fresh counters: **320 JS passes (304 kernel + 16 web; 36 files)**. Full Python: **70 passed, one PostgreSQL skip, 123 warnings**. Kernel/web/scripts typechecks and connected build pass. New regressions validate all twenty teacher cycles, prerequisite frontier, observable weak/strong route divergence and next-concept selection, check-miss repair, independent transfer with no hints, private payload withholding, persistence and old active grading.
+
+Browser QA_UNITS=true, QA_REFERENCE=true, QA_COMPLETE=true on the connected production build passes four sizes with errors=[]/issues=[]: signup, actual server grading, lost-response UUID retry, conflict recovery, restartable pause, diagram/reference, natural end/notes, Library unit selection, Monsoon's coordinate prerequisite and persistent unit preference after sign-in. frontend/units-qa.json records results. Speech capability stubbed; quality/capacity/learner outcomes unknown.
+
+Observed failures/corrections: rapid synthetic correct answers received the existing guessing discount, keeping prerequisite unknown; corrected test timing rather than weaken model. Strict union provenance type assertion corrected. Duplicate continuity output warned during bundling; merged and rebuilt. Stale snapshot caused counter generation failure after an intermediate registry update; measured records reconciled then full generator rerun. Wrong misconception file guesses resolved through actual imports. Source checks are targeted, not expert approval. Content remains seed pending review. Pilot deferred.
+
+Final closure: twelve targeted unit/docs checks passed; registry/resume, unique journal/ADR identifiers and local review links reconciled. Both frontend modes built after final presentation changes. The connected build was restored last for the live check. Native coordinates/seasons/scale/orographic diagrams supplement the process diagrams; screenshots/contact sheet in frontend/units-contact-sheet.jpg.

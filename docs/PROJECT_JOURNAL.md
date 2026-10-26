@@ -789,3 +789,121 @@ Also, at the founder's direction, established the **self-sufficiency rule** (reg
 **What we inferred:** the difference between a dashboard and a study is that a study's numbers DEMAND work — the founder's questions turned a measurement into a fix, and the fix turned the self-model from a witness into a participant. Also: honest zeros (0% influence) are findings; honest non-flips (the time-budget perturbation) are findings; the discipline is the same — measure, answer, strengthen, re-measure.
 
 **Way forward:** the intelligent layers are strengthened and coordinated; the machine is ready for the content floor (founder/mentor hours — items 105→500, atoms 104→150) and, beyond it, Wave-2 and the pilot. Remaining hardening queue: multi-seed sweeps, the spiky-knowledge residual (t09/t10), the rendered product demo. ADR-046 records the standing decision; EXPERIMENTS §23 the campaign; the Layer Interaction Report carries the addendum. All evidence SIMULATED-world; efficacy UNKNOWN UNTIL PILOT.
+
+---
+<a name="entry-49"></a>
+## ENTRY 49 — CONNECTED LEARNING AND PRODUCTION BLOCKERS REPAIRED
+**Model:** OpenAI GPT-6-based Codex via Codex desktop (exact serving model ID unavailable; not guessed) · **Directed by:** Md Roushan (Founder) · **When:** 10 October work, retrospectively registered 2026-10-10 23:31 IST. No new commit created for this documentation update.
+
+**What:** connected the canonical TypeScript engine behind authenticated Python `/learning` commands. Repaired endpoint ownership, secret fallback, shared database session/cache authority, split commits, inaccurate assessment replay and incomplete dependencies. Added issued-item server scoring, UUID idempotency, revisions, learner locks, atomic evidence/projection persistence, migrations, containers, gateway and CI scaffolding. Production adapter disables simulated-gain strategy adoption, LLM actions and unobserved fatigue/frustration inference.
+
+**Why:** the Founder requested production hardening and intelligent personalised learning after the six concrete blockers were identified. One decision authority and durable account-owned evidence precede any enterprise claim.
+
+**Results/failures:** previous implementation evidence was 291 JavaScript passes, 64 Python passes and one PostgreSQL-only skip. The documentation closure independently re-ran suites: 298 JavaScript passes (282 kernel + 16 web), 64 Python passes, one skip and 114 deprecation warnings. PostgreSQL/container/staging/load/restore remain unverified locally. These engineering results do not prove institutional readiness or learner benefit.
+
+**Inference:** secure delivery, correct reasoning and real learning outcomes have separate evidence obligations.
+
+**Next:** PRODUCTION_READINESS release gates, expert content review and a consented adult pilot. ADR-047 and EXPERIMENTS §24/26 register this boundary and its evidence.
+
+---
+<a name="entry-50"></a>
+## ENTRY 50 — THE REFERENCE BOARD BECOMES THE ACTIVE FRONTEND
+**Model:** OpenAI GPT-6-based Codex via Codex desktop (exact serving model ID unavailable; not guessed) · **Directed by:** Md Roushan (Founder) · **When:** 10 October work, retrospectively registered 2026-10-10 23:31 IST. No new commit recorded.
+
+**What:** built one React presentation layer for preview and connected adapters, covering all 15 reference stages and sidebar destinations. Generated nine text-free scene/character assets using the built-in image tool; saved responsive WebP assets, prompts and contact sheets. Real code owns forms, messages, SVG teaching, answers, confidence, pen/undo/clear, notes/download and settings. Native notes dialogs contain focus and close with Escape; reduced motion is supported. Previous local/amber/simple-connected entry points are inactive history.
+
+**Why:** the Founder explicitly chose desktop-first responsive layouts and illustrated characters with subtle motion, with frontend delivery before additional backend polishing. Static full-screen images would break interaction and accessibility.
+
+**Results/failures:** 16 frontend tests/typecheck and both builds passed. Preview QA at 1440×900, 1920×1080, 820×1180 and 390×844 found no overflow/browser errors or API calls. Disposable real API checks passed registration, Polity onboarding, a lost response after server commit, same-UUID retry, real cross-client revision conflict/reload, notes and returning-user login. Connected bundles exclude private/preview item identifiers. QA caught and fixed a mobile footer offset. Harness/tool errors included accessible-name and duplicate-control selectors, a consumed Response mock, patch operation conflict and PowerShell quoting; all corrected. One early image result inadvertently printed base64; later calls reported paths only. Synthetic QA database/extra servers were removed; preview server retained for review.
+
+**Inference:** art supplies visual fidelity without becoming the interface. Accuracy on recorded answers is not mastery or delayed retention; roadmap art cannot represent earned progress.
+
+**Next:** Founder visual review (acceptance not presumed), then backend polishing. Voice/free-text tutoring/translations, server preferences and cross-device artifacts remain deferred. ADR-048, EXPERIMENTS §25 and frontend/README define the delivered capability.
+
+---
+<a name="entry-51"></a>
+## ENTRY 51 — SESSION PROTOCOL CLOSED AND DOCUMENTATION DRIFT REPAIRED
+**Model:** OpenAI GPT-6-based Codex via Codex desktop (exact serving model ID unavailable; not guessed) · **Directed by:** Md Roushan (“follow the session protocol and update all the docs”) · **When:** 2026-10-10 23:31 IST.
+
+**What:** followed README §3: backfilled missing journal/ADR/evidence entries, rebuilt the living snapshot, refreshed Founder journey/results/status/next steps, resume/index, architecture/roadmaps/blueprint/vision and active delivery guides. Replaced hardcoded test counters with actual green Vitest JSON results. Frozen audits, external references and historical simulation datasets remain unchanged.
+
+**Why:** headline updates alone had left the bootstrap calling the backend archived and the app unfinished; counters could publish an obsolete 291 without measuring new tests.
+
+**Results/failures:** fresh 298 JavaScript passes; 64 Python passes, one PostgreSQL skip, 114 warnings. Final docs integrity/typecheck/link checks are recorded in EXPERIMENTS §26. A too-large Windows shell command was rejected before execution; the documentation writes were split. Corrected an incomplete header replacement and Windows default-codepage read using explicit UTF-8. The system Python alias was unavailable; used the bundled runtime. Exact serving model ID is not exposed, so attribution states the known provider/family/runtime and leaves the ID unknown.
+
+**Inference:** current state must distinguish active code, historic simulation proof and unearned release claims; a stale hardcoded number cannot establish freshness.
+
+**Next:** keep every future session protocol-complete; follow the current bootstrap and release gates. No additional product/backend implementation is authorized by this documentation request. ADR-049 records the counter repair.
+
+---
+<a name="entry-52"></a>
+## ENTRY 52 — KNOWLEDGE AND PERSONALIZED TEACHING: THE NEXT MOVE REVIEWED
+**Model:** OpenAI GPT-6-based Codex via Codex desktop (exact serving model ID unavailable; not guessed) · **Directed by:** Md Roushan · **When:** 2026-10-10T23:49:11+05:30.
+
+**What:** read the supplied 527-line suggestion and compared its eleven sections against current code, documentation and prior QA. Researched primary sources on retrieval, teaching evidence, content rights, PostgreSQL search and India's student-data framework. Wrote INTELLIGENCE_AND_KNOWLEDGE_PLAN.md with line ranges, current integration gaps, knowledge publishing/retrieval design, session/voice behavior, phased Classes 6–12 plus UPSC scope and a fair frontier-tutor benchmark.
+
+**Why:** the Founder wants extraordinary personalization and domain breadth without unnecessary complexity, with Markdown/web search as possible knowledge shortcuts. Preserve one learning authority and connect the teacher capabilities already present before adding new cognitive machinery.
+
+**Findings/failures:** the attachment's no-application status is stale. Connected runtime is narrower than kernel teaching: fixed executive benefit input, partial session execution, neutral workspace placeholders, no transmitted local style/language preferences, and foundation Geography content. No new efficacy or capacity evidence was collected. Tool reads initially exceeded output budgets; used bounded targeted reads. A guessed kernel/content directory and journey/adapters.ts path did not exist; actual modules were located. An official exam-notice PDF fetch timed out; the plan uses accessible official archive references and does not infer the missing PDF's contents. Current Founder Guide had unsupported exclusivity, infinite-memory, offline and margin claims; corrected the live explanatory sections and recorded the anomaly in EXPERIMENTS §7/§27.
+
+**Inference:** search retrieves information; reviewed educational representations and executed evidence loops make it teachable/personal. LLM-independent decisions do not imply unrestricted frontier-level conversation. General superiority remains a research claim requiring a fair study.
+
+**Way forward:** recommended first work package is one persistent, reviewed, interrupted/resumed connected lesson using existing composer/teacher/expression; then publishing, voice/freshness, operational/adult outcome checks and a gated school pilot. This session delivers analysis/documents only. ADR-050 records requested scope and recommendations, not launch approval or implemented capabilities.
+
+
+---
+<a name="entry-53"></a>
+## ENTRY 53 — CONNECTED TEACHING AND KNOWLEDGE: ENGINEERING FIRST
+**Model:** OpenAI GPT-6-based Codex via Codex desktop (exact serving model ID unavailable; not guessed) · **Directed by:** Md Roushan · **When:** 2026-10-11T00:30:18+05:30.
+
+**What/why:** Founder authorized frontend/backend upgrades now and deferred learners/pilots. Connected lessons now persist teaching steps, pause/resume, preferences, completion notes and reflections on the account. The existing kernel composer/teacher executes question and explanation steps; independent checks reject hints, and assisted/revealed answers do not create independent mastery or memory evidence. Eight original Geography Markdown lessons compile into 48 source-linked seed atoms with expert review explicitly pending. Local bounded source search, lesson-specific boards and browser-provided read-aloud are available. Live web, speech recognition, unrestricted conversation and translation are not configured.
+
+**Evidence:** 306 JavaScript tests (290 kernel + 16 web); 69 Python passed, one PostgreSQL skip, 120 deprecation warnings. Kernel/web/scripts typechecks and both frontend builds passed. Connected and preview journeys passed at 1440×900, 1920×1080, 820×1180 and 390×844; no browser errors or horizontal overflow. Connected checks cover committed-response loss/same-UUID retry, genuine stale revision/reload, pause recovery in a fresh browser, server notes/reflections/preferences, source search and speech-control dispatch. Voice quality is not evaluated by the stubbed browser capability.
+
+**Failures corrected:** new-projection preference responses needed a flush; old question-only tests needed teaching-step navigation; fixture import and TypeScript UUID/module typing corrected. Browser selectors exposed pause/sidebar icon names; explicit accessible labels added. Toast status text includes a dismiss control, so QA uses role/status matching. Incorrect river-board use for non-river concepts corrected. PowerShell Set-Content option was unsupported; used explicit file write. No founder visual acceptance, PostgreSQL/container/capacity or learner-outcome evidence is claimed.
+
+**Inference/way forward:** one executed teacher contract remains authoritative; executive proposals incompatible with its evidence contract remain separately labelled recommendations. Engineering continues before learner/pilot work: deployment/runtime capacity, content review, account operations and deeper lesson coverage. No rollout or Charter amendment.
+
+
+---
+<a name="entry-54"></a>
+## ENTRY 54 — A REAL CONNECTED POLITY SESSION TO CHECK
+**Model:** OpenAI GPT-6-based Codex via Codex desktop (exact serving model ID unavailable; not guessed) · **Directed by:** Md Roushan · **When:** 2026-10-11T00:45:27+05:30.
+
+**What/why:** Founder asks to test the complete frontend/backend session from scratch, selects Polity as the unfamiliar domain, and requests a production webpage rather than the offline demonstration. Built the connected frontend and compiled runtime, applied migrations to a separate local connected_check.db, and started the owned API on 8000 plus built frontend on 5175. Existing prototype database was not altered. The webpage starts at authentication; no preloaded learner credentials or simulated progress.
+
+**Evidence:** fresh generated counters: 307 JavaScript passes, 291 kernel + 16 web, 34 files. New regression finishes both Polity and Geography through persisted/serialized steps, checks honest confidence summary and natural completion. Polity production-build browser QA passes at all four viewport sizes, including new account/onboarding, committed-response-loss retry, genuine stale revision/reload, cross-browser pause/resume, natural lesson end (10 steps after resume in this synthetic run), reflection, notes, source search and return login. Natural QA is accelerated interaction, not a measured 40-minute teaching outcome. Webpage 200, unauthenticated students 401, proxied readiness ready. Services remain running for Founder's own account.
+
+**Failures/corrections:** launching Alembic from repository root lacked app import path; reran from backend directory. Natural completion harness initially omitted the confidence-report and final-summary buttons; recorded visible UI and corrected navigation/waits. The closing teaching template asked for a rating with no corresponding control; replaced its public copy with actual per-answer confidence/independent-correct counts and an explicit non-mastery caveat. No new confidence or mastery evidence is fabricated.
+
+**Inference/next:** full local connected flow is testable on the built frontend; this is not a deployed PostgreSQL enterprise release. Docker is unavailable on this host. Keep operations/content/coverage gates open; learner/pilot work remains deferred.
+
+
+---
+<a name="entry-55"></a>
+## ENTRY 55 — GEOGRAPHY MASTER SOURCE READ AND CONNECTED
+**Model:** OpenAI GPT-6-based Codex via Codex desktop (exact serving model ID unavailable; not guessed) · **Directed by:** Md Roushan · **When:** 2026-10-12T11:29:54+05:30.
+
+**What/why:** Founder supplied a Geography synthesis and requested a line-by-line review and a route into the Super Teacher. Read all 1,483 lines in order. Preserved 100,579 bytes exactly, hashed and compiled 173 heading records / 85 subject reference sections. Indexed subject sections rather than treating attachment policy/schema instructions as application commands. Wrote GEOGRAPHY_SOURCE_REVIEW.md with the full 13-part assessment, current limitations, item review flags and conversion plan.
+
+**Delivery:** source-linked Library retrieval across the reference; mapped, collapsible excerpts on new Geography EXPLAIN steps. Independent checks withhold excerpts; Polity stays isolated; reading does not update evidence. Sessions pin source version; old unpinned sessions retain presentation. No broad topic assessments or new executive were fabricated. Graded coverage remains eight Geography concepts / 16 seed items / 48 atoms, pending expert review.
+
+**Evidence:** generated 311 JS passes (295 kernel + 16 web, 35 files); kernel/web/scripts checks and both builds passed. Targeted API five passes / 17 warnings. Production-build browser reference flow passes four sizes with no errors/overflow: signup, excerpt, monsoon search, pause/resume, natural completion, debrief/notes and return. Connected services restarted on 5175/8000 using the separate connected_check.db; no PostgreSQL/enterprise certification.
+
+**Failures:** query tokenization split schema field names and retrieved unrelated words; underscore tokens now remain whole. Existing HTTPS-only source test could not represent local document provenance; it now requires HTTPS or checksum provenance. Python runtime lacked backend dependencies; restored locked requirements. An oversized shell documentation write was rejected before execution; wrote the review with apply_patch. No data was overwritten by the rejected write.
+
+**Inference/next:** synthesis is useful reference, not proof of complete NCERT extraction. Read underlying editions/chapters and review flagged ambiguity before promoting canonical lessons. Continue engineering/content conversion; pilots remain later. Frozen seed grading/replay unchanged.
+
+
+---
+<a name="entry-56"></a>
+## ENTRY 56 — FROM GEOGRAPHY REFERENCES TO ASSESSED TEACHING UNITS
+**Model:** OpenAI GPT-6-based Codex via Codex desktop (exact serving model ID unavailable; not guessed) · **Directed by:** Md Roushan · **When:** 2026-10-12T12:09:50+05:30.
+
+**What/why:** Founder explicitly requests implementing complete geomorphology, maps/motions, atmospheric foundations and monsoon units so the intelligence layer teaches adaptively. Authored four packs: 20 concepts, 80 distinct role-tagged questions and 120 atoms. Compiler validates roles, options, IDs, source anchors, diagrams and prerequisite cycles. Existing planner ranks an evidenced prerequisite frontier; existing teacher executes a bounded assessed-unit protocol with repair/short-route/check/transfer. Native readable diagrams and unit selection/Library links connect to persisted account preferences.
+
+**Evidence:** 320 JS passes (304 kernel + 16 web; 36 files), 70 Python passes/one PostgreSQL skip/123 warnings. Typechecks/scripts and connected build pass. Four-size browser flow includes natural completion, notes, real retries/conflicts, pause/re-login, Monsoon selection and its unknown coordinate prerequisite; no browser errors/overflow. Seven original unit regressions plus all-concept and publishing rejection checks demonstrate actual route/next-concept divergence. GEOGRAPHY_UNITS.md records scope and reproduction.
+
+**Failures:** unrealistic one-second answers in the progression test were rightly discounted; used plausible response time, preserving production evidence weighting. A source-union TypeScript assertion needed safe provenance narrowing. Duplicate continuity field caught by bundler, merged. Regeneration caught snapshot/counter drift; reconciled measured registry before generating new results. Guessed misconception filenames did not exist; traced events import to diagnosis module. No unobserved success, no pilot efficacy claim.
+
+**Inference/next:** source retrieval alone is not teaching; role-tagged fresh checks and prerequisites now affect delivered sessions. New seed material requires subject review/difficulty calibration and broader coverage. Old active seed grading is preserved; new catalog evidence isolated while retaining full history. Continue engineering/content review; learners/pilots and enterprise certification remain later.

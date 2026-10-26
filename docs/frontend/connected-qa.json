@@ -1,0 +1,10 @@
+{
+  "errors": [],
+  "registration": true,
+  "onboarding": true,
+  "subject": "UPSC Polity",
+  "uncertainResponseRetry": "same command UUID, one local record",
+  "realRevisionConflictRecovery": true,
+  "returningUser": true,
+  "tokensStored": false
+}

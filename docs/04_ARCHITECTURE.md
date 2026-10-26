@@ -1,4 +1,7 @@
 # TECHGRAM — ARCHITECTURE (WORKING SPECIFICATION)
+
+> **Current status (10 October 2026):** connected authority and reference frontend implemented; Founder review/release/pilot gates open. See the dated addendum and CURRENT_STATE. Older sections retain historical context.
+
 ## The V1 brain, module by module. This is the build contract.
 
 > **Change control:** any modification to this specification requires an entry in `DECISIONS.md` (ADR) — no silent architecture changes. Implementation status is tracked in `CURRENT_STATE.md`; build evidence in `EXPERIMENTS_AND_TESTS.md`.
@@ -335,3 +338,41 @@ The frozen brain above (System A) is untouched — behavioral invariance is test
 **The laws:** the Executive decides → the Conductor executes → Presence expresses → the LLM voices → the UI renders (never the reverse) · no self-update without evidence (the counterfactual switch is the standing proof) · anti-Goodhart (the evaluator is never consulted by the brain — ablation-proven) · every layer traced and ablation-measured [ADR-045].
 
 *Spec complete. Cognitive-runtime sequence: `10_MASTER_ROADMAP.md` (Phases 0–6 COMPLETE). V1-A product sequence: `05_ROADMAP.md`.*
+
+## 12. Active product boundary — 10 October 2026 [ADR-047–049]
+
+React journey → authenticated Python API → owned/locked learner transaction → compiled TypeScript runtime → atomic projection/command history → public LearningView. Current routes: `/auth/register|login`, `/students`, `/student/onboard`, `/learning/{student_id}/start|answer`. Start/answer use UUIDs, issued item IDs/revisions; server-held content grades answers. Future correct options/private context do not reach the client before submission. Fresh DB sessions, locks and configured secrets replace cache/shared-session authority; production requires PostgreSQL/migrations.
+
+The active frontend uses one presentation layer and preview/connected adapters. Real code owns controls/diagrams/drawing; art is presentation. Local notes/preferences cannot rewrite server evidence. Connected mode requires API availability; complete offline sync remains open. Python is active infrastructure, superseding archived-only descriptions. No new cognitive subsystem was added in the UI phase. The production adapter does not use simulator-gain strategy adoption, LLM actions or unobserved behavioural inference. Deployment/enterprise/pilot gates remain unearned.
+
+## Strategy review addendum — proposed, not implemented [ADR-050]
+
+The Founder requested Classes 6–12 plus UPSC and stronger knowledge/personality with limited complexity. INTELLIGENCE_AND_KNOWLEDGE_PLAN.md proposes wiring existing composer/teacher/ExperiencePlan/expression into persisted connected sessions, then reviewed Markdown packs/local retrieval, bounded freshness/voice and phased release evidence. No additional executive or general-agent architecture is proposed. Current code, frozen baseline and release gates are unchanged; school deployment needs an adopted scope/Charter amendment and child/curriculum readiness. The plan is a researched recommendation, not a replacement adopted build sequence or finished capability.
+
+
+## 11 October engineering delivery [ADR-051]
+**Model:** OpenAI GPT-6-based Codex via Codex desktop (exact serving model ID unavailable; not guessed) · **Directed by:** Md Roushan · **When:** 2026-10-11T00:30:18+05:30.
+
+Connected lessons now persist teaching steps, pause/resume, preferences, completion notes and reflections on the account. The existing kernel composer/teacher executes question and explanation steps; independent checks reject hints, and assisted/revealed answers do not create independent mastery or memory evidence. Eight original Geography Markdown lessons compile into 48 source-linked seed atoms with expert review explicitly pending. Local bounded source search, lesson-specific boards and browser-provided read-aloud are available. Live web, speech recognition, unrestricted conversation and translation are not configured.
+
+Migration 0002_learning_journey must be applied before serving (production schema guard requires it). Owned commands use UUID/revision/step contracts and the existing transaction lock. Used-item rotation survives serialization; independent checks reject help; assistance carries no independent evidence weight. Versioned active lessons require explicit migration on pack changes. Executive recommendations and delivered teacher directives remain distinguishable. No new brain or cloud service was added.
+
+Fresh checks: 306 JS / 69 Python passes, one PostgreSQL skip; kernel/web/scripts typechecks and both builds pass. Browser upgrade QA: `node scripts/frontend_upgrade_qa.cjs`, disposable API database only, report frontend/upgrade-qa.json. Preview QA remains `node scripts/frontend_qa.cjs`. Founder visual acceptance, expert curriculum review, load/restore/staging and enterprise operations remain open. Learners/pilots are later by Founder instruction; frozen Charter/audit and historical experiments remain intact.
+
+
+## 12 October Geography reference integration [ADR-052]
+**Model:** OpenAI GPT-6-based Codex via Codex desktop (exact serving model ID unavailable; not guessed) · **Directed by:** Md Roushan · **When:** 2026-10-12T11:31:32+05:30.
+
+GEOGRAPHY_SOURCE_REVIEW.md records the full 1,483-line review. Exact synthesis is preserved/hashed/indexed into 85 subject sections; policies/schemas remain reference data. Bounded owned Library retrieval and mapped EXPLAIN excerpts use the existing server runtime. New Geography sessions pin versions; old unpinned sessions stay unchanged; independent questions withhold excerpts. No new planner/model/database. Reading does not update evidence. Eight assessed Geography concepts/16 seed items/48 atoms remain; whole-curriculum/grade-depth/UPSC certification unearned. Resolve edition/subject review and item ambiguity in a new immutable pack.
+
+311 JS passes (295 kernel + 16 web); targeted Python five passes/17 warnings; reference browser QA passes four sizes without errors/overflow. Page localhost:5175: choose Geography, search monsoon/GIS in Library or start a new session. QA_REFERENCE=true enables reference QA; report frontend/reference-qa.json. Both builds/checks pass; deployment and learner/pilot gates remain open/deferred.
+
+
+## 12 October assessed-unit expansion [ADR-053]
+**Model:** OpenAI GPT-6-based Codex via Codex desktop (exact serving model ID unavailable; not guessed) · **Directed by:** Md Roushan · **When:** 2026-10-12T12:12:24+05:30.
+
+The previously reference-only boundary is superseded for four authored foundation units: geomorphology, maps/motions, atmosphere and monsoon. New immutable catalog: 20 concepts / 80 private role-tagged questions / 120 atoms, seed subject review pending. Existing planner ranks an evidenced prerequisite frontier; existing teacher executes conditional explanation/support, a fresh no-hint check and distinct independent transfer. Role-tagged items and native diagrams replace arbitrary practice-as-transfer. One concept cycle per bounded session; partial budgets do not imply completion of every objective.
+
+Old active grading stays on its original bank; historical notes/events remain while new catalog evidence is separate. Independent payloads withhold explanation/reference/diagram nodes. Unit preference persists in existing JSON; no new schema/model/planner/service. Library can choose a unit for the next session; unfinished sessions retain their old unit. Full grade/curriculum, expert review/calibration, open-response rubrics and operations remain open; pilots deferred. See GEOGRAPHY_UNITS.md.
+
+Fresh verification: 320 JS passes (304 kernel + 16 web), 70 Python passes/one PostgreSQL skip/123 warnings, typechecks and connected build. Four-size units-qa.json covers natural completion, recovery/notes and Library-to-Monsoon-to-coordinate-prerequisite selection with preference recovered after login. Local connected app: localhost:5175, refresh/sign in and select Geography teaching unit.

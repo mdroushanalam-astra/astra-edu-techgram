@@ -1,6 +1,19 @@
 from typing import Dict, List, Optional, Any
 from datetime import datetime
 import uuid
+from functools import wraps
+
+def atomic_command(fn):
+    @wraps(fn)
+    def wrapped(self, *args, **kwargs):
+        with self.db_repo.transaction():
+            # The pipeline stores are command-local; never reuse stale evidence.
+            self.event_store = EventStore()
+            self.receipt_store = ReceiptStore()
+            self.pipeline.event_store = self.event_store
+            self.pipeline.receipt_store = self.receipt_store
+            return fn(self, *args, **kwargs)
+    return wrapped
 
 from .student_state import StudentState
 from .knowledge_graph import CurriculumKnowledgeGraph, build_default_upsc_graph
@@ -9,7 +22,7 @@ from .assessment_pipeline import AssessmentPipeline, AssessmentSessionResult
 from .engines.scheduler import SchedulerEngine, SessionBlock
 from .evidence import ReceiptStore, IntelligenceReceipt
 from .events import EventStore, StudentEvent
-from .db.session import init_db, get_db_session
+from .db.session import SessionLocal
 from .db.repository import DatabaseRepository
 from .session_engine import LearningSessionEngine, TeachingBrief
 
@@ -33,8 +46,7 @@ class StudentService:
         self.question_bank = question_bank or build_default_upsc_question_bank()
         
         # Initialize database persistence
-        init_db()
-        self.db_repo = db_repository or DatabaseRepository(get_db_session())
+        self.db_repo = db_repository or DatabaseRepository(SessionLocal)
         
         self.event_store = EventStore()
         self.receipt_store = ReceiptStore()
@@ -56,18 +68,15 @@ class StudentService:
         self._students: Dict[str, StudentState] = {}
 
     def _get_or_load_state(self, student_id: str) -> Optional[StudentState]:
-        """Resolves student state from hot memory or rehydrates from persistent DB snapshot."""
-        if student_id in self._students:
-            return self._students[student_id]
-        
+        """Read fresh committed evidence; lock the learner during mutations."""
+        self.db_repo.lock_student(student_id)
         loaded = self.db_repo.load_latest_student_state(student_id)
-        if loaded:
-            self._students[student_id] = loaded
         return loaded
 
     # ---------------------------------------------------------
     # User Identity & Authentication (Decoupled from Intelligence)
     # ---------------------------------------------------------
+    @atomic_command
     def register_user(self, email: str, password: str, full_name: str) -> Dict[str, Any]:
         """Registers a new user account with hashed credentials."""
         existing = self.db_repo.get_user_by_email(email)
@@ -90,7 +99,9 @@ class StudentService:
     def authenticate_user(self, email: str, password: str) -> Dict[str, Any]:
         """Authenticates user credentials and returns JWT bearer token."""
         user = self.db_repo.get_user_by_email(email)
-        if not user:
+        if not user or not user.is_active:
+            from .auth import DUMMY_PASSWORD_HASH, verify_password
+            verify_password(password, DUMMY_PASSWORD_HASH)
             raise ValueError("Invalid email or password")
         
         from .auth import verify_password, create_access_token
@@ -106,6 +117,7 @@ class StudentService:
             "token_type": "bearer"
         }
 
+    @atomic_command
     def onboard_student(
         self,
         name: str,
@@ -129,12 +141,12 @@ class StudentService:
         # Save student record & initial snapshot to DB
         self.db_repo.save_student(sid_str, name, goal, target_exam_date, user_id=user_id)
         self.db_repo.save_state_snapshot(state)
-        self._students[sid_str] = state
+
         
         onboard_event = StudentEvent(
             student_id=student_id,
             event_type="goal_set",
-            payload={"name": name, "goal": goal, "target_date": target_exam_date, "user_id": user_id},
+            payload=state._goal_data["target"],
             source="system"
         )
         self.event_store.emit(onboard_event)
@@ -155,6 +167,7 @@ class StudentService:
             return None
         return state.full_state()
 
+    @atomic_command
     def submit_assessment(
         self,
         student_id: str,
@@ -172,6 +185,9 @@ class StudentService:
 
         if not responses:
             raise ValueError("Responses list cannot be empty; at least one item response is required")
+        concept = self.knowledge_graph.nodes.get(knowledge_node)
+        if not concept or concept.subject != subject:
+            raise ValueError("Unknown concept or mismatched subject")
 
         # Check for duplicate question responses within single session
         seen_qids = set()
@@ -192,6 +208,10 @@ class StudentService:
             if q is None:
                 raise ValueError(f"Question '{qid}' not found in QuestionBank")
             
+            if q.knowledge_node != knowledge_node:
+                raise ValueError("Question does not belong to the assessed concept")
+            if selected_idx is not None and (isinstance(selected_idx, bool) or not isinstance(selected_idx, int) or not 0 <= selected_idx < len(q.options)):
+                raise ValueError("Selected option index is out of range")
             is_correct = (selected_idx == q.correct_option_index) if selected_idx is not None else False
             item_responses.append((q, is_correct))
 
@@ -222,9 +242,18 @@ class StudentService:
 
         receipt = self.receipt_store.get(res.intelligence_receipt_id)
         if receipt:
-            self.db_repo.save_receipt(receipt)
+            self.db_repo.save_receipt(receipt, student_id=student_id)
 
-        self.db_repo.save_state_snapshot(state, latest_event_id=res.session_id)
+        assessment_event = StudentEvent(
+            student_id=state.student_id, event_type="assessment_completed",
+            payload={"model_version": "python-v1", "knowledge_node": knowledge_node,
+                     "subject": subject, "responses": responses,
+                     "items": [q.to_dict() for q, _ in item_responses],
+                     "self_reported_confidence": self_reported_confidence,
+                     "state_after": state.full_state()}, source="assessment_pipeline",
+            session_id=uuid.UUID(res.session_id))
+        self.db_repo.append_event(assessment_event)
+        self.db_repo.save_state_snapshot(state, latest_event_id=str(assessment_event.event_id))
 
         return {
             "session_id": res.session_id,
@@ -259,15 +288,13 @@ class StudentService:
         return [b.to_dict() for b in blocks]
 
     def get_receipt(self, receipt_id: str) -> Optional[Dict[str, Any]]:
-        # Check hot memory receipt store first, then fallback to DB
-        receipt = self.receipt_store.get(receipt_id)
-        if receipt:
-            return receipt.to_dict()
+        # Read committed evidence.
         return self.db_repo.get_receipt(receipt_id)
 
     # ---------------------------------------------------------
     # Learning Session Lifecycle
     # ---------------------------------------------------------
+    @atomic_command
     def start_learning_session(
         self,
         student_id: str,
@@ -332,6 +359,7 @@ class StudentService:
             "teaching_brief": brief.to_dict()
         }
 
+    @atomic_command
     def record_session_interaction(
         self,
         session_id: str,
@@ -340,6 +368,7 @@ class StudentService:
         next_phase: Optional[str] = None
     ) -> Optional[Dict[str, Any]]:
         """Logs a dialog turn (student or teacher) and optionally advances the session phase."""
+        self.db_repo.lock_session(session_id)
         session_data = self.db_repo.get_learning_session(session_id)
         if not session_data or session_data["status"] != "active":
             return None
@@ -351,12 +380,14 @@ class StudentService:
         }
         return self.db_repo.append_session_interaction(session_id, turn, next_phase=next_phase)
 
+    @atomic_command
     def complete_learning_session(
         self,
         session_id: str,
         summary: Optional[str] = None
     ) -> Optional[Dict[str, Any]]:
         """Closes a learning session, updates the database, and emits session_completed event."""
+        self.db_repo.lock_session(session_id)
         session_data = self.db_repo.get_learning_session(session_id)
         if not session_data or session_data["status"] != "active":
             return None
@@ -390,40 +421,37 @@ class StudentService:
         return self.db_repo.get_learning_session(session_id)
 
     def replay_events_for_student(self, student_id: str) -> StudentState:
-        """
-        DETERMINISTIC EVENT REPLAY:
-        Reconstructs the full student state from scratch by replaying the raw immutable event history.
-        """
         events = self.db_repo.get_events_for_student(student_id)
-        replayed_state = StudentState(student_id=uuid.UUID(student_id))
-
+        completed = {str(e.session_id) for e in events if e.event_type == "assessment_completed"}
+        if any(e.event_type == "item_response" and str(e.session_id) not in completed for e in events):
+            raise ValueError("Legacy assessment events lack versioned batch metadata; migrate before replay")
+        state = StudentState(student_id=uuid.UUID(student_id))
         for ev in events:
             if ev.event_type == "goal_set":
-                replayed_state._goal_data["target"] = ev.payload
-            elif ev.event_type == "item_response":
-                payload = ev.payload
-                qid = payload["question_id"]
-                node = payload["knowledge_node"]
-                is_correct = payload["is_correct"]
-                q = self.question_bank.get_question(qid)
-                if q:
-                    # Execute single-step update through pipeline without emitting side effects
-                    prior_tm = replayed_state._topic_masteries.get(node)
-                    prior_bkt = prior_tm.vector.recognition.value if (prior_tm and prior_tm.vector.recognition.value is not None) else 0.30
-                    current_bkt = self.pipeline.bkt_model.update(prior_bkt, is_correct)
-                    irt_ability, irt_se = self.pipeline.irt_model.estimate_ability([(q, is_correct)], prior_ability=0.0)
-                    
-                    vec = self.pipeline.pipeline_reconciliation = self.db_repo.load_latest_student_state(student_id)
-                    # Use existing state reconciliation
-                    from .engines.reconciliation import StateReconciliationEngine
-                    reconciled = StateReconciliationEngine.reconcile_topic(
-                        topic=node,
-                        subject="Geography" if "GEO" in qid else "Polity",
-                        bkt_mastery=current_bkt,
-                        irt_ability=irt_ability,
-                        retention_decay=0.92,
-                        observed_responses_count=1
-                    )
-                    replayed_state.update_topic_vector(node, "Geography" if "GEO" in qid else "Polity", reconciled)
-
-        return replayed_state
+                state._goal_data["target"] = ev.payload
+            elif ev.event_type == "assessment_completed":
+                if ev.payload.get("model_version") != "python-v1":
+                    raise ValueError("Unsupported assessment event version")
+                # Recompute the original batch with the original item parameters,
+                # confidence and prior learner state, rather than one-item heuristics.
+                from .question_bank import AssessmentQuestion, CognitiveDimension, ItemValidationStatus
+                batch = []
+                for raw, response in zip(ev.payload["items"], ev.payload["responses"]):
+                    raw = dict(raw)
+                    raw["cognitive_dimension"] = CognitiveDimension(raw["cognitive_dimension"])
+                    raw["validation_status"] = ItemValidationStatus(raw["validation_status"])
+                    question = AssessmentQuestion(**raw)
+                    batch.append((question, response.get("selected_option_index") == question.correct_option_index))
+                pipeline = AssessmentPipeline(self.question_bank, self.knowledge_graph)
+                pipeline.process_assessment_responses(
+                    state, ev.payload["knowledge_node"], ev.payload["subject"], batch,
+                    ev.payload.get("self_reported_confidence"), emit_effects=False)
+                recorded = self.db_repo.deserialize_state(ev.payload["state_after"])
+                calculated = state._topic_masteries[ev.payload["knowledge_node"]].vector
+                expected = recorded._topic_masteries[ev.payload["knowledge_node"]].vector
+                for dimension in ("recall", "recognition", "conceptual", "application", "transfer"):
+                    if getattr(calculated, dimension).value != getattr(expected, dimension).value:
+                        raise ValueError("Assessment replay diverged from recorded transition")
+                # Restore recorded metadata, including the original observation times.
+                state = recorded
+        return state

@@ -1,7 +1,7 @@
 # TECHGRAM — THE FOUNDER'S GUIDE
 ## Your personal window into everything we are building. Written for you, in plain language, no coding knowledge needed.
 
-*Updated: 2026-10-02, ~20:20 · Updated after EVERY major session — check the date at the top. Every chapter also records **which AI model did the work** (this guide and everything technical so far: GLM-5.3-Flash by Z.ai, working inside the ZCode coding tool, under your direction) — so you always know who wrote what, and the rule is now permanent: any model that works on Techgram must sign its name and its reasons into the documents. If anything in here confuses you, that is a defect in this document, not in you — ask and it gets rewritten.*
+*Updated: 2026-10-12T12:11:06+05:30 · Latest work: OpenAI GPT-6-based Codex via Codex desktop (exact serving model ID unavailable; not guessed), directed by Md Roushan. Historical chapters retain their model attribution.*
 
 ---
 
@@ -21,7 +21,7 @@ The heart of Techgram is not a chatbot. It is a **brain** — a piece of softwar
 
 And the deepest rule of the whole company: **the brain never uses ChatGPT-style AI to make decisions.** The AI language models (LLMs) are only allowed to be the *voice* — to speak the brain's words nicely, and never to think. Unplug the LLM completely and the brain still makes 100% of its decisions. This makes Techgram cheap to run, impossible to hallucinate at the decision level, and independent of any AI company.
 
-**Where we are today:** the brain is **built, tested, and proven in our simulator** — it beats ordinary scheduling methods in head-to-head races. There is no app yet; the "voice" (the teacher that talks to students) and the phone app come next. Think of it as: **the engine of the car is built and tested on the track; the body, seats, and steering are next.**
+**Where we are today:** a working illustrated web app now covers your full learning journey. Connected mode signs users in and asks the server-owned learning engine for questions and decisions; a separate offline preview explores River Systems. Engineering is tested; enterprise release and real learning benefit still need evidence.
 
 ---
 
@@ -121,52 +121,67 @@ Second, the fun one: **the Brain Lab web page is built and verified live in a re
 
 ---
 
+**Chapter 12 — Your visual board becomes an app (10 October 2026).** Under your direction, OpenAI GPT-6-based Codex via Codex desktop (exact serving model ID unavailable; not guessed) repaired account access/persistence, connected one server learning authority and built all reference stages. Art supplies rooms/characters; real code supplies interaction. Multiple screen sizes and genuine API recovery were checked, then the full session documentation was closed. You can review a working product now; content, operational checks and a real pilot remain before broad/enterprise launch.
+
+**Chapter 13 — Knowledge and intelligence expansion reviewed (10 October 2026).** You asked OpenAI GPT-6-based Codex via Codex desktop (exact serving model ID unavailable; not guessed) to analyze the external suggestion and plan extraordinary personalized learning for Classes 6–12 plus UPSC. The recommendation is to connect the rich teacher machinery already built, preserve learner continuity, and publish reviewed knowledge packs rather than add another brain. Web search supplies fresh sources; it does not automatically validate a lesson. The written plan includes a fair comparison against strong LLM tutors; no superiority has been demonstrated.
+
+**Chapter 14 — Engineering first (11 October).** OpenAI GPT-6-based Codex via Codex desktop (exact serving model ID unavailable; not guessed), directed by Md Roushan, connected the richer teacher and preserved account preferences, lessons and notes. Markdown knowledge packs and source search work; seed review remains pending. Browser read-aloud is available. You deferred learners/pilots while frontend/backend polishing continues.
+
+**Chapter 15 — Your own full Polity session (11 October).** Under your direction, OpenAI GPT-6-based Codex via Codex desktop (exact serving model ID unavailable; not guessed) brought up a connected production frontend build and real API with a separate migrated database. The full synthetic check now runs to its natural end, saves notes/reflections and recovers them after signing back in. Create your own account at localhost:5175 and choose Polity; localhost:5174 remains the offline preview. Enterprise deployment remains a later engineering gate.
+
+**Chapter 16 — The Geography source enters the workflow (12 October).** OpenAI GPT-6-based Codex via Codex desktop (exact serving model ID unavailable; not guessed), directed by Md Roushan, read every line of your master document and preserved it exactly. The teacher now has mapped reference excerpts and a wider searchable source library. The 85 reference sections are not 85 assessed lessons: the current eight-concept teaching bank remains. The source itself requires edition/subject review, and old item ambiguity is recorded for a new pack version. No new brain was added.
+
+**Chapter 17 — Four real Geography teaching units (12 October).** OpenAI GPT-6-based Codex via Codex desktop (exact serving model ID unavailable; not guessed), directed by Md Roushan, converted the requested sequence into 20 concepts with 80 private questions, 120 explanation/support atoms and code diagrams. The same brain checks prerequisites and the same teacher adjusts its route after a diagnostic. Independent checks and new-context transfer remain free of hints. Strong evidence can unlock another concept; weak or guessing-like evidence keeps foundations in focus. Old sessions/notes stay intact. Seed content awaits subject review; this is tested engineering, not proven learner improvement.
+
 ## 6. THE RESULTS — AND WHAT THEY MEAN FOR YOU
 
-| What we measured | The number | What it means for you |
+| Checked | Result | Meaning |
 |---|---|---|
-| Tests passing | **58 of 58** | The brain behaves exactly as designed, checked automatically after every change. Nothing is built on vibes. |
-| Every decision replayable | **100%, bit-for-bit** | If a student ever asks "why did it do this on March 3rd?" we can replay that exact moment. Total accountability. |
-| AI dependence in decisions | **0%** | No ChatGPT bill explosion, no hallucinated schedules, no dependency on any AI company. Your costs stay near zero and your product keeps working offline and in outages. |
-| Planner vs random scheduling | **+5 to +8 marks** (simulated, one month, same effort) | The intelligence layer has *measurable* value — not a marketing claim but a reproducible race result. |
-| Planner vs "syllabus in order" | **+1 to +2.5 marks** (simulated) | Honest truth: a disciplined student following a good fixed order is tough to beat — our edge grows with messy, real, human behaviour (skipped days, forgetting, wrong priorities). We do not oversell this. |
-| Honesty calibration | Errors within designed bands | When we say "we are 80% sure," we are building toward genuinely being right ~80% of the time — and we publish the proof. |
+| JavaScript tests | 320 pass: 304 kernel + 16 frontend | Reasoning and UI safety contracts pass automated checks. |
+| API/persistence tests | 70 pass; one PostgreSQL skip; 123 warnings | Tested ownership/scoring/recovery work; production database confirmation still needed. |
+| Illustrated journey | All 15 stages and sidebar pages built | The board is a working app, with art for rooms/characters and code for interaction. |
+| Screen sizes | Desktop, large desktop, tablet, 390px mobile | Recorded journey has no horizontal overflow or browser errors. |
+| Real API recovery | Lost response and another client’s update handled | Same-command retry does not duplicate an answer; stale progress can be reloaded. |
+| Real learning benefit | Not established | Historical simulator wins do not prove better learner exam outcomes. |
 
-**The honest disclaimer we will always keep:** these are *simulator* results — they prove the machinery works and is honest. Proof that Techgram improves *real* exam outcomes comes only from the pilot with real students. That claim stays locked until the evidence exists.
+The latest engineering delivery adds connected teaching and persistence. Fresh JavaScript counts were measured on 12 October; full Python counts were freshly measured in this campaign; no learner outcome was measured. Historical Polity/K12 counters remain 105 seed-tagged items and 104 atoms. The new Geography catalog separately has 80 private questions and 120 atoms across 20 concepts. Expert review, calibration and full coverage are unfinished. Historical simulator numbers/limits remain in the evidence ledger.
 
 ---
 
 ## 7. WHERE WE ARE — THE HONEST MAP
 
-**Built and tested (the brain + the voice):** ✅ complete — and now **FROZEN by design** (Brain Freeze v0.1: no new cognitive machinery before real students; an independent audit with live probes and failure-injection tests found and fixed five defects before the freeze was signed). Measuring, forgetting, planning, diagnosing, receipting, replaying, AND the Teacher (the talking tutor that follows the brain's orders, move by move), the Mock Analyser (paste results → “here's where the 22 marks went”), and the Behaviour Watcher. The latest upgrade (ADR-030): the brain now *acts on* what it observes about you — if your real evidence says you fade after 40 minutes, sessions shrink; if you keep avoiding a topic, it loses priority gently; if burnout drift appears, the day gets lighter, never louder. And every plan now openly names the best alternative it gave up — the “why this, not that” is written down, always.
+**Built:** reasoning/cognitive core, account-owned connected learning, transactional evidence and the illustrated journey. Astra guides onboarding and return; an illustrated teacher accompanies a real lesson board. You can edit onboarding, answer/draw, reflect and download notes. Brain Lab is a separate instrument.
 
-**New measurement:** we now measure **Agency** — how much of your own learning you're deciding yourself (what to revise, when to break, when to ask for help). Techgram's long-term success means you need it *less* while knowing *more*. There is deliberately no “agency score” to chase — just an honest stage name and the evidence behind it.
+**Two modes:** offline preview is a labelled demonstration; connected mode requires the API and uses the signed-in account’s server evidence. Preview is not a validated personalised learner model. Full offline authenticated sync is not implemented.
 
-**The public window:** the **Brain Lab webpage** is built and browser-verified (7 screens, the real brain, zero AI decisions) — deployment pending.
+**Now account-owned:** preferences, paused lessons, completion notes, reflections and next-step intentions recover across browsers. Browser read-aloud is optional. Live search, conversational tutoring, speech recognition and translation remain unconfigured. Session accuracy is not mastery/retention, and mountain milestones are outlines.
 
-**Not yet done:** the question bank (105 of ~500 verified questions) and the concept-explanation library (104 of ~150) — **your + a mentor's hours, the true bottleneck** · the offline phone app (Wave-2, deliberately gated) · the limited public beta with 20–30 real aspirants.
+**Geography knowledge:** the supplied master is indexed with line references and pending-review status. Four units now assess 20 concepts with role-tagged questions and diagrams. Library links to unit selection; unknown prerequisites may appear first. Reading a source is not evidence of learning. Broader assessed coverage, grade depth and source audit remain unfinished.
+
+**Requested direction:** Classes 6–12 plus UPSC. This is a new ambition, not current all-grade/all-subject coverage. Connected teaching now executes the existing composer/teacher with persisted preferences; the complete cognitive/expression repertoire is not yet exposed. School release requires curriculum and child/privacy gates.
+
+**Still unproven:** your visual acceptance, PostgreSQL/container/staging capacity and restore, institutional controls, and the adult pilot. This is not a fully certified enterprise app or proof of real-student learning improvement.
 
 ---
 
-## 8. WHAT'S NEXT — AND HOW
+## 8. WHAT’S NEXT — AND HOW
 
-The engineering core is frozen by design (the Ship Mandate: no new clever machinery until real students use it). What remains, in order:
+1. Test the connected Geography unit selector at localhost:5175 from diagnostic through no-hint transfer and notes; visual acceptance has not been assumed.
+2. Convert and review Geography units with private assessment items and chapter provenance; continue frontend/backend polishing; persistence and browser read-aloud are delivered. Review content and production operations next.
+3. Verify production PostgreSQL/containers, load/restart/restore, HTTPS, monitoring and account operations.
+4. Finish mentor content review and the coverage floor; 500 items/150 atoms are targets, not achievements.
+5. Learners and pilots are deferred at your request while engineering proceeds; later measure delayed retention against a fixed plan.
+6. Before institutional contracts, implement required roles, SSO/MFA and retention/export/deletion operations.
 
-1. **THE ENTERPRISE FRONTEND — design decided by you, here** (the design gate is open now; Brain Lab stays our internal instrument). Built in parallel with the content sprint, because building it always reveals what the brain forgot to expose.
-2. **Deploy the Brain Lab webpage** — the public proof page, live for anyone to inspect (no further polish — it has done its job).
-3. **The content sprint** — questions and explanations verified by you + a mentor, measured against the eight-dimension coverage gate. Still the critical path only humans can walk.
-4. **Wave-2, gated** — the offline phone app + backup/sync, after the web proof holds.
-5. **The limited public beta — UPSC adults first** — 20–30 real aspirants, 3+ weeks, success/failure criteria written *before* launch, four layers measured: did they learn? did it stick? did Techgram choose well? and did they get better at running their own learning?
-
-Throughout: the question bank grows toward 500 verified questions — **still the one thing only humans can do, and still the bottleneck of the whole timeline.**
+The latest researched recommendation is one fully persisted connected lesson using existing teaching moves, then reviewed content/retrieval, optional voice/freshness, production/pilot evidence and gated school expansion. See INTELLIGENCE_AND_KNOWLEDGE_PLAN.md. ADR-051 adopts the first engineering package; no release or superiority claim follows.
 
 ---
 
 ## 9. WHAT THIS MEANS FOR YOU AND FOR ASTRA EDU / TECHGRAM
 
-**What you now own.** A working, tested intelligence engine that no competitor in Indian education has: a system that plans against an exam date, forgets nothing about its student, explains itself, and runs without any AI company. The expensive part of "AI education" — per-student AI costs — is architecturally engineered out of your business.
+**What you now own.** A tested decision engine, learner evidence history, account-owned learning API and illustrated application. Its policies can run without a generative LLM. Competitive uniqueness, durable learning advantage and business margins remain to be established. Memory retention is bounded by privacy and operational policies; the connected product needs the API.
 
-**Your moat story, in one sentence for investors:** *"Every education company sells content or chat. We sell intelligence about the learner — and from the very first user we begin collecting the one dataset nobody can buy: which teaching, for which student, for which mistake, actually works. Our system runs on math, not AI tokens, so our margins are structurally better and our product survives offline."*
+**Your defensible product thesis:** evidence-linked learner continuity and well-chosen teaching actions could produce better outcomes at controlled cost. Establish that through subject review, fair comparative studies and measured operations; architecture alone cannot prove uniqueness, margins or learning benefit.
 
 **What only YOU can do (the critical path):**
 1. **Verify content.** Questions and teaching scripts must be factually perfect — one wrong constitutional fact destroys trust. This needs your hours (and ideally a UPSC-mentor friend). It is the #1 timeline driver.
@@ -184,7 +199,7 @@ You will meet these words in the other documents. Here they are in plain languag
 - **Kernel / Brain** — the pure-math decision engine; the product's heart.
 - **LLM / AI model** — ChatGPT-style language AI. Ours is only ever the *voice* or a *measuring instrument*, never the decider.
 - **Envelope** — the label on every fact: where it came from, when, how reliable, when it expires.
-- **Event log / Event sourcing** — the unerasable diary of everything a student does; the diary *is* the truth.
+- **Event log / Event sourcing** — auditable observations used to rebuild learner state, subject to retention, correction and deletion policies. Observations and model estimates remain distinct.
 - **Receipt** — the audit record attached to every recommendation: why, how sure, what would change our mind.
 - **Belief engine / Kalman filter** — the heart that maintains the living, uncertain map of knowledge.
 - **FSRS / memory engine** — the forgetting-curve science that schedules reviews just in time.
@@ -206,7 +221,7 @@ You will meet these words in the other documents. Here they are in plain languag
 
 ## 11. THE PROMISES WE MADE YOU (from the Charter, in plain words)
 
-We will never fake precision. We will show our uncertainty and one-tap ways to sharpen it. Every recommendation carries a "why." The product works offline and with the AI switched off. We never diagnose or label students. We cap workload even when it costs engagement. We publish our calibration. We write our success/failure criteria *before* the pilot. And every session of work on Techgram ends with the documents updated — so the project's memory is never lost, never hallucinated.
+We will never fake precision. We will show our uncertainty and one-tap ways to sharpen it. Every recommendation carries a "why." The decision engine is designed to work with generative AI switched off. The labelled preview works offline; connected learning currently requires the API, and full offline synchronization remains open. We never diagnose or label students. We cap workload even when it costs engagement. We publish our calibration. We write our success/failure criteria *before* the pilot. And every session of work on Techgram ends with the documents updated — so the project's memory is never lost, never hallucinated.
 
 **The one-line soul, again:** *Techgram wins if it becomes the system that knows — with calibrated evidence — which explanation, at which moment, for which kind of student, produces durable learning toward a specific exam date, and can show its work. The AI is a replaceable voice; the data on what works is the company.*
 

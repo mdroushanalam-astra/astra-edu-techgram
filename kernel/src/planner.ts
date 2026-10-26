@@ -101,6 +101,7 @@ export const DEFAULT_PLANNER_PARAMS: PlannerParams = {
 };
 
 export interface PlanContext {
+  allowedConceptIds?: readonly string[];
   day: number;
   daysToExam: number;
   minutesAvailable: number;
@@ -216,6 +217,7 @@ export function planDay(
 
   for (let ci = 0; ci < N; ci++) {
     const cid = model.byIdx[ci]!;
+    if (ctx.allowedConceptIds && !ctx.allowedConceptIds.includes(cid)) continue;
     const concept = model.content.conceptById.get(cid)!;
     const w = model.content.conceptWeight.get(cid) ?? 0;
     if (w === 0) continue;

@@ -33,6 +33,7 @@ def test_learning_session_lifecycle_and_super_teacher():
     })
     assert reg_res.status_code == 201
     user_id = reg_res.json()["user_id"]
+    client.headers["Authorization"] = "Bearer " + reg_res.json()["access_token"]
 
     # 2. Onboard Student
     onb_res = client.post("/student/onboard", json={
@@ -90,8 +91,8 @@ def test_learning_session_lifecycle_and_super_teacher():
         "content": opening_line,
         "next_phase": "interaction"
     })
-    assert t1_res.status_code == 200
-    assert t1_res.json()["current_phase"] == "interaction"
+    # A learner cannot forge a teacher message in the audit log.
+    assert t1_res.status_code == 422
 
     # Turn 2: Student answer
     t2_res = client.post(f"/session/{session_id}/interact", json={
@@ -100,7 +101,7 @@ def test_learning_session_lifecycle_and_super_teacher():
         "next_phase": "interaction"
     })
     assert t2_res.status_code == 200
-    assert t2_res.json()["turn_count"] == 2
+    assert t2_res.json()["turn_count"] == 1
 
     # 7. Complete Learning Session
     comp_res = client.post(f"/session/{session_id}/complete", json={
@@ -114,9 +115,8 @@ def test_learning_session_lifecycle_and_super_teacher():
     assert get_res.status_code == 200
     stored_session = get_res.json()
     assert stored_session["status"] == "completed"
-    assert len(stored_session["session_log"]) == 2
-    assert stored_session["session_log"][0]["role"] == "teacher"
-    assert stored_session["session_log"][1]["role"] == "student"
+    assert len(stored_session["session_log"]) == 1
+    assert stored_session["session_log"][0]["role"] == "student"
 
     print("\nALL LEARNING SESSION & SUPER TEACHER LIFECYCLE TESTS PASSED PERFECTLY!\n")
 

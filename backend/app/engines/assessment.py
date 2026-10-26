@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Optional, List, Tuple, Union
+from typing import Optional, List, Tuple, Union, Any
 import math
 from datetime import datetime
 

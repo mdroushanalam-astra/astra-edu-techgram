@@ -1,7 +1,7 @@
 # TECHGRAM — MASTER DOCUMENT INDEX (THE MOTHER DOCUMENT)
 ## The registry and the law of documentation. Every other document is listed, dated, and bound by the protocol here.
 
-*Last updated: 2026-10-02 ~05:00 · Maintainer: every session that touches the project · If a fact is not in these documents, it does not exist — verify it or register it as unknown. Never invent.*
+*Last updated: 2026-10-12T12:11:06+05:30 · Latest model: OpenAI GPT-6-based Codex via Codex desktop (exact serving model ID unavailable; not guessed) · Evidence over recall; exact serving ID not guessed.*
 
 ---
 
@@ -36,13 +36,20 @@ This is enforced by three rules:
 | 9 | `03_GOALS.md` | Goals, V1 definition of done, gates, kill/continue criteria. | On gate changes (via ADR) | Deliberate edits |
 | 10 | `04_ARCHITECTURE.md` | The build contract: modules, algorithms, invariants, assumptions register. | On architecture changes (via ADR) | Deliberate edits + change note |
 | 11 | `05_ROADMAP.md` | Phases, gates, status notes. | On phase transitions | Status notes + deliberate edits |
-| 12 | **`06_FRONTEND_BLUEPRINT.md`** | Frontend VERDICT + 7-screen information architecture mirroring the brain organs + 3-wave build plan. | On frontend changes | Deliberate edits |
+| 12 | **`06_FRONTEND_BLUEPRINT.md`** | Historical frontend designs plus the active 15-stage reference journey and capability boundary. | On frontend changes | Deliberate edits |
 | 13 | **`07_OPEN_MATERIALS_RESEARCH.md`** | K12 open-materials licensing verdict table + quality principles. What may legally be fed to the brain. | On new source research | Append sections |
 | 14 | **`09_FRONTEND_EXPERIENCE_GUIDE_EXTERNAL.md`** | The external 20-case experience guide preserved verbatim (Entry 24). | Read-only reference | Read-only |
 | 15 | **`10_MASTER_ROADMAP.md`** | **THE single build sequence (corrected, founder-adopted): Phases 0–8 + gates + invariants. Governs the cognitive-runtime build; supersedes 05_ROADMAP for that scope.** | On phase transitions | Status notes |
 | 16 | **`PHASE5_EXPERIMENT_REPORT.md` + `LAYER_INTERACTION_REPORT.md`** | The two big experiment reports (30 scenarios; 24 students × per-layer traces × ablations) — each in plain AND technical language. Raw data alongside as JSON. | After each campaign re-run | Overwrite/addenda |
+| 17 | **`PRODUCTION_READINESS.md`** | Connected authority, deployment and unearned release gates. | Delivery/operations changes | Refresh current facts |
+| 18 | **`frontend/README.md`, prompts, review sheets and QA JSON** | Full frontend, asset provenance, modes and reproduction. | Frontend changes | Refresh current facts; retain review evidence |
+| 19 | **`INTELLIGENCE_AND_KNOWLEDGE_PLAN.md`** | Researched attachment/code comparison; proposed teaching, knowledge and school expansion. | On plan adoption or evidence changes | Mark proposed versus implemented |
 
-**Also in the repo (not part of the doc system):** `kernel/` (the brain) · `backend/` (archived Python prototype — reference only) · root `*.md/.mjs/.txt` (founder's source documents and Nemotron prompt trail — historical).
+| 20 | **`GEOGRAPHY_SOURCE_REVIEW.md` + `content/geography-reference.inventory.json`** | Attachment review, indexed provenance, teacher integration and unfinished assessment coverage. | Source/conversion changes | Review + generated inventory |
+
+| 21 | **`GEOGRAPHY_UNITS.md` + `content/units/geography/`** | Assessed-unit contract, authoring inventory, sources, version boundary and verification. | Unit/evidence changes | Original authoring + generated private assets |
+
+**Also in the repo (not part of the doc system):** `kernel/` (the brain) · `backend/` (active authenticated API/persistence executing the TypeScript runtime; legacy Python learning paths retained for regression/reference) · root `*.md/.mjs/.txt` (founder's source documents and Nemotron prompt trail — historical).
 
 **The self-sufficiency rule (founder directive, 2026-10-02):** every document must be **inter-explanatory but self-standing** — it explains its own terms (or points to the Founder's Dictionary in `FOUNDER_GUIDE.md` §10), carries its own context, and can be read alone with full comprehension. Cross-links between documents are *directions, not prerequisites*. No document may require another document to be understood.
 
@@ -101,7 +108,20 @@ This is enforced by three rules:
 | 2026-10-02 ~19:00–20:15 | **PHASE-A PERSONALISATION CORE** (commit 5036cee): ADR-023 ethics wall + Observable-State Law; ADR-024 Personalisation State v1; ADR-025 Return Model + experiments; ADR-026 sequencing ruling; MEMORY_OPEN; Vision Ledger docs/08; session_started event; 134/134 tests | GLM-5.3-Flash (Z.ai) via ZCode | DECISIONS (ADR-023..026), docs/08 (new), kernel/* (behaviour, teacher, teach_loop, events, experiments, index), 00_CHARTER, 03_GOALS, EXPERIMENTS §14, CURRENT_STATE, RESUME.json, README, JOURNAL | Entry 11 |
 | 2026-10-02 ~14:35–15:10 | **AUDIT + K12 RESEARCH + FRONTEND VERDICT** (commit 6eb4466): full audit 116/116 + G0 re-verified; open-materials research (NCERT © — align-never-ingest; Khan/OpenStax/CK-12/PhET CC BY-NC — never ingest; Wikipedia CC BY-SA usable; original authorship = the model) → docs/07; **K12 seed (CBSE Cl-8 Science) fed to kernel — GOAL-AGNOSTICISM PROVEN, zero kernel changes**; frontend VERDICT: green-lit, 2 waves, blueprint docs/06 (7 screens mirroring brain organs, Wave-1 Brain Lab web needs no server) | GLM-5.3-Flash (Z.ai) via ZCode | k12_seed + k12 test, docs/06 + docs/07 (new), EXPERIMENTS §12, CURRENT_STATE, RESUME.json, README, JOURNAL | Entry 09 |
 
+| 2026-10-10 23:31 IST | Connected authority and six production blockers repaired (retrospective) | OpenAI GPT-6-based Codex via Codex desktop (exact serving model ID unavailable; not guessed); Md Roushan | Production guide, architecture, ADR-047, evidence §24 | Entry 49 |
+| 2026-10-10 23:31 IST | Full reference frontend and real API/four-viewport QA (retrospective) | OpenAI GPT-6-based Codex via Codex desktop (exact serving model ID unavailable; not guessed); Md Roushan | Frontend/blueprint/art/reviews, ADR-048, evidence §25 | Entry 50 |
+| 2026-10-10 23:31 IST | Protocol closure and measured counters | OpenAI GPT-6-based Codex via Codex desktop (exact serving model ID unavailable; not guessed); Md Roushan | Journal, snapshot, experiments, ADR-049, Founder Guide, resume/index, architecture/roadmaps/vision/counters | Entry 51 |
+| 2026-10-10 | Intelligence/knowledge review; Classes 6–12 plus UPSC requested; proposed plan only | OpenAI GPT-6-based Codex via Codex desktop (exact serving model ID unavailable; not guessed); Md Roushan | Plan, snapshot, ADR-050, Journal, Founder Guide, resume/index, vision/roadmaps | Entry 52 |
+
 ---
+
+| 2026-10-12T12:11:06+05:30 | Connected teacher/knowledge engineering; learners/pilots deferred | OpenAI GPT-6-based Codex via Codex desktop (exact serving model ID unavailable; not guessed) | Journal/state/evidence/ADR/Founder/resume/index/architecture/roadmaps/frontend/readiness/plan | Entry 53 |
+
+| 2026-10-12T12:11:06+05:30 | Full Polity connected production-build workflow; own-account check available | OpenAI GPT-6-based Codex via Codex desktop (exact serving model ID unavailable; not guessed) | Journal/state/evidence/Founder/resume/index/frontend/readiness | Entry 54 |
+
+| 2026-10-12T12:11:06+05:30 | Geography source read/indexed; contextual reference integration | OpenAI GPT-6-based Codex via Codex desktop (exact serving model ID unavailable; not guessed) | Journal/state/evidence/ADR/Founder/resume/index/architecture/roadmaps/frontend/plan/review | Entry 55 |
+
+| 2026-10-12T12:11:06+05:30 | Four assessed Geography units; adaptive routing, prerequisites, transfer, diagrams | OpenAI GPT-6-based Codex via Codex desktop (exact serving model ID unavailable; not guessed) | Journal/state/evidence/ADR/Founder/resume/index/architecture/roadmaps/frontend/units/plan | Entry 56 |
 
 ## 5. AGENT BOOTSTRAP (for any model, any size, zero context)
 

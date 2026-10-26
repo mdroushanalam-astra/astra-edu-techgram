@@ -106,7 +106,7 @@ class TopicMastery:
             unit="probability",
             knowledge_type="computed",
             observation_basis="state_fusion",
-            observed_at=datetime.now(),
+            observed_at=self.vector.recognition.observed_at,
             confidence=conf,
             sample_size=self.review_count,
             uncertainty=unc,

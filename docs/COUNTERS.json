@@ -1,8 +1,21 @@
 {
-  "generated_at": "2026-10-04T12:04:25.776Z",
+  "generated_at": "2026-10-12T06:35:25.602Z",
   "tests": {
-    "passed": 291,
-    "files": 32
+    "passed": 320,
+    "failed": 0,
+    "files": 36,
+    "split": {
+      "kernel": {
+        "passed": 304,
+        "failed": 0,
+        "files": 34
+      },
+      "web": {
+        "passed": 16,
+        "failed": 0,
+        "files": 2
+      }
+    }
   },
   "content": {
     "polity": {
@@ -17,6 +30,27 @@
       "items": 25,
       "atoms": 21
     },
+    "geography": {
+      "topics": 1,
+      "concepts": 8,
+      "items": 16,
+      "atoms": 48,
+      "status": "seed; expert review pending"
+    },
+    "geography_reference": {
+      "source_lines": 1483,
+      "indexed_sections": 85,
+      "assessment_ready": false
+    },
+    "geography_units": {
+      "version": "geography-units-1-2bf8c23e925a",
+      "units": 4,
+      "concepts": 20,
+      "items": 80,
+      "atoms": 120,
+      "status": "seed; subject review pending"
+    },
+    "totals_scope": "Historical Polity/K12 scope; Geography counted separately",
     "totals": {
       "topics": 13,
       "concepts": 54,
@@ -25,7 +59,7 @@
     }
   },
   "git": {
-    "commits": 75,
-    "head": "e7418e1"
+    "commits": 76,
+    "head": "1b14b94"
   }
 }

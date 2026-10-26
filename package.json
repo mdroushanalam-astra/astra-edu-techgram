@@ -2,21 +2,29 @@
   "name": "astra-edu-techgram",
   "version": "0.1.0",
   "private": true,
-  "description": "Techgram / Astra Edu — Student Intelligence Kernel (deterministic, LLM-free decisions)",
+  "description": "Techgram / Astra Edu \u2014 Student Intelligence Kernel (deterministic, LLM-free decisions)",
   "type": "module",
   "workspaces": [
     "kernel",
     "apps/*"
   ],
   "scripts": {
+    "dev:connected": "node scripts/dev_connected.mjs",
+    "build:runtime": "npm run content:compile && npm run content:reference && npm run content:units && esbuild scripts/learning_runtime.mts --bundle --platform=node --format=esm --outfile=backend/runtime/learning.mjs",
     "test": "npm -w kernel run test && npm -w @techgram/web run test",
     "typecheck": "npm -w kernel run typecheck && npm -w @techgram/web run typecheck",
     "brainlab": "npm -w kernel run brainlab",
     "counters": "tsx scripts/write_counters.mts",
-    "brainlabweb": "npm -w @techgram/brainlab-web run dev"
+    "brainlabweb": "npm -w @techgram/brainlab-web run dev",
+    "content:compile": "tsx scripts/content_compiler.mts",
+    "content:reference": "tsx scripts/geography_reference_compiler.mts",
+    "content:units": "tsx scripts/geography_units_compiler.mts"
   },
   "license": "UNLICENSED",
   "dependencies": {
     "openai": "^7.25.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2"
   }
 }

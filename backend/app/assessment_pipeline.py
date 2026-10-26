@@ -88,7 +88,8 @@ class AssessmentPipeline:
         knowledge_node: str,
         subject: str,
         item_responses: List[Tuple[AssessmentQuestion, bool]],
-        self_reported_confidence: Optional[float] = None
+        self_reported_confidence: Optional[float] = None,
+        emit_effects: bool = True
     ) -> AssessmentSessionResult:
         """
         Processes a set of responses:
@@ -117,7 +118,8 @@ class AssessmentPipeline:
                 source="assessment_pipeline",
                 session_id=uuid.UUID(session_id)
             ))
-            self.question_bank.record_response(q.question_id, is_correct)
+            if emit_effects:
+                self.question_bank.record_response(q.question_id, is_correct)
 
         # 2. IRT Ability Estimation
         prior_tm = student_state._topic_masteries.get(knowledge_node)

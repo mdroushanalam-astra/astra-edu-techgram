@@ -1,4 +1,7 @@
 # TECHGRAM — FRONTEND BLUEPRINT & VERDICT
+
+> **Current status (10 October 2026):** connected authority and reference frontend implemented; Founder review/release/pilot gates open. See the dated addendum and CURRENT_STATE. Older sections retain historical context.
+
 ## Are we ready to build the frontend? Yes — here is exactly what it is, how it mirrors the brain, and the build plan.
 *Written 2026-10-02 ~15:00 (GLM-5.3-Flash via ZCode, Founder-directed). Companion to `04_ARCHITECTURE.md`. Verdict authority: this document + CURRENT_STATE.*
 
@@ -138,3 +141,39 @@ Two attempts, two founder rejections in one day: v1 "Intelligent Sanctuary" deep
 ## 15. V4 OBSIDIAN & AMBER — STATUS + THE KERNEL CONTRACTS THE FRONTEND NOW CONSUMES [2026-10-04]
 **Built & browser-verified:** screens 1–8 + the metrics debrief (v4 theme tokens, orb-with-face, the Meeting through the Mountain, Confirm rows, "Here's what I observed"). Remaining: screens 9–11 session polish + teacher wrap-up, 13–15, the motion pass, the Real-World Layer.
 **New kernel contracts ready for the remaining screens [ADR-042]:** `cognitive/expression.ts` exports Utterance {text, evidenceRefs, prosody{pace,energy,pauses,emphasis,interruptible}, llm?}, PresenceBehavior, BoardPayload, CommunicationPolicy — the claim-provenance law and the ethics wall are enforced kernel-side BEFORE anything reaches the UI, and the LLM bridge arrives as a bounded re-voicing request with the deterministic text as fallback. The frontend renders; it never invents.
+
+## 16. Reference frontend delivered — 10 October 2026 [ADR-048]
+
+The active design follows the Founder’s ASTRA UI Board: warm cinematic rooms, navy glass, cyan/blue/magenta actions and matching Astra/mentor. Desktop-first/subtle motion was explicitly selected. All 15 stages and sidebar pages use apps/web/src/journey; rejected/amber/local versions remain inactive history.
+
+Stages: welcome/auth → meet → details → questions → summary → home → mountain plan → confirm → real lesson → actual pending overlay → completion → debrief → next choice → artifacts → return. Real controls support edits, answers/confidence, SVG diagrams, drawing/undo/clear, native modal notes/download and settings. Generated assets contain no UI text. Preview is labelled/offline and its answers are absent from connected builds; connected mode uses existing APIs.
+
+Four-viewport and real response-loss/revision-conflict evidence, prompts and review sheets are in frontend/README. Voice/free-text/translations/server notes/preferences are deferred; roadmap art is an outline, accuracy is not mastery. Implementation/QA are complete; Founder approval is pending.
+
+
+## 11 October engineering delivery [ADR-051]
+**Model:** OpenAI GPT-6-based Codex via Codex desktop (exact serving model ID unavailable; not guessed) · **Directed by:** Md Roushan · **When:** 2026-10-11T00:30:18+05:30.
+
+Connected lessons now persist teaching steps, pause/resume, preferences, completion notes and reflections on the account. The existing kernel composer/teacher executes question and explanation steps; independent checks reject hints, and assisted/revealed answers do not create independent mastery or memory evidence. Eight original Geography Markdown lessons compile into 48 source-linked seed atoms with expert review explicitly pending. Local bounded source search, lesson-specific boards and browser-provided read-aloud are available. Live web, speech recognition, unrestricted conversation and translation are not configured.
+
+Migration 0002_learning_journey must be applied before serving (production schema guard requires it). Owned commands use UUID/revision/step contracts and the existing transaction lock. Used-item rotation survives serialization; independent checks reject help; assistance carries no independent evidence weight. Versioned active lessons require explicit migration on pack changes. Executive recommendations and delivered teacher directives remain distinguishable. No new brain or cloud service was added.
+
+Fresh checks: 306 JS / 69 Python passes, one PostgreSQL skip; kernel/web/scripts typechecks and both builds pass. Browser upgrade QA: `node scripts/frontend_upgrade_qa.cjs`, disposable API database only, report frontend/upgrade-qa.json. Preview QA remains `node scripts/frontend_qa.cjs`. Founder visual acceptance, expert curriculum review, load/restore/staging and enterprise operations remain open. Learners/pilots are later by Founder instruction; frozen Charter/audit and historical experiments remain intact.
+
+
+## 12 October Geography reference integration [ADR-052]
+**Model:** OpenAI GPT-6-based Codex via Codex desktop (exact serving model ID unavailable; not guessed) · **Directed by:** Md Roushan · **When:** 2026-10-12T11:31:32+05:30.
+
+GEOGRAPHY_SOURCE_REVIEW.md records the full 1,483-line review. Exact synthesis is preserved/hashed/indexed into 85 subject sections; policies/schemas remain reference data. Bounded owned Library retrieval and mapped EXPLAIN excerpts use the existing server runtime. New Geography sessions pin versions; old unpinned sessions stay unchanged; independent questions withhold excerpts. No new planner/model/database. Reading does not update evidence. Eight assessed Geography concepts/16 seed items/48 atoms remain; whole-curriculum/grade-depth/UPSC certification unearned. Resolve edition/subject review and item ambiguity in a new immutable pack.
+
+311 JS passes (295 kernel + 16 web); targeted Python five passes/17 warnings; reference browser QA passes four sizes without errors/overflow. Page localhost:5175: choose Geography, search monsoon/GIS in Library or start a new session. QA_REFERENCE=true enables reference QA; report frontend/reference-qa.json. Both builds/checks pass; deployment and learner/pilot gates remain open/deferred.
+
+
+## 12 October assessed-unit expansion [ADR-053]
+**Model:** OpenAI GPT-6-based Codex via Codex desktop (exact serving model ID unavailable; not guessed) · **Directed by:** Md Roushan · **When:** 2026-10-12T12:12:24+05:30.
+
+The previously reference-only boundary is superseded for four authored foundation units: geomorphology, maps/motions, atmosphere and monsoon. New immutable catalog: 20 concepts / 80 private role-tagged questions / 120 atoms, seed subject review pending. Existing planner ranks an evidenced prerequisite frontier; existing teacher executes conditional explanation/support, a fresh no-hint check and distinct independent transfer. Role-tagged items and native diagrams replace arbitrary practice-as-transfer. One concept cycle per bounded session; partial budgets do not imply completion of every objective.
+
+Old active grading stays on its original bank; historical notes/events remain while new catalog evidence is separate. Independent payloads withhold explanation/reference/diagram nodes. Unit preference persists in existing JSON; no new schema/model/planner/service. Library can choose a unit for the next session; unfinished sessions retain their old unit. Full grade/curriculum, expert review/calibration, open-response rubrics and operations remain open; pilots deferred. See GEOGRAPHY_UNITS.md.
+
+Fresh verification: 320 JS passes (304 kernel + 16 web), 70 Python passes/one PostgreSQL skip/123 warnings, typechecks and connected build. Four-size units-qa.json covers natural completion, recovery/notes and Library-to-Monsoon-to-coordinate-prerequisite selection with preference recovered after login. Local connected app: localhost:5175, refresh/sign in and select Geography teaching unit.

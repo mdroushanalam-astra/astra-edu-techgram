@@ -1,94 +1,62 @@
 # TECHGRAM — CURRENT STATE
-## The living snapshot. Update after EVERY session — this is the technical front door.
 
-> **Read me alone:** refreshed after every session; stands on its own. Non-technical readers: `FOUNDER_GUIDE.md` tells the same story in plain language.
-> **Integrity:** all counts in this file are backed by `COUNTERS.json` (generated from the code by `npm run counters`) and enforced by `kernel/test/docs_integrity.test.ts`. If this page contradicts reality, the docs-integrity test fails — fix reality or the doc, never silently.
+**Updated:** 2026-10-12T12:11:06+05:30 · **Model:** OpenAI GPT-6-based Codex via Codex desktop (exact serving model ID unavailable; not guessed) · **Directed by:** Md Roushan.
 
-**Snapshot:** 2026-10-04, ~17:45 (local) · Kernel 0.1.0+ · **291/291 tests green (kernel 282 in 31 files + frontend contracts 9), typecheck clean** · Phase: **THE STRENGTHENING PASS [ADR-046, Journal Entry 48] — the founders three questions answered with fixes: (1) NO ethical violations anywhere (wall held in every campaign, 1,925/1,925 provenance-valid); (2) the one critical finding — the advanced-student calibration inversion — FIXED via staleness-aware targeting (all four inversions closed, t23 CBSE margin +4 to +7); (3) the intelligent layers strengthened and coordinated: a proportional self-model (continuous biases, mild experience modulates mildly) + a live calibration channel (self-error rate widens exploration and moderates reported confidence in real time — self-model influence 0% to 3.2% mean, 77% for exam-panic). Re-runs: layer study 22W/2T/0L, Phase 5 rig 30/30, provenance 100%. Phases 0-6 complete + strengthened. NEXT: content floor (founder/mentor hours) + multi-seed hardening + rendered demo; THE PILOT remains the final gate**
+The active product is a cinematic React learning journey backed, in connected mode, by one server-owned TypeScript decision engine. All 15 reference stages and sidebar pages are implemented. Account ownership, atomic learning persistence, safe retries and revisions are tested. Founder visual acceptance, broad launch, institutional readiness and real-student efficacy remain unearned.
 
----
+## Verified state
 
-## 1. One-paragraph position
-
-System A (the frozen brain) is untouched and frozen: envelope → events → belief (graph-prior Kalman) → memory → exam Monte-Carlo → CAT diagnostic → AOM → robust planner → composer → teacher (15 moves over verified atoms) → evidence → belief/memory/misconception update → AOM prediction errors, receipts on every layer, behaviour/agency/allocation wired [ADR-023..030], goal-agnostic (UPSC Polity + CBSE Cl-8 as config). System B (the cognitive runtime) now has a **closed developmental loop** [ADR-040] **and a live improvement cycle** [ADR-041]: `cognitive/developmental-session.ts` composes S0–S4 into the Executive (S1 self-predictions BEFORE every decision, structural S2 judging after every turn, `deriveSelfInsights()` mapping the SelfErrorLedger to self-knowledge injected into later workspaces, every insight carrying a behavioral lever); `cognitive/strategy-experiments.ts` closes the improvement cycle — a ledger pattern (≥3 same-tag errors) becomes ONE falsifiable strategy proposal, a matched A/B simulator (same world, same seeds, ONLY the parameter differs) decides on TRUE learning, kept parameters are adopted into future sessions (`config.strategy`), rejected ones change nothing, ties reject. The counterfactual is architecture (`learningEnabled:false` = same experience, zero influence, factory settings). The deep gate is a REAL session flow: every executive directive becomes an ExperiencePlan (validated seam) and is conducted into ordered steps (80 plans / 390 steps per gate run). The five pre-pilot questions [ADR-039]: decide ✓ · explain ✓ · predict itself ✓ · investigate itself ✓ · change behavior ✓. All evidence remains SIMULATED — real-student efficacy UNKNOWN UNTIL PILOT.
-
-## 2. What works (verified — see EXPERIMENTS_AND_TESTS for numbers)
-
-| Capability | Status | Proof |
+| Area | Current status | Evidence |
 |---|---|---|
-| **THE DEVELOPMENTAL LOOP** (S1 before decisions → S2 structural judging → ledger → insights → different decisions) | ✅ INTEGRATION-TESTED [ADR-040] | `test/counterfactual.test.ts` (rewritten OPEN→CLOSED) |
-| **S4 IN THE LOOP** (ledger pattern → falsifiable proposal → matched A/B → keep/reject on true learning → ADOPTED strategy changes future decisions; rejected = identical traces; ties reject) | ✅ INTEGRATION-TESTED [ADR-041] | `test/strategy-experiments.test.ts` (13 tests) |
-| **StrategyParameters** (the Executive's own tunables, explicit + versioned; frozen-organ params untouchable) | ✅ live | `cognitive/executive.ts` + S4 tests |
-| **PHASE 4 EXPRESSION** (typed utterances w/ claim-provenance, ethics wall at the voice, earned self-correction, why-this microscope, density control, silence first-class, board payloads, LLM Bridge bounded) | ✅ INTEGRATION-TESTED [ADR-042] | `test/expression.test.ts` (22) — LLM OFF/ON identity gate |
-| **PHASE 5 WORLD ADAPTER + THE THIRTY** (UCS boundary; 10 archetypes; real CBSE + synthetic worlds; adversarial; structural proofs; 30/30 PASS, 30 wins/0 losses, mean +3.13) | ✅ INTEGRATION-TESTED [ADR-043] | `test/phase5.test.ts` (12, permanent CI gate) + `docs/PHASE5_EXPERIMENT_REPORT.md` |
-| **PHASE 6 DEMO + LAYER STUDY** (the 3-min arc BY the machinery w/ perturbation counterfactuals; 24 students, 1,152 turns traced; influence by ablation: executive 84.6% / belief 82.9% / wall 15.4% / self-model 0% in-regime) | ✅ INTEGRATION-TESTED [ADR-044/045] | `test/demo6.test.ts` + `test/layer-study.test.ts` + `docs/LAYER_INTERACTION_REPORT.md` |
-| **THE STRENGTHENING PASS** (staleness-aware targeting closes the advanced-student inversions; proportional self-model; live calibration channel — influence 0%→3.2%, 77% exam-panic) | ✅ INTEGRATION-TESTED [ADR-046] | `test/strengthening.test.ts` (9) + EXPERIMENTS §23 |
-| **Self-model levers in the Executive** (early/aggressive/reluctant/late/caution — each changes candidate generation or scoring) | ✅ live | `cognitive/executive.ts` + counterfactual test |
-| **DEEP GATE: executive beats linear on TRUE MARKS** — 12 vs 10, 12/12 seeds +1..+3; belief error 0.20 vs 0.40; accuracy 53% vs 20% | ✅ MATCHED-BASELINE-VALIDATED (simulated) | `cognitive/deep-gate.ts` + counterfactual test |
-| **Conductor in a real session flow** (directive → ExperiencePlan → validate → conduct → advance; 80 plans/390 steps per gate run) | ✅ INTEGRATION-TESTED | `deep-gate.ts` + counterfactual test |
-| C1 Cognitive Executive (workspace → candidates → constraints → consequence-aware select → receipt) | ✅ live [ADR-035] | `test/executive.test.ts` |
-| S0–S4 developmental core (genesis, selfPredict, ledger, self-inquiry, strategy experiments, phase2 gate) | ✅ live | `test/phase2.test.ts` |
-| ExperiencePlan seam (six channels + validateExperiencePlan) + Conductor | ✅ live [ADR-038/039] | `test/phase3.test.ts` |
-| Universal primitives + ownership boundaries (13 organs, no-upgrade law) | ✅ live | `test/phase0.test.ts` |
-| Learning Envelope (7 rules + no-upgrade) | ✅ live | `test/envelope.test.ts` |
-| Belief engine (prior, EKF, decay, Elo 2nd opinion, honest bands) | ✅ live | `test/belief.test.ts` |
-| Memory engine (Techgram Memory Model, spacing rule) | ✅ live | `test/memory.test.ts` + ADR-006 |
-| B5.5 AOM (predict→record→act→observe→error→approve; closed-loop ban) | ✅ live | `test/aom.test.ts` |
-| Exam Monte-Carlo + CAT diagnostic | ✅ live | `test/exam.test.ts` / `test/diagnostic.test.ts` |
-| Planner (robust, VoI, prereq sequencing; 100% AOM-sourced) | ✅ live | `test/planner.test.ts` |
-| **G0 four worlds** (friendly/misspecified/adversarial/sealed-hidden) | ✅ planner useful in ALL | `test/g0_worlds.test.ts` + §10 |
-| B7 composer / B8 teacher / B10 misconceptions / B11 post-mortem / B9 behaviour | ✅ live | `test/closed_loop.test.ts` / `test/postmortem_behaviour.test.ts` |
-| Personalisation State v1 + Allocation wires + Agency Transfer + opportunity cost | ✅ live [ADR-024/030] | `test/personalisation.test.ts` / `test/allocation.test.ts` |
-| Brain Freeze v0.1 (signed boundary; frozen organs behaviorally unchanged) | ✅ SIGNED [ADR-031] | `docs/BACKEND_FREEZE_CHECKLIST.md` |
-| Chaos/failure injection + docs-integrity gate + anti-Goodhart audit | ✅ live | `test/chaos_injection.test.ts` / `test/docs_integrity.test.ts` |
-| Frontend: v4 Obsidian & Amber screens 1–8 + metrics debrief (neon workspace, Astra with face, the Mountain) | ✅ built + browser-verified | `apps/web/src/v4/*` |
-| Frontend contracts (claim-provenance evidence graph, scene graph, voice tiers) | ✅ live | `apps/web/test/contracts.test.ts` |
+| JavaScript | **320/320 tests passed**: 304 kernel + 16 frontend, 36 files | Fresh COUNTERS.json; EXPERIMENTS §31 |
+| Python/API | 70 passed, one PostgreSQL-only skip; 123 deprecation warnings | Fresh pytest; §31 |
+| Frontend | One active journey: apps/web/src/journey, with connected/preview adapters | ADR-048; frontend/README |
+| Visual delivery | All 15 stages plus Home/Session/Map/Growth/Artifacts/Library/Agency/Settings | Screen/contact/reference sheets |
+| Preview browser QA | 1440×900, 1920×1080, 820×1180, 390×844; no overflow/errors; zero API calls | frontend/preview-qa.json |
+| Connected browser QA | Real API signup/onboard, committed-answer response loss/retry, cross-client revision conflict/reload, notes and return | frontend/connected-qa.json |
+| Builds/typecheck | Both frontend builds and frontend typecheck passed; connected bundle excludes private/demo item identifiers | §25 |
+| Account/persistence | Required JWT key, owned learners, request sessions, locks, UUID/revision contracts and atomic commands | ADR-047; Python regression tests |
+| Content inventory | **105 verified items · 104 verified atoms**, 54 concepts / 13 topics across seed Polity/K12 | COUNTERS; verified denotes existing authoring tags, expert mentor review remains required |
+| Cognitive core | Historical System A/B capabilities integration-tested; no new cognitive subsystem in UI phase | ADR-035–046; historical §17–23 |
 
-## 3. What does NOT exist yet (honest — the true remaining gaps)
+## Authority and limits
 
-- **Level-3 self-modification (representation):** ADR-041 deliberately demonstrates levels 1–2 only (parameter/strategy); representation-level change stays on the not-built list.
-- **The S4 harness is a compact declared-constants world** — exercising proposals against the full four-world harness is future hardening.
-- **Content floor** — the bank holds **105 verified items · 104 verified atoms** (13 topics / 54 concepts) against the V1-A floor of 500 items / 150 atoms; PYQ weight table coarse. **Founder/mentor verification hours = the critical path.**
-- **Wave-2 backend pieces:** sync server (recompute-and-verify), student auth, push delivery. Gated.
-- **Real-student evidence:** all developmental-loop, gate, and strategy-experiment evidence is SIMULATED-world; calibration curves need the pilot (G3). Real-student efficacy UNKNOWN UNTIL PILOT.
-- **Hindi/bilingual atoms** (`lang` field exists; content not authored).
-- **Mains scoring, Connect, Career, K12 launch, minors** — deferred per ADR-011; K12 content is prep, not launch (ADR-020).
+Connected mode calls `/auth`, `/students`, `/student/onboard`, `/learning` APIs. Python owns authentication/transactions/persistence; the compiled TypeScript kernel owns scoring and adaptive decisions. The browser presents server evidence and retains command identity for retries. Production legacy learning routes are retired; Python legacy/regression service remains. The backend is active infrastructure, not archived-only.
 
-## 4. Next actions (ordered)
+Preview is a labelled offline River Systems demonstration, isolated from connected data. Connected learning requires the API; complete offline connected synchronization is not implemented. Previous local/amber/simple connected screens are inactive history.
 
-1. ~~PHASE 4 — EXPRESSION~~ **COMPLETE [ADR-042, commit 61ff2ec]** at kernel level: expression.ts, the LLM OFF/ON identity gate, deep-gate integration, the seam refinement (silence first-class).
-2. ~~PHASE 5 — TECHGRAM WORLD ADAPTER~~ **COMPLETE [ADR-043, commit 57bc1cb]** + THE THIRTY (30/30 scenarios, 30 wins/0 losses, mean +3.13) — `docs/PHASE5_EXPERIMENT_REPORT.md`.
-3. **PHASE 6 — THE DEMO (founder-gated):** the 3-minute show — knows nothing → hypothesis → tested → "I was wrong" → strategy change → what it learned + what it is still uncertain about.
-4. **Multi-seed sweep** per Phase 5 scenario (the rig runs in ~0.25 s; 5–10 seeds × 30 is cheap) — next hardening step.
-5. **Frontend v4 (parallel, founder-directed):** screens 9–11 session polish + teacher wrap-up → 13–15 → motion pass → Real-World Layer.
-6. **Content sprint (parallel, Founder + mentor):** items 105→500, atoms 104→150 — **still the true critical path.**
-7. **Wave-2 (gated):** persistence → sync/recompute → tamper test → offline chaos → student PWA.
-8. **Limited public beta:** 20–30 aspirants, 3+ weeks, 4-layer measurement (Learning / Retention / Decision quality / **Agency** [ADR-029]) — pre-registered G3 criteria, Founder recruits.
+Connected lessons now persist teaching steps, pause/resume, preferences, completion notes and reflections on the account. The existing kernel composer/teacher executes question and explanation steps; independent checks reject hints, and assisted/revealed answers do not create independent mastery or memory evidence. Eight original Geography Markdown lessons compile into 48 source-linked seed atoms with expert review explicitly pending. Local bounded source search, lesson-specific boards and browser-provided read-aloud are available. Live web, speech recognition, unrestricted conversation and translation are not configured. Accuracy remains observed performance, not retention. English content is available; language preference does not translate it.
 
-## 5. Risks & standing uncertainty register [adopted 2026-10-02]
+Production does not adopt strategies using simulated gains or infer unobserved fatigue/frustration. Simulator wins remain simulation evidence; learner efficacy is unknown until a real pilot.
 
-| Bucket | Level | What it means |
-|---|---|---|
-| Engineering | 🟢 low-medium | Core architecture credible; 224 tests + chaos injection + probes; the developmental loop now counterfactual-proven [ADR-040] |
-| Product | 🟡 HIGH | Will students find the loop useful enough to return? Unknown until pilot |
-| Scientific / learning-effect | 🔴 VERY HIGH | Does the AOM predict real interventions? Does durable learning improve? Needs delayed outcomes from real students — the honest frontier |
+## Latest delivery — adopted engineering scope [ADR-051]
 
-Also: content-verification throughput is the schedule risk; friendly-world planner margin is thin (+0.4 — re-baselined honestly); deep-gate evidence is simulated-world (the world's learning rule is declared, not measured); multi-worker deployment rules out the singleton pattern in Wave-2 server design.
+Frontend/backend upgrades proceed now; learner recruitment and pilots are deferred by Founder. Connected teacher composition, persisted steps and preference-sensitive examples are implemented. Executive proposals remain advisory when incompatible with the teacher's active evidence contract. Full expression generation, unrestricted conversation, live search, translation and complete grade coverage remain unfinished.
 
-## 6. How to run / verify
+The original Polity/K12 counter totals below retain their historical scope. Geography additionally has 16 seed items, eight concepts and 48 compiled seed atoms; content expert review remains pending. Source links do not constitute approval.
 
-```
-npm test                        # 291 tests (kernel 282 + frontend contracts 9) incl. the Phase 5 rig + the layer study + the demo arc incl. G0 four-worlds + chaos injection + docs-integrity gate + the loop-closure counterfactual
-npx tsx kernel/src/cognitive/deep-gate.ts   # (import runDeepGate) the matched-baseline gate — see EXPERIMENTS §17
-npm run counters                # regenerate docs/COUNTERS.json from the code
-npm run brainlab                # CLI demo (5 acts)
-npm -w kernel run typecheck
-cd apps/web && npm run dev      # the v4 product (dev)
-cd apps/brainlab && npm run preview  # Wave-1 web (production build)
-```
+## Current Founder check — Polity connected session
 
-## 7. Pointers
-> **Observable-State Law [ADR-023]:** all personalisation is a model of the student's OBSERVABLE learning state and behaviour — explicitly uncertain, never internal-state claims, never labels. The Engagement Ethics Wall bans guilt/urgency/exploitation mechanics permanently.
-> **The developmental law [ADR-037/040]:** no self-update without evidence; no strategy change without a falsifiable hypothesis and an evaluation path; the counterfactual (`learningEnabled:false`) is the standing proof that self-knowledge — not the passage of time — changes behavior.
+The real connected production frontend is running at http://127.0.0.1:5175/ with owned API/persisted database at 8000. Create an account and select UPSC Polity in onboarding. Follow issued questions and teaching steps; confidence is collected per question, the close summarizes existing confidence, and session notes/reflections persist. Fresh production-build browser check includes natural completion; report frontend/polity-qa.json. This is local SQLite testing, not deployed PostgreSQL enterprise certification. Journal 54 / EXPERIMENTS §31.
 
-**Non-technical:** `FOUNDER_GUIDE.md` · Soul: `00_CHARTER.md` · Star: `02_NORTH_STAR.md` · Memory: `PROJECT_JOURNAL.md` · Evidence: `EXPERIMENTS_AND_TESTS.md` · Changes: `DECISIONS.md` (ADR-001…042) · **Freeze boundary: `BACKEND_FREEZE_CHECKLIST.md`** · Ideas registry: `08_VISION_LEDGER.md` · Machine pointer: `RESUME.json` · Protocol: `README.md` · Architecture: `04_ARCHITECTURE.md` · Roadmap: `05_ROADMAP.md` · Master roadmap: `10_MASTER_ROADMAP.md` · Frontend: `06_FRONTEND_BLUEPRINT.md` · K12 research: `07_OPEN_MATERIALS_RESEARCH.md` · Counts: `COUNTERS.json`
+## Geography assessed-unit delivery [ADR-053]
+
+Four new authored units execute through the connected teacher: geomorphology (10 concepts), maps/motions (4), atmospheric foundations (4), monsoon (2). Total 20 concepts / 80 private role-tagged items / 120 atoms, subject review pending. A selected unit resolves to an evidenced prerequisite frontier ranked by the existing kernel. Correct/confident diagnostic may take a shorter route; uncertain/incorrect responses get explanation and supported practice; failed checks trigger repair. Independent check and transfer use distinct no-hint items.
+
+New sessions preserve older active grading, retain old events/notes, and isolate new catalog evidence rather than silently migrating mastery. The UI shows native readable diagrams and persisted unit selection; Library can select an authored unit for the next session. Independent payloads withhold explanations/reference/diagram nodes. The legacy eight-concept seed and 85-section reference index remain historical/source assets, not additional new assessed totals.
+
+Fresh full checks: 320 JS / 70 Python passes, one PostgreSQL skip/123 warnings; typechecks and connected build pass. Four-size unit browser flow includes Library-to-Monsoon selection, its unknown coordinate prerequisite, diagrams, natural end/notes and return; see GEOGRAPHY_UNITS.md, frontend/units-qa.json and EXPERIMENTS §31. Full curriculum/grade depth, expert item review/calibration, production capacity and enterprise gates remain open. Pilots remain deferred.
+
+## Next actions and gates
+
+1. Continue frontend/backend polishing: content review/coverage, remaining integration and account operations. Founder visual acceptance is not presumed.
+2. Execute PostgreSQL/container/staging checks; measure subprocess/replay capacity and realistic histories; rehearse restore.
+3. Configure HTTPS, secrets, monitoring, account recovery/verification and institutional privacy/role requirements.
+4. Add bounded current-source retrieval or speech recognition only with real provider integration and provenance; retain independent kernel evidence.
+5. Learners/pilots remain later, as requested; efficacy, school release and enterprise certification are unearned.
+
+## Read and reproduce
+
+[Frontend delivery](frontend/README.md), [production readiness](PRODUCTION_READINESS.md), [journal 49–51](PROJECT_JOURNAL.md#entry-49), [decisions](DECISIONS.md), [evidence](EXPERIMENTS_AND_TESTS.md). Run `npm run counters`, `npm test`, `npm run typecheck`, and isolated Python pytest. COUNTERS measures JavaScript/content; Python/browser results are separate. Frozen audit/freeze reports and raw simulator datasets remain historical, not deployment certification.
+
+Historical baseline: 298/298 tests passed before ADR-051; current results above supersede it.

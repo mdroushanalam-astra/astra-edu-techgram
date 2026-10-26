@@ -1,0 +1,43 @@
+{
+  "domain": "geography",
+  "servedBuild": "production",
+  "unitProtocol": true,
+  "unitSelectionPersisted": true,
+  "referencePanel": true,
+  "broadSearchRendered": true,
+  "naturalCompletion": true,
+  "naturalSteps": 8,
+  "viewports": [
+    [
+      "desktop",
+      1440,
+      900
+    ],
+    [
+      "wide",
+      1920,
+      1080
+    ],
+    [
+      "tablet",
+      820,
+      1180
+    ],
+    [
+      "mobile",
+      390,
+      844
+    ]
+  ],
+  "errors": [],
+  "issues": [],
+  "serverPreferences": true,
+  "serverNotes": true,
+  "sourceSearch": true,
+  "pauseResumeCrossBrowser": true,
+  "actualRevisionConflictRecovery": true,
+  "retrySameUUID": true,
+  "speechControlDispatch": true,
+  "speechProviderQuality": "not evaluated; browser capability varies",
+  "liveWebSearch": false
+}

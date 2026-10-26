@@ -1,52 +1,79 @@
 {
-  "project": "Techgram / Astra Edu — Student Intelligence Kernel",
-  "updated_at": "2026-10-04T17:50:00+05:30",
-  "session_model": "GLM-5.3-Flash (Z.ai) via ZCode",
+  "project": "Techgram / Astra Edu â€” Student Intelligence Kernel",
+  "updated_at": "2026-10-12T12:11:06+05:30",
+  "session_model": "OpenAI GPT-6-based Codex via Codex desktop (exact serving model ID unavailable; not guessed)",
   "kernel_version": "0.1.0+ (BRAIN FREEZE v0.1 + cognitive runtime ADR-035..046)",
-  "position": "PHASES 0-6 COMPLETE + STRENGTHENED [ADR-035..046, Journal Entries 40-48]. The founders three post-study questions answered: (1) NO ethical violations anywhere (the wall held in every campaign); (2) the critical finding (advanced-student calibration inversion) FIXED via staleness-aware targeting (cognitive/targeting.ts — bounded +25% maintenance boost, 10-day horizon; all four inversions closed, t23 CBSE +4->+7; the deep gate keeps staleness OFF as the frozen historical baseline, claim re-verified 12 vs 10 PASS); (3) the intelligent layers strengthened + coordinated in real time: PROPORTIONAL self-model (continuous biases, categorical = full-strength, S4 params = anchors) + LIVE CALIBRATION CHANNEL (self-error density widens exploration and moderates reported confidence — self-model influence 0%->3.2% mean, 77% exam-panic). Re-runs: layer study 22W/2T/0L (t23 +7), Phase 5 rig 30/30, provenance 100%. 291 tests (kernel 282 + web 9), typecheck clean. NEXT: content floor (founder/mentor hours = the critical path), multi-seed hardening, rendered product demo, Wave-2, THE PILOT. All evidence SIMULATED-world.",
+  "position": "Journal 56 / ADR-053: four assessed Geography foundation units implemented, 20 concepts/80 items/120 atoms; prerequisite frontier, adaptive teacher route, no-hint transfer, native diagrams and persisted unit selection. Old grading preserved; expert review/curriculum depth/production gates open; pilots deferred.",
   "tests": {
-    "passed": 291,
+    "passed": 320,
     "failed": 0,
-    "split": "kernel 282 in 31 files + frontend contracts 9",
-    "typecheck": "clean",
-    "docs_integrity": "green"
+    "split": "kernel 304 + web 16; 36 files",
+    "source": "COUNTERS.json from fresh Vitest reports",
+    "python": {
+      "passed": 70,
+      "skipped": 1,
+      "warnings": 123,
+      "skip_reason": "PostgreSQL-only case unavailable locally"
+    },
+    "typecheck": "passed: kernel and web; counter generator strict TypeScript check also passed",
+    "docs_integrity": "passed: 3 tests; counts, resume, unique journal/ADR identifiers and local links verified",
+    "latest_targeted_python": {
+      "passed": 5,
+      "warnings": 17,
+      "scope": "backend/tests/test_connected_session.py; full Python entry retains previous campaign"
+    }
   },
   "read_first": [
-    "docs/10_MASTER_ROADMAP.md",
     "docs/CURRENT_STATE.md",
-    "docs/LAYER_INTERACTION_REPORT.md (how each layer functions, simple + technical)",
-    "docs/PHASE5_EXPERIMENT_REPORT.md",
-    "docs/PROJECT_JOURNAL.md (Entries 40-47)",
-    "docs/DECISIONS.md (ADR-035..045)",
-    "docs/EXPERIMENTS_AND_TESTS.md (s17-s22 = all campaign numbers)",
+    "docs/GEOGRAPHY_UNITS.md",
+    "docs/GEOGRAPHY_SOURCE_REVIEW.md",
+    "docs/INTELLIGENCE_AND_KNOWLEDGE_PLAN.md (researched proposal)",
+    "docs/frontend/README.md",
+    "docs/PRODUCTION_READINESS.md",
+    "docs/PROJECT_JOURNAL.md (entries 49â€“51)",
+    "docs/DECISIONS.md (ADR-047â€“049)",
+    "docs/EXPERIMENTS_AND_TESTS.md (Â§24â€“26)",
     "docs/00_CHARTER.md"
   ],
   "commands": {
     "test": "npm test",
-    "typecheck": "npm -w kernel run typecheck",
+    "typecheck": "npm run typecheck",
     "deep_gate": "npx tsx -e \"import { runDeepGate } from './kernel/src/cognitive/deep-gate.js'; console.log(runDeepGate(10, 7331))\" (from repo root, or via a script file)",
-    "brainlab": "npm run brainlab"
+    "brainlab": "npm run brainlab",
+    "counters": "npm run counters",
+    "preview": "npm -w @techgram/web run dev",
+    "connected": "npm run dev:connected",
+    "python_tests": "python -m pytest backend/tests -q",
+    "frontend_qa": "node scripts/frontend_qa.cjs (Playwright/Chrome paths configurable)",
+    "connected_qa": "node scripts/frontend_upgrade_qa.cjs (disposable API database only)",
+    "polity_qa": "QA_DOMAIN=polity QA_COMPLETE=true node scripts/frontend_upgrade_qa.cjs (PowerShell env syntax; isolated account/database)",
+    "reference_qa": "QA_DOMAIN=geography QA_REFERENCE=true QA_COMPLETE=true node scripts/frontend_upgrade_qa.cjs (PowerShell env syntax)",
+    "units": "npm run content:units",
+    "unit_qa": "QA_DOMAIN=geography QA_UNITS=true QA_REFERENCE=true QA_COMPLETE=true node scripts/frontend_upgrade_qa.cjs (PowerShell env syntax)"
   },
   "next_actions": [
-    "CONTENT FLOOR (the founder moves here next; founder+mentor hours = the true critical path): items 105->500, atoms 104->150.",
-    "HARDENING: multi-seed sweeps (rigs are ~0.25s each); the spiky-knowledge residual (t09/t10 inversions partially persist).",
-    "FRONTEND v4 (parallel, founder-directed): screens 9-15 + motion pass + Real-World Layer; rendered product demo of the Phase 6 arc.",
-    "Wave-2 (gated) + limited public beta (G3, pre-registered) — THE PILOT is the final gate for real-student efficacy.",
-    "DO NOT resurrect banned scope; do not merge System A with System B; Level-3 self-modification stays unbuilt; the LLM may never decide."
+    "Subject-review new Geography units/items, calibrate difficulty, widen independent examples and grade-depth/rubric coverage; preserve versioned evidence and old grading.",
+    "Continue frontend/backend polishing and expert content review; founder visual acceptance pending.",
+    "PostgreSQL/container/staging capacity, restart/restore and account/privacy operations.",
+    "Bounded live-source/voice integration only with provenance and real providers.",
+    "Learner recruitment and pilots deferred by Founder; no enterprise or efficacy claim."
   ],
   "gates": {
     "G0_simulator": "aggregate over archetypes: techgram beats random (+6.2 marks 30d) and fixed order (+2.4)",
-    "G1_replay": "bit-identical replay from events+seed — green",
-    "G2_no_llm": "structural (kernel has no LLM import path) — green",
-    "DEEP_GATE_phase1": "executive beats linear on TRUE MARKS: 12 vs 10, 12/12 seeds +1..+3; belief error 0.20 vs 0.40 — PASS [EXPERIMENTS §17]",
-    "DEVELOPMENTAL_GATE_phase2": "counterfactual-proven: learningEnabled off vs on → same ledger, divergent decisions; conductor integrated — CLOSED [ADR-040]",
-    "S4_GATE": "live strategy experiments: proposal → matched A/B → KEEP (+0.013) / REJECT (−0.018, same proposal, harder world) → adopted strategy changes session-2 decisions; rejected = identical; phase2Gate PASS [EXPERIMENTS §18]",
-    "PHASE4_GATE": "LLM OFF vs LLM ON — identical utterance text/evidence at the utterance level, BYTE-IDENTICAL deep gate at the session; claim-provenance + ethics wall enforced at the voice; purity proven [EXPERIMENTS §19]",
-    "PHASE5_GATE": "THE THIRTY: 30/30 scenarios; executive 30 wins/0 losses vs matched linear, mean +3.13; UCS boundary proven (domain-opaque engine, evaluator isolation); replay/frozen/anti-Goodhart/LLM-identity/divergence all green; permanent CI gate [EXPERIMENTS §20]",
+    "G1_replay": "bit-identical replay from events+seed â€” green",
+    "G2_no_llm": "structural (kernel has no LLM import path) â€” green",
+    "DEEP_GATE_phase1": "executive beats linear on TRUE MARKS: 12 vs 10, 12/12 seeds +1..+3; belief error 0.20 vs 0.40 â€” PASS [EXPERIMENTS Â§17]",
+    "DEVELOPMENTAL_GATE_phase2": "counterfactual-proven: learningEnabled off vs on â†’ same ledger, divergent decisions; conductor integrated â€” CLOSED [ADR-040]",
+    "S4_GATE": "live strategy experiments: proposal â†’ matched A/B â†’ KEEP (+0.013) / REJECT (âˆ’0.018, same proposal, harder world) â†’ adopted strategy changes session-2 decisions; rejected = identical; phase2Gate PASS [EXPERIMENTS Â§18]",
+    "PHASE4_GATE": "LLM OFF vs LLM ON â€” identical utterance text/evidence at the utterance level, BYTE-IDENTICAL deep gate at the session; claim-provenance + ethics wall enforced at the voice; purity proven [EXPERIMENTS Â§19]",
+    "PHASE5_GATE": "THE THIRTY: 30/30 scenarios; executive 30 wins/0 losses vs matched linear, mean +3.13; UCS boundary proven (domain-opaque engine, evaluator isolation); replay/frozen/anti-Goodhart/LLM-identity/divergence all green; permanent CI gate [EXPERIMENTS Â§20]",
     "G3_pilot": "pending (20-30 aspirants, week-3 retention >= 40%)",
     "PHASE6_GATE": "the demo arc is structural: receipt-stated hypothesis, ledger-caught error, twin divergence, kernel-computed learned/uncertain lists; 5/6 perturbations flip with the mechanism shown [EXPERIMENTS s21]",
     "LAYER_STUDY": "24 situations, 1,152 turns traced; influence by ablation: executive 84.6% / belief-aiming 82.9% / wall 15.4% / self-model 0% in-regime; executive 23W/1T/0L; permanent CI gate [EXPERIMENTS s22]",
-    "STRENGTHENING_GATE": "inversions closed (t07/t08/t18/t23 exec belief error < linear); proportional levers preserve S4 anchors; the calibration channel is a real in-regime actor (77% for exam-panic, 3.2% mean); deep-gate claim re-verified [EXPERIMENTS s23]"
+    "STRENGTHENING_GATE": "inversions closed (t07/t08/t18/t23 exec belief error < linear); proportional levers preserve S4 anchors; the calibration channel is a real in-regime actor (77% for exam-panic, 3.2% mean); deep-gate claim re-verified [EXPERIMENTS s23]",
+    "FRONTEND_REFERENCE": "Implementation/browser QA complete; Founder visual acceptance pending.",
+    "CONNECTED_AUTHORITY": "Implemented/tested locally; PostgreSQL/staging confirmation open.",
+    "ENTERPRISE_RELEASE": "Not earned: operational/privacy/institutional controls and staging evidence required."
   },
   "hard_invariants": [
     "kernel is pure: no I/O, no wall-clock, no LLM imports",
@@ -73,5 +100,52 @@
     "no dataset",
     "solo + AI assist",
     "LLM must never decide"
-  ]
+  ],
+  "session_human": "Md Roushan (Founder)",
+  "capability_boundaries": {
+    "connected": "Owned API; persisted preferences, teaching steps, session notes/reflections; browser-provided speech optional.",
+    "preview": "Labelled offline River Systems demo; isolated storage; no learner efficacy claim.",
+    "local_only": [
+      "preview data",
+      "drawing canvas",
+      "transient browser UI state"
+    ],
+    "deferred": [
+      "live web search",
+      "speech recognition",
+      "free-text tutoring",
+      "translations",
+      "offline connected sync"
+    ]
+  },
+  "scope_request": {
+    "target": "Classes 6â€“12 plus UPSC requested by Founder",
+    "status": "First engineering package adopted/implemented under ADR-051; school/broad release remains gated.",
+    "authority": "ADR-051; Charter unchanged",
+    "plan": "docs/INTELLIGENCE_AND_KNOWLEDGE_PLAN.md"
+  },
+  "local_check": {
+    "frontend": "http://127.0.0.1:5175/",
+    "api": "http://127.0.0.1:8000",
+    "database": "backend/connected_check.db",
+    "subject": "UPSC Geography; choose one of four teaching units. Unknown prerequisites checked first.",
+    "mode": "connected production frontend build; local development SQLite API",
+    "services": "left running for Founder test; tokens expire after one hour, re-login to recover"
+  },
+  "geography_reference": {
+    "source": "content/sources/geography-master-v1.md",
+    "inventory": "content/geography-reference.inventory.json",
+    "review": "docs/GEOGRAPHY_SOURCE_REVIEW.md",
+    "status": "reference integrated; expert/edition review pending",
+    "assessed_coverage_unchanged": false
+  },
+  "geography_units": {
+    "units": 4,
+    "concepts": 20,
+    "items": 80,
+    "atoms": 120,
+    "review": "docs/GEOGRAPHY_UNITS.md",
+    "status": "assessed seed authoring; subject review pending",
+    "legacy_seed_unchanged": true
+  }
 }

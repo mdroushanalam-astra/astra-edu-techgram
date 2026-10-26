@@ -400,3 +400,78 @@ Full review read line-by-line; each point adjudicated against the built kernel +
 3. **Live calibration channel**: self-error density (last 8 decisions) widens the exploration window (bounded: +0.02·density on the near-tie gap, −0.15·density on the trigger) and shrinks the REPORTED confidence (×(1−0.25·density)). The machine that errs often says so and explores more.
 **The evidence [EXPERIMENTS §23]:** all four advanced/spiky calibration inversions CLOSED (t07/t08/t18/t23 now exec-better; t23 margin +4→+7); self-model in-regime influence 0% → 3.2% mean (77% for exam-panic); layer study re-run 22W/2T/0L; Phase 5 rig 30/30 PASS; provenance 100%; 291 tests. Permanent gate: `test/strengthening.test.ts`.
 **The limits:** spiky-knowledge inversions partially persist (t09/t10 — the untouched half of a spiky map still under-observed; the boost helps but the floor binds); all evidence SIMULATED.
+
+---
+### ADR-047 — SERVER-OWNED CONNECTED LEARNING — IMPLEMENTED (2026-10-10)
+**Decided by:** Md Roushan (Founder); **Model/runtime:** OpenAI GPT-6-based Codex via Codex desktop (exact serving model ID unavailable; not guessed); registered 2026-10-10 23:31 IST. Journal 49.
+
+Context: six concrete production blockers and independent learning authorities. Decision: authenticated Python API owns ownership, locks, transactions and persistence; the compiled TypeScript engine owns issued-item scoring/adaptive decisions. UUIDs make retries safe; revisions reject stale clients. Secrets must be configured. Legacy production learning endpoints retire. Disable simulator-gain strategy adoption, LLM actions and unobserved behavioural inference in the adapter. Reject process-cache authority, split durable commands and browser private answer banks. Supersedes archived-only backend/offline connected-authority descriptions; kernel purity/no-LLM decision rules stand. Cost: API availability required; subprocess/replay needs capacity measurement. Offline sync, institutional controls and production/pilot evidence remain open. Implementation does not grant launch approval.
+
+---
+### ADR-048 — ONE CINEMATIC FRONTEND, TWO DATA ADAPTERS — IMPLEMENTED (2026-10-10)
+**Decided by:** Md Roushan (Founder); **Model/runtime:** OpenAI GPT-6-based Codex via Codex desktop (exact serving model ID unavailable; not guessed); registered 2026-10-10 23:31 IST. Journal 50.
+
+Founder explicitly chose desktop-first responsive design and illustrated/subtle-motion characters from the reference board. Decision: one React journey serves connected and clearly labelled offline preview; generated text-free art supplies composition, real code supplies controls/diagrams/drawing. Private preview answers are excluded from connected builds. Preferences/debrief/notes stay local until server support. Native notes dialog and reduced motion supported. Thinking only during real pending work. Session accuracy is observed performance, not mastery/agency/retention; map means accompany intervals; roadmap art is an outline. Reject full-screen screenshots as UI, separate presentation apps, real-time 3D/lip sync and fabricated gains. Cost: artwork is close, not pixel-identical; mobile reflows. Voice/free-text/translations/server artifacts deferred; Founder visual acceptance pending. Backend polishing follows frontend review.
+
+---
+### ADR-049 — MEASURED COUNTERS AND COMPLETE SESSION MEMORY — IMPLEMENTED (2026-10-10)
+**Decided by:** Md Roushan (Founder); **Model/runtime:** OpenAI GPT-6-based Codex via Codex desktop (exact serving model ID unavailable; not guessed); registered 2026-10-10 23:31 IST. Journal 51.
+
+Context: bootstrap drift and hardcoded test totals despite new code. Decision: counter generation runs local Vitest JSON reporters, rejects failed suites, derives actual passes/files/splits and regenerates content/Git metadata. Append missing sessions/ADRs instead of rewriting history; update active status documents, preserve frozen audits/external references/raw simulation datasets. Record Python/browser evidence separately. Reject manual COUNTERS edits, guessed model IDs and current archived-backend claims. Cost: regeneration now runs tests; the old snapshot passes during generation, so refresh it to the generated total and run the final integrity gate. Exact serving ID is unavailable; known OpenAI/GPT-6-based Codex/desktop identity is stated explicitly. Documentation-only request adds no product feature scope.
+
+---
+### ADR-050 — REVIEWED KNOWLEDGE PACKS AND CONNECTED TEACHING EXPANSION — PROPOSED (2026-10-10)
+**Requested by:** Md Roushan (Classes 6–12 plus UPSC; exceptional personalized learning with limited complexity). **Recommendation by:** OpenAI GPT-6-based Codex via Codex desktop (exact serving model ID unavailable; not guessed). **When:** 2026-10-10T23:49:11+05:30. Journal 52.
+
+**Context:** existing learner-state/planner/executive machinery and rich teacher modules coexist with a narrower connected adapter. Local preferences are not server learning evidence; Geography is a foundation pack; fact-atom author tags await expert review. The external suggestion partly predates the app/API delivery.
+
+**Proposed decision:** wire existing composer/teacher/ExperiencePlan/expression into persisted server sessions. Use structured Markdown compiled into reviewed, versioned course packs, local retrieval first, scheduled authoritative freshness and bounded provisional web source cards. Keep Python/API, TypeScript authority, React and PostgreSQL; optional models are replaceable wording/intent/rubric components and cannot own grading or decisions. Ground generated claims with source resolution, not reference-presence checks alone. Benchmark M0 and optionally M1 against strong grounded tutors and simpler policies on held-out delayed outcomes.
+
+**Scope status:** the Founder requests school and UPSC ambition; adult-only remains the current release boundary until child safety/privacy/curriculum gates are met. This proposal does not amend the frozen Charter, presume adoption of all recommendations or certify a launch. An adopted scope change must register the Charter amendment explicitly.
+
+**Rejected recommendations:** another brain/agent swarm, one giant Markdown file as intelligence, unrestricted search as verified answer-bank ingestion, new graph/vector infrastructure before need, and broad frontier/efficacy claims without evidence.
+
+**Cost/risk:** domain/grade/language coverage needs review; long histories and dense belief matrices need capacity measurements and bounded unit state; voice/web introduce latency, expense and privacy risks. Work packages and performance budgets are proposed targets, not delivery promises. Source rights and child-law applicability require launch-specific review. Nothing proposed here is marked implemented.
+
+
+---
+## ADR-051 — Persist the connected teacher and compile bounded knowledge packs
+**Status:** ADOPTED for engineering delivery · **When:** 2026-10-11T00:30:18+05:30 · **Model:** OpenAI GPT-6-based Codex via Codex desktop (exact serving model ID unavailable; not guessed) · **Directed by:** Md Roushan.
+
+**Context:** Founder accepts frontend/backend upgrades now; learner recruitment and pilots are later. The thin answer loop did not expose the existing teacher/session composer or retain preferences and notes across browsers.
+
+**Decision:** Persist version-2 teacher/session context and serializable used-item IDs, revisions, bounded completion history and account preferences in the existing projection. Migration 0002 adds preferences/history. Expose owned current/action/preferences/reflection/knowledge endpoints; UUID replay and atomic transaction contracts remain. Kernel teacher/planner delivers the active teaching contract; incompatible cognitive executive proposals are advisory and labelled separately. Replace fixed benefit input with the session segment estimate, still labelled assumed. Assistance/revealed answers carry no independent evidence weight.
+
+Compile original Markdown with source, version, reviewer/status and complete explanation/example/hints; reject missing metadata, duplicate concepts and prerequisite cycles. Ship Geography seed content explicitly pending expert review. Retrieval searches only the account's pack and returns bounded source-linked prose without grading keys. Browser speech is optional presentation; no model/provider is needed for decisions.
+
+**Rejected:** another planning authority, whole-screen image interfaces, pretend web/voice tutoring, treating hint-assisted success as mastery, calling seed material reviewed, or taking engineering checks as efficacy.
+
+**Costs/risks:** subprocess/full replay capacity remains unmeasured at scale; completion history is capped at 100; active version changes require explicit migration. Old v1 lesson context starts a new v2 session with existing evidence retained. Broad curriculum, production operations and release gates remain open.
+
+
+---
+## ADR-052 — Versioned Geography reference beside the existing teacher
+**Status:** ADOPTED engineering integration · **When:** 2026-10-12T11:29:54+05:30 · **Model:** OpenAI GPT-6-based Codex via Codex desktop (exact serving model ID unavailable; not guessed) · **Directed by:** Md Roushan.
+
+**Context:** Founder asks how the supplied Geography master can feed the workflow. It identifies itself as an original synthesis and disclaims exhaustive source auditing. The executable teacher still has eight Geography concepts.
+
+**Decision:** preserve exact source bytes/checksum, compile a deterministic heading/line inventory, and index only subject mechanisms/cases. Attachment operating policies, curriculum/schema/checklist sections remain reference data. Bounded owned Library retrieval exposes titles/provenance/pending-review status; mapped EXPLAIN steps show excerpts only after independent checks. New Geography sessions pin reference version. Reject drift; leave old unpinned sessions unchanged. Keep all indexing on the server and source reading separate from evidence updates.
+
+**Rejected:** whole-file prompt injection, automatic promotion to expert-reviewed curriculum, automatic MCQ/essay grading from prose, another planner or vector database, changing historical question truth to match new excerpts.
+
+**Cost/risks:** server runtime bundle grows to 352.9 kB; large-history subprocess capacity not measured. Reference retrieval is lexical and English only; class-depth variants/new subject assessments remain work. Source/edition/license review remains pending. Old pack question ambiguity is recorded in GEOGRAPHY_SOURCE_REVIEW, not silently fixed. This changes reference presentation/retrieval, not Charter, golden replay or launch scope.
+
+
+---
+## ADR-053 — Versioned assessed Geography units using one existing learning authority
+**Status:** ADOPTED engineering delivery · **When:** 2026-10-12T12:09:50+05:30 · **Model:** OpenAI GPT-6-based Codex via Codex desktop (exact serving model ID unavailable; not guessed) · **Directed by:** Md Roushan.
+
+**Context:** Founder authorizes references becoming complete teaching units in the stated sequence. Legacy teacher can select ordinary/hint-enabled items for transfer; older short diagnostic composition is insufficient for a complete unit cycle.
+
+**Decision:** publish four seed units with twenty concepts/eighty private role-tagged items/120 atoms. Add optional item purpose, segment protocol and planner allowed-concept constraint. Defaults preserve legacy policy. Unit choice resolves to an evidenced prerequisite frontier; kernel ranks it. Existing teacher owns diagnostic → conditional repair/practice → independent check → distinct no-hint transfer. Strong diagnostic can shorten the route; failed check restores repair. One concept cycle per bounded session, with honest incomplete-budget outcomes.
+
+Persist unit preference in existing owned projection JSON. Finish old sessions with their original bank; new catalog uses separate graded evidence space and retained historical events/notes. Unknown versions fail explicitly. Reveal no explanations, mechanism nodes or excerpts in independent-question payloads. Library/diagrams/read-aloud remain rendering, not grading authority.
+
+**Rejected:** another executive, automatic mastery from reading/correct recognition, hint-enabled transfer, retrospective question regrading, unreviewed content labelled approved, simulated gains treated as outcomes. Charter/golden seed remain unchanged; school/enterprise release not authorized by this engineering step.
+
+**Cost/risk:** full replay/subprocess and assumed item difficulty/topic weights remain uncalibrated; runtime bundle about 498 kB. Twenty concepts are bounded foundation coverage, not exhaustive Geography. Subject review, broader items, grade depth, open-response rubrics and operations remain open.

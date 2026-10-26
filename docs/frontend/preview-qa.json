@@ -1,0 +1,28 @@
+{
+  "viewports": [
+    [
+      "desktop",
+      1440,
+      900
+    ],
+    [
+      "wide",
+      1920,
+      1080
+    ],
+    [
+      "tablet",
+      820,
+      1180
+    ],
+    [
+      "mobile",
+      390,
+      844
+    ]
+  ],
+  "errors": [],
+  "issues": [],
+  "apiCalls": 0,
+  "journey": "Onboarding edits, 3 answers, pen/undo/clear, completion, reflection, next step, notes dialog, download, return and sidebar checked"
+}

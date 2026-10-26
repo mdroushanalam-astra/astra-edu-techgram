@@ -48,6 +48,7 @@ def test_complete_api_client_lifecycle():
     user_data = reg_resp.json()
     user_id = user_data["user_id"]
     token = user_data["access_token"]
+    client.headers["Authorization"] = f"Bearer {token}"
     assert token is not None
     assert user_data["email"] == reg_payload["email"].lower()
     print(f"Step 1b: POST /auth/register -> [201 Created] (User ID: {user_id})")

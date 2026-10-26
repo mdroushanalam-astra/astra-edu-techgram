@@ -68,6 +68,10 @@ export interface TeachingMove {
 }
 
 export interface TeacherState {
+  unitFastRoute?: boolean;
+  lastConfidence?: number;
+  /** Serializable item rotation; persists across API requests and restarts. */
+  usedItemIds?: string[];
   segmentIndex: number;
   moveCount: number;
   /** Consecutive wrong answers in the current segment. */
@@ -157,6 +161,35 @@ export function nextMove(
 
   const rep = reportConcept(model, st, segment.conceptId);
   const concept = model.content.conceptById.get(segment.conceptId)!;
+
+  // Explicit evidence contract for versioned teaching units; legacy policy is unchanged.
+  if (segment.protocol === "assessed-unit") {
+    const log = teacher.segmentMoveLog;
+    const issue = (purpose: Item["purpose"], id: TeacherMoveId, hints: boolean, reason: string) => {
+      const item = itemsFor(model, segment.conceptId).find(i => i.purpose === purpose && !usedItems(teacher).has(i.id));
+      return item ? move(id, segment, item, teacher, reason, 1, { kind: "item_response", itemId: item.id, hintsAllowed: hints }) : null;
+    };
+    if (!log.includes("DIAGNOSTIC_PROBE")) {
+      teacher.unitFastRoute = undefined;
+      return issue("diagnostic", "DIAGNOSTIC_PROBE", false, "Independent diagnostic distinguishes the starting model");
+    }
+    if (teacher.unitFastRoute === undefined) teacher.unitFastRoute = teacher.lastOutcome === "correct" && teacher.lastConfidence === 3;
+    if (teacher.unitFastRoute && teacher.lastOutcome === "wrong" &&
+      usedItems(teacher).has(`${segment.conceptId}_check`) && !usedItems(teacher).has(`${segment.conceptId}_transfer`)) teacher.unitFastRoute = false;
+    if (!teacher.unitFastRoute) {
+      if (!log.includes("EXPLAIN")) return move("EXPLAIN", segment, undefined, teacher,
+        "Diagnostic was incorrect or uncertain — build the mechanism before practice", 2, { kind: "none" }, getAtom(bank, segment.conceptId, "explanation"));
+      if (!usedItems(teacher).has(`${segment.conceptId}_practice`)) return issue("practice", "RETRIEVAL_PROMPT", true, "Supported practice; help is recorded separately from independent evidence");
+      if (teacher.lastOutcome === "wrong" && !log.includes("WORKED_EXAMPLE")) return move("WORKED_EXAMPLE", segment, undefined, teacher,
+        "Practice miss — worked example before a fresh independent check", 2, { kind: "none" }, getAtom(bank, segment.conceptId, "example"));
+    }
+    const freshCheck = issue("check", "RETRIEVAL_PROMPT", false,
+      teacher.unitFastRoute ? "Confident correct diagnostic — test independently before skipping repair" : "Fresh independent check after support; no hints");
+    if (freshCheck) return freshCheck;
+    const transfer = issue("transfer", "TRANSFER_ITEM", false, "Apply the mechanism in a new context; no hints or revealed answers");
+    if (transfer) return transfer;
+    return closeSegment(model, st, teacher, session, bank);
+  }
 
     // 0. MEMORY_OPEN [ADR-025/Insight 5]: continuity from the event diary —
     // the cheapest "it knows me" moment. Once per session, first teach segment.
@@ -378,7 +411,11 @@ function move(
     if (item) {
       markUsed(teacher, item.id);
       // New active item → the ladder restarts on it.
-      if (teacher.activeItem?.id !== item.id) teacher.activeItemWrongs = 0;
+      if (teacher.activeItem?.id !== item.id) {
+        teacher.activeItemWrongs = 0;
+        teacher.hintShownLevel = 0;
+        teacher.hintLevel = 0;
+      }
       teacher.activeItem = item;
       if (id !== "DIAGNOSTIC_PROBE") teacher.retrievalAttempts += 1;
     }
@@ -419,7 +456,7 @@ export function applyStudentTurn(
     // Ladder depth is derived from activeItemWrongs by the policy; the active
     // item is retained so hints attach to the SAME question (retry semantics).
   }
-  void response.confidence;
+  teacher.lastConfidence = response.confidence;
 }
 
 // ---- item-usage tracking (deterministic rotation within a session) ----
@@ -427,13 +464,14 @@ const USED = new WeakMap<TeacherState, Set<string>>();
 function usedItems(teacher: TeacherState): Set<string> {
   let s = USED.get(teacher);
   if (!s) {
-    s = new Set();
+    s = new Set(teacher.usedItemIds ?? []);
     USED.set(teacher, s);
   }
   return s;
 }
 function markUsed(teacher: TeacherState, itemId: string): void {
   usedItems(teacher).add(itemId);
+  teacher.usedItemIds = [...usedItems(teacher)];
 }
 
 function wOf(model: BeliefModel, conceptId: string): number {

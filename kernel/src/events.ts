@@ -187,6 +187,9 @@ export function applyEvent(
       }
       // Sure + wrong: full evidence (it drives the misconception engine too).
       if (confidence === 3 && !correct) evidenceW = Math.max(evidenceW, 1.0);
+      // Assistance/revealed answers are practice, never independent assessment.
+      // Apply this last so confident wrong answers cannot override the boundary.
+      if (ev.payload.assisted === true) evidenceW = 0;
 
       observe(model, next.belief, {
         conceptId,
@@ -196,7 +199,7 @@ export function applyEvent(
         day: ev.day,
       });
       // B10 misconception evidence: wrong answer on a tagged, CHOSEN distractor.
-      if (item && correct === false && typeof ev.payload.chosen_option === "number") {
+      if (item && ev.payload.assisted !== true && correct === false && typeof ev.payload.chosen_option === "number") {
         updateMisconception(
           next.misconceptions,
           item,

@@ -1,6 +1,8 @@
 import datetime
 import uuid
 import threading
+from contextlib import contextmanager
+from sqlalchemy import text
 from typing import Optional, List, Dict, Any
 from sqlalchemy.orm import Session, sessionmaker
 
@@ -27,6 +29,52 @@ class DatabaseRepository:
             self.session_factory = None
             self._direct_session = session_or_factory
         self._lock = threading.RLock()
+        self._in_transaction = False
+
+    @contextmanager
+    def transaction(self):
+        """One atomic command, with database locks shared by all workers."""
+        with self._lock:
+            if self._in_transaction:
+                yield
+                return
+            original_factory = self.session_factory
+            original_session = self._direct_session
+            session = self._get_session()
+            self.session_factory = None
+            self._direct_session = session
+            self._in_transaction = True
+            try:
+                # Clear any read transaction before acquiring the write lock.
+                session.rollback()
+                if session.bind.dialect.name == "sqlite":
+                    session.execute(text("BEGIN IMMEDIATE"))
+                yield
+                session.commit()
+            except BaseException:
+                session.rollback()
+                raise
+            finally:
+                self._in_transaction = False
+                self.session_factory = original_factory
+                self._direct_session = original_session
+                if original_factory:
+                    session.close()
+
+    def _persist(self, session):
+        if self._in_transaction:
+            session.flush()
+        else:
+            session.commit()
+
+    def lock_student(self, student_id):
+        if self._in_transaction:
+            self._direct_session.query(StudentModel).filter_by(student_id=student_id).with_for_update().first()
+
+    def lock_session(self, session_id):
+        if self._in_transaction:
+            self._direct_session.query(LearningSessionModel).filter_by(session_id=session_id).with_for_update().first()
+
 
     def _get_session(self) -> Session:
         if self.session_factory:
@@ -47,7 +95,7 @@ class DatabaseRepository:
                     full_name=full_name.strip()
                 )
                 session.add(user)
-                session.commit()
+                self._persist(session)
                 return user
             finally:
                 if self.session_factory:
@@ -95,7 +143,7 @@ class DatabaseRepository:
                         target_exam_date=target_exam_date
                     )
                     session.add(model)
-                    session.commit()
+                    self._persist(session)
                 return model
             finally:
                 if self.session_factory:
@@ -127,7 +175,7 @@ class DatabaseRepository:
                     timestamp=event.timestamp
                 )
                 session.add(model)
-                session.commit()
+                self._persist(session)
                 return model
             finally:
                 if self.session_factory:
@@ -137,7 +185,7 @@ class DatabaseRepository:
         with self._lock:
             session = self._get_session()
             try:
-                rows = session.query(StudentEventModel).filter_by(student_id=student_id).order_by(StudentEventModel.timestamp.asc()).all()
+                rows = session.query(StudentEventModel).filter_by(student_id=student_id).order_by(StudentEventModel.timestamp.asc(), StudentEventModel.event_id.asc()).all()
                 events = []
                 for r in rows:
                     ev = StudentEvent(
@@ -169,7 +217,7 @@ class DatabaseRepository:
                     latest_event_id=latest_event_id
                 )
                 session.add(snapshot)
-                session.commit()
+                self._persist(session)
                 return snapshot
             finally:
                 if self.session_factory:
@@ -187,60 +235,7 @@ class DatabaseRepository:
                         return None
                     return StudentState(student_id=uuid.UUID(student_id))
 
-                data = snapshot.state_json
-                state = StudentState(student_id=uuid.UUID(student_id))
-
-                cog = data.get("cognitive", {})
-                topic_masteries = cog.get("topic_masteries", {})
-                for topic_name, tm_data in topic_masteries.items():
-                    subj = tm_data.get("subject", "General")
-                    v_data = tm_data.get("vector", {})
-
-                    def _parse_env(e_dict):
-                        if not e_dict or e_dict.get("knowledge_type") == "unknown":
-                            return LearningEnvelope.unknown(e_dict.get("unit", "probability"), e_dict.get("observation_basis", "unknown"))
-                        obs_at = e_dict.get("observed_at")
-                        if isinstance(obs_at, str):
-                            try:
-                                obs_dt = datetime.datetime.fromisoformat(obs_at)
-                            except:
-                                obs_dt = datetime.datetime.utcnow()
-                        else:
-                            obs_dt = datetime.datetime.utcnow()
-
-                        return LearningEnvelope(
-                            value=e_dict.get("value"),
-                            unit=e_dict.get("unit", "probability"),
-                            knowledge_type=e_dict.get("knowledge_type", "computed"),
-                            observation_basis=e_dict.get("observation_basis", "state_fusion"),
-                            observed_at=obs_dt,
-                            confidence=e_dict.get("confidence", 0.5),
-                            sample_size=e_dict.get("sample_size", 0),
-                            uncertainty=e_dict.get("uncertainty", 0.1),
-                            value_semantics=e_dict.get("value_semantics", "estimate"),
-                            model_id=e_dict.get("model_id"),
-                            model_version=e_dict.get("model_version")
-                        )
-
-                    vec = LearningStateVector(
-                        recall=_parse_env(v_data.get("recall")),
-                        recognition=_parse_env(v_data.get("recognition")),
-                        conceptual=_parse_env(v_data.get("conceptual")),
-                        application=_parse_env(v_data.get("application")),
-                        transfer=_parse_env(v_data.get("transfer")),
-                        retention=_parse_env(v_data.get("retention")) if v_data.get("retention") else None,
-                        model_discrepancies=v_data.get("model_discrepancies", []),
-                        primary_uncertainty=v_data.get("primary_uncertainty"),
-                        recommended_probe_type=v_data.get("recommended_probe_type")
-                    )
-                    state.update_topic_vector(topic_name, subj, vec)
-
-                beliefs = data.get("belief", {})
-                for dim, dist in beliefs.items():
-                    state.update_belief_distribution(dim, dist)
-
-                state._goal_data = data.get("goal", {})
-                return state
+                return self.deserialize_state(snapshot.state_json)
             finally:
                 if self.session_factory:
                     session.close()
@@ -248,12 +243,13 @@ class DatabaseRepository:
     # ---------------------------------------------------------
     # Intelligence Receipts
     # ---------------------------------------------------------
-    def save_receipt(self, receipt: IntelligenceReceipt) -> IntelligenceReceiptModel:
+    def save_receipt(self, receipt: IntelligenceReceipt, student_id: Optional[str] = None) -> IntelligenceReceiptModel:
         with self._lock:
             session = self._get_session()
             try:
                 model = IntelligenceReceiptModel(
                     receipt_id=receipt.receipt_id,
+                    student_id=student_id,
                     decision=receipt.decision,
                     timestamp=receipt.timestamp,
                     confidence=receipt.confidence,
@@ -267,7 +263,7 @@ class DatabaseRepository:
                     unknowns=receipt.unknowns
                 )
                 session.add(model)
-                session.commit()
+                self._persist(session)
                 return model
             finally:
                 if self.session_factory:
@@ -327,7 +323,7 @@ class DatabaseRepository:
                     session_log=[]
                 )
                 session.add(model)
-                session.commit()
+                self._persist(session)
                 return model
             finally:
                 if self.session_factory:
@@ -370,7 +366,7 @@ class DatabaseRepository:
                 row.session_log = log
                 if next_phase:
                     row.current_phase = next_phase
-                session.commit()
+                self._persist(session)
                 return {
                     "session_id": row.session_id,
                     "current_phase": row.current_phase,
@@ -390,7 +386,7 @@ class DatabaseRepository:
                 row.status = "completed"
                 row.current_phase = "completed"
                 row.completed_at = datetime.datetime.utcnow()
-                session.commit()
+                self._persist(session)
                 return {
                     "session_id": row.session_id,
                     "status": row.status,
@@ -399,3 +395,73 @@ class DatabaseRepository:
             finally:
                 if self.session_factory:
                     session.close()
+
+    @staticmethod
+    def deserialize_state(data):
+        state = StudentState(student_id=uuid.UUID(data["student_id"]))
+
+        cog = data.get("cognitive", {})
+        topic_masteries = cog.get("topic_masteries", {})
+        for topic_name, tm_data in topic_masteries.items():
+            subj = tm_data.get("subject", "General")
+            v_data = tm_data.get("vector", {})
+
+            def _parse_env(e_dict):
+                if not e_dict:
+                    return LearningEnvelope.unknown("probability", "unknown")
+                obs_at = e_dict.get("observed_at")
+                if isinstance(obs_at, str):
+                    try:
+                        obs_dt = datetime.datetime.fromisoformat(obs_at)
+                    except:
+                        obs_dt = datetime.datetime.utcnow()
+                else:
+                    obs_dt = datetime.datetime.utcnow()
+
+                envelope = LearningEnvelope(
+                    value=e_dict.get("value"),
+                    unit=e_dict.get("unit", "probability"),
+                    knowledge_type=e_dict.get("knowledge_type", "computed"),
+                    observation_basis=e_dict.get("observation_basis", "state_fusion"),
+                    observed_at=obs_dt,
+                    confidence=e_dict.get("confidence", 0.5),
+                    sample_size=e_dict.get("sample_size", 0),
+                    uncertainty=e_dict.get("uncertainty", 0.1),
+                    value_semantics=e_dict.get("value_semantics", "estimate"),
+                    model_id=e_dict.get("model_id"),
+                    model_version=e_dict.get("model_version"),
+                    decay_model=e_dict.get("decay_model"),
+                    decay_halflife_days=e_dict.get("decay_halflife_days"),
+                    source_trust=e_dict.get("source_trust", 1.0),
+                )
+                # Rehydration must not apply elapsed-time mutation a second time.
+                valid = e_dict.get("valid_until")
+                envelope.valid_until = datetime.datetime.fromisoformat(valid) if isinstance(valid, str) else valid
+                return envelope
+
+            vec = LearningStateVector(
+                recall=_parse_env(v_data.get("recall")),
+                recognition=_parse_env(v_data.get("recognition")),
+                conceptual=_parse_env(v_data.get("conceptual")),
+                application=_parse_env(v_data.get("application")),
+                transfer=_parse_env(v_data.get("transfer")),
+                retention=_parse_env(v_data.get("retention")) if v_data.get("retention") else None,
+                fluency=_parse_env(v_data.get("fluency")) if v_data.get("fluency") else None,
+                model_discrepancies=v_data.get("model_discrepancies", []),
+                primary_uncertainty=v_data.get("primary_uncertainty"),
+                recommended_probe_type=v_data.get("recommended_probe_type")
+            )
+            state.update_topic_vector(topic_name, subj, vec)
+            mastery = state._topic_masteries[topic_name]
+            mastery.review_count = tm_data.get("review_count", 0)
+            last_reviewed = tm_data.get("last_reviewed")
+            mastery.last_reviewed = datetime.datetime.fromisoformat(last_reviewed) if isinstance(last_reviewed, str) else last_reviewed
+
+        beliefs = data.get("belief", {})
+        for dim, dist in beliefs.items():
+            state.update_belief_distribution(dim, dist)
+
+        for domain in ("behavioral", "metacognitive", "skill", "engagement", "context", "uncertainty"):
+            setattr(state, "_" + domain + "_data", data.get(domain, {}))
+        state._goal_data = data.get("goal", {})
+        return state

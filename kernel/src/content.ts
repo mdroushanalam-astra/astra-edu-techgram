@@ -24,6 +24,8 @@ export interface Concept {
 }
 
 export interface Item {
+  purpose?: "diagnostic" | "practice" | "check" | "transfer";
+  rationale?: string;
   id: string;
   conceptId: string;
   stem: string;

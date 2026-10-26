@@ -3,11 +3,13 @@ node_modules/
 
 # Build output
 dist/
+backend/runtime/
 *.tsbuildinfo
 
 # Environment & secrets
 .env
 .env.*
+!.env.example
 
 # Databases / local state
 *.db
@@ -25,3 +27,5 @@ test.mjs
 # OS noise
 Thumbs.db
 .DS_Store
+# Generated browser captures are reproducible; retain contact sheets and QA reports.
+docs/frontend/screens/

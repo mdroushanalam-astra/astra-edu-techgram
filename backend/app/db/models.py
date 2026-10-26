@@ -8,6 +8,31 @@ from sqlalchemy.orm import declarative_base, relationship
 
 Base = declarative_base()
 
+class LearningProjectionModel(Base):
+    """Canonical TypeScript-kernel evidence. Stored independently of legacy Python state."""
+    __tablename__ = "learning_projections"
+    student_id = Column(String(36), ForeignKey("students.student_id"), primary_key=True)
+    revision = Column(Integer, nullable=False, default=0)
+    events = Column(JSON, nullable=False, default=list)
+    pending_item = Column(String(100), nullable=True)
+    last_view = Column(JSON, nullable=True)
+    runtime_context = Column(JSON, nullable=True)
+    preferences = Column(JSON, nullable=False, default=dict)
+    session_history = Column(JSON, nullable=False, default=list)
+
+class LearningCommandModel(Base):
+    __tablename__ = "learning_commands"
+    student_id = Column(String(36), ForeignKey("students.student_id"), primary_key=True)
+    command_id = Column(String(36), primary_key=True)
+    fingerprint = Column(String(64), nullable=False)
+    response = Column(JSON, nullable=False)
+
+class AuthRateModel(Base):
+    __tablename__ = "auth_rate_limits"
+    key = Column(String(64), primary_key=True)
+    window_start = Column(Integer, nullable=False)
+    hits = Column(Integer, nullable=False)
+
 class UserModel(Base):
     """
     User Identity & Authentication Model.

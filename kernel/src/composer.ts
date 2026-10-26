@@ -27,6 +27,7 @@ export type SegmentKind =
   | "calibration_wrap";
 
 export interface Segment {
+  protocol?: "assessed-unit";
   id: string;
   kind: SegmentKind;
   conceptId: string;
